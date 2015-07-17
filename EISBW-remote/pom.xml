@@ -21,6 +21,20 @@
 	    <artifactId>eis</artifactId>
 	    <version>0.5.0</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>jnibwapi</groupId>
+	    <artifactId>jnibwapi</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>eisbw</groupId>
+	    <artifactId>eisbw</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	    <scope>import</scope>
+	</dependency>
+	
   </dependencies>
   
   <build>

@@ -38,7 +38,7 @@ public interface EIServerRemote extends Remote {
 
 	void freeAgent(String agent) throws RelationException,RemoteException;
 
-	void freePair(String agent, String entity) throws RelationException,RemoteException;
+	void freePair(String agent, String entity) throws RelationException,RemoteException,EntityException;
 
 	HashSet<String> getAssociatedEntities(String agent) throws AgentException,RemoteException;
 
