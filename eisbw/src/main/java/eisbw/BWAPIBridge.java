@@ -64,14 +64,14 @@ public class BWAPIBridge extends EIDefaultImpl {
     @Override
     public void init(Map<String, Parameter> parameters) throws ManagementException {
         super.init(parameters);
-        try {
-            addEntity("player");
-        } catch (EntityException ex) {
-            Logger.getLogger(BWAPIBridge.class.getName()).log(Level.SEVERE, null, ex);
-        }
         apiThread.start();
 		
-	setState(EnvironmentState.PAUSED);
+		setState(EnvironmentState.PAUSED);
+		try {
+	        addEntity("player");
+	    } catch (EntityException ex) {
+	        Logger.getLogger(BWAPIBridge.class.getName()).log(Level.SEVERE, null, ex);
+	    }
     }
 
     @Override
@@ -193,12 +193,12 @@ public class BWAPIBridge extends EIDefaultImpl {
 
     @Override
     public String requiredVersion() {
-        return "0.3";
+        return "0.5";
     }
     private final BWAPIEventListener bwApiListener = new BWAPIEventListener() {
         @Override
         public void connected() {
-
+        	
         }
 
         @Override
