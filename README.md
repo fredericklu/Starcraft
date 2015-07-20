@@ -16,7 +16,7 @@ The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EI
 5. Move contents of Starcraft folder to your starcraft installation directory
 6. Extract sscai.rar to the maps folder of starcraft
 7. Move client-bridge-x86.dll and mapData to your eclipse installation directory
-8. Start Eclipse as Administrator (Important)
+8. Start Eclipse as Administrator (Important) and build eisbw with maven deploy
 9. Start ChaosLauncher as Administrator (Important)
 10. Run one of the examples in the examples-folder using GOAL.
 11. Run SCBW through ChaosLauncher with the BWAPI plugin enabled.
