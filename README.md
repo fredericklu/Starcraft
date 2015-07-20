@@ -8,13 +8,13 @@ The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EI
 * Java
 * StarCraft: Brood War
 * An EIS-compatible Multi-Agent System
-  * See installation instructions for [GOAL](https://github.com/andreasschmidtjensen/scbw-mas/wiki/Installation-instructions:-GOAL "GOAL") and [Jason](https://github.com/andreasschmidtjensen/scbw-mas/wiki/Installation-instructions:-Jason "Jason")
+  * See installation instructions for [GOAL](https://github.com/andreasschmidtjensen/scbw-mas/wiki/Installation-instructions:-GOAL "GOAL")
 
 ### Quick Setup
 1. Install StarCraft: Brood War and update to version 1.16.1.
 3. Download this project (Download ZIP in the right-side menu).
 4. Install the JNI BWAPI Starter Pack from the StarterPack-folder.
-5. Run one of the examples in the examples-folder using either Jason or GOAL.
+5. Run one of the examples in the examples-folder using GOAL.
 6. Run SCBW through ChaosLauncher with the BWAPI plugin enabled.
 7. Start a new game using Terran as player and watch the agents play!
 
@@ -28,5 +28,5 @@ The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EI
 The project contains the following folders:
 
 * **EISBW:** The EIS implementation of BWAPI. 
-* **examples:** A collection of examples for different multi-agent systems (currently Jason and GOAL).
+* **examples:** A collection of examples for different multi-agent systems.
 * **libs:** Jar-files required for building the interface and running the various examples.
