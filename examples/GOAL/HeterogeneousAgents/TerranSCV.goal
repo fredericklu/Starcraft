@@ -1,6 +1,7 @@
 main module{
+	
+	#import "GeneralKnowledge.pl".
 	knowledge{
-		#import "GeneralKnowledge.pl".
 		nearestField(mineral, Id, X, Y) :- findall( (BestId,BestX,BestY),percept(mineralField(BestId,_,_,BestX,BestY)), [M1|Rest]),
 								  		nearestField(M1, Rest, (Id, X, Y)).
 		nearestField(vespene, Id, X, Y) :- findall( (BestId,BestX,BestY),percept(friendly(_,'Terran Refinery',BestId,_,_,BestX,BestY)), [M1|Rest]),
@@ -58,7 +59,9 @@ main module{
 
 }
 
-#import "Communication.mod2g".
+#import "clearSent.mod2g".
+#import "idNameMapping.mod2g".
+#import "idNameMappingBroadcast.mod2g".
 #import "ConstructionHandler.mod2g".
 #import "PerceptHandler.mod2g".
 

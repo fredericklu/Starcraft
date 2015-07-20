@@ -1,8 +1,6 @@
 main module{
-	knowledge{
-		#import "GeneralKnowledge.pl".
-
-	}
+	#import "GeneralKnowledge.pl".
+	
 	beliefs {
 	}
 	goals{
@@ -13,7 +11,9 @@ main module{
 }
 
 
-#import "Communication.mod2g".
+#import "clearSent.mod2g".
+#import "idNameMapping.mod2g".
+#import "idNameMappingBroadcast.mod2g".
 
 
 event module {

@@ -1,8 +1,5 @@
 main module{
-	knowledge{
-		#import "GeneralKnowledge.pl".
-		
-	}
+	#import "GeneralKnowledge.pl".
 	beliefs {
 	}
 	program{

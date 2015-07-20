@@ -1,8 +1,21 @@
 module train{
-	knowledge {
 		#import "UnitCostDatabase.pl".		
-		#import "ResourceKnowledge.pl".
 		
+	knowledge{
+		canAfford(Type) :- cost(Type, CostM, CostG, CostS),
+			minerals(M), 
+			gas(G), 
+			supply(S,TS), 
+			DiffS is TS - S, 
+			CostM =< M, 
+			CostG =< G, 
+			CostS =< DiffS.
+	}
+	
+	beliefs{
+		minerals(0).
+		gas(0).
+		supply(0,0).
 	}
 	
 	program[order = linearall]{
@@ -14,6 +27,11 @@ module train{
 		%manage beliefs
 		if bel(percept(unit(Type,Amount)),train(Type,Old),Old\=Amount) then delete(train(Type,Old))+insert(train(Type,Amount)).
 		if bel(percept(unit(Type,Amount)),not(train(Type,_))) then insert(train(Type,Amount)).	
+		
+		forall bel(percept(minerals(M)), minerals(CM), M \= CM) do insert(minerals(M))+delete(minerals(CM)).
+		forall bel(percept(gas(G)), gas(CG), G \= CG) do delete(gas(CG))+insert(gas(G)).
+		forall bel(percept(supply(S,TS)), supply(CS,CTS), (S\=CS;TS\=CTS)) do delete(supply(CS,CTS))+insert(supply(S,TS)).
+	
 	}
 		actionspec {	
 		train(Type) {

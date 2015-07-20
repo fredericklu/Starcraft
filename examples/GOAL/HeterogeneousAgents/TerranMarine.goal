@@ -1,9 +1,6 @@
 main module{
-	knowledge{
 		#import "Buildings.pl".
 		#import "GeneralKnowledge.pl".
-		
-	}
 	beliefs {
 		wait(0).
 	}
