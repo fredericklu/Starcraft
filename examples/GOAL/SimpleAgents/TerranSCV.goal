@@ -1,5 +1,5 @@
 init module {
-	beliefs {
+	knowledge {
 		busy :- constructing ; gathering(_).
 		cost("Terran Supply Depot", 100, 0).
 		cost("Terran Barracks", 150, 0).
@@ -13,11 +13,7 @@ init module {
 				cost(Building, M, G), 
 				minerals(MQ), M =< MQ, 
 				gas(GQ), G =< GQ,
-				friendly(_, "Terran Command Center", _, TX, TY),
-				buildingLocation(TX, TY, X, Y),
-				position(MyX,MyY), distance(MyX,MyY,X,Y,D),
-				findall(_, (friendly(_, "Terran SCV", _, OtherX, OtherY),
-							distance(OtherX,OtherY,X,Y,OtherD), OtherD < D), []).		
+				constructionSite(X,Y).		
 		buildingLocation(X,Y, RX,RY) 
 			:-	findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]). 				
