@@ -1,15 +1,28 @@
 
 module handleConstruction{
+	#import "BuildingDatabase.pl".			
+	%#import "ResourceKnowledge.pl".		
+	
 	knowledge{
-		#import "BuildingDatabase.pl".			
-		#import "ResourceKnowledge.pl".		
+		canAfford(Type) :- cost(Type, CostM, CostG, CostS),
+		minerals(M), 
+		gas(G), 
+		supply(S,TS), 
+		DiffS is TS - S, 
+		CostM =< M, 
+		CostG =< G, 
+		CostS =< DiffS.
 	}
+	
 	goals{
 		build('Terran Supply Depot',1).
 		build('Terran Barracks',1).
 		build('Terran Refinery',1).
 		build('Terran Academy',1).
 			
+	}
+	beliefs{
+		build("",0).
 	}
 	program[order=linearall]{
 		%supply depot

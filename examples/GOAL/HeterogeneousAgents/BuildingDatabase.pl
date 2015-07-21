@@ -82,3 +82,4 @@
 		  		distance(X,Y,ConX,ConY,Res1), 
 		  		Res <Res1 -> chooseWorker((BestId,BestX,BestY), Rest,ConX,ConY, Worker)
 			        	; chooseWorker((Id,X,Y), Rest,ConX,ConY, Worker).
+			        	

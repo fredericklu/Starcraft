@@ -5,4 +5,3 @@ cost('Caduceus Reactor',150,150,0).
 %cost('StimPack',100,100,0).
 %cost('Restoration',100,100,0).
 %cost('Optic Flare',100,100,0).
-				

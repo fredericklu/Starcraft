@@ -10,6 +10,7 @@ module attack{
 	  								walkDistanceTo(X,Y,Res1), 
 	  								Res >Res1 -> findEnemy((EId,X,Y), Rest, Enemy)
 	  											;findEnemy((BestEId,BestX,BestY), Rest, Enemy).	
+	  	distance(X1,Y1,X2,Y2,Res):- Res is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 	}
 	goals{
 		defend.

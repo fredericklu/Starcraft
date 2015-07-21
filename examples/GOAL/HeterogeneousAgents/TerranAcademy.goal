@@ -1,6 +1,7 @@
 main module{
+	#import "GeneralKnowledge.pl".
 	knowledge{
-		#import "GeneralKnowledge.pl".
+		
 		shouldUpgrade('U-238 Shells').
 		shouldUpgrade('Caduceus Reactor').
 		%shouldUpgrade('StimPack').
@@ -19,7 +20,8 @@ main module{
 }
 
 #import "UpgradeHandler.mod2g".
-#import "Communication.mod2g".
+#import "clearSent.mod2g".
+#import "idNameMapping.mod2g".
 #import "PerceptHandler.mod2g".
 
 event module {
