@@ -3,10 +3,12 @@ init module {
 		busy :- constructing ; gathering(_).
 		cost("Terran Supply Depot", 100, 0).
 		cost("Terran Barracks", 150, 0).
+		cost("Terran Refinery", 100, 0).
 		condition("Terran Supply Depot") 
 			:- supply(C, Max), Max - C < 6.
 		condition("Terran Barracks") 
-			:- 	supply(C, Max), Max >= 20, Max - C > 6.
+			:- supply(C, Max), Max >= 20, Max - C > 6.
+		condition("Terran Refinery").
 		canBuild(Building, X, Y) 
 			:- 	condition(Building), 
 				cost(Building, M, G), 
@@ -21,6 +23,7 @@ init module {
 			:-	findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]). 				
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
+		
 	}
 	
 	program {
@@ -33,8 +36,18 @@ init module {
 	}	
 }
 main module{
-	program {
-		if bel(not(constructing), canBuild(Building, X, Y)) then insert(constructing) + build(Building, X, Y).
+	program[order = linearall] {
+		if bel(canBuild(Building, X, Y)) then insert(constructing) + build(Building, X, Y).
+		
+		if bel(supply(C, Max), (Max - C) < 2, not(busy), constructionSite(X,Y)) 
+		then insert(constructing) + build("Terran Supply Depot", X, Y).
+		
+		if bel(not(busy), percept(vespeneGeyser(_, _, _, BuildX , BuildY)),X is BuildX - 2, Y is BuildY -1, minerals(M), M > 100) 
+		then insert(constructing) + build("Terran Refinery", X, Y).
+		
+		% not working
+		if bel(not(busy), refinery(Id, _, _)) then gather(Id).
+		
 		if bel(not(busy), mineralField(Id)) then gather(Id).
 	}	
 	actionspec {
@@ -44,7 +57,7 @@ main module{
 		}
 		build(Building, X, Y) {
 			pre { cost(Building, M, G), minerals(MQ), M =< MQ, gas(GQ), G =< GQ }
-			post { true }	
+			post { not(constructing) }	
 		}
 	}
 }
@@ -68,5 +81,8 @@ event module {
 		
 		if bel(percept(constructing), not(constructing)) then insert(constructing).
 		if bel(not(percept(constructing)), constructing) then delete(constructing).
+		
+		if bel(percept(refinery(Id, Resources, Group)), not(refinery(Id, Resources, Group))) then insert(refinery(Id, Resources, Group)).
+		if bel(not(percept(refinery(Id, Resources, Group))), refinery(Id, Resources, Group)) then delete(refinery(Id, Resources, Group)).
 	}	
 }
