@@ -3,7 +3,8 @@ main module{
 		trainSCV.
 	}
 	program{
-		if bel(percept(unit("Terran SCV",X)),X<25) then train("Terran SCV").	
+		if bel(percept(unit("Terran SCV",X)),X<20) then train("Terran SCV").
+		%if bel(supply(C, M), (M - C) =< 2, percept(friendly(_ , "Terran SCV", Id, _, _, _, _))) then (Id).send(build("Terran Supply Depot")).
 	}
 	actionspec {	
 		train(Id) {
@@ -16,5 +17,7 @@ main module{
 event module {
 	program {
 		if bel(not(trainSCV), percept(queueSize(N)), N < 2, percept(minerals(X)),X>=50,percept(supply(Y,Z)),Y<Z) then insert(trainSCV).
+		
+		if bel(percept(supply(C,Max)), supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 	}	
 }
