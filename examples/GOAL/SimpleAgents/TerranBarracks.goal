@@ -4,8 +4,8 @@ main module{
 		trainMedic.
 	}
 	program{
-		if bel(trainMarine) then train("Terran Marine").
-		if bel(trainMedic) then train("Terran Medic").	
+		if bel(trainMarine) then train("Terran Marine") + delete(trainMarine).
+		if bel(trainMedic) then train("Terran Medic") + delete(trainMedic).	
 	}
 	actionspec {	
 		train(Id) {
