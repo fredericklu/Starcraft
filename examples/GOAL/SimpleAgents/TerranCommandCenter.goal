@@ -3,7 +3,7 @@ main module{
 		trainSCV.
 	}
 	program{
-		if bel(aggregate_all(count,(percept(friendly(_, "Terran SCV", _, _, _))),X),X<20) then train("Terran SCV").	
+		if bel(percept(unit("Terran SCV",X)),X<25) then train("Terran SCV").	
 	}
 	actionspec {	
 		train(Id) {
