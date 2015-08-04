@@ -27,6 +27,8 @@ public class WorkerActivityPerceiver extends Perceiver {
                     percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringMinerals"));
                 } else if (unit.isConstructing()){
                     percepts.add(new WorkerActivityPercept(unit.getID(), "constructing"));
+                } else {
+                	percepts.add(new WorkerActivityPercept(unit.getID(), "idling"));
                 }
             }
         }
