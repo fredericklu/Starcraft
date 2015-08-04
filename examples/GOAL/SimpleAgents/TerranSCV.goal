@@ -46,7 +46,7 @@ main module{
 		if bel(supply(C, Max), (Max - C) < 2, not(busy), constructionSite(X,Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y) + allother.send(building).
 		
-		if bel(not(busy), percept(vespeneGeyser(_, _, _, BuildX , BuildY)),X is BuildX - 2, Y is BuildY -1, minerals(M), M > 100) 
+		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
 		if bel(unit("Terran Barracks", _), not(unit("Terran Academy", _)), constructionSite(X,Y), not(busy), minerals(M), M > 150) 
