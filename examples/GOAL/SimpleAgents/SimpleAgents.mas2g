@@ -5,9 +5,13 @@ environment {
 agentfiles {
 	"TerranSCV.goal" [name = terranSCV].
 	"TerranCommandCenter.goal" [name = terranCommandCenter].
+	"TerranBarracks.goal" [name = terranBarracks].
+	"TerranMarine.goal" [name = terranMarine].
 }
 
 launchpolicy{
 	when [type = terranSCV]@env do launch terranSCV:terranSCV.
 	when [type = terranCommandCenter]@env do launch terranCommandCenter:terranCommandCenter.
+	when [type = terranBarracks]@env do launch terranBarracks:terranBarracks.
+	when [type = terranMarine]@env do launch terranMarine:terranMarine.
 }

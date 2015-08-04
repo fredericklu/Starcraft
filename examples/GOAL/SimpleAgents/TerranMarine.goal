@@ -1,0 +1,27 @@
+main module{
+	
+	program{
+		%if bel(aggregate_all(count,(percept(friendly(_, "Terran Marine", _, _, _))),A),A>3, 
+		%percept(base(X, Y, Start, _)), percept(friendly(_, "Terran Command Center", _, _, BX, BY)), BX =\= X, BY =\= Y) then attack(X, Y).
+		
+		%if bel(percept(base(X, Y, Start, _)), percept(friendly(_, "Terran Command Center", _, _, BX, BY)), BX =\= X, BY =\= Y) then attack(X, Y).
+	}
+	
+	actionspec{
+		attack(X,Y){
+			pre{true}
+			post{true}
+		}
+		
+		attack(Id){
+			pre{true}
+			post{true}
+		}
+	}
+}
+
+event module {
+	program {
+		if bel(percept(enemy(_, Id, _, _, _, _))) then attack(Id).
+	}	
+}
