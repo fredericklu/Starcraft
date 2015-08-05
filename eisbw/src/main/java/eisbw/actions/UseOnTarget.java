@@ -35,7 +35,7 @@ public class UseOnTarget extends StarcraftAction {
     public void execute(Unit unit, Action action) throws ActException {
         LinkedList<Parameter> parameters = action.getParameters();
         TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
-        api.useTech(unit.getTypeID(), techType.getID(), ((Numeral) parameters.get(1)).getValue().intValue());
+        unit.useTech(techType, api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
     }
 
     @Override
