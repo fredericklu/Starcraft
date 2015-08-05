@@ -32,7 +32,6 @@ This section will list all the percepts that are usable in the Starcraft environ
 \section{Percepts for all units}
 These percepts are available to all the units and buildings.
 
-\newpage
 \subsection{Generic unit percepts}
 \textbf{Idle percept}\\
 \\
@@ -73,7 +72,7 @@ These percepts are available to all the units and buildings.
  Parameters &   This percept has no parameters.
 \end{tabularx}\\
 \\
-\\
+\newpage
 \textbf{Position percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
@@ -84,7 +83,6 @@ These percepts are available to all the units and buildings.
             &   <Y>: The Y value of the position in the world.
 \end{tabularx}\\
 \\
-\newpage
 \textbf{Build tile position percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
@@ -95,7 +93,6 @@ These percepts are available to all the units and buildings.
             &   <Y>: The Y value of the build tile position in the world.
 \end{tabularx}
 
-\newpage
 \subsection{Map percepts}
 \textbf{Map percept}\\
 \\
@@ -119,7 +116,7 @@ These percepts are available to all the units and buildings.
             &   <RegionID>: The ID of the region this location is in.
 \end{tabularx}\\
 \\
-\\
+\newpage
 \textbf{Chokepoint percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
@@ -131,7 +128,6 @@ These percepts are available to all the units and buildings.
 \\
 \\
 
-\newpage
 \subsection{Enemy percepts}
 \textbf{Enemy percept}\\
 \\
@@ -147,7 +143,6 @@ These percepts are available to all the units and buildings.
 \\
 \\
 
-\newpage
 \subsection{Player unit percepts}
 \textbf{Friendly percept}\\
 \\
@@ -166,7 +161,6 @@ These percepts are available to all the units and buildings.
 \section{Building percepts}
 These percepts are available to buildings.
 
-\newpage
 \subsection{Available Resources}
 \textbf{Minerals percept}\\
 \\
@@ -209,7 +203,6 @@ These percepts are available to buildings.
  Parameters &   <Quantity>: The amount of units currently being trained.
 \end{tabularx}
 
-\newpage
 \subsection{Build unit}
 \textbf{Build unit percept}\\
 \\
@@ -224,7 +217,6 @@ These percepts are available to buildings.
 \section{Refinery percepts}
 These percepts are available to refineries.
 
-\newpage
 \subsection{Worker activity}
 \textbf{Worker activity percept}\\
 \\
@@ -240,7 +232,6 @@ These percepts are available to refineries.
 \section{Attack unit percepts}
 These percepts are available to units that can attack.
 
-\newpage
 \subsection{Attacking units}
 \textbf{Attacking percept}\\
 \\
@@ -256,7 +247,6 @@ These percepts are available to units that can attack.
 \section{Worker percepts}
 These percepts are available to SCV's.
 
-\newpage
 \subsection{Available Resources}
 \textbf{Minerals percept}\\
 \\
@@ -288,7 +278,6 @@ These percepts are available to SCV's.
             &   <Max>: The maximum amount of supply that is available at this moment.
 \end{tabularx}
 
-\newpage
 \subsection{Builder unit}
 \textbf{Constructing percept}\\
 \\
@@ -299,7 +288,6 @@ These percepts are available to SCV's.
  Parameters &   This percept does not have any parameters
 \end{tabularx}
 
-\newpage
 \subsection{Gatherer unit}
 \textbf{Carrying percept}\\
 \\
@@ -342,6 +330,55 @@ These percepts are available to SCV's.
             &   <Resources>: The amount of resources left in the geyser.\\
             &   <ResourceGroup>: The resource group.\\
             &   <X>,<Y>: The coordinates of the geyser, a refinery can be built at this position.
+\end{tabularx}
+
+\newpage
+\section{Transporter percepts}
+These percepts are available to units with transport capabilities.
+\subsection{Transporter}
+\textbf{Space provided percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information about the maximum transport capacity and the current load. \\
+ Type & Send on change \\
+ Syntax & spaceProvided(<Used>,<Max>) \\
+ Parameters &   <Used>: The amount of units this vehicle is currently carrying.\\
+            &   <Max>: The maximum carrying amount of this vehicle.
+\end{tabularx}\\
+\\
+\\
+\textbf{Unit loaded percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information about the units that are currently inside this vehicle. \\
+ Type & Send on change \\
+ Syntax & unitLoaded(<ID>,<Type>) \\
+ Parameters &   <ID>: The ID of the unit.\\
+            &   <Type>: The type of the unit.
+\end{tabularx}
+
+\newpage
+\section{Command center percepts}
+These percepts are available to command centers.
+\subsection{Idle workers}
+\textbf{Idle worker percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Lists the workers that are idle. \\
+ Type & Send on change \\
+ Syntax & idleWorker(<Name>) \\
+ Parameters &   <Name>: The name of the unit.
+\end{tabularx}
+
+\subsection{Worker activity}
+\textbf{Worker activity percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information on what workers are currently doing. \\
+ Type & Send on change \\
+ Syntax & workerActivity(<ID>,<Activity>) \\
+ Parameters &   <ID>: The ID of the worker.\\
+            &   <Activity>: The activity that the worker is currently doing, one of the following: gatheringGas, gatheringMinerals, constructing or idling.
 \end{tabularx}
 
 \end{document}
