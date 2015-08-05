@@ -28,5 +28,6 @@ public class ActionProvider {
         actions.put("use/1", new Use(api));
         actions.put("use/2", new UseOnTarget(api));
         actions.put("use/3", new UseOnPosition(api));
+        actions.put("research/1", new Research(api));
     }
 }
