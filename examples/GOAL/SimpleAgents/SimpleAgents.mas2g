@@ -7,6 +7,7 @@ agentfiles {
 	"TerranCommandCenter.goal" [name = terranCommandCenter].
 	"TerranBarracks.goal" [name = terranBarracks].
 	"TerranMarine.goal" [name = terranMarine].
+	"TerranMedic.goal" [name = terranMedic].
 }
 
 launchpolicy{
@@ -14,4 +15,5 @@ launchpolicy{
 	when [type = terranCommandCenter]@env do launch terranCommandCenter:terranCommandCenter.
 	when [type = terranBarracks]@env do launch terranBarracks:terranBarracks.
 	when [type = terranMarine]@env do launch terranMarine:terranMarine.
+	when [type = terranMedic]@env do launch terranMedic:terranMedic.
 }

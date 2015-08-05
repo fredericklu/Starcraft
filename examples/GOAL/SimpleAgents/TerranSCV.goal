@@ -102,6 +102,6 @@ event module {
 		if bel(not(percept(refinery(Id, Resources, Group))), refinery(Id, Resources, Group)) then delete(refinery(Id, Resources, Group)).
 		
 		if bel(received(Sender, building)) then insert(building).
-		if bel(supply(C, M), M -C > 2) then delete(building).
+		if bel(supply(C, M), M -C > 1) then delete(building).
 	}	
 }
