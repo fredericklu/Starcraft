@@ -27,6 +27,6 @@ main module{
 event module {
 	program {
 		if bel(percept(enemy(_, Id, _, _, _, _))) then attack(Id).
-		if true then use('Stim Packs').
+		if bel(not(percept(stimmed))) then use('Stim Packs').
 	}	
 }
