@@ -1,0 +1,19 @@
+main module{
+	
+	program{
+	
+	}
+	
+	actionspec{
+		use(Id){
+			pre{true}
+			post{true}
+		}
+	}
+}
+
+event module {
+	program {
+		if true then use('Stim Packs').
+	}	
+}

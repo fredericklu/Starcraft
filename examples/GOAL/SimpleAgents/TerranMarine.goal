@@ -17,11 +17,16 @@ main module{
 			pre{true}
 			post{true}
 		}
+		use(Id){
+			pre{true}
+			post{true}
+		}
 	}
 }
 
 event module {
 	program {
 		if bel(percept(enemy(_, Id, _, _, _, _))) then attack(Id).
+		if true then use('Stim Packs').
 	}	
 }
