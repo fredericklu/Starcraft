@@ -1,3 +1,9 @@
+init module{
+	program{
+		if true then setRallyPoint(41,115).	
+	}	
+}
+
 main module{
 	beliefs{
 		trainMarine.
@@ -9,6 +15,11 @@ main module{
 	}
 	actionspec {	
 		train(Id) {
+			pre {true}
+			post {true}
+		}
+		
+		setRallyPoint(X,Y){
 			pre {true}
 			post {true}
 		}

@@ -18,7 +18,8 @@ public class EnemyPerceiver extends Perceiver {
 
         for (Unit unit : enemies) {
             percepts.add(new EnemyPercept(unit.getType().getName(), unit.getID(), 
-                    unit.getPosition().getWX(), unit.getPosition().getWY(), 
+                    unit.getPosition().getWX(), unit.getPosition().getWY(),
+                    unit.getHitPoints(), unit.getShields(), 
                     unit.getPosition().getBX(), unit.getPosition().getBY()));
         }
 

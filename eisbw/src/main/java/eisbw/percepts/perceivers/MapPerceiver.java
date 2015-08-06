@@ -1,6 +1,5 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Numeral;
 import eis.iilang.Percept;
 import eisbw.percepts.*;
 import java.util.*;
@@ -18,11 +17,11 @@ public class MapPerceiver extends Perceiver {
         ArrayList<Percept> percepts = new ArrayList<>();
         jnibwapi.Map map = api.getMap();
 
-        Percept mapPercept = new MapPercept(map.getWidth(), map.getHeight());
+        Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());
         percepts.add(mapPercept);
 
         for (BaseLocation location : map.getBaseLocations()) {
-            Percept basePercept = new BasePercept(location.getTx(), location.getTy(), location.isStartLocation(), location.getRegionID());
+            Percept basePercept = new BasePercept(location.getPosition().getBX(), location.getPosition().getBY(), location.isStartLocation(), location.getRegion().getID());
             percepts.add(basePercept);
         }
 		

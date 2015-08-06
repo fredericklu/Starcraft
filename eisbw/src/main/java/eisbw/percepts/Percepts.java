@@ -40,6 +40,9 @@ public class Percepts {
 	public static final String SpaceProvided = "spaceProvided";
 	public static final String UnitLoaded = "unitLoaded";
 	public static final String RequiresRepair = "requiresRepair";
+	public static final String Research = "research";
+	public static final String RallyPoint = "rallyPoint";
+	public static final String RallyUnit = "rallyUnit";
 	
     
 }

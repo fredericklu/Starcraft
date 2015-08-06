@@ -1,12 +1,13 @@
 main module{
 	
 	program{
-	
+		if bel(not(research('Restoration'))) then research('Restoration').
+		if bel(not(research('Stim Packs'))) then research('Stim Packs').
 	}
 	
 	actionspec{
-		research(Id){
-			pre{true}
+		research(Name){
+			pre{not(researching)}
 			post{true}
 		}
 	}
@@ -14,6 +15,7 @@ main module{
 
 event module {
 	program {
-		if true then research('Stim Packs').
+		if bel(percept(research(X))) then insert(research(X)) + insert(researching).
+		if bel(researching, not(percept(research(_)))) then delete(researching).
 	}	
 }

@@ -88,7 +88,7 @@ event module {
 				
 		forall bel(percept(mineralField(Id,_,_,_,_)), not(mineralField(Id))) do insert(mineralField(Id)).
 		
-		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,X,Y,BX,BY)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
+		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,Health,Shields,X,Y,BX,BY)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
 		
 		if bel(percept(position(X1,Y1)), position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
 		

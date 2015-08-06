@@ -29,5 +29,7 @@ public class ActionProvider {
         actions.put("use/2", new UseOnTarget(api));
         actions.put("use/3", new UseOnPosition(api));
         actions.put("research/1", new Research(api));
+        actions.put("setRallyPoint/2", new SetRallyPoint(api));
+        actions.put("setRallyPoint/1", new SetRallyUnit(api));
     }
 }

@@ -19,7 +19,7 @@ public class PlayerUnitsPerceiver extends Perceiver {
         List<Percept> percepts = new ArrayList<>();
         
         for (Unit unit : this.api.getMyUnits()) {
-            percepts.add(new FriendlyPercept(util.getUnitName(unit), api.getUnitType(unit.getTypeID()).getName(), unit.getID(), unit.getPosition().getWX(), unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
+            percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
         }
         
         return percepts;

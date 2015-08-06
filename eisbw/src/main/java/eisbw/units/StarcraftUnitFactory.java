@@ -2,7 +2,9 @@ package eisbw.units;
 
 import eisbw.*;
 import eisbw.percepts.perceivers.*;
+
 import java.util.*;
+
 import jnibwapi.*;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType.UnitTypes;
@@ -27,7 +29,9 @@ public class StarcraftUnitFactory {
         if (unit.getType().isBuilding()) {
             perceptGenerators.add(new AvailableResourcesPerceiver(api));
             perceptGenerators.add(new QueueSizePerceiver(this.api, unit));
-            perceptGenerators.add(new BuildUnitPerceiver(this.api, unit));			
+            perceptGenerators.add(new BuildUnitPerceiver(this.api, unit));	
+            perceptGenerators.add(new ResearchPerceiver(this.api, unit));
+            perceptGenerators.add(new RallyPerceiver(api, unit));
         }
         if (UnitTypesEx.isRefinery(unit.getType())) {
             perceptGenerators.add(new WorkerActivityPerceiver(api,util));
