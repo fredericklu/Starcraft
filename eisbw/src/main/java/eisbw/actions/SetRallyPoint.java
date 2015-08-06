@@ -6,6 +6,7 @@ import eis.iilang.*;
 import java.util.LinkedList;
 
 import jnibwapi.*;
+import jnibwapi.Position.PosType;
 import jnibwapi.types.TechType;
 
 public class SetRallyPoint extends StarcraftAction {
@@ -27,10 +28,7 @@ public class SetRallyPoint extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        LinkedList<Parameter> parameters = action.getParameters();
-        TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
-
-        return !techType.isTargetsPosition() && !techType.isTargetsUnits();
+        return isValid(action) && unit.getType().isBuilding();
     }
 
     @Override
@@ -38,7 +36,7 @@ public class SetRallyPoint extends StarcraftAction {
         LinkedList<Parameter> parameters = action.getParameters();
         int x = ((Numeral) parameters.get(0)).getValue().intValue();
         int y = ((Numeral) parameters.get(1)).getValue().intValue();
-        unit.setRallyPoint(new Position(x*32, y*32));
+        unit.setRallyPoint(new Position(x, y, PosType.BUILD));
     }
 
     @Override

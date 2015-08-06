@@ -43,6 +43,7 @@ public class Percepts {
 	public static final String Research = "research";
 	public static final String RallyPoint = "rallyPoint";
 	public static final String RallyUnit = "rallyUnit";
+	public static final String Lifted = "lifted";
 	
     
 }

@@ -2,8 +2,11 @@ package eisbw.actions;
 
 import eis.exceptions.ActException;
 import eis.iilang.*;
+
 import java.util.LinkedList;
+
 import jnibwapi.*;
+import jnibwapi.Position.PosType;
 import jnibwapi.types.UnitType;
 
 public class Build extends StarcraftAction {
@@ -37,7 +40,7 @@ public class Build extends StarcraftAction {
         //UnitType unitType = unit.getType();
 
 		// TODO: Check that it is a building
-        boolean result = api.build(unit.getID(), tx, ty, utility.getUnitType(type).getID());
+        boolean result = unit.build(new Position(tx,ty,PosType.BUILD), utility.getUnitType(type));
         if (!result) {
             throw new ActException(ActException.FAILURE);
         }

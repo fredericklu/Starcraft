@@ -26,10 +26,7 @@ public class SetRallyUnit extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        LinkedList<Parameter> parameters = action.getParameters();
-        TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
-
-        return !techType.isTargetsPosition() && !techType.isTargetsUnits();
+        return isValid(action) && unit.getType().isBuilding();
     }
 
     @Override
@@ -41,6 +38,6 @@ public class SetRallyUnit extends StarcraftAction {
 
     @Override
     public String toString() {
-        return "setRallyPoint(x,y)";
+        return "setRallyUnit(Unit)";
     }
 }

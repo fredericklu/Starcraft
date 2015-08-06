@@ -11,6 +11,16 @@ main module{
 			pre {trainSCV}
 			post {not(trainSCV)}
 		}
+		
+		lift{
+			pre{true}
+			post{true}	
+		}
+		
+		land(X,Y){
+			pre{true}
+			post{true}	
+		}
 	}
 }
 
