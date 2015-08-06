@@ -26,7 +26,7 @@
 \chapter{Percepts}
 %%%----------------------------------------------------------
 
-This section will list all the percepts that are usable in the Starcraft environment.The percepts vary per unit, for example: an attacking unit will not percept the amount of resources available to the player as he does not need them. For the implementation of these percepts in your GOAL code, please refer to the GOAL manual.
+This section will list all the percepts that are usable in the Starcraft environment. The percepts vary per unit, for example: an attacking unit will not percept the amount of resources available to the player as he does not need them. For the implementation of these percepts in your GOAL code, please refer to the GOAL manual.
 
 \newpage
 \section{Percepts for all units}
@@ -134,9 +134,11 @@ These percepts are available to all the units and buildings.
 \begin{tabularx}{\textwidth}{lX}
  Description & Percepts the enemies that are currently visible to the player. \\
  Type & Send on change \\
- Syntax & enemy(<Name>,<ID>,<WX>,<WY>,<BX>,<BY>) \\
+ Syntax & enemy(<Name>,<ID>,<Health>,<Shields>,<WX>,<WY>,<BX>,<BY>) \\
  Parameters &   <Name>: The name of the unit.\\
             &   <ID>: The ID of the unit.\\
+            &   <Health>: The health of the unit.\\
+            &   <Shields>: The amount of shield of the unit.\\
             &   <WX>,<WY>: The world coordinates of the unit.\\
             &   <BX>,<BY>: The build tile coordinates of the unit.
 \end{tabularx}\\
@@ -149,10 +151,12 @@ These percepts are available to all the units and buildings.
 \begin{tabularx}{\textwidth}{lX}
  Description & Percepts all the friendly units. \\
  Type & Send on change \\
- Syntax & friendly(<Name>,<Type>,<ID>,<WX>,<WY>,<BX>,<BY>) \\
+ Syntax & friendly(<Name>,<Type>,<ID>,<Health>,<Shields>,<WX>,<WY>,<BX>,<BY>) \\
  Parameters &   <Name>: The agent name of the unit.\\
             &   <Type>: The type of the unit.\\
             &   <ID>: The ID of the unit.\\
+            &   <Health>: The health of the unit.\\
+            &   <Shields>: The amount of shield of the unit.\\
             &   <WX>,<WY>: The world coordinates of the unit.\\
             &   <BX>,<BY>: The build tile coordinates of the unit.
 \end{tabularx}
@@ -207,11 +211,52 @@ These percepts are available to buildings.
 \textbf{Build unit percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & The id of the unit that is currently being built. \\
+ Description & The id of the unit that is currently being built by this building. \\
  Type & Send on change \\
  Syntax & buildUnit(<ID>) \\
  Parameters &   <ID>: The ID of the unit.
 \end{tabularx}
+
+\subsection{Research}
+\textbf{Research percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The name of the tech that is being researched. \\
+ Type & Send on change \\
+ Syntax & research(<Name>) \\
+ Parameters &   <Name>: The name of the tech that is being researched.
+\end{tabularx}
+
+\subsection{Rally point}
+\textbf{Rally point percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The position of the rally point. \\
+ Type & Send on change \\
+ Syntax & rallyPoint(<X>,<Y>) \\
+ Parameters &   <X>,<Y>: The coordinates of the rally point.
+\end{tabularx}\\
+\\
+\newpage
+\textbf{Rally unit percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The unit the rally point points to. \\
+ Type & Send on change \\
+ Syntax & rallyUnit(<Unit>) \\
+ Parameters &   <Unit>: The unit the rally point points to.
+\end{tabularx}
+
+\subsection{Terran building percepts}
+\textbf{Lifted percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & This is percepted when this building is lifted. \\
+ Type & Send on change \\
+ Syntax & lifted \\
+ Parameters &   This percept does not have any parameters.
+\end{tabularx}
+
 
 \newpage
 \section{Refinery percepts}
@@ -379,6 +424,141 @@ These percepts are available to command centers.
  Syntax & workerActivity(<ID>,<Activity>) \\
  Parameters &   <ID>: The ID of the worker.\\
             &   <Activity>: The activity that the worker is currently doing, one of the following: gatheringGas, gatheringMinerals, constructing or idling.
+\end{tabularx}
+
+\chapter{Actions}
+This section will list all the actions that are usable in the Starcraft environment.
+
+\section{Attack action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Attack a unit or building. \\
+ Syntax & attack(<TargetID>) \\
+ Parameters & <TargetID>: The ID of the target that has to be attacked.\\
+ Effects &  If the unit is attack capable, attack the target.
+\end{tabularx}
+
+\section{Attack move action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Go to a location and attack everything you encounter. \\
+ Syntax & attack(<X>,<Y>) \\
+ Parameters & <X>,<Y>: The coordinates to move to.\\
+ Effects &  Go to a location and attack every enemy encountered if a unit can move and is attack capable.
+\end{tabularx}
+
+\section{Upgrade action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Upgrade an upgrade. \\
+ Syntax & upgrade(<UpgradeName>) \\
+ Parameters & <UpgradeName>: The name of the upgrade you want to upgrade.\\
+ Effects &  Buy an upgrade.\\
+ NOTE & At the moment this is only possible with the terran engineering bay and terran academy.
+\end{tabularx}
+
+\section{Build action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Build a building. \\
+ Syntax & build(<Type>,<X>,<Y>) \\
+ Parameters & <Type>: The Type of the building that has to be built.\\
+            & <X>,<Y>: The coordinates to build on.\\
+ Effects &  Build a building at the location specified if this unit is capable to do so.
+\end{tabularx}
+
+\section{Gather action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Instruct a unit to gather a resource. \\
+ Syntax & gather(<ID>) \\
+ Parameters & <ID>: The ID of the resource to gather.\\
+ Effects &  The unit starts gathering the resource if this unit is capable to do so.
+\end{tabularx}
+
+\section{Move action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Instruct a unit to move to a location. \\
+ Syntax & move(<X>,<Y>) \\
+ Parameters & <X>,<Y>: The coordinates to move to.\\
+ Effects &  Go to a location if a unit can move.
+\end{tabularx}
+
+\section{Train action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Train a unit from a building. \\
+ Syntax & train(<Type>) \\
+ Parameters & <Type>: The type of unit to train.\\
+ Effects &  If a unit can be built from this building, train the unit if there are enough resources.
+\end{tabularx}
+
+\section{Stop action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Stop a unit. \\
+ Syntax & stop \\
+ Effects &  Stops this unit from doing what he is doing.
+\end{tabularx}
+
+\section{Use action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Use a technology. \\
+ Syntax & use(<Type>) \\
+ Parameters & <Type>: The type of technology to use.\\
+ Effects &  If this unit can use the tech and it is researched, use the technology.
+\end{tabularx}
+
+\section{Use on target action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Use a technology on a target. \\
+ Syntax & use(<Type>, <Target>) \\
+ Parameters & <Type>: The type of technology to use.\\
+            & <Target>: The target to use the technology on.\\
+ Effects &  If this unit can use the tech and it is researched, use the technology on the target.
+\end{tabularx}
+
+\section{Use on location action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Use a technology on a location. \\
+ Syntax & use(<Type>, <X>, <Y>) \\
+ Parameters & <Type>: The type of technology to use.\\
+            & <X>,<Y>: The coordinates to use the technology on.\\
+ Effects &  If this unit can use the tech and it is researched, use the technology on the location.
+\end{tabularx}
+
+\section{Research action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Research a technology. \\
+ Syntax & research(<Type>) \\
+ Parameters & <Type>: The type of technology to research.\\
+ Effects &  If this building can research this tech, research the technology.
+\end{tabularx}
+
+\section{Set rally point action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Set the rally point of a building. \\
+ Syntax & setRallyPoint(<X>, <Y>) \\
+ Parameters & <X>,<Y>: The coordinates to set the rally point to.\\
+ Effects &  If this unit can set a rally point, set it to the specified location.
+\end{tabularx}
+
+\section{Set rally point to unit action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Set the rally point of a building. \\
+ Syntax & setRallyPoint(<Unit>) \\
+ Parameters & <Unit>: The unit to set the rally point to.\\
+ Effects &  If this unit can set a rally point, set it to the specified unit.
+\end{tabularx}
+
+\section{Lift action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Lift a building. \\
+ Syntax & lift \\
+ Effects &  The building starts flying.\\
+ Note & Only for Terran buildings
+\end{tabularx}
+
+\section{Land action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Land the unit. \\
+ Syntax & land(<X>, <Y>) \\
+ Parameters & <X>,<Y>: The coordinates to land on.\\
+ Effects &  If the unit is lifted, land the unit on the location.\\
+ Note & The location has to be visible
 \end{tabularx}
 
 \end{document}
