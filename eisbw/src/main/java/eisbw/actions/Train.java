@@ -23,9 +23,7 @@ public class Train extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        // TODO check unit type (can be buildings that can train units)
         return unit.getType().isProduceCapable();
-        //return type == UnitTypes.Terran_Command_Center || type == UnitTypes.Terran_Barracks;
     }
 
     @Override

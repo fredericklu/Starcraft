@@ -23,7 +23,7 @@ public class Land extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return isValid(action) && unit.isLifted();
+        return unit.isLifted();
     }
 
     @Override

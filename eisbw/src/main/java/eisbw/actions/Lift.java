@@ -21,7 +21,7 @@ public class Lift extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return isValid(action) && unit.getType().isBuilding() && unit.getType().getRaceID() == 1;
+        return unit.getType().isBuilding() && unit.getType().getRaceID() == 1;
     }
 
     @Override

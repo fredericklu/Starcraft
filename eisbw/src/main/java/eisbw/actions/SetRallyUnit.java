@@ -26,7 +26,7 @@ public class SetRallyUnit extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return isValid(action) && unit.getType().isBuilding();
+        return unit.getType().isBuilding();
     }
 
     @Override
