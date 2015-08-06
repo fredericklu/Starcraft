@@ -33,7 +33,7 @@ public class Train extends StarcraftAction {
         LinkedList<Parameter> parameters = action.getParameters();
         UnitType unitType = utility.getUnitType(((Identifier) parameters.get(0)).getValue());
 
-        boolean result = api.train(unit.getID(), unitType.getID());
+        boolean result = unit.train(unitType); 
         if (!result) {
             throw new ActException(ActException.FAILURE);
         }

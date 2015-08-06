@@ -27,7 +27,7 @@ public class Gather extends StarcraftAction {
     @Override
     public void execute(Unit unit, Action action) throws ActException {
         int targetId = ((Numeral) action.getParameters().get(0)).getValue().intValue();
-        boolean result = api.gather(unit.getID(), targetId);
+        boolean result = unit.gather(api.getUnit(targetId), false);
         if (!result) {
             throw new ActException(ActException.FAILURE);
         }

@@ -4,8 +4,11 @@ import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
+
 import java.util.LinkedList;
+
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
@@ -32,11 +35,11 @@ public class AttackMove  extends StarcraftAction {
         LinkedList<Parameter> parameters = action.getParameters();
         int x = ((Numeral) parameters.get(0)).getValue().intValue();
         int y = ((Numeral) parameters.get(1)).getValue().intValue();
-        api.attack(unit.getID(), x, y);
+        unit.attack(new Position(x, y), false);
     }
 
     @Override
     public String toString() {
-        return "attack(unitId, x, y)"; //To change body of generated methods, choose Tools | Templates.
+        return "attack(x, y)"; //To change body of generated methods, choose Tools | Templates.
     } 
 }

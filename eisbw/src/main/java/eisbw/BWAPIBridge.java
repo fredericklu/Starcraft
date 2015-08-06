@@ -169,7 +169,6 @@ public class BWAPIBridge extends EIDefaultImpl {
             StarcraftAction action = getAction(act);
             // Action might be invalid
             if (action.isValid(act)) {
-                logger.info("[" + name + "] Pending action: " + act.toProlog());
                 pendingActions.put(unit, act);
             } else {
                 throw new ActException(ActException.FAILURE, "Action must be of the form " + action.toString() + " (was " + act.toProlog() + ").");
@@ -229,7 +228,6 @@ public class BWAPIBridge extends EIDefaultImpl {
                     Action act = pendingActions.get(unit);
 
                     StarcraftAction action = getAction(act);
-                    logger.info("[" + bwApiUtility.getUnitName(unit) + "] Performing action: " + act.toProlog());
                     try {
                         action.execute(unit, act);
                     } catch (ActException ex) {
