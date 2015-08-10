@@ -64,6 +64,8 @@ public class StarcraftUnitFactory {
             perceptGenerators.add(new WorkerActivityPerceiver(api,util));
         } else if (un.equals(UnitTypes.Terran_Marine.getName())) {
             perceptGenerators.add(new StimUnitPerceiver(api, unit));
+        } else if (un.equals(UnitTypes.Terran_Siege_Tank_Tank_Mode.getName())) {
+            perceptGenerators.add(new SiegeUnitPerceiver(api, unit));
         }
 		
 		return new StarcraftUnit(api, unit, perceptGenerators);

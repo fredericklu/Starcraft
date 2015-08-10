@@ -44,6 +44,7 @@ public class Percepts {
 	public static final String RallyPoint = "rallyPoint";
 	public static final String RallyUnit = "rallyUnit";
 	public static final String Lifted = "lifted";
+	public static final String Sieged = "sieged";
 	
     
 }

@@ -7,9 +7,9 @@ import java.util.LinkedList;
 
 import jnibwapi.*;
 
-public class Lift extends StarcraftAction {
+public class Siege extends StarcraftAction {
 
-    public Lift(JNIBWAPI api) {
+    public Siege(JNIBWAPI api) {
         super(api);
     }
 
@@ -21,19 +21,19 @@ public class Lift extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return unit.getType().isBuilding() && unit.getType().getRaceID() == 1;
+        return unit.getType().getName().equals("Terran Siege Tank Tank Mode");
     }
 
     @Override
     public void execute(Unit unit, Action action) throws ActException {
-    	boolean res = unit.lift();
+        boolean res = unit.siege();
         if(!res){
-        	throw new ActException("Couldn't lift "+unit.getType().getName());
+        	throw new ActException("Couldn't siege "+unit.getType().getName());
         }
     }
 
     @Override
     public String toString() {
-        return "lift()";
+        return "siege()";
     }
 }

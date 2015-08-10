@@ -6,10 +6,11 @@ import eis.iilang.*;
 import java.util.LinkedList;
 
 import jnibwapi.*;
+import jnibwapi.Position.PosType;
 
-public class Lift extends StarcraftAction {
+public class UnSiege extends StarcraftAction {
 
-    public Lift(JNIBWAPI api) {
+    public UnSiege(JNIBWAPI api) {
         super(api);
     }
 
@@ -21,19 +22,19 @@ public class Lift extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return unit.getType().isBuilding() && unit.getType().getRaceID() == 1;
+        return unit.isSieged();
     }
 
     @Override
     public void execute(Unit unit, Action action) throws ActException {
-    	boolean res = unit.lift();
+    	boolean res = unit.unsiege();
         if(!res){
-        	throw new ActException("Couldn't lift "+unit.getType().getName());
+        	throw new ActException("Couldn't unsiege "+unit.getType().getName());
         }
     }
 
     @Override
     public String toString() {
-        return "lift()";
+        return "unsiege()";
     }
 }

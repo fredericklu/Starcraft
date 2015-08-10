@@ -32,6 +32,8 @@ public class ActionProvider {
         actions.put("setRallyPoint/2", new SetRallyPoint(api));
         actions.put("setRallyPoint/1", new SetRallyUnit(api));
         actions.put("lift/0", new Lift(api));
-        actions.put("land/2", new Land(api));
+        actions.put("land/2", new Land(api));        
+        actions.put("siege/0", new Siege(api));
+        actions.put("unsiege/2", new UnSiege(api));
     }
 }
