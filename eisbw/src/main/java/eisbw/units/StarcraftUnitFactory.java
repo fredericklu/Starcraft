@@ -19,6 +19,9 @@ public class StarcraftUnitFactory {
         this.util = util;
     }
 
+    
+    // These perceptgenerators are only added on init, so a building that can fly 
+    // can not move when built, so please take caution and think when adding percepts
     public StarcraftUnit Create(Unit unit) {
         ArrayList<IPerceiver> perceptGenerators = new ArrayList<>();
         perceptGenerators.add(new GenericUnitPerceiver(api, unit));
@@ -26,6 +29,10 @@ public class StarcraftUnitFactory {
         perceptGenerators.add(new EnemyPerceiver(api));
         perceptGenerators.add(new PlayerUnitsPerceiver(api, util));
 
+        if (unit.getType().isCanMove()) {
+        	perceptGenerators.add(new IsLoadedUnitPerceiver(api,unit));
+        }
+        
         if (unit.getType().isBuilding()) {
             perceptGenerators.add(new AvailableResourcesPerceiver(api));
             perceptGenerators.add(new QueueSizePerceiver(this.api, unit));
