@@ -2,8 +2,12 @@ package eisbw.percepts.perceivers;
 
 import eis.iilang.Percept;
 import eisbw.BWApiUtility;
+import eisbw.UnitTypesEx;
 import eisbw.percepts.FriendlyPercept;
+import eisbw.percepts.LoadablePercept;
+
 import java.util.*;
+
 import jnibwapi.*;
 
 public class PlayerUnitsPerceiver extends Perceiver {
@@ -20,6 +24,9 @@ public class PlayerUnitsPerceiver extends Perceiver {
         
         for (Unit unit : this.api.getMyUnits()) {
             percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
+            if(UnitTypesEx.isLoadable(unit.getType()) && unit.isExists()){
+            	percepts.add(new LoadablePercept(util.getUnitName(unit), unit.getType().getName(), unit.getID()));
+            }
         }
         
         return percepts;
