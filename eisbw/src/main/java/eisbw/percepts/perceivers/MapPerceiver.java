@@ -26,7 +26,7 @@ public class MapPerceiver extends Perceiver {
         }
 		
 		for (ChokePoint cp : map.getChokePoints()) {
-			Percept chokePercept = new ChokepointPercept(cp.getCenter().getWX(), cp.getCenter().getWY());
+			Percept chokePercept = new ChokepointPercept(cp.getCenter().getBX(), cp.getCenter().getBY());
 			percepts.add(chokePercept);
 		}
 

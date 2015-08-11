@@ -29,7 +29,7 @@ public class Load extends StarcraftAction {
     	Unit target = api.getUnit(((Numeral) action.getParameters().get(1)).getValue().intValue());
     	boolean res = unit.load(target, false);
     	if(!res){
-        	throw new ActException("Couldn't lift "+unit.getType().getName());
+        	throw new ActException("Couldn't load "+unit.getType().getName());
         }
     }
 

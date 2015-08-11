@@ -1,8 +1,8 @@
 main module{
 	
 	program{
-		if bel(not(research('Restoration'))) then research('Restoration').
-		if bel(not(research('Stim Packs'))) then research('Stim Packs').
+		%if bel(not(research('Restoration'))) then research('Restoration').
+		%if bel(not(research('Stim Packs'))) then research('Stim Packs').
 	}
 	
 	actionspec{
