@@ -49,6 +49,7 @@ init module {
 		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
 		if bel(percept(position(X,Y))) then insert(position(X,Y)).
 		forall bel(percept(chokepoint(X,Y))) do insert(chokepoint(X,Y)).
+		if bel(me(Name), percept(id(Id))) then ("terranCommandCenter").sendonce(scv(Name, Id)).
 	}	
 }
 main module{
@@ -61,13 +62,13 @@ main module{
 		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		if bel(unit("Terran Barracks", _), not(unit("Terran Academy", _)), constructionSite(X,Y), not(busy), minerals(M), M > 150) 
+		if bel(not(builder), unit("Terran Barracks", _), not(unit("Terran Academy", _)), constructionSite(X,Y), not(busy), minerals(M), M > 150) 
 		then insert(constructing) + build("Terran Academy", X, Y).
 		
-		if bel(not(busy), constructionSite(X,Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
+		if bel(not(builder), not(busy), constructionSite(X,Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
 		then insert(constructing) + build("Terran Engineering Bay", X, Y).
 		
-		if bel(((unit("Terran Barracks",Num), Num < 3) ; not(unit("Terran Barracks",_))), constructionSite(X,Y), not(busy), minerals(M), M > 100) 
+		if bel(not(builder), ((unit("Terran Barracks",Num), Num < 3) ; not(unit("Terran Barracks",_))), constructionSite(X,Y), not(busy), minerals(M), M > 100) 
 		then insert(constructing) + build("Terran Barracks", X, Y).
 		
 		if bel(not(busy), constructionSite(X,Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, unit("Terran Barracks", _)) 
