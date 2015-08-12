@@ -31,6 +31,7 @@ public class StarcraftUnitFactory {
 
         if (unit.getType().isCanMove()) {
         	perceptGenerators.add(new IsLoadedUnitPerceiver(api,unit));
+        	perceptGenerators.add(new IsMovingPerceiver(api, unit));
         }
         
         if (unit.getType().isBuilding()) {

@@ -1,8 +1,9 @@
 main module{
 	
 	program{
-		%if bel(aggregate_all(count,(percept(friendly(_, "Terran Marine", _, _, _))),A),A>3, 
-		%percept(base(X, Y, Start, _)), percept(friendly(_, "Terran Command Center", _, _, BX, BY)), BX =\= X, BY =\= Y) then attack(X, Y).
+		%if bel(percept(unit("Terran Marine", A)),A>3, percept(base(X, Y, 'true', _))) 
+		%percept(friendly(_, "Terran Command Center", X1, Y1, BX, BY)), BX =\= X, BY =\= Y, X1 =\= X, Y =\= Y1) 
+		%then move(X, Y).
 		
 		%if bel(percept(base(X, Y, Start, _)), percept(friendly(_, "Terran Command Center", _, _, BX, BY)), BX =\= X, BY =\= Y) then attack(X, Y).
 	}
@@ -10,6 +11,11 @@ main module{
 	actionspec{
 		attack(X,Y){
 			pre{true}
+			post{true}
+		}
+		
+		move(X,Y) {
+			pre{not(percept(moving))}
 			post{true}
 		}
 		

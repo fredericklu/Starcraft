@@ -9,6 +9,7 @@ agentfiles {
 	"TerranMarine.goal" [name = terranMarine].
 	"TerranAcademy.goal" [name = terranAcademy].
 	"TerranMedic.goal" [name = terranMedic].
+	"TerranEngineeringBay.goal" [name = TerranEngineeringBay].
 }
 
 launchpolicy{
@@ -18,4 +19,5 @@ launchpolicy{
 	when [type = terranMarine]@env do launch terranMarine:terranMarine.
 	when [type = terranAcademy]@env do launch terranAcademy:terranAcademy.
 	when [type = terranMedic]@env do launch terranMedic:terranMedic.
+	when [type = TerranEngineeringBay]@env do launch TerranEngineeringBay:TerranEngineeringBay.
 }

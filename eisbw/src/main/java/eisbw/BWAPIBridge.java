@@ -242,7 +242,11 @@ public class BWAPIBridge extends EIDefaultImpl {
 				bwapi.drawCircle(cp.getCenter(), (int)cp.getRadius(), BWColor.Red, false, false);
 				bwapi.drawText(cp.getCenter(), "(" + cp.getCenter().getBX() + "," + cp.getCenter().getBY() + ")", false);
 			}
-            
+           
+			   for (BaseLocation loc: bwapi.getMap().getBaseLocations()) {
+			     bwapi.drawCircle(loc.getCenter(), 75, BWColor.Purple, false, false);
+			     bwapi.drawText(loc.getPosition(), "(" + loc.getCenter().getBX() + "," + loc.getCenter().getBY() + ")", false);
+			   }
         }
 
         @Override

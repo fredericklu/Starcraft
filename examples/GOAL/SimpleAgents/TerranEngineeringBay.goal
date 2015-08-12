@@ -1,0 +1,20 @@
+main module{
+	
+	program{
+		if bel(not(research('Terran_Infantry_Weapons'))) then upgrade('Terran_Infantry_Weapons').
+	}
+	
+	actionspec {	
+		upgrade(Type) {
+			pre {true}
+			post {true}
+		}
+	}	
+}
+
+event module {
+	program {
+		if bel(percept(research(X))) then insert(research(X)) + insert(researching).
+		if bel(researching, not(percept(research(_)))) then delete(researching).
+	}	
+}
