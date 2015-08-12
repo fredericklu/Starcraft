@@ -19,7 +19,8 @@ public class Build extends StarcraftAction {
     public boolean isValid(Action action) {
         LinkedList<Parameter> parameters = action.getParameters();
         if (parameters.size() == 3) {
-            return parameters.get(0) instanceof Identifier && utility.getUnitType(((Identifier) parameters.get(0)).getValue()) != null
+        	UnitType ut = utility.getUnitType(((Identifier) parameters.get(0)).getValue());
+            return parameters.get(0) instanceof Identifier && ut!=null && ut.isBuilding()
                     && parameters.get(1) instanceof Numeral
                     && parameters.get(2) instanceof Numeral;
         }
@@ -37,9 +38,7 @@ public class Build extends StarcraftAction {
         String type = ((Identifier) params.get(0)).getValue();
         int tx = ((Numeral) params.get(1)).getValue().intValue();
         int ty = ((Numeral) params.get(2)).getValue().intValue();
-        //UnitType unitType = unit.getType();
 
-		// TODO: Check that it is a building
         boolean result = unit.build(new Position(tx,ty,PosType.BUILD), utility.getUnitType(type));
         if (!result) {
             throw new ActException(ActException.FAILURE);
