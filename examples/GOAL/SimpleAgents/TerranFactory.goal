@@ -10,11 +10,11 @@ init module{
 
 main module{
 	beliefs{
-		buildMachineShop.
+		
 	}
 	program{	
-		if bel(buildMachineShop,percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
-			then buildAddon("Terran Machine Shop") + delete(buildMachineShop).
+		if bel(not(percept(addon("Terran Machine Shop"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
+			then buildAddon("Terran Machine Shop").
 		if bel(trainTank) then train("Terran Siege Tank Tank Mode") + delete(trainTank).
 	}
 	actionspec {	
@@ -38,7 +38,7 @@ main module{
 event module {
 	program {
 		
-		if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=75 , (Z - Y) >= 4 ) then{
+		if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=150, percept(gas(G)), G>= 100 , (Z - Y) >= 4 ) then{
 			 if bel(percept(addon("Terran Machine Shop"))) then insert(trainTank).
 		}
 	}	

@@ -17,6 +17,11 @@ main module{
 			post{true}	
 		}
 		
+		buildAddon(X){
+			pre{true}
+			post{true}	
+		}
+		
 		land(X,Y){
 			pre{true}
 			post{true}	
