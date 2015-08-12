@@ -1,0 +1,45 @@
+init module{
+	knowledge{
+		
+	}
+	
+	program{
+		
+	}	
+}
+
+main module{
+	beliefs{
+		buildMachineShop.
+		trainVulture.
+	}
+	program{	
+		if bel(buildMachineShop,percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) then buildAddon("Terran Machine Shop").
+		if bel(trainVulture) then train("Terran Vulture") + delete(trainVulture).
+	}
+	actionspec {	
+		train(Id) {
+			pre {true}
+			post {true}
+		}
+		
+		buildAddon(X) {
+			pre {true}
+			post {true}
+		}
+		
+		setRallyPoint(X,Y){
+			pre {true}
+			post {true}
+		}
+	}
+}
+
+event module {
+	program {
+		
+		if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=75 , (Z - Y) >= 4 ) then{
+			 if bel(not(trainVulture)) then insert(trainVulture).
+		}
+	}	
+}

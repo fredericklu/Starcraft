@@ -48,6 +48,7 @@ public class Percepts {
 	public static final String Loadable = "loadable";
 	public static final String IsLoaded = "loaded";
 	public static final String Moving = "moving";
+	public static final String Upgrade = "upgrade";
 	
     
 }

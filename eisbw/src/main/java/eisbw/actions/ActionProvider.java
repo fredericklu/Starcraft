@@ -35,5 +35,6 @@ public class ActionProvider {
         actions.put("land/2", new Land(api));        
         actions.put("siege/0", new Siege(api));
         actions.put("unsiege/2", new UnSiege(api));
+        actions.put("buildAddon/1", new BuildAddon(api));
     }
 }
