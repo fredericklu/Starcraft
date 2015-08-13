@@ -10,7 +10,7 @@ init module {
 		condition("Terran Academy")
 			:- friendly(_, "Terran Barracks", _, _, _).
 		condition("Terran Supply Depot") 
-			:- supply(C, Max), Max - C < 1.
+			:- supply(C, Max), Max - C < 6.
 		condition("Terran Barracks") 
 			:- supply(C, Max), Max >= 20, Max - C > 6,
 				((unit("Terran Barracks",Num), Num < 3) ; not(unit("Terran Barracks",_))).
@@ -36,9 +36,8 @@ init module {
 				
 		shouldMineVespene :- unit('Terran Refinery',RefCount),
 								NeededWorkers is RefCount * 3,
-								aggregate_all(count, workerActivity(_,vespene), Count),
+								aggregate_all(count, workerActivity(_,gatheringGas), Count),
 								Count < NeededWorkers.
-			
 	}
 	
 	program {
@@ -53,10 +52,8 @@ init module {
 	}	
 }
 main module{
-	program[order = linearall] {
-		%if bel(canBuild(Building, X, Y)) then insert(constructing) + build(Building, X, Y).
-		
-		if bel(builder, supply(C, Max), (Max - C) < 6, constructionSite(X,Y)) 
+	program[order = linearall] {	
+		if bel(builder, supply(C, Max), (Max - C) < 8, constructionSite(X,Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		
 		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100) 
@@ -74,8 +71,7 @@ main module{
 		if bel(not(busy), constructionSite(X,Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, unit("Terran Barracks", _)) 
 		then insert(constructing) + build("Terran Factory", X, Y).
 		
-		% not working
-		if bel(percept(friendly(_,'Terran Refinery',Id,_,_,_,_)), shouldMineVespene) then gather(Id).
+		if bel(not(busy), percept(friendly(_,"Terran Refinery", Id, _, _, _ ,_ ,_, _)), shouldMineVespene) then gather(Id).
 		
 		if bel(canBuild("Terran Supply Depot", X, Y)) then insert(constructing) + build("Terran Supply Depot", X, Y).
 		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) then gather(Id).
@@ -106,6 +102,7 @@ event module {
 		forall bel(percept(mineralField(Id,_,_,X,Y)), not(mineralField(Id,X,Y))) do insert(mineralField(Id,X,Y)).
 		
 		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,Health,Shields,X,Y,BX,BY)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
+		forall bel(friendly(Name,Type,Id,X,Y), not(percept(percept(friendly(Name,Type,Id,_,_,X,Y,_,_))))) do delete(friendly(Name,Type,Id,X,Y)).
 		
 		if bel(percept(position(X1,Y1)), position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
 		
@@ -118,12 +115,9 @@ event module {
 		if bel(percept(refinery(Id, Resources, Group)), not(refinery(Id, Resources, Group))) then insert(refinery(Id, Resources, Group)).
 		if bel(not(percept(refinery(Id, Resources, Group))), refinery(Id, Resources, Group)) then delete(refinery(Id, Resources, Group)).
 		
-		%forall bel(received(Sender, building)) do insert(building).
-		%forall bel(supply(C, M), M -C > 5) do delete(building).
-		
 		forall bel(percept(workerActivity(ID,ACT)), not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
 		forall bel(workerActivity(ID,ACT), not(percept(workerActivity(ID,ACT)))) do delete(workerActivity(ID,ACT)).
 		
 		forall bel(received(Sender, builder)) do insert(builder).
-	}	
+	}
 }
