@@ -9,7 +9,7 @@ main module{
 	}
 	
 	program{
-		%if bel(percept(unit("Terran Marine", A)),A>3, enemyBase(X,Y)) then move(X, Y).
+		if bel(percept(unit("Terran Marine", A)),A>30, enemyBase(X,Y)) then attack(X, Y).
 		
 		%if bel(percept(position(X,Y)), percept(enemyBase(X1, Y1)) ,distance(X, Y, X1, Y1, Res), Res < 5, 
 		%not(percept(enemy(_, _,_,_, _, _, _, _))), nearestBase(X2,Y2)) then move(X2, Y2).

@@ -35,7 +35,7 @@ public class AttackMove  extends StarcraftAction {
         LinkedList<Parameter> parameters = action.getParameters();
         int x = ((Numeral) parameters.get(0)).getValue().intValue();
         int y = ((Numeral) parameters.get(1)).getValue().intValue();
-        unit.attack(new Position(x, y), false);
+        unit.attack(new Position(x, y, Position.PosType.BUILD), false);
     }
 
     @Override

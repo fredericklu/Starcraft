@@ -19,6 +19,8 @@ public class IsMovingPerceiver extends UnitPerceiver {
       if(unit.isMoving())
         percepts.add(new MovingPercept());
       
+      if(unit.isFollowing())
+        percepts.add(new FollowingPercept());
       
       return percepts;
     }

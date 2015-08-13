@@ -50,6 +50,6 @@ public class Percepts {
 	public static final String Moving = "moving";
 	public static final String Upgrade = "upgrade";
 	public static final String Addon = "addon";
-	
+	public static final String Following = "following";
     
 }
