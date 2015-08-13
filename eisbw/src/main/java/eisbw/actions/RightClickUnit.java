@@ -7,9 +7,9 @@ import java.util.LinkedList;
 
 import jnibwapi.*;
 
-public class Load extends StarcraftAction {
+public class RightClickUnit extends StarcraftAction {
 
-    public Load(JNIBWAPI api) {
+    public RightClickUnit(JNIBWAPI api) {
         super(api);
     }
 
@@ -21,13 +21,13 @@ public class Load extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return unit.getType().getSpaceProvided() > 0;
+        return true;
     }
 
     @Override
     public void execute(Unit unit, Action action) throws ActException {
     	Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    	boolean res = unit.load(target, false);
+    	boolean res = unit.rightClick(target, false);
     	if(!res){
         	throw new ActException("Couldn't load "+unit.getType().getName());
         }

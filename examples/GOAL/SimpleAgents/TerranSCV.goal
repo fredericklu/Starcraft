@@ -52,7 +52,7 @@ init module {
 	}	
 }
 main module{
-	program[order = linearall] {	
+	program[order = linearall] {
 		if bel(builder, supply(C, Max), (Max - C) < 8, constructionSite(X,Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		

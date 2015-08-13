@@ -43,18 +43,6 @@ public class UnitTypesEx {
         }
     }
     
-    public static boolean isLoadable(UnitType unitType) {
-        switch (unitType.getName()) {
-            case "Terran Bunker":
-            case "Terran Dropship":
-            case "Protoss Shuttle":
-            case "Zerg Overlord":
-                return true;
-            default:
-                return false;
-        }
-    }
-    
     public static boolean isVespeneGeyser(UnitType unitType) {
         switch (unitType.getName()) {
             case "Resource Vespene Geyser":
