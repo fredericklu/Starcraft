@@ -36,12 +36,9 @@ public class ActionProvider {
         actions.put("siege/0", new Siege(api));
         actions.put("unsiege/0", new UnSiege(api));
         actions.put("buildAddon/1", new BuildAddon(api));
-<<<<<<< HEAD
         actions.put("follow/1", new Follow(api));
-=======
         actions.put("load/1", new Load(api));
         actions.put("rightClick/2", new Load(api));
         actions.put("rightClick/1", new Load(api));
->>>>>>> f8629f4665ee1bcb93bfff44025ab6389017a4fb
     }
 }
