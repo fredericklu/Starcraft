@@ -4,6 +4,8 @@ This project creates a bridge between [BWAPI](https://code.google.com/p/bwapi/ "
 
 The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EIS")) has been developed to facilitate connecting software agents to environments. 
 
+For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-techtree-pictures "TechTrees").
+
 ### Requirements
 * Java
 * StarCraft: Brood War
@@ -25,8 +27,7 @@ The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EI
 ### Current status
 
 - Most units can be controlled by the MAS.
-- Only a subset of the Terran units have had implemented special abilities:
-	- Marine (Stimpacks)
+- The MAS is not yet fully capable of using other races than Terran.
 
 ### Project overview
 The project contains the following folders:
