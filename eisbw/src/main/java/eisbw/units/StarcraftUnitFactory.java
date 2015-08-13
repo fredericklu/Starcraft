@@ -41,9 +41,9 @@ public class StarcraftUnitFactory {
             perceptGenerators.add(new ResearchPerceiver(this.api, unit));
             perceptGenerators.add(new UpgradePerceiver(this.api, unit));
             perceptGenerators.add(new RallyPerceiver(api, unit));
-            perceptGenerators.add(new AddonPerceiver(api, unit));
             if(unit.getType().getRaceID() == 1){
             	perceptGenerators.add(new LiftUnitPerceiver(api, unit));
+                perceptGenerators.add(new AddonPerceiver(api, unit));
             }
         }
         if (UnitTypesEx.isRefinery(unit.getType())) {

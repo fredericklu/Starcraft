@@ -159,6 +159,18 @@ These percepts are available to all the units and buildings.
             &   <Shields>: The amount of shield of the unit.\\
             &   <WX>,<WY>: The world coordinates of the unit.\\
             &   <BX>,<BY>: The build tile coordinates of the unit.
+\end{tabularx}\\
+\\
+\\
+\textbf{Loadable percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Percepts if a friendly unit is loadable. \\
+ Type & Send on change \\
+ Syntax & friendly(<Name>,<Type>,<ID>) \\
+ Parameters &   <Name>: The agent name of the unit.\\
+            &   <Type>: The type of the unit.\\
+            &   <ID>: The ID of the unit.
 \end{tabularx}
 
 \newpage
@@ -227,6 +239,16 @@ These percepts are available to buildings.
  Parameters &   <Name>: The name of the tech that is being researched.
 \end{tabularx}
 
+\subsection{Upgrade}
+\textbf{Upgrade percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The name of the upgrade that is being upgraded. \\
+ Type & Send on change \\
+ Syntax & updrade(<Name>) \\
+ Parameters &   <Name>: The name of the upgrade that is being upgraded.
+\end{tabularx}
+
 \subsection{Rally point}
 \textbf{Rally point percept}\\
 \\
@@ -238,6 +260,7 @@ These percepts are available to buildings.
 \end{tabularx}\\
 \\
 \newpage
+
 \textbf{Rally unit percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
@@ -255,8 +278,17 @@ These percepts are available to buildings.
  Type & Send on change \\
  Syntax & lifted \\
  Parameters &   This percept does not have any parameters.
+\end{tabularx}\\
+\\
+\\
+\textbf{Addon percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & This is percepted when a building has an addon. \\
+ Type & Send on change \\
+ Syntax & addon(<Name>) \\
+ Parameters &  <Name>: The name of the addon.
 \end{tabularx}
-
 
 \newpage
 \section{Refinery percepts}
@@ -286,6 +318,30 @@ These percepts are available to units that can attack.
  Syntax & attacking(<ID>,<TargetID>) \\
  Parameters &   <ID>: The ID of a friendly unit.\\
             &   <TargetID>: The ID of the enemy unit that the friendly unit is attacking.
+\end{tabularx}
+
+\newpage
+\section{Moving unit percepts}
+These percepts are available to units that can move when built, so not terran flying buildings for example.
+
+\subsection{Loaded units}
+\textbf{loaded percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates whether or not a unit is loaded in a loadable unit. \\
+ Type & Send on change \\
+ Syntax & loaded \\
+ Parameters &   This percept does not have any parameters.
+\end{tabularx}
+
+\subsection{Moving units}
+\textbf{move percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates that a unit is moving. \\
+ Type & Send on change \\
+ Syntax & moving \\
+ Parameters &   This percept does not have any parameters.
 \end{tabularx}
 
 \newpage
@@ -426,6 +482,29 @@ These percepts are available to command centers.
             &   <Activity>: The activity that the worker is currently doing, one of the following: gatheringGas, gatheringMinerals, constructing or idling.
 \end{tabularx}
 
+\newpage
+\section{Unit specific percepts}
+\subsection{Terran marine/firebat}
+\textbf{Stimmed percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Perceived if the marine or firebat is under the effect of a stim pack. \\
+ Type & Send on change \\
+ Syntax & stimmed \\
+ Parameters &   This percept has no parameters
+\end{tabularx}\\
+\\
+\\
+\subsection{Terran siege tank}
+\textbf{Siege percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Perceived if the siege tank is in siege mode. \\
+ Type & Send on change \\
+ Syntax & sieged \\
+ Parameters &   This percept has no parameters
+\end{tabularx}
+
 \chapter{Actions}
 This section will list all the actions that are usable in the Starcraft environment.
 
@@ -549,7 +628,7 @@ This section will list all the actions that are usable in the Starcraft environm
  Desription & Lift a building. \\
  Syntax & lift \\
  Effects &  The building starts flying.\\
- Note & Only for Terran buildings
+ Note & Only for Terran buildings.
 \end{tabularx}
 
 \section{Land action}
@@ -558,7 +637,31 @@ This section will list all the actions that are usable in the Starcraft environm
  Syntax & land(<X>, <Y>) \\
  Parameters & <X>,<Y>: The coordinates to land on.\\
  Effects &  If the unit is lifted, land the unit on the location.\\
- Note & The location has to be visible
+ Note & The location has to be visible.
+\end{tabularx}
+
+\section{Siege action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a tank to go in siege mode. \\
+ Syntax & siege \\
+ Effects &  The tank enters siege mode.\\
+ Note & Only for Terran Siege Tank.
+\end{tabularx}
+
+\section{Unsiege action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a tank to go out of siege mode. \\
+ Syntax & unsiege \\
+ Effects &  The tank exits siege mode.\\
+ Note & Only for Terran Siege Tank.
+\end{tabularx}
+
+\section{Build addon action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a building to build an addon. \\
+ Syntax & buildAddon(<Name>) \\
+ Effects &  The building builds an addon\\
+ Note & Only for Terran buildings.
 \end{tabularx}
 
 \chapter{TechTypes}
