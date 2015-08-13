@@ -36,5 +36,8 @@ public class ActionProvider {
         actions.put("siege/0", new Siege(api));
         actions.put("unsiege/0", new UnSiege(api));
         actions.put("buildAddon/1", new BuildAddon(api));
+        actions.put("load/1", new Load(api));
+        actions.put("rightClick/2", new Load(api));
+        actions.put("rightClick/1", new Load(api));
     }
 }

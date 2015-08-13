@@ -167,10 +167,11 @@ These percepts are available to all the units and buildings.
 \begin{tabularx}{\textwidth}{lX}
  Description & Percepts if a friendly unit is loadable. \\
  Type & Send on change \\
- Syntax & friendly(<Name>,<Type>,<ID>) \\
- Parameters &   <Name>: The agent name of the unit.\\
-            &   <Type>: The type of the unit.\\
-            &   <ID>: The ID of the unit.
+ Syntax & friendly(<Type>,<ID>,<Current>,<Max>) \\
+ Parameters &   <Type>: The type of the unit.\\
+            &   <ID>: The ID of the unit.\\
+            &   <Current>: The current load of the unit.\\
+            &   <Max>: The max load of the unit.
 \end{tabularx}
 
 \newpage
@@ -660,8 +661,26 @@ This section will list all the actions that are usable in the Starcraft environm
 \begin{tabularx}{\textwidth}{lX}
  Desription & Order a building to build an addon. \\
  Syntax & buildAddon(<Name>) \\
+ Parameters & <Name>: The name of the addon.\\
  Effects &  The building builds an addon\\
  Note & Only for Terran buildings.
+\end{tabularx}
+
+\section{Load action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a unit to load this unit. \\
+ Syntax & load(<ID>) \\
+ Parameters & <ID>: The ID of the unit to load in this unit.\\
+ Effects &  The unit loads another unit\\
+\end{tabularx}
+
+\section{RightClick action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a building to build an addon. \\
+ Syntax & rightClick(<ID>) or rightClick(<X>,<Y>) \\
+ Parameters & <ID>: The ID of a unit.\\
+            & <X>,<Y>: A position.\\
+ Effects &  The unit rightclicks
 \end{tabularx}
 
 \chapter{TechTypes}

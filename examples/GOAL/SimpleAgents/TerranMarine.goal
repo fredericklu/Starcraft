@@ -9,6 +9,7 @@ main module{
 	}
 	
 	program{
+		%if bel(not(percept(loaded)), percept(loadable(_,ID,_,_))) then rightClick(ID).
 		%if bel(percept(unit("Terran Marine", A)),A>3, enemyBase(X,Y)) then move(X, Y).
 		
 		%if bel(percept(position(X,Y)), percept(enemyBase(X1, Y1)) ,distance(X, Y, X1, Y1, Res), Res < 5, 
@@ -29,6 +30,10 @@ main module{
 		}
 		
 		attack(Id){
+			pre{true}
+			post{true}
+		}
+		rightClick(Id){
 			pre{true}
 			post{true}
 		}
