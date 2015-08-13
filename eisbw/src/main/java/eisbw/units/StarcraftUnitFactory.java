@@ -68,7 +68,7 @@ public class StarcraftUnitFactory {
 		}
 		
         String un = unit.getType().getName();
-        if (un.equals(UnitTypes.Terran_Command_Center.getName())) {
+        if (UnitTypesEx.isCommandCenter(unit.getType())) {
             perceptGenerators.add(new IdleWorkersPerceiver(api, util));
              //For some reason the refinerys can't be matched in GOAL right now. Just using command center for now
             perceptGenerators.add(new WorkerActivityPerceiver(api,util));

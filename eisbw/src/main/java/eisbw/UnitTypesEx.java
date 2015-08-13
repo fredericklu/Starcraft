@@ -21,6 +21,19 @@ public class UnitTypesEx {
 
     public static boolean isRefinery(UnitType unitType) {
         switch (unitType.getName()) {
+            case "Terran Command Center":
+            case "Protoss Nexus":
+            case "Zerg Hatchery":
+            case "Zerg Lair":
+            case "Zerg Hive":
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    public static boolean isCommandCenter(UnitType unitType) {
+        switch (unitType.getName()) {
             case "Terran Refinery":
             case "Protoss Assimilator":
             case "Zerg Extractor":
