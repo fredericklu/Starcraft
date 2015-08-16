@@ -7,6 +7,8 @@ init module {
 		cost('Terran Academy',150,0).
 		cost("Terran Engineering Bay", 125, 0).
 		cost("Terran Factory", 200, 100).
+		cost('Terran Starport',150,100).
+		cost("Terran Science Facility", 100, 150).
 		condition("Terran Academy")
 			:- friendly(_, "Terran Barracks", _, _, _).
 		condition("Terran Supply Depot") 
@@ -24,20 +26,31 @@ init module {
 				buildingLocation(TX, TY, X, Y),
 				position(MyX,MyY), distance(MyX,MyY,X,Y,D),
 				findall(_, (friendly(_, "Terran SCV", _, OtherX, OtherY),
-							distance(OtherX,OtherY,X,Y,OtherD), D < OtherD), []).	
+							distance(OtherX,OtherY,X,Y,OtherD), D < OtherD), []).
+								
 		buildingLocation(X,Y, RX,RY) 
 			:-	findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
-				sort(L, [[_,RX,RY]|_]). 				
+				sort(L, [[_,RX,RY]|_]). 		
+						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		
 		chokepointlocation(X,Y, RX,RY) 
 			:-	findall([D,BX,BY], (chokepoint(BX,BY), distance(X,Y,BX,BY,D)), L),
-				sort(L, [[_,RX,RY]|_]). 			
+				sort(L, [[_,RX,RY]|_]). 	
+				
+		nearestBase(X, Y, RX, RY) 
+				:-	findall([D,BX,BY], (percept(base(BX,BY, 'false', _)), distance(X,Y,BX,BY,D)), L),
+				sort(L, [[_,RX,RY]|_]). 	
 				
 		shouldMineVespene :- unit('Terran Refinery',RefCount),
 								NeededWorkers is RefCount * 3,
 								aggregate_all(count, workerActivity(_,gatheringGas), Count),
 								Count < NeededWorkers.
+								
+		buildLocation(X, Y) :- 
+				percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , TX, TY)),
+				buildingLocation(TX, TY, X, Y).
+		
 	}
 	
 	program {
@@ -52,35 +65,49 @@ init module {
 	}	
 }
 main module{
-	program[order = linearall] {
-		if bel(builder, supply(C, Max), (Max - C) < 8, constructionSite(X,Y)) 
+	program[order = linearall] {	
+		if bel(builder, supply(C, Max), (Max - C) < 10, buildLocation(X, Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		
-		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100) 
+		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100, 
+		friendly(_ ,"Terran Command Center",_ ,BX,BY) ,distance(BX, BY, X, Y, D), D < 10) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		if bel(not(builder), unit("Terran Barracks", _), not(unit("Terran Academy", _)), constructionSite(X,Y), not(busy), minerals(M), M > 150) 
-		then insert(constructing) + build("Terran Academy", X, Y).
+		%if bel(not(busy), percept(mineralField(_,Res,_,_,_)), Res < 500, nearestBase(BX, BY, X, Y), 
+		%friendly(_ ,"Terran Command Center",_ ,BX,BY)) then insert(constructing) + build("Terran Command Center", X, Y).
 		
-		if bel(not(builder), not(busy), constructionSite(X,Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
+		if bel(not(builder), not(busy), buildLocation(X, Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
 		then insert(constructing) + build("Terran Engineering Bay", X, Y).
 		
-		if bel(not(builder), ((unit("Terran Barracks",Num), Num < 3) ; not(unit("Terran Barracks",_))), constructionSite(X,Y), not(busy), minerals(M), M > 100) 
+		if bel(not(builder), ((unit("Terran Barracks",Num), Num < 3) ; not(unit("Terran Barracks",_))), buildLocation(X, Y), not(busy), minerals(M), M > 100) 
 		then insert(constructing) + build("Terran Barracks", X, Y).
 		
-		if bel(not(busy), constructionSite(X,Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, unit("Terran Barracks", _)) 
+		if bel(not(builder), unit("Terran Barracks", _), not(unit("Terran Academy", _)), buildLocation(X, Y), not(busy), minerals(M), M > 150) 
+		then insert(constructing) + build("Terran Academy", X, Y).
+		
+		if bel(not(busy), buildLocation(X, Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, unit("Terran Barracks", _)) 
 		then insert(constructing) + build("Terran Factory", X, Y).
+		
+		if bel(not(busy), buildLocation(X, Y), not(unit("Terran Starport", _)), minerals(M), M > 150, gas(G), G > 100, unit("Terran Factory", _))
+		then insert(constructing) + build("Terran Starport", X, Y).
+		
+		if bel(not(busy), buildLocation(X, Y), unit("Terran Starport", _), not(unit("Terran Science Facility", _)), minerals(M), M > 100, gas(G), G > 150)
+		then insert(constructing) + build("Terran Science Facility", X, Y).
 		
 		if bel(not(busy), percept(friendly(_,"Terran Refinery", Id, _, _, _ ,_ ,_, _)), shouldMineVespene) then gather(Id).
 		
-		if bel(canBuild("Terran Supply Depot", X, Y)) then insert(constructing) + build("Terran Supply Depot", X, Y).
-		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) then gather(Id).
+		%if bel(canBuild("Terran Supply Depot", X, Y)) then insert(constructing) + build("Terran Supply Depot", X, Y).
+		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10,
+		friendly(_ ,"Terran Command Center",_ ,BX,BY), distance(X, Y, BX, BY, Res), Res < 10) 
+		then gather(Id).
 	}	
 	actionspec {
+		
 		gather(Id) {
 			pre { not(gathering(Id)) }
 			post { true }
 		}
+		
 		build(Building, X, Y) {
 			pre { cost(Building, M, G), minerals(MQ), M =< MQ, gas(GQ), G =< GQ }
 			post { true }	
@@ -101,8 +128,8 @@ event module {
 				
 		forall bel(percept(mineralField(Id,_,_,X,Y)), not(mineralField(Id,X,Y))) do insert(mineralField(Id,X,Y)).
 		
-		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,Health,Shields,X,Y,BX,BY)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
-		forall bel(friendly(Name,Type,Id,X,Y), not(percept(percept(friendly(Name,Type,Id,_,_,X,Y,_,_))))) do delete(friendly(Name,Type,Id,X,Y)).
+		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,Health,Shields,WX,WY,X,Y)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
+		forall bel(friendly(Name,Type,Id,X,Y), not(percept(friendly(Name,Type,Id,_,_,_,_,X,Y)))) do delete(friendly(Name,Type,Id,X,Y)).
 		
 		if bel(percept(position(X1,Y1)), position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
 		
@@ -117,6 +144,9 @@ event module {
 		
 		forall bel(percept(workerActivity(ID,ACT)), not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
 		forall bel(workerActivity(ID,ACT), not(percept(workerActivity(ID,ACT)))) do delete(workerActivity(ID,ACT)).
+		
+		if bel(percept(isStuck), not(isStuck)) then insert(isStuck).
+		if bel(isStuck, not(percept(isStuck))) then delete(isStuck).
 		
 		forall bel(received(Sender, builder)) do insert(builder).
 	}

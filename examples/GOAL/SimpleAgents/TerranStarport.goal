@@ -21,16 +21,15 @@ init module{
 }
 
 main module{
-	beliefs{
-		
-	}
 	program{	
 		if bel(percept(rallyPoint(RX,RY)), RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
-		if bel(not(percept(addon("Terran Machine Shop"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
-			then buildAddon("Terran Machine Shop").
 		
-		if bel(buildLocation(X, Y), not(percept(addon("Terran Machine Shop")))) then lift + land(X,Y).
-		if bel(trainTank) then train("Terran Siege Tank Tank Mode") + delete(trainTank).
+		if bel(not(percept(addon("Terran Control Tower"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
+			then buildAddon("Terran Control Tower").
+			
+		if bel(buildLocation(X, Y), not(percept(addon("Terran Control Tower")))) then lift + land(X,Y).
+		
+		if bel(trainVessel) then train("Terran Science Vessel") + delete(trainVessel). 
 	}
 	actionspec {
 		lift{
@@ -42,13 +41,13 @@ main module{
 			pre{true}
 			post{true}	
 		}
-			
-		train(Id) {
+		
+		buildAddon(X) {
 			pre {true}
 			post {true}
 		}
-		
-		buildAddon(X) {
+			
+		train(Id) {
 			pre {true}
 			post {true}
 		}
@@ -62,9 +61,9 @@ main module{
 
 event module {
 	program {
-		
-		if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=150, percept(gas(G)), G>= 100 , (Z - Y) >= 4 ) then{
-			 if bel(percept(addon("Terran Machine Shop"))) then insert(trainTank).
+		if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=100, percept(gas(G)), G>= 225 , (Z - Y) >= 4 ) then{
+			 if bel(percept(addon("Terran Control Tower")), percept(friendly(_, "Terran Science Facility", _, _, _, _, _, _, _)), 
+			 percept(unit("Terran Science Vessel", Amount)), Amount < 3) then insert(trainVessel).
 		}
 	}	
 }

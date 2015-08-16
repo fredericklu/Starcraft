@@ -24,6 +24,11 @@ public class GenericUnitPerceiver extends UnitPerceiver {
             result.add(new IsBeingConstructedPercept());
         }
         result.add(new PositionPercept(unit.getPosition().getBX(), unit.getPosition().getBY()));
+        
+        if(unit.isStuck()){
+            result.add(new IsStuck());
+        }
+        
         result.add(new BuildTilePositionPercept(unit.getPosition().getBX(), unit.getPosition().getBY()));
         
         return result;

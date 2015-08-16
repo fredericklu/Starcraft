@@ -39,7 +39,9 @@ event module {
 	program {
 		if bel(percept(queueSize(N)), N < 2, percept(supply(Y,Z)), percept(minerals(X)), X>=50 , (Z - Y) >= 2 ) then{
 			 if bel(not(trainMarine)) then insert(trainMarine).
-			 if bel(not(trainMedic), percept(gas(G)), G >= 25) then insert(trainMedic).
+			 if bel(not(trainMedic), percept(gas(G)), G >= 25, 
+			 (percept(unit("Terran Marine", A)), percept(unit("Terran Medic", B)), A > B); not(percept(unit("Terran Medic", _)))) 
+			 then insert(trainMedic).
 		}
 	}	
 }

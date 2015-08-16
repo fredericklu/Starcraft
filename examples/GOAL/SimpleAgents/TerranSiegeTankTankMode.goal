@@ -4,17 +4,14 @@ main module{
 		percept(friendly(_, "Terran Command Center", _, _, _, _, _, X1, Y1)), distance(X, Y, X1, Y1, Res), Res > 10.
 		
 		distance(X1,Y1,X2,Y2,Res):- Res is sqrt((X2-X1)**2 + (Y2-Y1)**2).
-				
- 	  	%nearestBase(X, Y) :- percept(base(X, Y, _, _)), percept(position(X1,Y1)), distance(X, Y, X1, Y1, Res), Res <10.
 	}
 	
 	program{
 		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , enemyBase(X,Y)) then attack(X, Y).
 		
-		%if bel(percept(position(X,Y)), percept(enemyBase(X1, Y1)) ,distance(X, Y, X1, Y1, Res), Res < 5, 
-		%not(percept(enemy(_, _,_,_, _, _, _, _))), nearestBase(X2,Y2)) then move(X2, Y2).
+		if bel(percept(enemy(_, Id,_,_, _, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D < 5, not(percept(sieged))) then siege.
 		
-		%if bel(percept(base(X, Y, Start, _)), percept(friendly(_, "Terran Command Center", _, _, BX, BY)), BX =\= X, BY =\= Y) then attack(X, Y).
+		if bel(percept(enemy(_, Id,_,_, _, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D > 5, percept(sieged)) then unsiege.
 	}
 	
 	actionspec{
@@ -23,16 +20,17 @@ main module{
 			post{true}
 		}
 		
-		move(X,Y) {
-			pre{not(percept(moving))}
-			post{true}
-		}
-		
 		attack(Id){
 			pre{true}
 			post{true}
 		}
-		use(Id){
+		
+		siege{
+			pre{true}
+			post{true}
+		}
+		
+		unsiege{
 			pre{true}
 			post{true}
 		}

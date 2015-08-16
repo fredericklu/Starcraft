@@ -12,6 +12,9 @@ agentfiles {
 	"TerranEngineeringBay.goal" [name = terranEngineeringBay].
 	"TerranFactory.goal" [name = terranFactory].
 	"TerranMachineShop.goal" [name = terranMachineShop].
+	"TerranSiegeTankTankMode.goal" [name = terranSiegeTankTankMode].
+	"TerranStarPort.goal" [name = terranStarPort].
+	"TerranScienceVessel.goal" [name = terranScienceVessel].
 }
 
 launchpolicy{
@@ -24,4 +27,7 @@ launchpolicy{
 	when [type = terranEngineeringBay]@env do launch terranEngineeringBay:terranEngineeringBay.
 	when [type = terranFactory]@env do launch terranFactory:terranFactory.
 	when [type = terranMachineShop]@env do launch terranMachineShop:terranMachineShop.
+	when [type = terranSiegeTankTankMode]@env do launch terranSiegeTankTankMode:terranSiegeTankTankMode.
+	when [type = terranStarPort]@env do launch terranStarPort:terranStarPort.
+	when [type = terranScienceVessel]@env do launch terranScienceVessel:terranScienceVessel.
 }
