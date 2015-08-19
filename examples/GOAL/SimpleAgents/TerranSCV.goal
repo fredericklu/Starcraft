@@ -1,6 +1,7 @@
 init module {
 	knowledge {
 		busy :- constructing ; gathering(_).
+		cost("Terran Command Center",400,0).
 		cost("Terran Supply Depot", 100, 0).
 		cost("Terran Barracks", 150, 0).
 		cost("Terran Refinery", 100, 0).
@@ -30,7 +31,12 @@ init module {
 								
 		buildingLocation(X,Y, RX,RY) 
 			:-	findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
-				sort(L, [[_,RX,RY]|_]). 		
+				sort(L, [[_,RX,RY]|_]). 
+				
+		addonBuildingLocation(RX, RY)
+			:-	percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , X, Y)),
+				findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D), (constructionSite(HX, BY), HX is X + 1)), L),
+				sort(L, [[_,RX,RY]|_]).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		
@@ -43,7 +49,7 @@ init module {
 				sort(L, [[_,RX,RY]|_]). 	
 				
 		shouldMineVespene :- unit('Terran Refinery',RefCount),
-								NeededWorkers is RefCount * 3,
+								NeededWorkers is RefCount * 2,
 								aggregate_all(count, workerActivity(_,gatheringGas), Count),
 								Count < NeededWorkers.
 								
@@ -73,8 +79,9 @@ main module{
 		friendly(_ ,"Terran Command Center",_ ,BX,BY) ,distance(BX, BY, X, Y, D), D < 10) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		%if bel(not(busy), percept(mineralField(_,Res,_,_,_)), Res < 500, nearestBase(BX, BY, X, Y), 
-		%friendly(_ ,"Terran Command Center",_ ,BX,BY)) then insert(constructing) + build("Terran Command Center", X, Y).
+		%if bel(not(busy), percept(mineralField(_,Res,_,MX,MY)) ,nearestBase(X, Y, NX, NY) ,Res < 50,  
+		%friendly(_ ,"Terran Command Center",_ ,X,Y), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
+		%then insert(constructing) + build("Terran Command Center", NX, NY).
 		
 		if bel(not(builder), not(busy), buildLocation(X, Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
 		then insert(constructing) + build("Terran Engineering Bay", X, Y).
@@ -85,10 +92,11 @@ main module{
 		if bel(not(builder), unit("Terran Barracks", _), not(unit("Terran Academy", _)), buildLocation(X, Y), not(busy), minerals(M), M > 150) 
 		then insert(constructing) + build("Terran Academy", X, Y).
 		
-		if bel(not(busy), buildLocation(X, Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, unit("Terran Barracks", _)) 
+		if bel(not(busy), addonBuildingLocation(X, Y), not(unit("Terran Factory", _)), minerals(M), M > 200, gas(G), G > 100, 
+		unit("Terran Barracks", _)) 
 		then insert(constructing) + build("Terran Factory", X, Y).
 		
-		if bel(not(busy), buildLocation(X, Y), not(unit("Terran Starport", _)), minerals(M), M > 150, gas(G), G > 100, unit("Terran Factory", _))
+		if bel(not(busy), addonBuildingLocation(X, Y), not(unit("Terran Starport", _)), minerals(M), M > 150, gas(G), G > 100, unit("Terran Factory", _))
 		then insert(constructing) + build("Terran Starport", X, Y).
 		
 		if bel(not(busy), buildLocation(X, Y), unit("Terran Starport", _), not(unit("Terran Science Facility", _)), minerals(M), M > 100, gas(G), G > 150)
