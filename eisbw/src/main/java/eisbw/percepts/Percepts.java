@@ -54,5 +54,7 @@ public class Percepts {
 	public static final String IsStuck = "isStuck";
 	public static final String ZergConstructionSite = "zergConstructionSite";
 	public static final String IsMorphing = "isMorphing";
+	public static final String Energy = "energy";
+	public static final String IsCloaked = "isCloaked";
     
 }

@@ -15,6 +15,9 @@ agentfiles {
 	"TerranSiegeTankTankMode.goal" [name = terranSiegeTankTankMode].
 	"TerranStarport.goal" [name = terranStarport].
 	"TerranScienceVessel.goal" [name = terranScienceVessel].
+	"TerranScienceFacility.goal" [name = terranScienceFacility].
+	"TerranCovertOps.goal" [name = terranCovertOps].
+	"TerranGhost.goal" [name = terranGhost].
 }
 
 launchpolicy{
@@ -30,4 +33,7 @@ launchpolicy{
 	when [type = terranSiegeTankTankMode]@env do launch terranSiegeTankTankMode:terranSiegeTankTankMode.
 	when [type = terranStarport]@env do launch terranStarport:terranStarport.
 	when [type = terranScienceVessel]@env do launch terranScienceVessel:terranScienceVessel.
+	when [type = terranScienceFacility]@env do launch terranScienceFacility:terranScienceFacility.
+	when [type = terranCovertOps]@env do launch terranCovertOps:terranCovertOps.
+	when [type = terranGhost]@env do launch terranGhost:terranGhost.
 }

@@ -4,6 +4,7 @@ import eis.iilang.Percept;
 import eisbw.BWApiUtility;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.FriendlyPercept;
+import eisbw.percepts.IsCloakedPercept;
 import eisbw.percepts.IsMorphing;
 import eisbw.percepts.LoadablePercept;
 
@@ -28,6 +29,9 @@ public class PlayerUnitsPerceiver extends Perceiver {
             if(unit.getType().getSpaceProvided() > 0 && unit.isExists()){
             	percepts.add(new LoadablePercept(unit.getType().getName(), unit.getID(), unit.getLoadedUnits().size(), unit.getType().getSpaceProvided()));
             } 
+            if(unit.isCloaked()){
+              percepts.add(new IsCloakedPercept(unit.getType().getName(), unit.getID()));
+            }
             else if(unit.isMorphing())
               percepts.add(new IsMorphing(unit.getType().getName(), unit.getID()));
         }

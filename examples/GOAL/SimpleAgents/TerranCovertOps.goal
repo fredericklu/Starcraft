@@ -1,0 +1,20 @@
+main module{
+	
+	program{		
+		if bel(not(research('Personal Cloaking'))) then research('Personal Cloaking').
+	}
+	
+	actionspec {	
+		research(Name){
+			pre{not(researching)}
+			post{true}
+		}
+	}
+}
+
+event module {
+	program {
+		if bel(percept(research(X))) then insert(research(X)) + insert(researching).
+		if bel(researching, not(percept(research(_)))) then delete(researching).
+	}	
+}

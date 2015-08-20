@@ -28,7 +28,7 @@ public class StarcraftUnitFactory {
         perceptGenerators.add(new MapPerceiver(api));
         perceptGenerators.add(new EnemyPerceiver(api));
         perceptGenerators.add(new PlayerUnitsPerceiver(api, util));
-
+        
         if (unit.getType().isCanMove()) {
         	perceptGenerators.add(new IsLoadedUnitPerceiver(api,unit));
         	perceptGenerators.add(new IsMovingPerceiver(api, unit));

@@ -30,6 +30,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
         }
         
         result.add(new BuildTilePositionPercept(unit.getPosition().getBX(), unit.getPosition().getBY()));
+        result.add(new EnergyPercept(unit.getEnergy(), unit.getType().getMaxEnergy()));
         
         return result;
     }

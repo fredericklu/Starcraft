@@ -1,0 +1,14 @@
+main module{
+	
+	actionspec {
+		buildAddon(X) {
+			pre {true}
+			post {true}
+		}
+	}
+	
+	program{
+		if bel(not(percept(addon("Terran Covert Ops"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
+			then buildAddon("Terran Covert Ops").
+	}
+}
