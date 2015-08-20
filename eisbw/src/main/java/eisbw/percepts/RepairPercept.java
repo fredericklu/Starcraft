@@ -1,9 +1,9 @@
 package eisbw.percepts;
 
+import jnibwapi.Unit;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Percept;
-import jnibwapi.Unit;
 
 public class RepairPercept extends Percept {
 

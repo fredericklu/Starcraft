@@ -1,19 +1,17 @@
 package eisbw.percepts.perceivers;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+import jnibwapi.Unit;
+import jnibwapi.types.UnitType;
 import eis.iilang.Percept;
-import eisbw.BWApiUtility;
 import eisbw.UnitTypesEx;
-import eisbw.percepts.BasePercept;
-import eisbw.percepts.FriendlyPercept;
-import eisbw.percepts.MapPercept;
 import eisbw.percepts.ConstructionSitePercept;
 import eisbw.percepts.ZergConstructionSitePercept;
-
-import java.awt.Point;
-import java.util.*;
-
-import jnibwapi.*;
-import jnibwapi.types.UnitType;
 
 public class ConstructionSitePerceiver extends UnitPerceiver {
 

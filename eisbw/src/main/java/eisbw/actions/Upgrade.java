@@ -1,15 +1,17 @@
 package eisbw.actions;
 
-import eisbw.UnitTypesEx;
-
-import eis.exceptions.ActException;
-import eis.iilang.*;
-import eisbw.BWAPIBridge;
 import java.util.LinkedList;
 import java.util.logging.Logger;
-import jnibwapi.*;
-import jnibwapi.types.UnitType;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import jnibwapi.types.UpgradeType;
+import eis.exceptions.ActException;
+import eis.iilang.Action;
+import eis.iilang.Identifier;
+import eis.iilang.Parameter;
+import eisbw.BWAPIBridge;
+import eisbw.UnitTypesEx;
 
 public class Upgrade extends StarcraftAction {
 

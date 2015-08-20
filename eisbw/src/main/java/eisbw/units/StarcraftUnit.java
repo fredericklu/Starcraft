@@ -1,11 +1,12 @@
 package eisbw.units;
 
-import eis.iilang.Percept;
-import eisbw.percepts.perceivers.IPerceiver;
 import java.util.ArrayList;
 import java.util.List;
+
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
+import eis.iilang.Percept;
+import eisbw.percepts.perceivers.IPerceiver;
 
 public class StarcraftUnit {
 

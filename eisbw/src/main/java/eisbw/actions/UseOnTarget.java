@@ -1,11 +1,15 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
-import eis.iilang.*;
 import java.util.LinkedList;
+
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
+import eis.exceptions.ActException;
+import eis.iilang.Action;
+import eis.iilang.Identifier;
+import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 
 public class UseOnTarget extends StarcraftAction {
 

@@ -1,14 +1,16 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-import eisbw.percepts.CarryingPercept;
-import eisbw.BWApiUtility;
-import eisbw.percepts.GatheringPercept;
-import eisbw.percepts.MineralFieldPercept;
-import eisbw.percepts.VespeneGeyserPercept;
-import java.util.*;
-import jnibwapi.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
+import eis.iilang.Percept;
+import eisbw.BWApiUtility;
+import eisbw.percepts.CarryingPercept;
+import eisbw.percepts.GatheringPercept;
+import eisbw.percepts.VespeneGeyserPercept;
 
 public class GathererUnitPerceiver extends UnitPerceiver {
 

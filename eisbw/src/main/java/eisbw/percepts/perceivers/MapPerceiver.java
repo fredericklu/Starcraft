@@ -1,10 +1,15 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-import eisbw.percepts.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.BaseLocation;
+import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.*;
+import eis.iilang.Percept;
+import eisbw.percepts.BasePercept;
+import eisbw.percepts.ChokepointPercept;
+import eisbw.percepts.MapPercept;
 
 public class MapPerceiver extends Perceiver {
 

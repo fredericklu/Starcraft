@@ -1,9 +1,19 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.percepts.*;
-import java.util.*;
-import jnibwapi.*;
+import eisbw.percepts.BuildTilePositionPercept;
+import eisbw.percepts.EnergyPercept;
+import eisbw.percepts.IdPercept;
+import eisbw.percepts.IdlePercept;
+import eisbw.percepts.IsBeingConstructedPercept;
+import eisbw.percepts.IsStuck;
+import eisbw.percepts.PositionPercept;
+import eisbw.percepts.UnitTypePercept;
 
 public class GenericUnitPerceiver extends UnitPerceiver {
 

@@ -1,6 +1,6 @@
 package eisbw.percepts;
 
-import eis.iilang.*;
+import eis.iilang.Percept;
 
 public class FollowingPercept extends Percept {
     public FollowingPercept() {

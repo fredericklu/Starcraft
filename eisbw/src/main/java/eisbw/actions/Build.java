@@ -1,13 +1,17 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
-import eis.iilang.*;
-
 import java.util.LinkedList;
 
-import jnibwapi.*;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 import jnibwapi.Position.PosType;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
+import eis.exceptions.ActException;
+import eis.iilang.Action;
+import eis.iilang.Identifier;
+import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 
 public class Build extends StarcraftAction {
 

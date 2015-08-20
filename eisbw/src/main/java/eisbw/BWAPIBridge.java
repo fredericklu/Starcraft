@@ -1,21 +1,43 @@
 package eisbw;
 
-import eis.*;
-import eis.exceptions.*;
-import eis.iilang.*;
-import eisbw.actions.*;
-import eisbw.percepts.*;
-import eisbw.percepts.perceivers.*;
-import eisbw.units.*;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.logging.*;
-import jnibwapi.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import jnibwapi.BWAPIEventListener;
+import jnibwapi.BaseLocation;
+import jnibwapi.ChokePoint;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 import jnibwapi.util.BWColor;
+import eis.EIDefaultImpl;
+import eis.exceptions.ActException;
+import eis.exceptions.EntityException;
+import eis.exceptions.ManagementException;
+import eis.exceptions.NoEnvironmentException;
+import eis.exceptions.PerceiveException;
+import eis.exceptions.RelationException;
+import eis.iilang.Action;
+import eis.iilang.EnvironmentState;
+import eis.iilang.Parameter;
+import eis.iilang.Percept;
+import eisbw.actions.ActionProvider;
+import eisbw.actions.StarcraftAction;
+import eisbw.percepts.GameStartPercept;
+import eisbw.percepts.MineralFieldPercept;
+import eisbw.percepts.UnitPercept;
+import eisbw.percepts.VespeneGeyserPercept;
+import eisbw.percepts.perceivers.TotalResourcesPerceiver;
+import eisbw.units.StarcraftUnit;
+import eisbw.units.StarcraftUnitFactory;
 
 public class BWAPIBridge extends EIDefaultImpl {
 

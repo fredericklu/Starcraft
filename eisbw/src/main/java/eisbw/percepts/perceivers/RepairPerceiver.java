@@ -4,12 +4,13 @@
  */
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-import eisbw.percepts.RepairPercept;
 import java.util.ArrayList;
 import java.util.List;
+
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
+import eis.iilang.Percept;
+import eisbw.percepts.RepairPercept;
 
 /**
  *

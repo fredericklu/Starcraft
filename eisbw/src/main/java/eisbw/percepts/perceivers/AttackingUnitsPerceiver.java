@@ -1,10 +1,13 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-import eisbw.percepts.*;
-import java.util.*;
-import jnibwapi.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
+import eis.iilang.Percept;
+import eisbw.percepts.Attacking;
 
 public class AttackingUnitsPerceiver extends Perceiver {
     public AttackingUnitsPerceiver(JNIBWAPI api) {

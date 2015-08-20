@@ -1,16 +1,16 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
 import eisbw.BWApiUtility;
-import eisbw.UnitTypesEx;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.IsCloakedPercept;
 import eisbw.percepts.IsMorphing;
 import eisbw.percepts.LoadablePercept;
-
-import java.util.*;
-
-import jnibwapi.*;
 
 public class PlayerUnitsPerceiver extends Perceiver {
     private final BWApiUtility util;
@@ -25,14 +25,14 @@ public class PlayerUnitsPerceiver extends Perceiver {
         List<Percept> percepts = new ArrayList<>();
         
         for (Unit unit : this.api.getMyUnits()) {
-            percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
+              percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
             if(unit.getType().getSpaceProvided() > 0 && unit.isExists()){
             	percepts.add(new LoadablePercept(unit.getType().getName(), unit.getID(), unit.getLoadedUnits().size(), unit.getType().getSpaceProvided()));
             } 
             if(unit.isCloaked()){
               percepts.add(new IsCloakedPercept(unit.getType().getName(), unit.getID()));
             }
-            else if(unit.isMorphing())
+            if(unit.isMorphing())
               percepts.add(new IsMorphing(unit.getType().getName(), unit.getID()));
         }
         

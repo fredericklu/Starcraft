@@ -1,11 +1,13 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.percepts.*;
-
-import java.util.*;
-
-import jnibwapi.*;
+import eisbw.percepts.FollowingPercept;
+import eisbw.percepts.MovingPercept;
 
 public class IsMovingPerceiver extends UnitPerceiver {
     public IsMovingPerceiver(JNIBWAPI api, Unit unit) {

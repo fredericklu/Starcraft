@@ -1,8 +1,10 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
 import java.util.List;
-import jnibwapi.*;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
+import eis.iilang.Percept;
 
 public class ProducerUnitPerceiver extends UnitPerceiver {
 

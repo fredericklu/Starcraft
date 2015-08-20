@@ -1,11 +1,13 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
 import eisbw.BWApiUtility;
 import eisbw.percepts.WorkerActivityPercept;
-import jnibwapi.types.UnitType.UnitTypes;
-import java.util.*;
-import jnibwapi.*;
 
 public class WorkerActivityPerceiver extends Perceiver {
     private final BWApiUtility util;

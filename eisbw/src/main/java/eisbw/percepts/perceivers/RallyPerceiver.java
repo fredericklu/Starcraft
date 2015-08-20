@@ -1,12 +1,14 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-import eisbw.percepts.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
-
-import jnibwapi.*;
+import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
+import jnibwapi.Unit;
+import eis.iilang.Percept;
+import eisbw.percepts.RallyPointPercept;
+import eisbw.percepts.RallyUnitPercept;
 
 public class RallyPerceiver extends UnitPerceiver {
     public RallyPerceiver(JNIBWAPI api, Unit unit) {

@@ -1,16 +1,15 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
-import eis.iilang.Action;
-import eis.iilang.Numeral;
-import eis.iilang.Parameter;
-
 import java.util.LinkedList;
 
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
+import eis.exceptions.ActException;
+import eis.iilang.Action;
+import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 
 public class AttackMove  extends StarcraftAction {
 

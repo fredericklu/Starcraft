@@ -21,6 +21,7 @@ main module{
 		if bel(percept(rallyPoint(RX,RY)), RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
 		if bel(trainMarine) then train("Terran Marine") + delete(trainMarine).
 		if bel(trainMedic) then train("Terran Medic") + delete(trainMedic).	
+		if bel(trainGhost) then train("Terran Ghost") + delete(trainGhost).
 	}
 	actionspec {	
 		train(Id) {
@@ -42,6 +43,7 @@ event module {
 			 if bel(not(trainMedic), percept(gas(G)), G >= 25, 
 			 (percept(unit("Terran Marine", A)), percept(unit("Terran Medic", B)), A > (B * 2)); not(percept(unit("Terran Medic", _)))) 
 			 then insert(trainMedic).
+			 if bel(not(trainGhost), percept(gas(G)), G >= 75, percept(friendly(_, "Terran Covert Ops", _, _, _, _, _, _, _))) then insert(trainGhost).
 		}
 	}	
 }

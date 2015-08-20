@@ -1,9 +1,12 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.percepts.*;
-import java.util.*;
-import jnibwapi.*;
+import eisbw.percepts.BuildUnitPercept;
 
 public class BuildUnitPerceiver extends UnitPerceiver {
 

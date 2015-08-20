@@ -1,9 +1,10 @@
 package eisbw.actions;
 
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eisbw.BWApiUtility;
-import jnibwapi.*;
 
 public abstract class StarcraftAction {
 

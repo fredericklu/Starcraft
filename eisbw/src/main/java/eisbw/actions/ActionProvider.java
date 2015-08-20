@@ -2,6 +2,7 @@ package eisbw.actions;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import jnibwapi.JNIBWAPI;
 
 public class ActionProvider {

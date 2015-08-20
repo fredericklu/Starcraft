@@ -1,9 +1,14 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import eis.iilang.Percept;
-import eisbw.percepts.*;
-import java.util.*;
-import jnibwapi.*;
+import eisbw.percepts.GasPercept;
+import eisbw.percepts.MineralsPercept;
+import eisbw.percepts.SupplyPercept;
 
 public class AvailableResourcesPerceiver extends Perceiver {
     public AvailableResourcesPerceiver(JNIBWAPI api) {

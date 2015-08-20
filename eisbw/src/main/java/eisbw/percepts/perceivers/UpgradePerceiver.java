@@ -1,11 +1,12 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.percepts.*;
-
-import java.util.*;
-
-import jnibwapi.*;
+import eisbw.percepts.UpgradePercept;
 
 public class UpgradePerceiver extends UnitPerceiver {
     public UpgradePerceiver(JNIBWAPI api, Unit unit) {

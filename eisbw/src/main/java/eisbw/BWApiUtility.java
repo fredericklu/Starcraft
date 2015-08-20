@@ -1,13 +1,17 @@
 package eisbw;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.HashMap;
-import jnibwapi.*;
-import jnibwapi.types.*;
+
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
+import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
-import jnibwapi.types.UpgradeType.UpgradeTypes;
+import jnibwapi.types.UnitType;
 import jnibwapi.types.UnitType.UnitTypes;
+import jnibwapi.types.UpgradeType;
+import jnibwapi.types.UpgradeType.UpgradeTypes;
 
 public class BWApiUtility {
 

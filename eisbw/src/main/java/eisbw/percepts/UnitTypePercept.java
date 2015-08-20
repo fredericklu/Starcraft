@@ -1,7 +1,6 @@
 package eisbw.percepts;
 
 import eis.iilang.Identifier;
-import eis.iilang.Numeral;
 import eis.iilang.Percept;
 
 public class UnitTypePercept extends Percept {

@@ -56,5 +56,6 @@ public class Percepts {
 	public static final String IsMorphing = "isMorphing";
 	public static final String Energy = "energy";
 	public static final String IsCloaked = "isCloaked";
+	public static final String HasResearched = "hasResearched";
     
 }

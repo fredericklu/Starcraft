@@ -1,8 +1,8 @@
 package eisbw.percepts;
 
+import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Percept;
-import eis.iilang.Identifier;
 
 public class WorkerActivityPercept extends Percept {
 

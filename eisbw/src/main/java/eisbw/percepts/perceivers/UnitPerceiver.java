@@ -1,6 +1,7 @@
 package eisbw.percepts.perceivers;
 
-import jnibwapi.*;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 
 public abstract class UnitPerceiver extends Perceiver {
 

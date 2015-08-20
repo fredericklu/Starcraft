@@ -27,9 +27,9 @@ main module{
 		if bel(not(percept(addon("Terran Control Tower"))),percept(queueSize(N)), N = 0, 
 		percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) then buildAddon("Terran Control Tower").
 			
-		if bel(not(percept(addon("Terran Control Tower")))) then lift.
+		%if bel(not(percept(addon("Terran Control Tower")))) then lift.
 		
-		if bel(percept(lifted), buildLocation(X, Y)) then land(X, Y).
+		%if bel(percept(lifted), buildLocation(X, Y)) then land(X, Y).
 		
 		if bel(trainVessel) then train("Terran Science Vessel") + delete(trainVessel). 
 	}

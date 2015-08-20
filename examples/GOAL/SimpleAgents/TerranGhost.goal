@@ -36,6 +36,7 @@ main module{
 event module {
 	program {
 		if bel(percept(enemy(_, Id,_,_, _, _, _, _)), percept(position(MX,MY)), enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
-		%if bel()
+		if bel(percept(hasResearched('Personal Cloaking')), not(percept(isCloaked(_, Id))), percept(id(Id)),
+		percept(energy(E)), E >= 30) then use('Personal Cloaking').
 	}	
 }

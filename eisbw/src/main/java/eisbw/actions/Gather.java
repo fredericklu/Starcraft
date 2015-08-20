@@ -1,13 +1,14 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
-import eis.iilang.*;
-
 import java.util.LinkedList;
 
-import jnibwapi.*;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
-import jnibwapi.types.UpgradeType.UpgradeTypes;
+import eis.exceptions.ActException;
+import eis.iilang.Action;
+import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 
 public class Gather extends StarcraftAction {
 

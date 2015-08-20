@@ -1,13 +1,38 @@
 package eisbw.units;
 
-import eisbw.*;
-import eisbw.percepts.perceivers.*;
+import java.util.ArrayList;
 
-import java.util.*;
-
-import jnibwapi.*;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType.UnitTypes;
+import eisbw.BWApiUtility;
+import eisbw.UnitTypesEx;
+import eisbw.percepts.perceivers.AddonPerceiver;
+import eisbw.percepts.perceivers.AttackingUnitsPerceiver;
+import eisbw.percepts.perceivers.AvailableResourcesPerceiver;
+import eisbw.percepts.perceivers.BuildUnitPerceiver;
+import eisbw.percepts.perceivers.BuilderUnitPerceiver;
+import eisbw.percepts.perceivers.ConstructionSitePerceiver;
+import eisbw.percepts.perceivers.EnemyPerceiver;
+import eisbw.percepts.perceivers.GathererUnitPerceiver;
+import eisbw.percepts.perceivers.GenericUnitPerceiver;
+import eisbw.percepts.perceivers.IPerceiver;
+import eisbw.percepts.perceivers.IdleWorkersPerceiver;
+import eisbw.percepts.perceivers.IsLoadedUnitPerceiver;
+import eisbw.percepts.perceivers.IsMovingPerceiver;
+import eisbw.percepts.perceivers.LiftUnitPerceiver;
+import eisbw.percepts.perceivers.MapPerceiver;
+import eisbw.percepts.perceivers.PlayerUnitsPerceiver;
+import eisbw.percepts.perceivers.QueueSizePerceiver;
+import eisbw.percepts.perceivers.RallyPerceiver;
+import eisbw.percepts.perceivers.RepairPerceiver;
+import eisbw.percepts.perceivers.ResearchPerceiver;
+import eisbw.percepts.perceivers.SiegeUnitPerceiver;
+import eisbw.percepts.perceivers.StimUnitPerceiver;
+import eisbw.percepts.perceivers.TransporterPerceiver;
+import eisbw.percepts.perceivers.UpgradePerceiver;
+import eisbw.percepts.perceivers.WorkerActivityPerceiver;
 
 public class StarcraftUnitFactory {
 
@@ -28,6 +53,7 @@ public class StarcraftUnitFactory {
         perceptGenerators.add(new MapPerceiver(api));
         perceptGenerators.add(new EnemyPerceiver(api));
         perceptGenerators.add(new PlayerUnitsPerceiver(api, util));
+        perceptGenerators.add(new ResearchPerceiver(this.api, unit));
         
         if (unit.getType().isCanMove()) {
         	perceptGenerators.add(new IsLoadedUnitPerceiver(api,unit));
@@ -38,7 +64,6 @@ public class StarcraftUnitFactory {
             perceptGenerators.add(new AvailableResourcesPerceiver(api));
             perceptGenerators.add(new QueueSizePerceiver(this.api, unit));
             perceptGenerators.add(new BuildUnitPerceiver(this.api, unit));	
-            perceptGenerators.add(new ResearchPerceiver(this.api, unit));
             perceptGenerators.add(new UpgradePerceiver(this.api, unit));
             perceptGenerators.add(new RallyPerceiver(api, unit));
             if(unit.getType().getRaceID() == 1){

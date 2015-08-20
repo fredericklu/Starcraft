@@ -79,9 +79,9 @@ main module{
 		friendly(_ ,"Terran Command Center",_ ,BX,BY) ,distance(BX, BY, X, Y, D), D < 10) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		%if bel(not(busy), percept(mineralField(_,Res,_,MX,MY)) ,nearestBase(X, Y, NX, NY) ,Res < 50,  
-		%friendly(_ ,"Terran Command Center",_ ,X,Y), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
-		%then insert(constructing) + build("Terran Command Center", NX, NY).
+		if bel(not(busy), not(percept(mineralField(_,_,_,MX,MY))) ,nearestBase(X, Y, NX, NY),  
+		friendly(_ ,"Terran Command Center",_ ,X,Y), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
+		then insert(constructing) + build("Terran Command Center", NX, NY).
 		
 		if bel(not(builder), not(busy), buildLocation(X, Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
 		then insert(constructing) + build("Terran Engineering Bay", X, Y).
