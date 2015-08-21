@@ -28,7 +28,7 @@ main module{
 		if bel(zergConstructionSite(X,Y), minerals(M), M >= 200, builder, not(friendly(_, "Zerg Spawning Pool", _, _, _))) 
 		then insert(constructing) + build("Zerg Spawning Pool", X, Y).
 		
-		if bel(builder ,supply(C, Max), (Max - C) < 6, zergConstructionSite(X,Y), minerals(M), M >= 75, 
+		if bel(not(busy) ,supply(C, Max), (Max - C) < 6, zergConstructionSite(X,Y), minerals(M), M >= 75, 
 		not(friendly(_, "Zerg Evolution Chamber", _, _, _))) then insert(constructing) + build("Zerg Evolution Chamber", X, Y).
 		
 		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) then gather(Id).

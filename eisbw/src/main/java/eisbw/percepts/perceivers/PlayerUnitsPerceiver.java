@@ -33,7 +33,7 @@ public class PlayerUnitsPerceiver extends Perceiver {
               percepts.add(new IsCloakedPercept(unit.getType().getName(), unit.getID()));
             }
             if(unit.isMorphing())
-              percepts.add(new IsMorphing(unit.getType().getName(), unit.getID()));
+              percepts.add(new IsMorphing(unit.getBuildType().getName(), unit.getID()));
         }
         
         return percepts;

@@ -1,7 +1,7 @@
 main module{
 	
 	program{		
-		if bel(not(research('Personnal Cloaking')), percept(minerals(M)), M >= 100, percept(gas(G)), G >= 100) then research('Personal Cloaking').
+		if bel(not(research('Personnal Cloaking'))) then research('Personal Cloaking').
 	}
 	
 	actionspec {	
