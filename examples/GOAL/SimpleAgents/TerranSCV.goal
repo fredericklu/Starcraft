@@ -45,7 +45,7 @@ init module {
 				sort(L, [[_,RX,RY]|_]). 	
 				
 		nearestBase(X, Y, RX, RY) 
-				:-	findall([D,BX,BY], (percept(base(BX,BY, 'false', _)), distance(X,Y,BX,BY,D)), L),
+				:-	findall([D,BX,BY], (base(BX,BY, 'false', _), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]). 	
 				
 		shouldMineVespene :- unit('Terran Refinery',RefCount),
@@ -64,6 +64,7 @@ init module {
 		if bel(percept(supply(C,M))) then insert(supply(C,M)).
 		if bel(percept(minerals(M))) then insert(minerals(M)).
 		if bel(percept(gas(G))) then insert(gas(G)).
+		forall bel(percept(base(X, Y, Begin, RegionID))) do insert(base(X, Y, Begin, RegionID)).
 		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
 		if bel(percept(position(X,Y))) then insert(position(X,Y)).
 		forall bel(percept(chokepoint(X,Y))) do insert(chokepoint(X,Y)).
@@ -79,8 +80,8 @@ main module{
 		friendly(_ ,"Terran Command Center",_ ,BX,BY) ,distance(BX, BY, X, Y, D), D < 10) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		if bel(not(busy), not(percept(mineralField(_,_,_,MX,MY))) ,nearestBase(X, Y, NX, NY),  
-		friendly(_ ,"Terran Command Center",_ ,X,Y), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
+		if bel(builder, percept(mineralField(_,Amount,_,MX,MY)) ,Amount < 500 ,friendly(_ ,"Terran Command Center",_ ,X,Y)
+		,nearestBase(X, Y, NX, NY), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
 		then insert(constructing) + build("Terran Command Center", NX, NY).
 		
 		if bel(not(builder), not(busy), buildLocation(X, Y), not(unit("Terran Engineering Bay", _)), minerals(M), M > 125) 
@@ -110,6 +111,10 @@ main module{
 		then gather(Id).
 	}	
 	actionspec {
+		move(X, Y){
+			pre{true}
+			post{true}	
+		}
 		
 		gather(Id) {
 			pre { not(gathering(Id)) }
