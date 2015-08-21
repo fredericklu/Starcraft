@@ -3,12 +3,18 @@ init module {
 		busy :- constructing ; gathering(_).
 		cost("Zerg Spawning Pool", 200, 0).
 		cost("Zerg Evolution Chamber", 75, 0).
+		cost("Zerg Extractor", 75, 0).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		
 		chokepointlocation(X,Y, RX,RY) 
 			:-	findall([D,BX,BY], (chokepoint(BX,BY), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]).
+				
+		shouldMineVespene :- unit('Zerg Extractor',RefCount),
+								NeededWorkers is RefCount * 2,
+								aggregate_all(count, workerActivity(_,gatheringGas), Count),
+								Count < NeededWorkers.
 			
 	}
 	
@@ -26,10 +32,15 @@ init module {
 main module{
 	program[order = linearall] {
 		if bel(zergConstructionSite(X,Y), minerals(M), M >= 200, builder, not(friendly(_, "Zerg Spawning Pool", _, _, _))) 
-		then insert(constructing) + build("Zerg Spawning Pool", X, Y).
+		then build("Zerg Spawning Pool", X, Y).
 		
-		if bel(not(busy) ,supply(C, Max), (Max - C) < 6, zergConstructionSite(X,Y), minerals(M), M >= 75, 
-		not(friendly(_, "Zerg Evolution Chamber", _, _, _))) then insert(constructing) + build("Zerg Evolution Chamber", X, Y).
+		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 75, friendly(_ ,"Zerg Hatchery",_ ,BX,BY) 
+		,distance(BX, BY, X, Y, D), D < 10) then build("Zerg Extractor", X, Y).
+		
+		if bel(not(busy), zergConstructionSite(X,Y), minerals(M), M >= 75, not(friendly(_, "Zerg Evolution Chamber", _, _, _))) 
+		then build("Zerg Evolution Chamber", X, Y).
+		
+		if bel(not(busy), percept(friendly(_,"Zerg Extractor", Id, _, _, _ ,_ ,_, _)), shouldMineVespene) then gather(Id).
 		
 		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) then gather(Id).
 	}	

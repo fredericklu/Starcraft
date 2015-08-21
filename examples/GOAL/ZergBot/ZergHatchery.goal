@@ -6,6 +6,8 @@ main module{
 		if bel(percept(unit("Zerg Drone",X)),X<20, trainDrone) then train("Zerg Drone") + delete(trainDrone).
 		
 		if bel(trainOverlord, not(percept(isMorphing("Zerg Overlord", _)))) then train("Zerg Overlord").
+		
+		if bel(trainZergling) then train("Zerg Zergling").
 	}
 	actionspec {	
 		train(Id) {
@@ -23,6 +25,9 @@ event module {
 		
 		if bel(not(trainOverlord),percept(queueSize(N)), N < 2 ,percept(minerals(X)), X >= 100, percept(supply(Y, Z)), (Z - Y) < 4, 
 		not(percept(isMorphing("Zerg Overlord", _)))) then insert(trainOverlord).
+		
+		if bel(not(trainZergling), percept(minerals(X)), X >= 50, percept(supply(Y,Z)), Y<Z, 
+		percept(friendly(_, "Zerg Spawning Pool", _, _, _, _, _, _, _))) then insert(trainZergling).
 		
 		if bel(percept(supply(C,Max)), supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
