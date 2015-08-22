@@ -9,9 +9,9 @@ main module{
 	program{
 		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , enemyBase(X,Y)) then attack(X, Y).
 		
-		if bel(percept(enemy(_, Id,_,_, _, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D < 5, not(percept(sieged))) then siege.
+		if bel(percept(enemy(_, Id,_,_, 'false' ,_, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D < 8, not(percept(sieged))) then siege.
 		
-		if bel(percept(enemy(_, Id,_,_, _, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D > 5, percept(sieged)) then unsiege.
+		if bel(percept(enemy(_, Id,_,_, 'false' ,_, _, X, Y)), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D > 8, percept(sieged)) then unsiege.
 	}
 	
 	actionspec{
@@ -39,7 +39,6 @@ main module{
 
 event module {
 	program {
-		if bel(percept(enemy(_, Id,_,_, _, _, _, _)), percept(position(MX,MY)), enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
-		%if bel(not(percept(stimmed))) then use('Stim Packs').
+		if bel(percept(enemy(_, Id,_,_, 'false' ,_, _, _, _)), percept(position(MX,MY)), enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
 	}	
 }
