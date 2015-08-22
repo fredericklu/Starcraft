@@ -4,6 +4,8 @@ init module {
 		cost("Zerg Spawning Pool", 200, 0).
 		cost("Zerg Evolution Chamber", 75, 0).
 		cost("Zerg Extractor", 75, 0).
+		cost("Zerg Hatchery", 300, 0).
+		cost("Zerg Hydralisk Den", 100, 50).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		
@@ -39,6 +41,12 @@ main module{
 		
 		if bel(not(busy), zergConstructionSite(X,Y), minerals(M), M >= 75, not(friendly(_, "Zerg Evolution Chamber", _, _, _))) 
 		then build("Zerg Evolution Chamber", X, Y).
+		
+		if bel(not(busy), percept(constructionSite(X, Y)), minerals(M), M >= 300, unit("Zerg Hatchery", A), A =< 2)
+		then build("Zerg Hatchery", X, Y).
+		
+		if bel(not(busy), zergConstructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
+		not(friendly(_, "Zerg Hydralisk Den", _, _, _))) then build("Zerg Hydralisk Den", X, Y).
 		
 		if bel(not(busy), percept(friendly(_,"Zerg Extractor", Id, _, _, _ ,_ ,_, _)), shouldMineVespene) then gather(Id).
 		
