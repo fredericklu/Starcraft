@@ -5,9 +5,11 @@ environment {
 agentfiles{
 	"ProtossNexus.goal" [name = protossNexus].
 	"ProtossProbe.goal" [name = protossProbe].
+	"ProtossGateway.goal" [name = protossGateway].
 }
 
 launchpolicy{
 	when [type = protossNexus]@env do launch protossNexus:protossNexus.
 	when [type = protossProbe]@env do launch protossProbe:protossProbe.
+	when [type = protossGateway]@env do launch protossGateway:protossGateway.
 }
