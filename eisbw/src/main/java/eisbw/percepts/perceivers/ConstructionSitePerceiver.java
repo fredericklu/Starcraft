@@ -7,10 +7,14 @@ import java.util.List;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType;
 import jnibwapi.types.UnitType;
+import jnibwapi.types.RaceType.RaceTypes;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.ConstructionSitePercept;
+import eisbw.percepts.ProtossConstructionSitePercept;
+import eisbw.percepts.PylonConstructionSitePercept;
 import eisbw.percepts.ZergConstructionSitePercept;
 
 public class ConstructionSitePerceiver extends UnitPerceiver {
@@ -44,7 +48,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
         boolean zergBuildable = api.canBuildHere(unit, p, UnitType.UnitTypes.Zerg_Hatchery, true);
         boolean explored = api.isExplored(p);
         boolean hasCreep = api.hasCreep(p);
-        if (buildable && explored && !hasCreep) {
+        if (buildable && explored && api.getSelf().getRace().equals(RaceTypes.Terran)) {
           Point possible = new Point(x, y);
           boolean add = true;
           for (Point illegal : illegals) {
@@ -56,8 +60,8 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
 
           if (add)
             percepts.add(new ConstructionSitePercept(possible.x, possible.y));
-        } else {
-          if (zergBuildable && hasCreep) {
+        } else if (zergBuildable && hasCreep) {
+          
             Point possible = new Point(x, y);
             boolean add = true;
             for (Point illegal : illegals) {
@@ -69,7 +73,34 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
 
             if (add)
               percepts.add(new ZergConstructionSitePercept(possible.x, possible.y));
-          }
+        } else {
+        	if(api.canBuildHere(unit, p, UnitType.UnitTypes.Protoss_Stargate, true)) {
+        		Point possible = new Point(x, y);
+                boolean add = true;
+                for (Point illegal : illegals) {
+                  if (illegal.distance(possible) < 10) {
+                    add = false;
+                    break;
+                  }
+                }
+
+                if (add)
+                	percepts.add(new ProtossConstructionSitePercept(possible.x, possible.y));
+        	}
+        	
+        	if(api.canBuildHere(unit, p, UnitType.UnitTypes.Protoss_Pylon, true)) {
+        		Point possible = new Point(x, y);
+                boolean add = true;
+                for (Point illegal : illegals) {
+                  if (illegal.distance(possible) < 10) {
+                    add = false;
+                    break;
+                  }
+                }
+
+                if (add)
+                	percepts.add(new PylonConstructionSitePercept(possible.x, possible.y));
+        	}
         }
       }
     }

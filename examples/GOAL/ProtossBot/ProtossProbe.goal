@@ -5,7 +5,7 @@ init module {
 		condition("Protoss Pylon") 
 			:- supply(C, Max), Max - C < 1.
 		buildingLocation(X,Y, RX,RY) 
-			:-	findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
+			:-	findall([D,BX,BY], (pylonConstructionSite(BX,BY), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]). 				
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		
@@ -20,7 +20,7 @@ init module {
 		if bel(percept(supply(C,M))) then insert(supply(C,M)).
 		if bel(percept(minerals(M))) then insert(minerals(M)).
 		if bel(percept(gas(G))) then insert(gas(G)).
-		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
+		forall bel(percept(pylonConstructionSite(X,Y)), not(pylonConstructionSite(X,Y))) do insert(pylonConstructionSite(X,Y)).
 		if bel(percept(position(X,Y))) then insert(position(X,Y)).
 		forall bel(percept(chokepoint(X,Y))) do insert(chokepoint(X,Y)).
 		if bel(me(Name), percept(id(Id))) then ("protossNexus").sendonce(scv(Name, Id)).
@@ -28,13 +28,13 @@ init module {
 }
 main module{
 	program[order = linearall] {
-		if bel(constructionSite(X,Y), minerals(M), M > 100) then insert(constructing) + build("Protoss Gateway", X, Y).
+		%if bel(constructionSite(X,Y), minerals(M), M > 100) then insert(constructing) + build("Protoss Gateway", X, Y).
 		
 		
-		if bel(builder, ((unit("Protoss Gateway",Num), Num < 3) ; not(unit("Protoss Gateway",_))), constructionSite(X,Y), minerals(M), M > 100) 
-			then insert(constructing) + build("Protoss Gateway", X, Y).
+		%if bel(builder, ((unit("Protoss Gateway",Num), Num < 3) ; not(unit("Protoss Gateway",_))), constructionSite(X,Y), minerals(M), M > 100) 
+		%	then insert(constructing) + build("Protoss Gateway", X, Y).
 		
-		if bel(builder, supply(C, Max), (Max - C) < 6, constructionSite(X,Y), minerals(M), M > 100) 
+		if bel(builder, supply(C, Max), (Max - C) < 6, pylonConstructionSite(X,Y), minerals(M), M > 100) 
 			then insert(constructing) + build("Protoss Pylon", X, Y).
 		
 		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) then gather(Id).
@@ -68,8 +68,8 @@ event module {
 		
 		if bel(percept(position(X1,Y1)), position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
 		
-		forall bel(constructionSite(X,Y), not(percept(constructionSite(X,Y)))) do delete(constructionSite(X,Y)).
-		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
+		forall bel(pylonConstructionSite(X,Y), not(percept(pylonConstructionSite(X,Y)))) do delete(pylonConstructionSite(X,Y)).
+		forall bel(percept(pylonConstructionSite(X,Y)), not(pylonConstructionSite(X,Y))) do insert(pylonConstructionSite(X,Y)).
 		
 		if bel(percept(constructing), not(constructing)) then insert(constructing).
 		if bel(not(percept(constructing)), constructing) then delete(constructing).

@@ -57,5 +57,7 @@ public class Percepts {
 	public static final String Energy = "energy";
 	public static final String IsCloaked = "isCloaked";
 	public static final String HasResearched = "hasResearched";
+	public static final String ProtossConstructionSite = "protossConstructionSite";
+	public static final String PylonConstructionSite = "pylonConstructionSite";
     
 }
