@@ -34,7 +34,9 @@ public class Follow extends StarcraftAction {
       int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
       Unit target = api.getUnit(targetId);
       
-      unit.follow(target, false);
+      if(!unit.follow(target, false)) {
+    	  throw new ActException(unit.getID() +" couldn't follow: "+targetId);
+      }
     }
 
     @Override

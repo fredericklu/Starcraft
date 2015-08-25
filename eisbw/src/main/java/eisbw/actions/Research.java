@@ -39,7 +39,9 @@ public class Research extends StarcraftAction {
     public void execute(Unit unit, Action action) throws ActException {
         LinkedList<Parameter> parameters = action.getParameters();
         TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
-        unit.research(techType);
+        if(!unit.research(techType)) {
+        	throw new ActException("Couldn't research "+techType.getName());
+        }
     }
 
     @Override

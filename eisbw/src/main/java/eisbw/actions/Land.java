@@ -34,7 +34,9 @@ public class Land extends StarcraftAction {
     	LinkedList<Parameter> parameters = action.getParameters();
     	int x = ((Numeral) parameters.get(0)).getValue().intValue();
         int y = ((Numeral) parameters.get(1)).getValue().intValue();
-        unit.land(new Position(x, y, PosType.BUILD));
+        if(!unit.land(new Position(x, y, PosType.BUILD))) {
+        	throw new ActException("Couldn't land "+unit.getType().getName()+". On position: ("+x+","+y+")");
+        }
     }
 
     @Override
