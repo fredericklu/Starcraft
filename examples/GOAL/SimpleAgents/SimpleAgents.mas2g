@@ -18,6 +18,7 @@ agentfiles {
 	"TerranScienceFacility.goal" [name = terranScienceFacility].
 	"TerranCovertOps.goal" [name = terranCovertOps].
 	"TerranGhost.goal" [name = terranGhost].
+	"TerranBunker.goal" [name = terranBunker].
 }
 
 launchpolicy{
@@ -36,4 +37,5 @@ launchpolicy{
 	when [type = terranScienceFacility]@env do launch terranScienceFacility:terranScienceFacility.
 	when [type = terranCovertOps]@env do launch terranCovertOps:terranCovertOps.
 	when [type = terranGhost]@env do launch terranGhost:terranGhost.
+	when [type = terranBunker]@env do launch terranBunker:terranBunker.
 }

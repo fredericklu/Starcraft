@@ -4,6 +4,7 @@ init module {
 		cost("Terran Command Center",400,0).
 		cost("Terran Supply Depot", 100, 0).
 		cost("Terran Barracks", 150, 0).
+		cost("Terran Bunker", 100, 0).
 		cost("Terran Refinery", 100, 0).
 		cost('Terran Academy',150,0).
 		cost("Terran Engineering Bay", 125, 0).
@@ -57,6 +58,8 @@ init module {
 				percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , TX, TY)),
 				buildingLocation(TX, TY, X, Y).
 		
+		commandCenter(X,Y)
+			:- percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , X, Y)).
 	}
 	
 	program {
@@ -73,6 +76,11 @@ init module {
 }
 main module{
 	program[order = linearall] {	
+		if bel(builder, commandCenter(X,Y), chokepointlocation(X, Y, TX, TY), 
+			friendly(_ ,"Terran Barracks",_ ,_,_),
+			not(friendly(_ ,"Terran Bunker",_ ,_,_)), buildingLocation(TX, TY, RX, RY)) then
+			build("Terran Bunker", RX, RY).
+		
 		if bel(builder, supply(C, Max), (Max - C) < 10, buildLocation(X, Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		
