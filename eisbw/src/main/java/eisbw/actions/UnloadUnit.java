@@ -9,9 +9,9 @@ import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 
-public class RightClickUnit extends StarcraftAction {
+public class UnloadUnit extends StarcraftAction {
 
-    public RightClickUnit(JNIBWAPI api) {
+    public UnloadUnit(JNIBWAPI api) {
         super(api);
     }
 
@@ -23,20 +23,20 @@ public class RightClickUnit extends StarcraftAction {
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return true;
+        return unit.getType().getSpaceProvided() > 0;
     }
 
     @Override
     public void execute(Unit unit, Action action) throws ActException {
     	Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    	boolean res = unit.rightClick(target, false);
+    	boolean res = unit.unload(target);
     	if(!res){
-        	throw new ActException("Couldn't rightClick "+unit.getType().getName());
+        	throw new ActException("Couldn't unload "+unit.getID());
         }
     }
 
     @Override
     public String toString() {
-        return "rightClick(Target)";
+        return "unload(Target)";
     }
 }

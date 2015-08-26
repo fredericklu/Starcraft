@@ -50,6 +50,7 @@ public class Percepts {
 	public static final String Moving = "moving";
 	public static final String Upgrade = "upgrade";
 	public static final String Addon = "addon";
+	//Documentation goes to this point
 	public static final String Following = "following";
 	public static final String IsStuck = "isStuck";
 	public static final String ZergConstructionSite = "zergConstructionSite";

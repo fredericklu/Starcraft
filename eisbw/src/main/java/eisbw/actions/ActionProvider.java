@@ -39,7 +39,10 @@ public class ActionProvider {
         actions.put("buildAddon/1", new BuildAddon(api));
         actions.put("follow/1", new Follow(api));
         actions.put("load/1", new Load(api));
-        actions.put("rightClick/2", new Load(api));
-        actions.put("rightClick/1", new Load(api));
+        actions.put("rightClick/2", new RightClickPosition(api));
+        actions.put("rightClick/1", new RightClickUnit(api));
+        //Documentation goes untill this point
+        actions.put("unload/1", new UnloadUnit(api));
+        actions.put("unloadAll/0", new UnloadAll(api));
     }
 }

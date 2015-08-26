@@ -39,6 +39,6 @@ public class RightClickPosition extends StarcraftAction {
 
     @Override
     public String toString() {
-        return "move(unitId, x, y)"; //To change body of generated methods, choose Tools | Templates.
+        return "rightClick(x,y)";
     }
 }

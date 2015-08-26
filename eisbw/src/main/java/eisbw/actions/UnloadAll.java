@@ -6,37 +6,35 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import eis.exceptions.ActException;
 import eis.iilang.Action;
-import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 
-public class RightClickUnit extends StarcraftAction {
+public class UnloadAll extends StarcraftAction {
 
-    public RightClickUnit(JNIBWAPI api) {
+    public UnloadAll(JNIBWAPI api) {
         super(api);
     }
 
     @Override
     public boolean isValid(Action action) {
         LinkedList<Parameter> parameters = action.getParameters();
-        return (parameters.size() == 1) && parameters.get(0) instanceof Numeral;
+        return (parameters.size() == 0);
     }
 
     @Override
     public boolean canExecute(Unit unit, Action action) {
-        return true;
+        return unit.getType().getSpaceProvided() > 0;
     }
 
     @Override
     public void execute(Unit unit, Action action) throws ActException {
-    	Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    	boolean res = unit.rightClick(target, false);
+    	boolean res = unit.unloadAll(false);
     	if(!res){
-        	throw new ActException("Couldn't rightClick "+unit.getType().getName());
+        	throw new ActException("Couldn't unload all units");
         }
     }
 
     @Override
     public String toString() {
-        return "rightClick(Target)";
+        return "unloadAll";
     }
 }
