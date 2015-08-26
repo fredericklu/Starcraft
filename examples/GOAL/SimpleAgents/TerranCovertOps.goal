@@ -1,6 +1,7 @@
 main module{
 	
 	program{		
+		if bel(percept(isBeingConstructed)) then skip.
 		if bel(not(research('Personnal Cloaking'))) then research('Personal Cloaking').
 	}
 	
@@ -8,6 +9,11 @@ main module{
 		research(Name){
 			pre{not(researching)}
 			post{true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }

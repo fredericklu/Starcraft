@@ -1,6 +1,7 @@
 main module{
 	
 	program{
+		if bel(percept(isBeingConstructed)) then skip.
 		if bel(not(upgrade('Terran Infantry Weapons'))) then upgrade('Terran Infantry Weapons').
 		if bel(not(upgrade('Terran Infantry Armor'))) then upgrade('Terran Infantry Armor').
 	}
@@ -9,6 +10,11 @@ main module{
 		upgrade(Type) {
 			pre {not(upgrading)}
 			post {true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}	
 }

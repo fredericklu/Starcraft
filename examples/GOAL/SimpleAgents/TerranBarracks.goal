@@ -18,6 +18,7 @@ main module{
 		trainMedic.
 	}
 	program{
+		if bel(percept(isBeingConstructed)) then skip.
 		if bel(percept(rallyPoint(RX,RY)), RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
 		if bel(trainMarine) then train("Terran Marine") + delete(trainMarine).
 		if bel(trainMedic) then train("Terran Medic") + delete(trainMedic).	
@@ -32,6 +33,11 @@ main module{
 		setRallyPoint(X,Y){
 			pre {true}
 			post {true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }

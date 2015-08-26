@@ -22,6 +22,7 @@ init module{
 
 main module{
 	program{	
+		if bel(percept(isBeingConstructed)) then skip.
 		if bel(percept(rallyPoint(RX,RY)), RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
 		
 		if bel(not(percept(addon("Terran Control Tower"))),percept(queueSize(N)), N = 0, 
@@ -57,6 +58,11 @@ main module{
 		setRallyPoint(X,Y){
 			pre {true}
 			post {true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }

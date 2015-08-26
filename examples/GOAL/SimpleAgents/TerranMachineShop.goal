@@ -1,6 +1,7 @@
 main module{
 	
-	program{		
+	program{	
+		if bel(percept(isBeingConstructed)) then skip.	
 		if bel(not(research('Tank Siege Mode'))) then research('Tank Siege Mode').
 	}
 	
@@ -13,6 +14,11 @@ main module{
 		research(Name){
 			pre{not(researching)}
 			post{true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }

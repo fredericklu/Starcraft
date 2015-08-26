@@ -1,6 +1,7 @@
 main module{
 	
 	program{
+		if bel(percept(isBeingConstructed)) then skip.
 		%if bel(not(research('Restoration'))) then research('Restoration').
 		%if bel(not(research('Stim Packs'))) then research('Stim Packs').
 		
@@ -16,6 +17,11 @@ main module{
 		research(Name){
 			pre{not(researching)}
 			post{true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }

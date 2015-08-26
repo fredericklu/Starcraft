@@ -7,6 +7,7 @@ main module{
 	}
 	
 	program{
+		if bel(percept(isBeingConstructed)) then skip.
 		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , 
 		enemyBase(X,Y)) then attack(X, Y).
 	}
@@ -29,6 +30,11 @@ main module{
 		use(Id){
 			pre{true}
 			post{true}
+		}
+		
+		skip {
+			pre {true}
+			post {true}	
 		}
 	}
 }
