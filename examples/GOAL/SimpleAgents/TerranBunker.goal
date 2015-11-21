@@ -9,7 +9,7 @@ main module{
 
 	actionspec {
 		load(Id){
-			pre{true)}
+			pre{true}
 			post{true}
 		}
 		
