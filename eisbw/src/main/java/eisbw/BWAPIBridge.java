@@ -39,9 +39,10 @@ import eisbw.percepts.perceivers.TotalResourcesPerceiver;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.StarcraftUnitFactory;
 
+
 public class BWAPIBridge extends EIDefaultImpl {
 
-  // TODO: Check 64bit version of client bridge
+  private static final long serialVersionUID = 1L;
   private static final Logger logger = Logger.getLogger(BWAPIBridge.class
       .getName());
   public static final int TRAINING_QUEUE_MAX = 5;
@@ -258,7 +259,6 @@ public class BWAPIBridge extends EIDefaultImpl {
             logger
                 .log(Level.WARNING, "Could not execute " + act.toProlog(), ex);
           }
-
           it.remove();
         }
       }

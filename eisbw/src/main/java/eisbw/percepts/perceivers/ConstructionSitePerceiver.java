@@ -1,13 +1,13 @@
 package eisbw.percepts.perceivers;
 
 import java.awt.Point;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType;
 import jnibwapi.types.UnitType;
 import jnibwapi.types.RaceType.RaceTypes;
 import eis.iilang.Percept;
@@ -38,16 +38,15 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
             .getBY()));
       }
     }
-
     for (int x = 0; x < mapWidth; x++) {
       for (int y = 0; y < mapHeight; y++) {
         Position p = new Position(x, y, Position.PosType.BUILD);
-
         boolean buildable = api.canBuildHere(unit, p,
             UnitType.UnitTypes.Terran_Command_Center, true);
-        boolean zergBuildable = api.canBuildHere(unit, p, UnitType.UnitTypes.Zerg_Hatchery, true);
+
+        //boolean zergBuildable = api.canBuildHere(unit, p, UnitType.UnitTypes.Zerg_Hatchery, true);
         boolean explored = api.isExplored(p);
-        boolean hasCreep = api.hasCreep(p);
+        //boolean hasCreep = api.hasCreep(p);
         if (buildable && explored && api.getSelf().getRace().equals(RaceTypes.Terran)) {
           Point possible = new Point(x, y);
           boolean add = true;
@@ -60,7 +59,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
 
           if (add)
             percepts.add(new ConstructionSitePercept(possible.x, possible.y));
-        } else if (zergBuildable && hasCreep) {
+        } /*else if (zergBuildable && hasCreep) {
           
             Point possible = new Point(x, y);
             boolean add = true;
@@ -101,7 +100,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
                 if (add)
                 	percepts.add(new PylonConstructionSitePercept(possible.x, possible.y));
         	}
-        }
+        }*/
       }
     }
 

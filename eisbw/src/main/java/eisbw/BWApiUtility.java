@@ -27,8 +27,8 @@ public class BWApiUtility {
     public double distanceSq(int unitId, int otherUnitId) {
         Unit unit = this.bwapi.getUnit(unitId);
         Unit otherUnit = this.bwapi.getUnit(otherUnitId);
-        Point2D p1 = new Point(unit.getX(), unit.getY());
-        Point2D p2 = new Point(otherUnit.getX(), otherUnit.getY());
+        Point2D p1 = new Point(unit.getPosition().getBX(), unit.getPosition().getBY());
+        Point2D p2 = new Point(otherUnit.getPosition().getBX(), otherUnit.getPosition().getBY());
 
         return p1.distanceSq(p2);
     }
