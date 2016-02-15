@@ -23,6 +23,7 @@ public class TransporterPerceiver extends UnitPerceiver {
     public List<Percept> perceive() {
         ArrayList<Percept> percepts = new ArrayList<>();
 		
+        /*BREAKS HERE SOMETIMES*/
 		List<Unit> loadedUnits = unit.getLoadedUnits();
 		
 		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
