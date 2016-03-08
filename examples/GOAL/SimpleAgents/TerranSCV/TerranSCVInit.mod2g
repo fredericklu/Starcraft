@@ -1,0 +1,14 @@
+use TerranSCV as actionspec.
+use TerranSCV as knowledge.
+
+module TerranSCVInit {
+	if bel(percept(id(Id))) then insert(id(Id)).
+		if bel(percept(supply(C,M))) then insert(supply(C,M)).
+		if bel(percept(minerals(M))) then insert(minerals(M)).
+		if bel(percept(gas(G))) then insert(gas(G)).
+		forall bel(percept(base(X, Y, Begin, RegionID))) do insert(base(X, Y, Begin, RegionID)).
+		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
+		if bel(percept(position(X,Y))) then insert(position(X,Y)).
+		forall bel(percept(chokepoint(X,Y))) do insert(chokepoint(X,Y)).
+		if bel(me(Name), percept(id(Id))) then ("terranCommandCenter").sendonce(scv(Name, Id)).
+}

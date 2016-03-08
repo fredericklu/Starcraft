@@ -1,0 +1,6 @@
+use TerranSiegeTankTankMode as actionspec.
+use TerranSiegeTankTankMode as knowledge.
+
+module TerranSiegeTankTankModeEvent {
+	if bel(percept(enemy(_, Id,_,_, 'false' ,_, _, _, _)), percept(position(MX,MY)), enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
+}

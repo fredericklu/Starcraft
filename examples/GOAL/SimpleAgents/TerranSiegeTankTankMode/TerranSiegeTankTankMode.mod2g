@@ -1,0 +1,11 @@
+use TerranSiegeTankTankMode as actionspec.
+use TerranSiegeTankTankMode as knowledge.
+
+module main{
+		if bel(percept(isBeingConstructed)) then skip.
+		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , enemyBase(X,Y)) then attack(X, Y).
+		
+		if bel(closestEnemy(X, Y), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D < 20, not(percept(sieged))) then siege.
+		
+		if bel(closestEnemy(X, Y), percept(position(MX, MY)) ,distance(MX, MY, X, Y, D), D > 20, percept(sieged)) then unsiege.
+}

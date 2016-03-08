@@ -1,0 +1,9 @@
+define buildAddon(X) with
+	pre {true}
+	post {true}
+		
+		
+define skip with
+	pre {true}
+	post {true}	
+		

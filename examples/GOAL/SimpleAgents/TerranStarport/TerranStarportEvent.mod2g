@@ -1,0 +1,8 @@
+use TerranStarPort as actionspec.
+use TerranStarport as knowledge.
+
+module TerranStarportEvent {
+	if bel(percept(queueSize(N)), N < 1, percept(supply(Y,Z)), percept(minerals(X)), X>=100, percept(gas(G)), G>= 225 , (Z - Y) >= 4 ) then{
+	if bel(percept(addon("Terran Control Tower")), percept(friendly(_, "Terran Science Facility", _, _, _, _, _, _, _)), 
+	 	  (percept(unit("Terran Science Vessel", Amount)), Amount < 3 ; not(percept(unit("Terran Science Vessel", _))))) then insert(trainVessel).
+}

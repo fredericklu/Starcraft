@@ -1,0 +1,9 @@
+define follow(Id) with
+	pre{not(percept(following))}
+	post{true}
+		
+		
+define skip with
+	pre {true}
+	post {true}	
+		

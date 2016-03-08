@@ -1,0 +1,38 @@
+use TerranSCV as actionspec.
+use TerranSCV as knowledge.
+
+module TerranSCVEvent {
+	if bel(percept(supply(C,Max)), supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
+		if bel(percept(minerals(M)), minerals(OM), not(M = OM)) then insert(minerals(M)) + delete(minerals(OM)).
+		if bel(percept(gas(M)), gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
+		
+		forall bel(percept(unit(Unit,Number)), not(unit(Unit,Number))) do insert(unit(Unit,Number)).
+		forall bel(unit(Unit,Number), not(percept(unit(Unit,Number)))) do delete(unit(Unit,Number)).
+		
+		if bel(percept(gathering(X)), not(gathering(X))) then insert(gathering(X)).
+		if bel(gathering(X), not(percept(gathering(X)))) then delete(gathering(X)).
+				
+		forall bel(percept(mineralField(Id,_,_,X,Y)), not(mineralField(Id,X,Y))) do insert(mineralField(Id,X,Y)).
+		
+		forall bel(percept(id(MyId)), percept(friendly(Name,Type,Id,Health,Shields,WX,WY,X,Y)), MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
+		forall bel(friendly(Name,Type,Id,X,Y), not(percept(friendly(Name,Type,Id,_,_,_,_,X,Y)))) do delete(friendly(Name,Type,Id,X,Y)).
+		
+		if bel(percept(position(X1,Y1)), position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
+		
+		forall bel(constructionSite(X,Y), not(percept(constructionSite(X,Y)))) do delete(constructionSite(X,Y)).
+		forall bel(percept(constructionSite(X,Y)), not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
+		
+		if bel(percept(constructing), not(constructing)) then insert(constructing).
+		if bel(not(percept(constructing)), constructing) then delete(constructing).
+		
+		if bel(percept(refinery(Id, Resources, Group)), not(refinery(Id, Resources, Group))) then insert(refinery(Id, Resources, Group)).
+		if bel(not(percept(refinery(Id, Resources, Group))), refinery(Id, Resources, Group)) then delete(refinery(Id, Resources, Group)).
+		
+		forall bel(percept(workerActivity(ID,ACT)), not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
+		forall bel(workerActivity(ID,ACT), not(percept(workerActivity(ID,ACT)))) do delete(workerActivity(ID,ACT)).
+		
+		if bel(percept(isStuck), not(isStuck)) then insert(isStuck).
+		if bel(isStuck, not(percept(isStuck))) then delete(isStuck).
+		
+		forall bel(received(Sender, builder)) do insert(builder).
+}

@@ -1,0 +1,6 @@
+use TerranScienceVessel as actionspec.
+
+module main{
+		if bel(percept(isBeingConstructed)) then skip.
+		if bel(percept(friendly(_,'Terran Marine', Id,_, _, _, _, _, _))) then follow(Id).
+}

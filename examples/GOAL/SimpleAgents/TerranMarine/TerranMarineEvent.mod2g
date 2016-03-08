@@ -1,0 +1,11 @@
+use TerranMarine as actionspec.
+use TerranMarine as knowledge.
+
+module TerranMarineEvent {
+	if bel(percept(enemy(_, Id,_,_, _, _, _, _, _)), percept(position(MX,MY))) then {
+			if bel(enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).	
+			if bel(percept(friendly(_,"Terran Command Center", _, _, _, _, _, X, Y)), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
+		} 
+
+		%if bel(not(percept(stimmed))) then use('Stim Packs').
+}

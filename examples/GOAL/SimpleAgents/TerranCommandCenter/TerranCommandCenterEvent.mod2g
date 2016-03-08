@@ -1,0 +1,11 @@
+module TerranCommandCenterEvent {
+	forall bel(received(Sender, scv(Name, Id))) do insert(scv(Name, Id)).
+		
+		if bel(not(trainSCV), percept(queueSize(N)), N < 2, percept(minerals(X)),X>=50,percept(supply(Y,Z)),Y<Z) then insert(trainSCV).
+		
+		if bel(percept(supply(C,Max)), supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
+		
+		if bel(not(done), scv(Name, Id), percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ ))) then (Name).sendonce(builder) + insert(done).
+		
+		if bel(done, scv(Name, Id), not(percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ )))) then delete(done).
+}

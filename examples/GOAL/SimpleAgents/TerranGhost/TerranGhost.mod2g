@@ -1,0 +1,10 @@
+use TerranGhost as actionspec.
+use TerranGhost as knowledge.
+
+module main{
+
+		if bel(percept(isBeingConstructed)) then skip.
+		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , 
+		enemyBase(X,Y)) then attack(X, Y).
+}
+
