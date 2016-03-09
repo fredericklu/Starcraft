@@ -6,8 +6,8 @@ define move(X, Y) with
 		
 		
 define train(Id) with
-	pre {trainSCV}
-	post {not(trainSCV)}
+	pre {trainTank}
+	post {not(trainTank)}
 		
 		
 define lift with

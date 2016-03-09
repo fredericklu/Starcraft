@@ -1,5 +1,7 @@
+use TerranMedic as knowledge.
+
 define follow(Id) with
-	pre{not(percept(following))}
+	pre{true} %note to self -> prob fix this by saying not(following)
 	post{true}
 		
 		

@@ -1,3 +1,5 @@
+use TerranEngineeringBay as knowledge.
+
 define upgrade(Type) with 
 	pre {not(upgrading)}
 	post {true}

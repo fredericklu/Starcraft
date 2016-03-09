@@ -6,7 +6,7 @@ define attack(X,Y) with
 
 		
 define move(X,Y) with
-	pre{not(percept(moving))}
+	pre{true}
 	post{true}
 		
 		
@@ -14,7 +14,7 @@ define attack(Id) with
 	pre{true}
 	post{true}
 
-define use(Id) with
+define _use(Id) with
 	pre{true}
 	post{true}
 		

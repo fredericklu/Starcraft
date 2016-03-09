@@ -3,8 +3,8 @@ use TerranGhost as knowledge.
 
 module main{
 
-		if bel(percept(isBeingConstructed)) then skip.
-		if bel(percept(unit("Terran Siege Tank Tank Mode", B)),percept(unit("Terran Marine", A)), A > 30,B > 3 , 
+		if percept(isBeingConstructed) then skip.
+		if percept(unit("Terran Siege Tank Tank Mode", B), unit("Terran Marine", A)), bel(A > 30,B > 3 , 
 		enemyBase(X,Y)) then attack(X, Y).
 }
 

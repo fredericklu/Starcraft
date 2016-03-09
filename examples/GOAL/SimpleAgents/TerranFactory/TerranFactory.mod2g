@@ -3,9 +3,9 @@ use TerranFactory as knowledge.
 
 module main{
 
-		if bel(percept(isBeingConstructed)) then skip.
-		if bel(percept(rallyPoint(RX,RY)), RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
-		if bel(not(percept(addon("Terran Machine Shop"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
+		if percept(isBeingConstructed) then skip.
+		if percept(rallyPoint(RX,RY)), bel(RX = 0, RY = 0, commandCenter(X,Y), rallyLocation(X,Y,NX,NY)) then setRallyPoint(NX,NY).	
+		if percept(not(addon("Terran Machine Shop")), queueSize(N), minerals(X), gas(Y)), bel(N = 0, X>=50, Y>=50) 
 			then buildAddon("Terran Machine Shop").
 		
 		%if bel(percept(position(X, Y)), percept(friendly(_,_,_,_,_,_,_,BX,BY)), distance(X, Y, BX, BY, D), D > 2, 

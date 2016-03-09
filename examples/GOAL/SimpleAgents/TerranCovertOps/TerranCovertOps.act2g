@@ -1,3 +1,5 @@
+use TerranCovertOps as knowledge.
+
 define research(Name) with
 	pre{not(researching)}
 	post{true}

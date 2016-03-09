@@ -1,3 +1,5 @@
+use TerranBunker as knowledge.
+
 define load(Id) with
 	pre{true}
 	post{true}

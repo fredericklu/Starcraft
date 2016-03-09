@@ -1,3 +1,23 @@
+:- dynamic
+builder/0,
+minerals/1,
+gathering/1,
+unit/2,
+gas/1,
+mineralField/3,
+supply/2,
+position/2,
+constructionSite/2,
+refinery/3,
+workerActivity/2,
+isStuck/0,
+id/1,
+me/1,
+chokepoint/2,
+base/4,
+constructing/0,
+friendly/5.
+
 		busy :- constructing ; gathering(_).
 		cost("Terran Command Center",400,0).
 		cost("Terran Supply Depot", 100, 0).
@@ -33,7 +53,7 @@
 				sort(L, [[_,RX,RY]|_]). 
 				
 		addonBuildingLocation(RX, RY)
-			:-	percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , X, Y)),
+			:-	friendly(_, "Terran Command Center", _, X, Y),
 				findall([D,BX,BY], (constructionSite(BX,BY), distance(X,Y,BX,BY,D), (constructionSite(HX, BY), HX is X + 1)), L),
 				sort(L, [[_,RX,RY]|_]).
 						
@@ -53,8 +73,8 @@
 								Count < NeededWorkers.
 								
 		buildLocation(X, Y) :- 
-				percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , TX, TY)),
+				friendly(_, "Terran Command Center", _, TX, TY),
 				buildingLocation(TX, TY, X, Y).
 		
 		commandCenter(X,Y)
-			:- percept(friendly(_, "Terran Command Center", _,_ ,_ , _, _ , X, Y)). 
+			:- friendly(_, "Terran Command Center", _ , X, Y). 

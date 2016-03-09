@@ -12,11 +12,11 @@ module main{
 		if bel(builder, supply(C, Max), (Max - C) < 10, buildLocation(X, Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		
-		if bel(not(busy), percept(vespeneGeyser(_, _, _, X , Y)), minerals(M), M > 100, 
+		if percept(vespeneGeyser(_, _, _, X , Y)), bel(not(busy), minerals(M), M > 100, 
 		friendly(_ ,"Terran Command Center",_ ,BX,BY) ,distance(BX, BY, X, Y, D), D < 10) 
 		then insert(constructing) + build("Terran Refinery", X, Y).
 		
-		if bel(builder, percept(mineralField(_,Amount,_,MX,MY)) ,Amount < 500 ,friendly(_ ,"Terran Command Center",_ ,X,Y)
+		if percept(mineralField(_,Amount,_,MX,MY)), bel(builder ,Amount < 500 ,friendly(_ ,"Terran Command Center",_ ,X,Y)
 		,nearestBase(X, Y, NX, NY), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
 		then insert(constructing) + build("Terran Command Center", NX, NY).
 		
@@ -39,7 +39,7 @@ module main{
 		if bel(not(busy), buildLocation(X, Y), unit("Terran Starport", _), not(unit("Terran Science Facility", _)), minerals(M), M > 100, gas(G), G > 150)
 		then insert(constructing) + build("Terran Science Facility", X, Y).
 		
-		if bel(not(busy), percept(friendly(_,"Terran Refinery", Id, _, _, _ ,_ ,_, _)), shouldMineVespene) then gather(Id).
+		if percept(friendly(_,"Terran Refinery", Id, _, _, _ ,_ ,_, _)), bel(not(busy), shouldMineVespene) then gather(Id).
 		
 		%if bel(canBuild("Terran Supply Depot", X, Y)) then insert(constructing) + build("Terran Supply Depot", X, Y).
 		if bel(not(busy), mineralField(Id,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10,

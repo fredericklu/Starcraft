@@ -2,7 +2,9 @@ use TerranGhost as actionspec.
 use TerranGhost as knowledge.
 
 module TerranGhostEvent {
-	if bel(percept(enemy(_, Id,_,_, _, _, _, _, _)), percept(position(MX,MY)), enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
-	if bel(percept(hasResearched('Personnal Cloaking')), not(percept(isCloaked(_, Id))), percept(id(Id)),
-	percept(energy(E)), E >= 30) then use('Personnal Cloaking').
+	if percept(enemy(_, Id,_,_, _, _, _, _, _), position(MX,MY)), bel(enemyBase(X, Y), distance(MX, MY, X, Y, D), D < 10) then attack(Id).
+	if percept(hasResearched('Personnal Cloaking'), not(isCloaked(_, Id)), id(Id), energy(E)), bel(E >= 30) then _use('Personnal Cloaking').
+	
+	forall percept(id(MyId), friendly(Name,Type,Id,Health,Shields,WX,WY,X,Y)), bel(MyId \= Id, not(friendly(Name,Type,Id,X,Y))) do insert(friendly(Name,Type,Id,X,Y)).
+	forall percept(not(friendly(Name,Type,Id,_,_,_,_,X,Y))), bel(friendly(Name,Type,Id,X,Y)) do delete(friendly(Name,Type,Id,X,Y)).
 }

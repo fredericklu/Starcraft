@@ -1,8 +1,9 @@
 use TerranScienceFacility as actionspec.
+use TerranScienceFacility as knowledge.
 
 module main{
 
-		if bel(percept(isBeingConstructed)) then skip.
-		if bel(not(percept(addon("Terran Covert Ops"))),percept(queueSize(N)), N = 0, percept(minerals(X)), X>=50, percept(gas(Y)), Y>=50) 
+		if percept(isBeingConstructed) then skip.
+		if percept(not(addon("Terran Covert Ops")), queueSize(N), minerals(X), gas(Y)), bel(N = 0, X>=50, Y>=50) 
 			then buildAddon("Terran Covert Ops").
 }

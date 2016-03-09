@@ -1,8 +1,8 @@
-use TerranMachineShop as actionspec.
+use TerranMachineShop as knowledge.
 
 module TerranMachineShopEvent {
-	if bel(percept(research(X))) then insert(research(X)) + insert(researching).
-		if bel(researching, not(percept(research(_)))) then delete(researching).
-		if bel(percept(upgrade(X))) then insert(upgrade(X)) + insert(upgrading).
-		if bel(upgrading, not(percept(upgrade(_)))) then delete(upgrading).
+	if percept(research(X)) then insert(research(X)) + insert(researching).
+		if percept(not(research(_))), bel(researching) then delete(researching).
+		if percept(upgrade(X)) then insert(upgrade(X)) + insert(upgrading).
+		if percept(not(upgrade(_))) , bel(upgrading) then delete(upgrading).
 }

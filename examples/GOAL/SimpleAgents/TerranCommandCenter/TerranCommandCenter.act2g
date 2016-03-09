@@ -1,4 +1,4 @@
-
+use TerranCommandCenter as knowledge.
 
 define move(X, Y) with
 	pre{true}
