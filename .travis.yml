@@ -1,4 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
+before_install:
+ - wget -P library/ https://github.com/eishub/Starcraft/blob/master/libs/jnibwapi.jar
+ - mvn validate
 script: cd eisbw && mvn install
