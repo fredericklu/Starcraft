@@ -229,7 +229,7 @@ public class BWAPIBridge extends EIDefaultImpl {
     @Override
     public void matchStart() {
       logger.info("Game started...");
-
+          
       // set game speed to 30 (0 is the fastest. Tournament speed is 20)
       // You can also change the game speed from within the game by "/speed X" command.
       bwapi.setGameSpeed(5);
