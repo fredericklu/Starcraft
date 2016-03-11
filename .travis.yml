@@ -3,6 +3,6 @@ jdk:
   - oraclejdk8
 before_install:
  - cd eisbw
- - wget -P library/ https://github.com/eishub/Starcraft/blob/master/libs/jnibwapi.jar
- - mvn validate
+ - mvn install:install-file -Dfile=jnibwapi.rar -DgroupId=1.0 \
+    -DartifactId=1.0 -Dversion=1.0 -Dpackaging=maven-plugin
 script: mvn install
