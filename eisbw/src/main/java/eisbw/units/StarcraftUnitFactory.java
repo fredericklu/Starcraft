@@ -47,7 +47,7 @@ public class StarcraftUnitFactory {
     
     // These perceptgenerators are only added on init, so a building that can fly 
     // can not move when built, so please take caution and think when adding percepts
-    public StarcraftUnit Create(Unit unit) {
+    public StarcraftUnit create(Unit unit) {
         ArrayList<IPerceiver> perceptGenerators = new ArrayList<>();
         perceptGenerators.add(new GenericUnitPerceiver(api, unit));
         perceptGenerators.add(new MapPerceiver(api));
@@ -72,7 +72,7 @@ public class StarcraftUnitFactory {
             }
         }
         if (UnitTypesEx.isRefinery(unit.getType())) {
-            perceptGenerators.add(new WorkerActivityPerceiver(api,util));
+            perceptGenerators.add(new WorkerActivityPerceiver(api));
         }
         if (unit.getType().isAttackCapable()) {
             perceptGenerators.add(new AttackingUnitsPerceiver(api));			
@@ -82,21 +82,21 @@ public class StarcraftUnitFactory {
             perceptGenerators.add(new BuilderUnitPerceiver(api, unit));
             perceptGenerators.add(new GathererUnitPerceiver(api, unit));
             perceptGenerators.add(new ConstructionSitePerceiver(api, unit));	
-            perceptGenerators.add(new WorkerActivityPerceiver(api,util));
+            perceptGenerators.add(new WorkerActivityPerceiver(api));
 			
 			if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 				perceptGenerators.add(new RepairPerceiver(api));
 			}
         }
 		if (unit.getType().getSpaceProvided() > 0) {
-			perceptGenerators.add(new TransporterPerceiver(api, util, unit));
+			perceptGenerators.add(new TransporterPerceiver(api, unit));
 		}
 		
         String un = unit.getType().getName();
         if (UnitTypesEx.isCommandCenter(unit.getType())) {
             perceptGenerators.add(new IdleWorkersPerceiver(api, util));
              //For some reason the refinerys can't be matched in GOAL right now. Just using command center for now
-            perceptGenerators.add(new WorkerActivityPerceiver(api,util));
+            perceptGenerators.add(new WorkerActivityPerceiver(api));
         } else if (un.equals(UnitTypes.Terran_Marine.getName()) || un.equals(UnitTypes.Terran_Firebat.getName())) {
             perceptGenerators.add(new StimUnitPerceiver(api, unit));
         } else if (un.equals(UnitTypes.Terran_Siege_Tank_Tank_Mode.getName())) {

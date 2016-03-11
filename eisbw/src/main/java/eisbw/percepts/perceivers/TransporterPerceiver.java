@@ -6,17 +6,16 @@ import java.util.List;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.BWApiUtility;
 import eisbw.percepts.SpaceProvidedPercept;
 import eisbw.percepts.UnitLoadedPercept;
 
 public class TransporterPerceiver extends UnitPerceiver {
 	
-	private BWApiUtility util;
+	//private BWApiUtility util;
 	
-    public TransporterPerceiver(JNIBWAPI api, BWApiUtility util, Unit unit) {
+    public TransporterPerceiver(JNIBWAPI api, Unit unit) {
         super(api, unit);
-		this.util = util;
+		//this.util = util;
     }
 
     @Override

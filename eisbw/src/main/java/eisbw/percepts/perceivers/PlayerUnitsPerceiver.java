@@ -10,7 +10,6 @@ import eisbw.BWApiUtility;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.IsCloakedPercept;
 import eisbw.percepts.IsMorphing;
-import eisbw.percepts.LoadablePercept;
 
 public class PlayerUnitsPerceiver extends Perceiver {
     private final BWApiUtility util;

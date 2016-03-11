@@ -1,7 +1,6 @@
 package eisbw.percepts.perceivers;
 
 import java.awt.Point;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +12,6 @@ import jnibwapi.types.RaceType.RaceTypes;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.ConstructionSitePercept;
-import eisbw.percepts.ProtossConstructionSitePercept;
-import eisbw.percepts.PylonConstructionSitePercept;
-import eisbw.percepts.ZergConstructionSitePercept;
 
 public class ConstructionSitePerceiver extends UnitPerceiver {
 
