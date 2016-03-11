@@ -3,6 +3,5 @@ jdk:
   - oraclejdk8
 before_install:
  - cd eisbw
- - mvn install:install-file -Dfile=jnibwapi.jar -DgroupId=jnibwapi \
-    -DartifactId=jnibwapi -Dversion=1.0 -Dpackaging=maven-plugin
+ - mvn install:install-file -Dfile=jnibwapi.jar -DgroupId=jnibwapi -DartifactId=jnibwapi -Dversion=1.0 -Dpackaging=maven-plugin
 script: mvn install
