@@ -194,11 +194,12 @@ public class BWAPIBridge extends EIDefaultImpl {
       // Action might be invalid
       if (action.isValid(act)) {
         pendingActions.put(unit, act);
-      } else {
-        throw new ActException(ActException.FAILURE,
-            "Action must be of the form " + action.toString() + " (was "
-                + act.toProlog() + ").");
       }
+//      } else {
+//        throw new ActException(ActException.FAILURE,
+//            "Action must be of the form " + action.toString() + " (was "
+//                + act.toProlog() + ").");
+//      }
 
     }
     return null;

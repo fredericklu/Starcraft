@@ -1,7 +1,7 @@
 use TerranCommandCenter as knowledge.
 
 module TerranCommandCenterEvent {
-	forall (Sender).sent(scv(Name, Id)) do insert(scv(Name, Id)).
+		forall (Name).sent(scv(Id)) do insert(scv(Name, Id)).
 		
 		if percept(queueSize(N), minerals(X), supply(Y,Z)), bel(not(trainSCV), N < 2,X>=50,Y<Z) then insert(trainSCV).
 		
@@ -9,5 +9,5 @@ module TerranCommandCenterEvent {
 		
 		if percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ )), bel(not(done), scv(Name, Id)) then (Name).send(builder) + insert(done).
 		
-		if percept(not(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ ))), bel(done, scv(Name, Id)) then delete(done).
+		if not(percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ ))), bel(done, scv(Name, Id)) then delete(done).
 }

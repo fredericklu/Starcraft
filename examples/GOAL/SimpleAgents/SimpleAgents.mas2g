@@ -68,6 +68,7 @@ define terranCovertOps as agent {
 
 define terranGhost as agent {
 	use TerranGhost.TerranGhost as main module.
+	use TerranGhost.TerranGhostInit as init module.
 	use TerranGhost.TerranGhostEvent as event module.
 }
 

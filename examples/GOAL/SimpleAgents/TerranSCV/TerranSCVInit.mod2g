@@ -10,5 +10,5 @@ module TerranSCVInit {
 		forall percept(constructionSite(X,Y)), bel(not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
 		if percept(position(X,Y)) then insert(position(X,Y)).
 		forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
-		if  percept(id(Id)), bel(me(Name)) then ("terranCommandCenter").send(scv(Name, Id)).
+		if percept(id(Id)) then ('terranCommandCenter').send(scv(Id)).
 }

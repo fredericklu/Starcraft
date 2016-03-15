@@ -7,7 +7,7 @@ define move(X, Y) with
 		
 define gather(Id) with
 	pre { not(gathering(Id)) }
-	post { true }
+	post { gathering(Id) }
 		
 define build(Building, X, Y) with
 	pre { cost(Building, M, G), minerals(MQ), M =< MQ, gas(GQ), G =< GQ }
