@@ -113,7 +113,7 @@ public class BWAPIBridge extends EIDefaultImpl {
     }
     Unit unit = units.get(entity);
     if (unit != null) {
-      StarcraftUnit scu = this.unitFactory.Create(unit);
+      StarcraftUnit scu = this.unitFactory.create(unit);
       percepts.addAll(scu.perceive());
     }
 

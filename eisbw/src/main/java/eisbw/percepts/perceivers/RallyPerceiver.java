@@ -19,7 +19,7 @@ public class RallyPerceiver extends UnitPerceiver {
     public List<Percept> perceive() {
         ArrayList<Percept> percepts = new ArrayList<>();
         
-        if(!unit.getRallyPosition().equals(Positions.None.toString())){
+        if(!unit.getRallyPosition().equals(Positions.None)){
         	percepts.add(new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
         }
         

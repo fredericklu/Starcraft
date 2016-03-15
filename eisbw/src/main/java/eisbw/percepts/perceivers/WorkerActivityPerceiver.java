@@ -6,15 +6,14 @@ import java.util.List;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import eis.iilang.Percept;
-import eisbw.BWApiUtility;
 import eisbw.percepts.WorkerActivityPercept;
 
 public class WorkerActivityPerceiver extends Perceiver {
-    private final BWApiUtility util;
+    //private final BWApiUtility util;
     
-    public WorkerActivityPerceiver(JNIBWAPI api, BWApiUtility util) {
+    public WorkerActivityPerceiver(JNIBWAPI api) {
         super(api);
-        this.util = util;
+        //this.util = util;
     }
 
     @Override

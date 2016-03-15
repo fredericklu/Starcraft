@@ -18,7 +18,7 @@ public class RightClickUnit extends StarcraftAction {
     @Override
     public boolean isValid(Action action) {
         LinkedList<Parameter> parameters = action.getParameters();
-        return (parameters.size() == 1) && parameters.get(0) instanceof Numeral;
+        return parameters.size() == 1 && parameters.get(0) instanceof Numeral;
     }
 
     @Override
