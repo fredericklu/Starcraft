@@ -16,6 +16,7 @@ import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
+import jnibwapi.Position.PosType;
 import jnibwapi.types.UnitType;
 import jnibwapi.util.BWColor;
 import eis.EIDefaultImpl;
@@ -263,6 +264,8 @@ public class BWAPIBridge extends EIDefaultImpl {
           it.remove();
         }
       }
+      bwapi.drawCircle(new Position(37,7,PosType.BUILD), 20, BWColor.Blue, false, false);
+      bwapi.drawCircle(new Position(60,119,PosType.BUILD), 20, BWColor.Blue, false, false);
       for (ChokePoint cp : bwapi.getMap().getChokePoints()) {
         bwapi.drawLine(cp.getFirstSide(), cp.getSecondSide(), BWColor.Yellow,
             false);
