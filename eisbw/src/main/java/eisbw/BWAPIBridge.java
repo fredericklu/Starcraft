@@ -16,6 +16,7 @@ import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
+import jnibwapi.Position.PosType;
 import jnibwapi.types.UnitType;
 import jnibwapi.util.BWColor;
 import eis.EIDefaultImpl;
@@ -194,10 +195,6 @@ public class BWAPIBridge extends EIDefaultImpl {
       // Action might be invalid
       if (action.isValid(act)) {
         pendingActions.put(unit, act);
-      } else {
-        throw new ActException(ActException.FAILURE,
-            "Action must be of the form " + action.toString() + " (was "
-                + act.toProlog() + ").");
       }
 
     }
@@ -229,7 +226,7 @@ public class BWAPIBridge extends EIDefaultImpl {
     @Override
     public void matchStart() {
       logger.info("Game started...");
-
+          
       // set game speed to 30 (0 is the fastest. Tournament speed is 20)
       // You can also change the game speed from within the game by "/speed X" command.
       bwapi.setGameSpeed(5);
@@ -262,6 +259,8 @@ public class BWAPIBridge extends EIDefaultImpl {
           it.remove();
         }
       }
+      bwapi.drawCircle(new Position(37,7,PosType.BUILD), 20, BWColor.Blue, false, false);
+      bwapi.drawCircle(new Position(60,119,PosType.BUILD), 20, BWColor.Blue, false, false);
       for (ChokePoint cp : bwapi.getMap().getChokePoints()) {
         bwapi.drawLine(cp.getFirstSide(), cp.getSecondSide(), BWColor.Yellow,
             false);
