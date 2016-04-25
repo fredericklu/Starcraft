@@ -1,8 +1,0 @@
-module idNameMappingBroadcast{
-	
-	program[order=linearall]{
-
-		if bel(not(hasSent), percept(id(MyId)), percept(unitType(MyType))) then allother.sendonce(nameExchange(MyType,MyId))+insert(hasSent).		
-	}
-	
-}

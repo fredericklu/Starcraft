@@ -114,7 +114,7 @@ public class BWAPIBridge extends EIDefaultImpl {
     }
     Unit unit = units.get(entity);
     if (unit != null) {
-      StarcraftUnit scu = this.unitFactory.Create(unit);
+      StarcraftUnit scu = this.unitFactory.create(unit);
       percepts.addAll(scu.perceive());
     }
 
@@ -196,11 +196,6 @@ public class BWAPIBridge extends EIDefaultImpl {
       if (action.isValid(act)) {
         pendingActions.put(unit, act);
       }
-//      } else {
-//        throw new ActException(ActException.FAILURE,
-//            "Action must be of the form " + action.toString() + " (was "
-//                + act.toProlog() + ").");
-//      }
 
     }
     return null;

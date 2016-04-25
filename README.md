@@ -1,5 +1,7 @@
 ## StarCraft: Brood War in Multi-Agent Systems
 
+Travis CI: [![Build Status](https://travis-ci.org/eishub/Starcraft.svg?branch=master)](https://travis-ci.org/eishub/Starcraft)
+
 This project creates a bridge between [BWAPI](https://code.google.com/p/bwapi/ "BWAPI") for [StarCraft: Brood War](http://us.blizzard.com/en-us/games/sc/ "StarCraft: Brood War") and EIS-enabled Multi-Agent Systems. 
 
 The environment interface standard ([EIS](https://github.com/eishub/eis/wiki "EIS")) has been developed to facilitate connecting software agents to environments. 
@@ -17,7 +19,7 @@ For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-
 4. Move contents of libs/WINDOWS folder to your windows folder or another folder in your PATH
 5. Move contents of Starcraft folder to your starcraft installation directory
 6. Extract sscai.rar to the maps folder of starcraft
-7. Move client-bridge-x86.dll and mapData to your eclipse installation directory
+7. Move mapData to your eclipse installation directory
 8. Start Eclipse as Administrator (Important) and build eisbw with maven deploy
 9. Start ChaosLauncher as Administrator (Important)
 10. Run one of the examples in the examples-folder using GOAL.

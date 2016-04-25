@@ -20,7 +20,7 @@ public class Move extends StarcraftAction {
     @Override
     public boolean isValid(Action action) {
         LinkedList<Parameter> parameters = action.getParameters();
-        return (parameters.size() == 2 && parameters.get(0) instanceof Numeral && parameters.get(1) instanceof Numeral);
+        return parameters.size() == 2 && parameters.get(0) instanceof Numeral && parameters.get(1) instanceof Numeral;
     }
 
     @Override
