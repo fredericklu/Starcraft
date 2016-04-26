@@ -1,20 +1,20 @@
 package eisbw.percepts.perceivers;
 
-import java.util.List;
-
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import eis.iilang.Percept;
+
+import java.util.List;
 
 public class ProducerUnitPerceiver extends UnitPerceiver {
 
-    public ProducerUnitPerceiver(JNIBWAPI api, Unit unit) {
-        super(api, unit);
-    }
+  public ProducerUnitPerceiver(JNIBWAPI api, Unit unit) {
+    super(api, unit);
+  }
 
-    @Override
-    public List<Percept> perceive() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  @Override
+  public List<Percept> perceive() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
 }

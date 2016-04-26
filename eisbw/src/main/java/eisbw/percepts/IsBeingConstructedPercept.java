@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class IsBeingConstructedPercept extends Percept {
 
-    public IsBeingConstructedPercept() {
-        super(Percepts.IsBeingConstructed);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public IsBeingConstructedPercept() {
+    super(Percepts.IsBeingConstructed);
+  }
 }

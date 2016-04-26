@@ -1,9 +1,9 @@
 package eisbw.percepts.perceivers;
 
-import java.util.List;
-
 import eis.iilang.Percept;
 
+import java.util.List;
+
 public interface IPerceiver {
-    List<Percept> perceive();
+  List<Percept> perceive();
 }

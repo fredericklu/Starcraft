@@ -3,7 +3,10 @@ package eisbw.percepts;
 import eis.iilang.Percept;
 
 public class FollowingPercept extends Percept {
-    public FollowingPercept() {
-        super(Percepts.Following);
-    }
+
+  private static final long serialVersionUID = 1L;
+
+  public FollowingPercept() {
+    super(Percepts.Following);
+  }
 }

@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class MineralsPercept extends Percept {
 
-    public MineralsPercept(int quantity) {
-        super(Percepts.Minerals, new Numeral(quantity));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public MineralsPercept(int quantity) {
+    super(Percepts.Minerals, new Numeral(quantity));
+  }
 }

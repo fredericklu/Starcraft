@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class GasPercept extends Percept {
 
-    public GasPercept(int quantity) {
-        super(Percepts.Gas, new Numeral(quantity));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public GasPercept(int quantity) {
+    super(Percepts.Gas, new Numeral(quantity));
+  }
 }

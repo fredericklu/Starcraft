@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class ConstructingPercept extends Percept {
 
-    public ConstructingPercept() {
-        super(Percepts.Constructing);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public ConstructingPercept() {
+    super(Percepts.Constructing);
+  }
 }

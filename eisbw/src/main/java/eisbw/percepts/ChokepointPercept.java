@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class ChokepointPercept extends Percept {
 
-    public ChokepointPercept(int x, int y) {
-        super(Percepts.Chokepoint, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public ChokepointPercept(int xpos, int ypos) {
+    super(Percepts.Chokepoint, new Numeral(xpos), new Numeral(ypos));
+  }
 }

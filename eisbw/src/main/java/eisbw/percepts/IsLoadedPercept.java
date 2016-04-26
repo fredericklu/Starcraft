@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class IsLoadedPercept extends Percept {
 
-    public IsLoadedPercept() {
-        super(Percepts.IsLoaded);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public IsLoadedPercept() {
+    super(Percepts.IsLoaded);
+  }
 }

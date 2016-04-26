@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class StimPercept extends Percept {
 
-    public StimPercept() {
-        super(Percepts.Stimmed);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public StimPercept() {
+    super(Percepts.Stimmed);
+  }
 }

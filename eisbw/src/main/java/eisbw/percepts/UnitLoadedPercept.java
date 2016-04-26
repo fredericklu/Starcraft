@@ -6,7 +6,9 @@ import eis.iilang.Percept;
 
 public class UnitLoadedPercept extends Percept {
 
-    public UnitLoadedPercept(int id, String type) {
-        super(Percepts.UnitLoaded, new Numeral(id), new Identifier(type));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public UnitLoadedPercept(int id, String type) {
+    super(Percepts.UnitLoaded, new Numeral(id), new Identifier(type));
+  }
 }

@@ -5,8 +5,10 @@ import eis.iilang.Percept;
 
 public class ResearchPercept extends Percept {
 
-    public ResearchPercept(String tech) {
-        super(Percepts.Research, new Identifier(tech));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public ResearchPercept(String tech) {
+    super(Percepts.Research, new Identifier(tech));
+  }
 
 }

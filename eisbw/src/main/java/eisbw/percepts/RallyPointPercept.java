@@ -5,8 +5,10 @@ import eis.iilang.Percept;
 
 public class RallyPointPercept extends Percept {
 
-    public RallyPointPercept(int x, int y) {
-        super(Percepts.RallyPoint, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public RallyPointPercept(int xpos, int ypos) {
+    super(Percepts.RallyPoint, new Numeral(xpos), new Numeral(ypos));
+  }
 
 }
