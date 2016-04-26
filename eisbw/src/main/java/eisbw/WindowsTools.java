@@ -68,8 +68,8 @@ public class WindowsTools {
 		BWINI += "[config]" + newLine;
 
 		BWINI += "[window]" + newLine;
-		BWINI += "windowed = ON" + newLine + newLine;
-		BWINI += "width  = 1024" + newLine + newLine;
+		BWINI += "windowed = ON" + newLine;
+		BWINI += "width  = 1024" + newLine;
 		BWINI += "height = 768" + newLine + newLine;
 
 		try 
