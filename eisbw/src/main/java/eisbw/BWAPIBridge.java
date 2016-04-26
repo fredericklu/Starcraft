@@ -1,7 +1,6 @@
 package eisbw;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,16 +9,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jnibwapi.BWAPIEventListener;
-import jnibwapi.BaseLocation;
-import jnibwapi.ChokePoint;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
-import jnibwapi.Position.PosType;
-import jnibwapi.types.UnitType;
-import jnibwapi.util.BWColor;
 import eis.EIDefaultImpl;
+import eis.eis2java.translation.Translator;
 import eis.exceptions.ActException;
 import eis.exceptions.EntityException;
 import eis.exceptions.ManagementException;
@@ -32,13 +23,25 @@ import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
+import eisbw.configuration.Configuration;
 import eisbw.percepts.GameStartPercept;
 import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.UnitPercept;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.perceivers.TotalResourcesPerceiver;
+import eisbw.translators.ParamEnumTranslator;
+import eisbw.translators.RaceTypeTranslator;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.StarcraftUnitFactory;
+import jnibwapi.BWAPIEventListener;
+import jnibwapi.BaseLocation;
+import jnibwapi.ChokePoint;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+import jnibwapi.Position.PosType;
+import jnibwapi.Unit;
+import jnibwapi.types.UnitType;
+import jnibwapi.util.BWColor;
 
 
 public class BWAPIBridge extends EIDefaultImpl {
@@ -56,6 +59,8 @@ public class BWAPIBridge extends EIDefaultImpl {
   private List<Percept> mapPercepts = null;
   private final ActionProvider actionProvider;
   private boolean gameStarted = false;
+  
+  protected Configuration configuration;
 
   private Map<Unit, Action> pendingActions = new HashMap<>();
 
@@ -64,12 +69,12 @@ public class BWAPIBridge extends EIDefaultImpl {
   }
 
   public static void main(String[] args) throws ManagementException {
-    BWAPIBridge env = new BWAPIBridge();
-    env.init(Collections.EMPTY_MAP);
+	  System.out.println("This program can be built by Maven, please run with mvn deploy to create the environment.");
   }
 
   public BWAPIBridge() {
     super();
+    installTranslators();
     this.units = new HashMap<>();
     this.unitNames = new HashMap<>();
     bwapi = new JNIBWAPI(bwApiListener, true);
@@ -86,20 +91,30 @@ public class BWAPIBridge extends EIDefaultImpl {
     };
   }
 
+  private void installTranslators() {
+	  Translator translatorfactory = Translator.getInstance();
+	  translatorfactory.registerParameter2JavaTranslator(new ParamEnumTranslator());
+	  translatorfactory.registerParameter2JavaTranslator(new RaceTypeTranslator());
+  }
+  
   @Override
   public void init(Map<String, Parameter> parameters)
       throws ManagementException {
     super.init(parameters);
-    apiThread.start();
-
+    apiThread.start();    
     setState(EnvironmentState.PAUSED);
+    
     try {
+      configuration = new Configuration(parameters);
       addEntity("player");
-    } catch (EntityException ex) {
+     
+      if(!WindowsTools.IsProcessRunning("Chaoslauncher.exe"))
+    	  WindowsTools.StartChaoslauncher(configuration.getRace(), configuration.getMap(), configuration.get_sc_dir());
+    } catch (Exception ex) {
       Logger.getLogger(BWAPIBridge.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-
+  
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
       throws PerceiveException, NoEnvironmentException {
@@ -162,7 +177,7 @@ public class BWAPIBridge extends EIDefaultImpl {
 
   @Override
   protected boolean isSupportedByType(Action action, String string) {
-    return true;
+    return isSupportedByEnvironment(action);
   }
 
   private StarcraftAction getAction(Action action) {
@@ -212,7 +227,7 @@ public class BWAPIBridge extends EIDefaultImpl {
       throw new RuntimeException(ex);
     }
   }
-
+  
   @Override
   public String requiredVersion() {
     return "0.5";

@@ -1,4 +1,7 @@
-use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment.
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Terran",
+	starcraft_location="C:\\Starcraft No Install".
 
 
 define terranSCV as agent {
@@ -82,9 +85,12 @@ define terranFactory as agent {
 	use TerranFactory.TerranFactoryEvent as event module.
 }
 
-
+define stayAlive as agent {
+	use stayAlive.stayAlive as main module.	
+}
 
 launchpolicy{
+	when type = unknown launch stayAlive.
 	when type = terranSCV launch terranSCV.
 	when type = terranCommandCenter launch terranCommandCenter.
 	when type = terranBarracks launch terranBarracks.
