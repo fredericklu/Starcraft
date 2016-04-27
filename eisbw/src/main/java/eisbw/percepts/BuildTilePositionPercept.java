@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class BuildTilePositionPercept extends Percept {
 
-    public BuildTilePositionPercept(int x, int y) {
-        super(Percepts.BuildTilePosition, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public BuildTilePositionPercept(int xpos, int ypos) {
+    super(Percepts.BuildTilePosition, new Numeral(xpos), new Numeral(ypos));
+  }
 }

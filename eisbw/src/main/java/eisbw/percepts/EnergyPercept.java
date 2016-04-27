@@ -5,8 +5,10 @@ import eis.iilang.Percept;
 
 public class EnergyPercept extends Percept {
 
-    public EnergyPercept(int current, int max) {
-        super(Percepts.Energy, new Numeral(current), new Numeral(max));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public EnergyPercept(int current, int max) {
+    super(Percepts.Energy, new Numeral(current), new Numeral(max));
+  }
 
 }

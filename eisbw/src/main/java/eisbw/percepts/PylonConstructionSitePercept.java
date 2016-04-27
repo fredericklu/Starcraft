@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class PylonConstructionSitePercept extends Percept {
 
-    public PylonConstructionSitePercept(int x, int y) {
-        super(Percepts.PylonConstructionSite, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public PylonConstructionSitePercept(int xpos, int ypos) {
+    super(Percepts.PylonConstructionSite, new Numeral(xpos), new Numeral(ypos));
+  }
 }

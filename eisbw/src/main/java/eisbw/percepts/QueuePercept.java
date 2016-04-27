@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class QueuePercept extends Percept {
 
-    public QueuePercept(int queueSize) {
-        super(Percepts.Queue, new Numeral(queueSize));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public QueuePercept(int queueSize) {
+    super(Percepts.Queue, new Numeral(queueSize));
+  }
 }

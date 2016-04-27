@@ -6,7 +6,9 @@ import eis.iilang.Percept;
 
 public class WorkerActivityPercept extends Percept {
 
-    public WorkerActivityPercept(int id, String activity) {
-        super(Percepts.WorkerActivity, new Numeral(id), new Identifier(activity));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public WorkerActivityPercept(int id, String activity) {
+    super(Percepts.WorkerActivity, new Numeral(id), new Identifier(activity));
+  }
 }

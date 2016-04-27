@@ -7,8 +7,16 @@ import eis.iilang.TruthValue;
 
 public class EnemyPercept extends Percept {
 
-    public EnemyPercept(String name, int id, int health, int shields, boolean isFlying ,int wX, int wY, int bX, int bY) {
-        super(Percepts.Enemy, new Identifier(name), new Numeral(id),new Numeral(health), new Numeral(shields), new TruthValue(isFlying) ,new Numeral(wX), new Numeral(wY), new Numeral(bX), new Numeral(bY));
-    }
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Enemy percept.
+   */
+  public EnemyPercept(String name, int id, int health, int shields, 
+      boolean isFlying, int wx, int wy, int bx, int by) {
+    super(Percepts.Enemy, new Identifier(name), new Numeral(id), new Numeral(health), 
+        new Numeral(shields), new TruthValue(isFlying), new Numeral(wx), new Numeral(wy), 
+        new Numeral(bx), new Numeral(by));
+  }
 
 }

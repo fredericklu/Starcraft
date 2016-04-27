@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class SiegePercept extends Percept {
 
-    public SiegePercept() {
-        super(Percepts.Sieged);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public SiegePercept() {
+    super(Percepts.Sieged);
+  }
 }

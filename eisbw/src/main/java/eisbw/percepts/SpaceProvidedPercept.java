@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class SpaceProvidedPercept extends Percept {
 
-    public SpaceProvidedPercept(int used, int max) {
-        super(Percepts.SpaceProvided, new Numeral(used), new Numeral(max));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public SpaceProvidedPercept(int used, int max) {
+    super(Percepts.SpaceProvided, new Numeral(used), new Numeral(max));
+  }
 }

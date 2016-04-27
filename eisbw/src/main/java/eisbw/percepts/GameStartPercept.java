@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class GameStartPercept extends Percept {
 
-    public GameStartPercept() {
-        super(Percepts.GameStart);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public GameStartPercept() {
+    super(Percepts.GameStart);
+  }
 }

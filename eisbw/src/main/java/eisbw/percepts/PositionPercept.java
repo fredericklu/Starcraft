@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class PositionPercept extends Percept {
 
-    public PositionPercept(int x, int y) {
-        super(Percepts.Position, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public PositionPercept(int xpos, int ypos) {
+    super(Percepts.Position, new Numeral(xpos), new Numeral(ypos));
+  }
 }

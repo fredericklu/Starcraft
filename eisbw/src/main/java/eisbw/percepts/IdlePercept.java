@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class IdlePercept extends Percept {
 
-    public IdlePercept() {
-        super(Percepts.Idle);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public IdlePercept() {
+    super(Percepts.Idle);
+  }
 }

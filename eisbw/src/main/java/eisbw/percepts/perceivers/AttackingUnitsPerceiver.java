@@ -1,34 +1,34 @@
 package eisbw.percepts.perceivers;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import eis.iilang.Percept;
+import eisbw.percepts.Attacking;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
-import eis.iilang.Percept;
-import eisbw.percepts.Attacking;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttackingUnitsPerceiver extends Perceiver {
-    public AttackingUnitsPerceiver(JNIBWAPI api) {
-        super(api);
-    }
+  public AttackingUnitsPerceiver(JNIBWAPI api) {
+    super(api);
+  }
 
-    @Override
-    public List<Percept> perceive() {
-        ArrayList<Percept> percepts = new ArrayList<>();
-        List<Unit> myUnits = api.getMyUnits();
+  @Override
+  public List<Percept> perceive() {
+    ArrayList<Percept> percepts = new ArrayList<>();
+    List<Unit> myUnits = api.getMyUnits();
 
-        for(Unit u : myUnits) {
-            Unit t = u.getOrderTarget();
-			if (t != null) {
-				UnitType type = t.getType();
-				if (type.isAttackCapable() || type.isBuilding()) {
-					percepts.add(new Attacking(u.getID(), t.getID()));
-				}
-			}
+    for (Unit unit : myUnits) {
+      Unit targetUnit = unit.getOrderTarget();
+      if (targetUnit != null) {
+        UnitType type = targetUnit.getType();
+        if (type.isAttackCapable() || type.isBuilding()) {
+          percepts.add(new Attacking(unit.getID(), targetUnit.getID()));
         }
-        
-        return percepts;
+      }
     }
+
+    return percepts;
+  }
 }

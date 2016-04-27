@@ -4,7 +4,9 @@ import eis.iilang.Percept;
 
 public class LiftPercept extends Percept {
 
-    public LiftPercept() {
-        super(Percepts.Lifted);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public LiftPercept() {
+    super(Percepts.Lifted);
+  }
 }

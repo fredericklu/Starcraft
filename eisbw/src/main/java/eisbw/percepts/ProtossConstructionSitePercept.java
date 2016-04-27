@@ -5,7 +5,9 @@ import eis.iilang.Percept;
 
 public class ProtossConstructionSitePercept extends Percept {
 
-    public ProtossConstructionSitePercept(int x, int y) {
-        super(Percepts.ProtossConstructionSite, new Numeral(x), new Numeral(y));
-    }
+  private static final long serialVersionUID = 1L;
+
+  public ProtossConstructionSitePercept(int xpos, int ypos) {
+    super(Percepts.ProtossConstructionSite, new Numeral(xpos), new Numeral(ypos));
+  }
 }
