@@ -99,7 +99,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>eisbw.BWAPIBridge</mainClass>
+							<mainClass>eisbw.BwapiBridge</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -114,7 +114,7 @@
 			        </descriptorRefs>
 			        <archive>
 			            <manifest>
-			                <mainClass>eisbw.BWAPIBridge</mainClass>
+			                <mainClass>eisbw.BwapiBridge</mainClass>
 			            </manifest>
 			        </archive>
 			     </configuration>
