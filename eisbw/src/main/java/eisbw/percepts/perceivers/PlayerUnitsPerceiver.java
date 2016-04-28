@@ -4,7 +4,7 @@ import eis.iilang.Percept;
 import eisbw.BwapiUtility;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.IsCloakedPercept;
-import eisbw.percepts.IsMorphingPercept;
+import eisbw.percepts.IsMorphing;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
@@ -24,14 +24,14 @@ public class PlayerUnitsPerceiver extends Perceiver {
     List<Percept> percepts = new ArrayList<>();
 
     for (Unit unit : this.api.getMyUnits()) {
-      percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(),
-          unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getBX(),
-          unit.getPosition().getBY()));
+      percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), 
+          unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), 
+          unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
       if (unit.isCloaked()) {
         percepts.add(new IsCloakedPercept(unit.getType().getName(), unit.getID()));
       }
       if (unit.isMorphing()) {
-        percepts.add(new IsMorphingPercept(unit.getBuildType().getName(), unit.getID()));
+        percepts.add(new IsMorphing(unit.getBuildType().getName(), unit.getID()));
       }
     }
 

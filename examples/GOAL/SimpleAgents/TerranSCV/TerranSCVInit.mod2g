@@ -1,7 +1,8 @@
+use TerranSCV as actionspec.
 use TerranSCV as knowledge.
 
 module TerranSCVInit {
-	if percept(id(Id)) then ('terranCommandCenter').send(scv(Id)) + insert(id(Id)).
+	if percept(id(Id)) then insert(id(Id)).
 		if percept(supply(C,M)) then insert(supply(C,M)).
 		if percept(minerals(M)) then insert(minerals(M)).
 		if percept(gas(G)) then insert(gas(G)).
@@ -9,4 +10,5 @@ module TerranSCVInit {
 		forall percept(constructionSite(X,Y)), bel(not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
 		if percept(position(X,Y)) then insert(position(X,Y)).
 		forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+		if percept(id(Id)) then ('terranCommandCenter').send(scv(Id)).
 }
