@@ -7,7 +7,7 @@ module TerranCommandCenterEvent {
 		
 		if percept(supply(C,Max)), bel(supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
-		if percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ )), bel(not(done), scv(Name, Id)) then (Name).send(builder) + insert(done).
+		if percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ )), bel(not(done), scv(Name, Id)) then (Name).send(builder) + insert(done).
 		
-		if not(percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_ ,_ ,_ ))), bel(done, scv(Name, Id)) then delete(done).
+		if not(percept(friendly(_ ,"Terran SCV",Id,_ ,_ ,_ ,_))), bel(done, scv(Name, Id)) then delete(done).
 }

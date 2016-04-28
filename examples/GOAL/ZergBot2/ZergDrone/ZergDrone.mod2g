@@ -1,0 +1,19 @@
+use ZergDrone as knowledge.
+use ZergDrone as actionspec.
+
+module ZergDrone {
+		if a-goal(buildPool(X, Y)) then build("Zerg Spawning Pool", X, Y).
+		
+		if a-goal(buildExtractor(X, Y)), bel(not(busy)) then build("Zerg Extractor", X, Y).
+		
+		if a-goal(buildEvoChamber(X, Y)), bel(not(busy)) then build("Zerg Evolution Chamber", X, Y).
+		
+		if a-goal(expandTo(X, Y)), bel(not(busy)) then build("Zerg Hatchery", X, Y).
+		
+		%if bel(not(busy), constructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
+		%not(friendly(_, "Zerg Hydralisk Den", _, _, _))) then build("Zerg Hydralisk Den", X, Y).
+		
+		if bel(not(busy), friendly(Name,"Zerg Extractor",Id,X,Y), shouldMineVespene) then gather(Id).
+		
+		if a-goal(goGather(Id)), bel(not(busy)) then gather(Id).
+}

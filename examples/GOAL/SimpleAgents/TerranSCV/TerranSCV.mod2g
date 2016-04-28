@@ -1,7 +1,7 @@
 use TerranSCV as actionspec.
 use TerranSCV as knowledge.
 
-order = linearrandom.
+order = linearall.
 
 module main{	
 		if bel(builder, commandCenter(X,Y), chokepointlocation(X, Y, TX, TY), 

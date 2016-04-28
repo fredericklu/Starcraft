@@ -1,0 +1,6 @@
+use ZergHatchery as knowledge.
+
+define train(Id) with
+	pre {true}
+	post {true}
+		
