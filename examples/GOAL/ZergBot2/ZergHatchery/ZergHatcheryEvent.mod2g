@@ -1,0 +1,47 @@
+use ZergHatchery as knowledge.
+
+order = linearrandom.
+
+module ZergHatcheryEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	if percept(isMorphing(Name, Id)), not(bel(isMorphing(Name, Id))) then insert(isMorphing(Name, Id)).
+	if not(percept(isMorphing(Name, Id))), bel(isMorphing(Name, Id)) then delete(isMorphing(Name, Id)).
+	
+	if percept(supply(C,Max)), bel(supply(OC, OMax), (C \= OC ; Max \= OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
+	
+	if percept(unit(Name, Amount)), not(bel(unit(Name, Amount))) then insert(unit(Name, Amount)).
+	if bel(unit(Name, Amount)), not(percept(unit(Name, Amount))) then delete(unit(Name, Amount)).
+		
+	if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
+		
+	if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
+	
+	forall percept(friendly(Name,Type,Id,Health,Shields,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,X,Y)), MyId \= Id) 
+	do insert(friendly(Name,Type,Id,X,Y)).
+	forall not(percept(friendly(Name,Type,Id,_,_,X,Y))), bel(friendly(Name,Type,Id,X,Y)) 
+	do delete(friendly(Name,Type,Id,X,Y)).
+		
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+		
+	if bel(not(isMorphing("Zerg Overlord", _)), not(trainOverlord),
+	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(trainOverlord).
+		
+	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(trainDrone).
+		
+	if bel(not(trainHydralisk), minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z,
+	friendly(_ , "Zerg Hydralisk Den", _, _, _)) then adopt(trainHydralisk).
+		
+	if bel(not(trainZergling), minerals(X), X >= 50, supply(Y,Z), Y<Z, 
+	friendly(_, "Zerg Spawning Pool", _, _, _)) then adopt(trainZergling).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	forall (Name).sent(drone(Id)) do insert(drone(Name, Id)).	
+		
+	if bel(not(done), drone(Name, Id), friendly(_ ,"Zerg Drone",Id,_ ,_ )) then (Name).send(builder) + insert(done).
+		
+	if bel(not(friendly(_ ,"Zerg Drone",Id,_ ,_ )), done, drone(Name, Id)) then delete(done) + delete(drone(Name, Id)).
+}

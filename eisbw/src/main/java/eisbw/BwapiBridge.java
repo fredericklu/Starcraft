@@ -240,6 +240,8 @@ public class BwapiBridge extends EIDefaultImpl {
     } catch (EntityException ex) {
       throw new RuntimeException(ex);
     }
+    
+    
   }
 
   @Override
