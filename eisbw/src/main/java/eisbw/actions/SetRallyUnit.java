@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
@@ -31,7 +30,7 @@ public class SetRallyUnit extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     int unitId = ((Numeral) parameters.get(0)).getValue().intValue();
     unit.setRallyPoint(api.getUnit(unitId));

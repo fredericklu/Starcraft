@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
@@ -27,12 +26,9 @@ public class UnloadUnit extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    boolean res = unit.unload(target);
-    if (!res) {
-      throw new ActException("Couldn't unload " + unit.getID());
-    }
+    unit.unload(target);
   }
 
   @Override

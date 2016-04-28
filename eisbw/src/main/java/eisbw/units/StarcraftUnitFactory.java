@@ -49,7 +49,9 @@ public class StarcraftUnitFactory {
   // percepts
   /**
    * Creates a unit.
-   * @param unit - the unit in the game.
+   * 
+   * @param unit
+   *          - the unit in the game.
    * @return - a StarCraft unit with perceivers.
    */
   public StarcraftUnit create(Unit unit) {
@@ -103,7 +105,7 @@ public class StarcraftUnitFactory {
       // For some reason the refinerys can't be matched in GOAL right now. Just
       // using command center for now
       perceptGenerators.add(new WorkerActivityPerceiver(api));
-    } else if (un.equals(UnitTypes.Terran_Marine.getName()) 
+    } else if (un.equals(UnitTypes.Terran_Marine.getName())
         || un.equals(UnitTypes.Terran_Firebat.getName())) {
       perceptGenerators.add(new StimUnitPerceiver(api, unit));
     } else if (un.equals(UnitTypes.Terran_Siege_Tank_Tank_Mode.getName())) {

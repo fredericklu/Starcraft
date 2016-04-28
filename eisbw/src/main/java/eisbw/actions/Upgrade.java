@@ -1,17 +1,14 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import eisbw.BwapiBridge;
 import eisbw.UnitTypesEx;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UpgradeType;
 
 import java.util.LinkedList;
-import java.util.logging.Logger;
 
 public class Upgrade extends StarcraftAction {
 
@@ -38,15 +35,12 @@ public class Upgrade extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
-    Logger.getLogger(BwapiBridge.class.getName()).info("Upgrade execute");
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     UpgradeType upgradeType = utility.getUpgradeType(((Identifier) parameters.get(0)).getValue());
 
-    boolean result = unit.upgrade(upgradeType);
-    if (!result) {
-      throw new ActException(ActException.FAILURE);
-    }
+    unit.upgrade(upgradeType);
+
   }
 
   @Override

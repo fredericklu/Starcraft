@@ -14,7 +14,7 @@ public class Configuration {
   private String race = null;
   private String map = null;
   private String scDir = null;
-  private Boolean debug = false;
+  private String debug = "false";
 
   public Configuration(Map<String, Parameter> parameters) 
       throws NoTranslatorException, TranslationException {
@@ -29,7 +29,7 @@ public class Configuration {
       ParamEnum param = translator.translate2Java(new Identifier(entry.getKey()), ParamEnum.class);
       switch (param) {
         case DEBUG:
-          setDebugMode(translator.translate2Java(entry.getValue(), Boolean.class));
+          setDebugMode(translator.translate2Java(entry.getValue(), String.class));
           break;
         case MAP:
           setMap(translator.translate2Java(entry.getValue(), String.class));
@@ -60,7 +60,7 @@ public class Configuration {
     this.scDir = dir;
   }
 
-  private void setDebugMode(Boolean debug) {
+  private void setDebugMode(String debug) {
     this.debug = debug;
   }
 
@@ -78,7 +78,7 @@ public class Configuration {
     this.race = race;
   }
 
-  public Boolean getDebugMode() {
+  public String getDebugMode() {
     return debug;
   }
 

@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
@@ -20,7 +19,7 @@ public abstract class StarcraftAction {
 
   public abstract boolean canExecute(Unit unit, Action action);
 
-  public abstract void execute(Unit unit, Action action) throws ActException;
+  public abstract void execute(Unit unit, Action action);
 
   @Override
   public abstract String toString();

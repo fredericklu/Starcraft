@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -32,14 +31,10 @@ public class Train extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     UnitType unitType = utility.getUnitType(((Identifier) parameters.get(0)).getValue());
-
-    boolean result = unit.train(unitType);
-    if (!result) {
-      throw new ActException(ActException.FAILURE);
-    }
+    unit.train(unitType);
   }
 
   @Override
