@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
@@ -36,16 +35,13 @@ public class Build extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> params = action.getParameters();
     String type = ((Identifier) params.get(0)).getValue();
     int tx = ((Numeral) params.get(1)).getValue().intValue();
     int ty = ((Numeral) params.get(2)).getValue().intValue();
 
-    boolean result = unit.build(new Position(tx, ty, PosType.BUILD), utility.getUnitType(type));
-    if (!result) {
-      throw new ActException(ActException.FAILURE);
-    }
+    unit.build(new Position(tx, ty, PosType.BUILD), utility.getUnitType(type));
   }
 
   @Override

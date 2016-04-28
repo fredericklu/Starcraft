@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
@@ -27,12 +26,9 @@ public class Load extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    boolean res = unit.load(target, false);
-    if (!res) {
-      throw new ActException("Couldn't load " + unit.getType().getName());
-    }
+    unit.load(target, false);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
@@ -26,11 +25,8 @@ public class UnloadAll extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
-    boolean res = unit.unloadAll(false);
-    if (!res) {
-      throw new ActException("Couldn't unload all units");
-    }
+  public void execute(Unit unit, Action action) {
+    unit.unloadAll(false);
   }
 
   @Override

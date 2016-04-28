@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
@@ -29,7 +28,7 @@ public class Attack extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
     Unit target = api.getUnit(targetId);
