@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
@@ -26,11 +25,8 @@ public class UnSiege extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
-    boolean res = unit.unsiege();
-    if (!res) {
-      throw new ActException("Couldn't unsiege " + unit.getType().getName());
-    }
+  public void execute(Unit unit, Action action) {
+    unit.unsiege();
   }
 
   @Override
