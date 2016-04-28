@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -37,12 +36,10 @@ public class Research extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
-    if (!unit.research(techType)) {
-      throw new ActException("Couldn't research " + techType.getName());
-    }
+    unit.research(techType);
   }
 
   @Override

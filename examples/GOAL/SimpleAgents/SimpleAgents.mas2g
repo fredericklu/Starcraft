@@ -1,7 +1,8 @@
 use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
 	map="(2)Destination.scx",
 	race="Terran",
-	starcraft_location="C:\\Starcraft No Install".
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
 
 
 define terranSCV as agent {

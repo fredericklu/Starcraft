@@ -1,6 +1,5 @@
 package eisbw.actions;
 
-import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -32,14 +31,11 @@ public class BuildAddon extends StarcraftAction {
   }
 
   @Override
-  public void execute(Unit unit, Action action) throws ActException {
+  public void execute(Unit unit, Action action) {
     LinkedList<Parameter> params = action.getParameters();
     String type = ((Identifier) params.get(0)).getValue();
 
-    boolean result = unit.buildAddon(utility.getUnitType(type));
-    if (!result) {
-      throw new ActException(ActException.FAILURE);
-    }
+    unit.buildAddon(utility.getUnitType(type));
   }
 
   @Override

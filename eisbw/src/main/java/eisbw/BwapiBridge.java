@@ -12,10 +12,10 @@ import eis.iilang.Action;
 import eis.iilang.EnvironmentState;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
-
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
 import eisbw.configuration.Configuration;
+import eisbw.debugger.DebugWindow;
 import eisbw.percepts.GameStartPercept;
 import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.UnitPercept;
@@ -25,7 +25,6 @@ import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.StarcraftUnitFactory;
-
 import jnibwapi.BWAPIEventListener;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
@@ -46,8 +45,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * BWAPIBridge class.
- * This class is the implementation of EIS, it extends the EIS default implementation.
+ * BWAPIBridge class. This class is the implementation of EIS, it extends the
+ * EIS default implementation.
  */
 public class BwapiBridge extends EIDefaultImpl {
 
@@ -55,7 +54,7 @@ public class BwapiBridge extends EIDefaultImpl {
   private static final Logger logger = Logger.getLogger(BwapiBridge.class.getName());
   public static final int TRAINING_QUEUE_MAX = 5;
   private final Thread apiThread;
-  private static JNIBWAPI bwapi;
+  private JNIBWAPI bwapi;
   private BwapiUtility bwApiUtility;
   private final StarcraftUnitFactory unitFactory;
   private final Map<String, Unit> units;
@@ -63,12 +62,12 @@ public class BwapiBridge extends EIDefaultImpl {
   private List<Percept> mapPercepts = null;
   private final ActionProvider actionProvider;
   private boolean gameStarted = false;
-
   protected Configuration configuration;
+  private DebugWindow debug;
 
   private Map<Unit, Action> pendingActions = new HashMap<>();
 
-  public static JNIBWAPI getGame() {
+  public JNIBWAPI getGame() {
     return bwapi;
   }
 
@@ -116,8 +115,8 @@ public class BwapiBridge extends EIDefaultImpl {
       addEntity("player");
 
       if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-        WindowsTools.startChaoslauncher(configuration.getRace(), 
-            configuration.getMap(), configuration.get_sc_dir());
+        WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
+            configuration.get_sc_dir());
       }
     } catch (Exception ex) {
       Logger.getLogger(BwapiBridge.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,14 +159,12 @@ public class BwapiBridge extends EIDefaultImpl {
       UnitType unitType = u.getType();
       if (u.isVisible()) {
         if (UnitTypesEx.isMineralField(unitType)) {
-          MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), 
-              u.getResources(), u.getResourceGroup(),
-              u.getPosition().getBX(), u.getPosition().getBY());
+          MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
+              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
           percepts.add(mineralfield);
         } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
-          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), 
-              u.getResources(), u.getResourceGroup(),
-              u.getPosition().getBX(), u.getPosition().getBY());
+          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), u.getResources(),
+              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
           percepts.add(mineralfield);
 
         }
@@ -228,8 +225,11 @@ public class BwapiBridge extends EIDefaultImpl {
 
   /**
    * Register a unit in the environment.
-   * @param unit - the unit to be registered.
-   * @throws RuntimeException - throws a runtimeexception when fails to identify the unit.
+   * 
+   * @param unit
+   *          - the unit to be registered.
+   * @throws RuntimeException
+   *           - throws a runtimeexception when fails to identify the unit.
    */
   public void register(Unit unit) throws RuntimeException {
     String unitName = bwApiUtility.getUnitName(unit);
@@ -263,13 +263,16 @@ public class BwapiBridge extends EIDefaultImpl {
       bwapi.setGameSpeed(5);
       bwapi.enableUserInput();
 
+      // START THE DEBUGGER, this has to be fixed with mas2g arguments.
+      if (configuration.getDebugMode().equals("true")) {
+        debug = new DebugWindow();
+      }
       bwapi.drawIDs(true);
       bwapi.drawHealth(true);
       bwapi.drawTargets(true);
 
       mapPercepts = new ArrayList<>();
       gameStarted = true;
-      // jnibwapi.Map map = bwapi.getMap();
     }
 
     @Override
@@ -281,12 +284,12 @@ public class BwapiBridge extends EIDefaultImpl {
           Action act = pendingActions.get(unit);
 
           StarcraftAction action = getAction(act);
-          try {
-            action.execute(unit, act);
-          } catch (ActException ex) {
-            logger.log(Level.WARNING, "Could not execute " + act.toProlog(), ex);
-          }
+          action.execute(unit, act);
+
           it.remove();
+        }
+        if (configuration.getDebugMode().equals("true")) {
+          debug.debug(bwapi);
         }
       }
       bwapi.drawCircle(new Position(37, 7, PosType.BUILD), 20, BWColor.Blue, false, false);
@@ -294,14 +297,14 @@ public class BwapiBridge extends EIDefaultImpl {
       for (ChokePoint cp : bwapi.getMap().getChokePoints()) {
         bwapi.drawLine(cp.getFirstSide(), cp.getSecondSide(), BWColor.Yellow, false);
         bwapi.drawCircle(cp.getCenter(), (int) cp.getRadius(), BWColor.Red, false, false);
-        bwapi.drawText(cp.getCenter(), "(" + cp.getCenter().getBX() 
-            + "," + cp.getCenter().getBY() + ")", false);
+        bwapi.drawText(cp.getCenter(),
+            "(" + cp.getCenter().getBX() + "," + cp.getCenter().getBY() + ")", false);
       }
 
       for (BaseLocation loc : bwapi.getMap().getBaseLocations()) {
         bwapi.drawCircle(loc.getCenter(), 75, BWColor.Purple, false, false);
-        bwapi.drawText(loc.getPosition(), "(" + loc.getCenter().getBX() 
-            + "," + loc.getCenter().getBY() + ")", false);
+        bwapi.drawText(loc.getPosition(),
+            "(" + loc.getCenter().getBX() + "," + loc.getCenter().getBY() + ")", false);
       }
     }
 
@@ -316,7 +319,7 @@ public class BwapiBridge extends EIDefaultImpl {
     @Override
     public void nukeDetect() {
     }
-    
+
     @Override
     public void nukeDetect(Position pstn) {
     }
