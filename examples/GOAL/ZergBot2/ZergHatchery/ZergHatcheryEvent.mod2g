@@ -22,6 +22,9 @@ module ZergHatcheryEvent {
 	do insert(friendly(Name,Type,Id,X,Y)).
 	forall bel(friendly(Name,Type,Id,X,Y)) , not(percept(friendly(Name,Type,Id,_,_,X,Y)))
 	do delete(friendly(Name,Type,Id,X,Y)).
+	
+	forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
+	forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
@@ -30,7 +33,7 @@ module ZergHatcheryEvent {
 		
 	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(trainDrone).
 		
-	if bel(friendly(_ , "Zerg Hydralisk Den", _, _, _), 
+	if bel(friendly(_ , "Zerg Hydralisk Den", _, _, _), unit("Zerg Zergling", Amount), Amount > 20, 
 	not(trainHydralisk), minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(trainHydralisk).
 		
 	if bel(friendly(_, "Zerg Spawning Pool", _, _, _), not(trainZergling), minerals(X), X >= 50, supply(Y,Z), Y<Z) then adopt(trainZergling).
@@ -38,16 +41,10 @@ module ZergHatcheryEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	forall (Name).sent(drone(Id)) do insert(drone(Name, Id)).	
-	
-	%if bel(isMorphing(_, Id), drone(_, Id)) then .
-	
-	%if (Name).sent(dying(Id)) then 
-	
-	if bel(done, drone(Name, Id), not(friendly(_ ,"Zerg Drone",Id,_ ,_ ))) then delete(done) + delete(drone(Name, Id))
-	 + print("DELETED BITCHES-------------------------------------------------------------------------------------").
+
+	if bel(done, drone(Name, Id), not(friendly(_ ,"Zerg Drone",Id,_ ,_ ))) then delete(done) + delete(drone(Name, Id)).
 		
-	if bel(not(done), drone(Name, Id), friendly(_ ,"Zerg Drone",Id,_ ,_ )) then insert(done) + (Name).send(builder)
-	 + print("ADDED A NEW BUILDER BITCHES-------------------------------------------------------------------------------------").
+	if bel(not(done), drone(Name, Id), friendly(_ ,"Zerg Drone",Id,_ ,_ )) then insert(done) + (Name).send(builder).
 		
 
 }

@@ -31,6 +31,8 @@ module ZergDroneEvent {
 		forall percept(workerActivity(ID,ACT)), bel(not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
 		forall bel(workerActivity(ID,ACT)),not(percept(workerActivity(ID,ACT))) do delete(workerActivity(ID,ACT)).
 		
+		forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
+		forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).
 		
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
@@ -41,7 +43,7 @@ module ZergDroneEvent {
 		builder, minerals(M), M >= 75, distance(BX, BY, X, Y, D), D < 10) then adopt(buildExtractor(X, Y)).
 		
 		if bel(constructionSite(X,Y), minerals(M), M >= 75, builder, not(friendly(_, "Zerg Evolution Chamber", _, _, _))) 
-		then drop(true) + adopt(buildEvoChamber(X, Y)) + print("DERP").
+		then drop(true) + adopt(buildEvoChamber(X, Y)).
 		
 		if bel(mineralField(Id,Amount,MX,MY), builder ,Amount < 500 ,friendly(_ ,"Zerg Hatchery",_ ,X,Y)
 		,nearestBase(X, Y, NX, NY), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 

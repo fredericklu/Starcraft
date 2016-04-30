@@ -16,6 +16,23 @@ define zergHatchery as agent {
 	use ZergHatchery.ZergHatcheryEvent as event module.
 }	
 
+define zergZergling as agent{
+	use ZergZergling.ZergZerglingInit as init module.
+	use ZergZergling.ZergZergling as main module.
+	use ZergZergling.ZergZerglingEvent as event module.
+}
+
+define zergEvolutionChamber as agent{
+	use ZergEvolutionChamber.ZergEvolutionChamber as main module.
+	use ZergEvolutionChamber.ZergEvolutionChamberEvent as event module.	
+}
+
+define zergHydralisk as agent{
+	use ZergHydralisk.ZergHydraliskInit as init module.
+	use ZergHydralisk.ZergHydralisk as main module.
+	use ZergHydralisk.ZergHydraliskEvent as event module.
+}
+
 define stayAlive as agent {
 	use stayAlive.stayAlive as main module.	
 }
@@ -24,6 +41,7 @@ launchpolicy{
 	when type = zergDrone launch zergDrone.
 	when type = zergHatchery launch zergHatchery.
 	when type = stayAlive launch stayAlive.
-	%when type = zergZergling launch zergZergling.
-	%when type = zergEvolutionChamber launch zergEvolutionChamber.
+	when type = zergZergling launch zergZergling.
+	when type = zergEvolutionChamber launch zergEvolutionChamber.
+	when type = zergHydralisk launch zergHydralisk.
 }

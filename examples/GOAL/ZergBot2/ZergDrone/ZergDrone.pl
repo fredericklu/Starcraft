@@ -38,7 +38,7 @@ buildHydraDen/2.
 				sort(L, [[_,RX,RY]|_]).
 				
 	
-		shouldMineVespene :- unit('Zerg Extractor',RefCount),
+		shouldMineVespene :- unit("Zerg Extractor",RefCount),
 				NeededWorkers is RefCount * 2,
 				aggregate_all(count, workerActivity(_,gatheringGas), Count),
 				Count < NeededWorkers.
