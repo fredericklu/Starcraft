@@ -68,10 +68,10 @@ public class StarcraftUnitFactory {
     if (unit.getType().isBuilding()) {
       perceptGenerators.add(new AvailableResourcesPerceiver(api));
       perceptGenerators.add(new QueueSizePerceiver(this.api, unit));
-      perceptGenerators.add(new BuildUnitPerceiver(this.api, unit));
       perceptGenerators.add(new UpgradePerceiver(this.api, unit));
       perceptGenerators.add(new RallyPerceiver(api, unit));
       if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
+        perceptGenerators.add(new BuildUnitPerceiver(this.api, unit));
         perceptGenerators.add(new LiftUnitPerceiver(api, unit));
         perceptGenerators.add(new AddonPerceiver(api, unit));
       }

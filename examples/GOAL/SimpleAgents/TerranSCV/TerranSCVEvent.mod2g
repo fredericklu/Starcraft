@@ -21,7 +21,7 @@ module TerranSCVEvent {
 		
 		if percept(position(X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then insert(position(X1,Y1)) + delete(position(X2,Y2)).
 		
-		forall percept(constructionSite(X,Y)), bel(not(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
+		forall percept(constructionSite(X,Y)), not(bel(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
 		forall not(percept(constructionSite(X,Y))), bel(constructionSite(X,Y)) do delete(constructionSite(X,Y)).
 		
 		if percept(constructing), not(bel(constructing)) then insert(constructing).

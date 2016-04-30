@@ -8,7 +8,6 @@ mineralField/4,
 supply/2,
 position/2,
 constructionSite/2,
-refinery/3,
 workerActivity/2,
 isStuck/0,
 id/1,
@@ -22,7 +21,8 @@ buildPool/2,
 buildExtractor/2,
 buildEvoChamber/2,
 expandTo/2,
-goGather/1.
+goGather/1,
+buildHydraDen/2.
 
 		busy :- constructing ; gathering(_).
 		cost("Zerg Spawning Pool", 200, 0).
@@ -37,10 +37,11 @@ goGather/1.
 			:-	findall([D,BX,BY], (chokepoint(BX,BY), distance(X,Y,BX,BY,D)), L),
 				sort(L, [[_,RX,RY]|_]).
 				
+	
 		shouldMineVespene :- unit('Zerg Extractor',RefCount),
-				     NeededWorkers is RefCount * 2,
-				     aggregate_all(count, workerActivity(_,gatheringGas), Count),
-				     Count < NeededWorkers.
+				NeededWorkers is RefCount * 2,
+				aggregate_all(count, workerActivity(_,gatheringGas), Count),
+				Count < NeededWorkers.
 								
 		nearestBase(X, Y, RX, RY) 
 		:-	findall([D,BX,BY], (base(BX,BY, 'false', _), distance(X,Y,BX,BY,D)), L),

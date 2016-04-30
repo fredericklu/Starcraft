@@ -1,8 +1,8 @@
 use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
 	map="(2)Destination.scx",
 	race="Zerg",
-	starcraft_location="C:\\Starcraft No Install".
-	
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
 	
 define zergDrone as agent {
 	use ZergDrone.ZergDrone as main module.
@@ -16,9 +16,14 @@ define zergHatchery as agent {
 	use ZergHatchery.ZergHatcheryEvent as event module.
 }	
 
+define stayAlive as agent {
+	use stayAlive.stayAlive as main module.	
+}
+
 launchpolicy{
 	when type = zergDrone launch zergDrone.
 	when type = zergHatchery launch zergHatchery.
+	when type = stayAlive launch stayAlive.
 	%when type = zergZergling launch zergZergling.
 	%when type = zergEvolutionChamber launch zergEvolutionChamber.
 }

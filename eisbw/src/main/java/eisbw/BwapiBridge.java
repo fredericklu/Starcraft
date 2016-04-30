@@ -69,7 +69,7 @@ public class BwapiBridge extends EIDefaultImpl {
   private Map<Unit, Action> pendingActions = new HashMap<>();
 
   public JNIBWAPI getGame() {
-    
+
     return bwapi;
   }
 
@@ -366,6 +366,12 @@ public class BwapiBridge extends EIDefaultImpl {
         String unitName = unitNames.get(id);
         Unit unit = units.get(unitName);
         if (bwapi.getMyUnits().contains(unit)) {
+          // System.out.println(unitName + " TOEGEVOEGD");
+          try {
+            deleteEntity(unitName);
+          } catch (EntityException | RelationException ex) {
+            throw new RuntimeException(ex);
+          }
           register(unit);
         }
       }

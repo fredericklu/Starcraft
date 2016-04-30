@@ -13,4 +13,5 @@ supply/2,
 trainOverlord/0,
 trainDrone/0,
 trainHydralisk/0,
-trainZergling/0.
+trainZergling/0,
+dying/1.

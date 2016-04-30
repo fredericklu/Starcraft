@@ -39,8 +39,6 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
 
         boolean terranBuildable = api.canBuildHere(unit, pos,
             UnitType.UnitTypes.Terran_Command_Center, true);
-        boolean zergBuildable = api.canBuildHere(unit, pos,
-            UnitType.UnitTypes.Zerg_Ultralisk_Cavern, true);
         if (terranBuildable && (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()
             || api.getSelf().getRace().getID() == RaceTypes.Protoss.getID())) {
           Point possible = new Point(x, y);
@@ -55,19 +53,24 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
           if (add) {
             percepts.add(new ConstructionSitePercept(possible.x, possible.y));
           }
-        } else if (zergBuildable && api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
+        } else {
+          boolean zergBuildable = api.canBuildHere(unit, pos, UnitType.UnitTypes.Zerg_Spawning_Pool,
+              true);
 
-          Point possible = new Point(x, y);
-          boolean add = true;
-          for (Point illegal : illegals) {
-            if (illegal.distance(possible) < 10) {
-              add = false;
-              break;
+          if (zergBuildable && api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
+
+            Point possible = new Point(x, y);
+            boolean add = true;
+            for (Point illegal : illegals) {
+              if (illegal.distance(possible) < 10) {
+                add = false;
+                break;
+              }
             }
-          }
 
-          if (add) {
-            percepts.add(new ConstructionSitePercept(possible.x, possible.y));
+            if (add) {
+              percepts.add(new ConstructionSitePercept(possible.x, possible.y));
+            }
           }
         }
       }
