@@ -3,6 +3,10 @@ use ZergHydralisk as knowledge.
 module ZergHydraliskEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
+	if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
+		
+	if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
+	
 	forall percept(friendly(Name,Type,Id,Health,_,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,Health,X,Y)), MyId \= Id) 
 	do insert(friendly(Name,Type,Id,Health,X,Y)).
 	forall bel(friendly(Name,Type,Id,Health,X,Y)) , not(percept(friendly(Name,Type,Id,Health,_,X,Y)))
@@ -19,4 +23,7 @@ module ZergHydraliskEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 		
 	if bel(unit("Zerg Zergling", Amount), Amount >= 30, enemyBase(X, Y)) then adopt(attack(X,Y)).
+	
+	if bel((unit("Zerg Lurker", Amount), Amount =< 5 ; not(unit("Zerg Lurker", _))), minerals(M), M >= 50, gas(G), G >= 100)
+	then adopt(morph("Zerg Lurker")).
 }

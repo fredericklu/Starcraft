@@ -23,6 +23,7 @@ define zergZergling as agent{
 }
 
 define zergEvolutionChamber as agent{
+	use ZergEvolutionChamber.ZergEvolutionChamberInit as init module.
 	use ZergEvolutionChamber.ZergEvolutionChamber as main module.
 	use ZergEvolutionChamber.ZergEvolutionChamberEvent as event module.	
 }
@@ -31,6 +32,12 @@ define zergHydralisk as agent{
 	use ZergHydralisk.ZergHydraliskInit as init module.
 	use ZergHydralisk.ZergHydralisk as main module.
 	use ZergHydralisk.ZergHydraliskEvent as event module.
+}
+
+define zergCreepColony as agent{
+	use ZergCreepColony.ZergCreepColonyInit as init module.
+	use ZergCreepColony.ZergCreepColony as main module.
+	use ZergCreepColony.ZergCreepColonyEvent as event module.	
 }
 
 define stayAlive as agent {
@@ -44,4 +51,5 @@ launchpolicy{
 	when type = zergZergling launch zergZergling.
 	when type = zergEvolutionChamber launch zergEvolutionChamber.
 	when type = zergHydralisk launch zergHydralisk.
+	when type = zergCreepColony launch zergCreepColony.
 }

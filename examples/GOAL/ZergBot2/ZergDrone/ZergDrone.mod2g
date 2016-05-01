@@ -2,6 +2,8 @@ use ZergDrone as knowledge.
 use ZergDrone as actionspec.
 
 module ZergDrone {
+		if a-goal(buildColony(X,Y)) then build ("Zerg Creep Colony", X, Y).
+		
 		if a-goal(buildPool(X, Y)) then build("Zerg Spawning Pool", X, Y).
 		
 		if a-goal(buildExtractor(X, Y)) then build("Zerg Extractor", X, Y).

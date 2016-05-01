@@ -1,0 +1,6 @@
+use ZergLair as knowledge.
+use ZergLair as actionspec.
+
+module Zerglair {
+	
+}

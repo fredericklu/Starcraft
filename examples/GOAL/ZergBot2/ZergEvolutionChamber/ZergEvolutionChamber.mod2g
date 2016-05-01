@@ -3,5 +3,6 @@ use ZergEvolutionChamber as actionspec.
 
 module ZergEvolutionChamber {
 	if a-goal(upgrade('Zerg Melee Attacks')) then upgrade('Zerg Melee Attacks').
-	if a-goal(upgrade('Zerg Carapace')) then upgrade('Zerg Carapac').	
+	
+	if a-goal(upgrade('Zerg Carapace')) then upgrade('Zerg Carapace').	
 }

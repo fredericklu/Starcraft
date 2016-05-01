@@ -1,0 +1,5 @@
+use ZergLair as knowledge.
+
+define ZergLair with
+	pre{ true }
+	post{ true }

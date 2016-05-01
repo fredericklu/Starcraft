@@ -36,18 +36,22 @@ module ZergDroneEvent {
 		
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
+		if bel(constructionSite(X,Y), minerals(M), M >= 75, builder, friendly(_, "Zerg Spawning Pool", _, _, _),
+		((unit("Zerg Sunken Colony", Amount), Amount < 2) ; not(unit("Zerg Sunken Colony",_)))) 
+		then adopt(buildColony(X, Y)).
+		
 		if bel(constructionSite(X,Y), minerals(M), M >= 200, builder, not(friendly(_, "Zerg Spawning Pool", _, _, _))) 
 		then adopt(buildPool(X, Y)).
 		
-		if bel(friendly(_ ,"Zerg Hatchery",_,BX,BY), vespeneGeyser(Id, X , Y),
+		if bel(friendly(_ ,"Zerg Hatchery",_,BX,BY), vespeneGeyser(Id, X , Y), friendly(_, "Zerg Spawning Pool", _, _, _),
 		builder, minerals(M), M >= 75, distance(BX, BY, X, Y, D), D < 10) then adopt(buildExtractor(X, Y)).
 		
-		if bel(constructionSite(X,Y), minerals(M), M >= 75, builder, not(friendly(_, "Zerg Evolution Chamber", _, _, _))) 
+		if bel(constructionSite(X,Y), minerals(M), M >= 75, builder, not(friendly(_, "Zerg Evolution Chamber", _, _, _)),
+		friendly(_, "Zerg Spawning Pool", _, _, _)) 
 		then drop(true) + adopt(buildEvoChamber(X, Y)).
 		
-		if bel(mineralField(Id,Amount,MX,MY), builder ,Amount < 500 ,friendly(_ ,"Zerg Hatchery",_ ,X,Y)
-		,nearestBase(X, Y, NX, NY), minerals(M), M >= 400, distance(X, Y, MX, MY, Res), Res < 7) 
-		then drop(true) + adopt(expandTo(X, Y)).
+		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300, 
+		distance(X, Y, MX, MY, Res), Res < 7) then drop(true) + adopt(expandTo(X, Y)).
 		
 		if bel(constructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
 		not(friendly(_, "Zerg Hydralisk Den", _, _, _)), builder) then drop(true) + adopt(buildHydraDen(X,Y)).

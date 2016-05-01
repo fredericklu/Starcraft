@@ -7,3 +7,7 @@ define move(X, Y) with
 define attack(X, Y) with
 	pre{ true }
 	post{ true }
+	
+define morph(Type) with
+	pre{ true }
+	post{ true }

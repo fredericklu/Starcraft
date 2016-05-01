@@ -1,4 +1,6 @@
 :- dynamic
+minerals/1,
+gas/1,
 move/2,
 position/2,
 attack/2,
@@ -7,7 +9,8 @@ base/4,
 enemy/7,
 id/1,
 friendly/6,
-chokepoint/2.
+chokepoint/2,
+morph/1.
 
 enemyBase(X, Y) :- base(X, Y, 'true', _), 
 friendly(_, "Zerg Hatchery", _,_, X1, Y1), distance(X, Y, X1, Y1, Res), Res > 10.
