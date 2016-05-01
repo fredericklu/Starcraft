@@ -2,7 +2,9 @@ use ZergZergling as knowledge.
 
 module ZergZerglingEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
-	
+		
+		if percept(isStuck) then insert(isStuck).
+		
 		forall percept(friendly(Name,Type,Id,Health,_,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,Health,X,Y)), MyId \= Id) 
 		do insert(friendly(Name,Type,Id,Health,X,Y)).
 		forall bel(friendly(Name,Type,Id,Health,X,Y)) , not(percept(friendly(Name,Type,Id,Health,_,X,Y)))
@@ -19,4 +21,8 @@ module ZergZerglingEvent {
 		%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 		
 		if bel(unit("Zerg Zergling", Amount), Amount >= 30, enemyBase(X, Y)) then adopt(attack(X,Y)).
+		
+		if bel(enemy(_, Id, _, _, 'false', _, _)) then adopt(attack(Id)).
+		
+		if bel(isStuck) then adopt(stop).
 }

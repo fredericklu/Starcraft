@@ -14,4 +14,6 @@ trainOverlord/0,
 trainDrone/0,
 trainHydralisk/0,
 trainZergling/0,
-dying/1.
+dying/1,
+morph/1,
+train/1.

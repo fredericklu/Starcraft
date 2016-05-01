@@ -4,6 +4,8 @@ use ZergHydralisk as actionspec.
 module ZergHydralisk {
 	if a-goal(attack(X,Y)) then attack(X,Y).
 	
+	if a-goal(attack(Id)) then attack(Id).
+	
 	if a-goal(move(X, Y)) then move(X, Y).
 	
 	if a-goal(morph("Zerg Lurker")) then morph("Zerg Lurker").

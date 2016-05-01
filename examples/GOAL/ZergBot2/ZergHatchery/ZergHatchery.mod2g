@@ -2,11 +2,13 @@ use ZergHatchery as knowledge.
 use Zerghatchery as actionspec.
 
 module ZergHatchery {
-	if goal(trainDrone), bel(unit("Zerg Drone",X) ,X<12) then train("Zerg Drone") + drop(trainDrone).
-		
-	if goal(trainOverlord), bel(not(isMorphing("Zerg Overlord", _))) then train("Zerg Overlord") + drop(trainOverlord).
+	if a-goal(morph("Zerg Lair")) then morph("Zerg Lair").
 	
-	if a-goal(trainHydralisk) then train("Zerg Hydralisk") + drop(trainHydralisk).
+	if a-goal(train("Zerg Drone")), bel(unit("Zerg Drone",X) ,X<12) then train("Zerg Drone") + drop(train("Zerg Drone")).
 		
-	if a-goal(trainZergling) then train("Zerg Zergling") + drop(trainZergling).
+	if a-goal(train("Zerg Overlord")), bel(not(isMorphing("Zerg Overlord", _))) then train("Zerg Overlord") + drop(train("Zerg Overlord")).
+	
+	if a-goal(train("Zerg Hydralisk")) then train("Zerg Hydralisk").
+		
+	if a-goal(train("Zerg Zergling")) then train("Zerg Zergling").
 }

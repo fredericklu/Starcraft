@@ -7,7 +7,10 @@ base/4,
 enemy/7,
 id/1,
 friendly/6,
-chokepoint/2
+chokepoint/2,
+isStuck/0,
+stop/0,
+attack/1
 .
 
 enemyBase(X, Y) :- base(X, Y, 'true', _), 

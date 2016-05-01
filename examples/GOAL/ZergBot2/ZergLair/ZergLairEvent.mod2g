@@ -26,15 +26,15 @@ module ZergLairEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
 	if bel(not(isMorphing("Zerg Overlord", _)), not(trainOverlord),
-	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(trainOverlord).
+	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(train("Zerg Overlord")).
 		
-	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(trainDrone).
+	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(train("Zerg Drone")).
 		
-	if bel(friendly(_ , "Zerg Hydralisk Den", _, _, _), unit("Zerg Zergling", Amount), Amount > 20, 
-	not(trainHydralisk), minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(trainHydralisk).
+	if bel(friendly(_ , "Zerg Hydralisk Den", _, _, _), unit("Zerg Hydralisk", Amount), Amount =< 20, 
+	not(trainHydralisk), minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(train("Zerg Hydralisk")).
 		
 	if bel(friendly(_, "Zerg Spawning Pool", _, _, _), not(trainZergling), minerals(X), X >= 50, supply(Y,Z), Y<Z, 
-	gas(G), G < 10) then adopt(trainZergling).
+	gas(G), G < 10) then adopt(train("Zerg Zergling")).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	

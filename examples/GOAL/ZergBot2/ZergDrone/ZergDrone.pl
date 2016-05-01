@@ -23,7 +23,9 @@ buildEvoChamber/2,
 expandTo/2,
 goGather/1,
 buildHydraDen/2,
-buildColony/2.
+buildColony/2,
+isStuck/0,
+stop/0.
 
 		busy :- constructing ; gathering(_).
 		cost("Zerg Spawning Pool", 200, 0).

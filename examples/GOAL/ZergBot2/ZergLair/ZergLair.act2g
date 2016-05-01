@@ -1,5 +1,5 @@
 use ZergLair as knowledge.
 
-define ZergLair with
-	pre{ true }
-	post{ true }
+define train(Id) with
+	pre {true}
+	post {true}

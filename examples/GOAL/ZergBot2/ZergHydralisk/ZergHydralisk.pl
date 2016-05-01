@@ -10,7 +10,8 @@ enemy/7,
 id/1,
 friendly/6,
 chokepoint/2,
-morph/1.
+morph/1,
+attack/1.
 
 enemyBase(X, Y) :- base(X, Y, 'true', _), 
 friendly(_, "Zerg Hatchery", _,_, X1, Y1), distance(X, Y, X1, Y1, Res), Res > 10.
