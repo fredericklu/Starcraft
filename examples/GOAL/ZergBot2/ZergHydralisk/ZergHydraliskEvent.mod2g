@@ -26,6 +26,6 @@ module ZergHydraliskEvent {
 	
 	if bel(enemy(_, Id, _, _, _, _, _)) then adopt(attack(Id)).
 	
-	if bel((unit("Zerg Lurker", Amount), Amount =< 5 ; not(unit("Zerg Lurker", _))), minerals(M), M >= 50, gas(G), G >= 100)
+	if bel((unit("Zerg Lurker", Amount), Amount =< 30 ; not(unit("Zerg Lurker", _))), minerals(M), M >= 50, gas(G), G >= 100)
 	then adopt(morph("Zerg Lurker")).
 }

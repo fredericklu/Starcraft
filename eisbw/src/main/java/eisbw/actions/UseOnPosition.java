@@ -51,6 +51,6 @@ public class UseOnPosition extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "useOnPosition(techType, x, y)";
+    return "abilityOnPosition(techType, x, y)";
   }
 }

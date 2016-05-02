@@ -25,7 +25,8 @@ goGather/1,
 buildHydraDen/2,
 buildColony/2,
 isStuck/0,
-stop/0.
+stop/0,
+build/3.
 
 		busy :- constructing ; gathering(_).
 		cost("Zerg Spawning Pool", 200, 0).
@@ -34,6 +35,7 @@ stop/0.
 		cost("Zerg Hatchery", 300, 0).
 		cost("Zerg Hydralisk Den", 100, 50).
 		cost("Zerg Creep Colony", 75, 0).
+		cost("Zerg Queens Nest", 150, 100).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 		

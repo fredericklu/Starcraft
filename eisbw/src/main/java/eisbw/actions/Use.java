@@ -44,6 +44,6 @@ public class Use extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "use(techId)";
+    return "ability(techId)";
   }
 }

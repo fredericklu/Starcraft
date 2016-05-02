@@ -34,6 +34,12 @@ define zergHydralisk as agent{
 	use ZergHydralisk.ZergHydraliskEvent as event module.
 }
 
+define zergHydraliskDen as agent{
+	use ZergHydraliskDen.ZergHydraliskDenInit as init module.
+	use ZergHydraliskDen.ZergHydraliskDen as main module.
+	use ZergHydraliskDen.ZergHydraliskDenEvent as event module.
+}
+
 define zergCreepColony as agent{
 	use ZergCreepColony.ZergCreepColonyInit as init module.
 	use ZergCreepColony.ZergCreepColony as main module.
@@ -44,6 +50,18 @@ define zergLair as agent{
 	use ZergLair.ZergLairInit as init module.
 	use ZergLair.ZergLair as main module.
 	use ZergLair.ZergLairEvent as event module.	
+}
+
+define zergQueensNest as agent{
+	use ZergQueensNest.ZergQueensNestInit as init module.
+	use ZergQueensNest.ZergQueensNest as main module.
+	use ZergQueensNest.ZergQueensNestEvent as event module.
+}
+
+define zergQueen as agent{
+	use ZergQueen.ZergQueenInit as init module.
+	use ZergQueen.ZergQueen as main module.
+	use ZergQueen.ZergQueenEvent as event module.
 }
 
 define stayAlive as agent {
@@ -59,4 +77,7 @@ launchpolicy{
 	when type = zergHydralisk launch zergHydralisk.
 	when type = zergCreepColony launch zergCreepColony.
 	when type = zergLair launch zergLair.
-}
+	when type = zergHydraliskDen launch zergHydraliskDen.
+	when type = zergQueensNest launch zergQueensNest.
+	when type = zergQueen launch zergQueen.
+	}

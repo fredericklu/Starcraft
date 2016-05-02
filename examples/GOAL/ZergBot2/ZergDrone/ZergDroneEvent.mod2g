@@ -38,6 +38,8 @@ module ZergDroneEvent {
 		
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
+		if goal(expandTo(X, Y)), bel(friendly(_ ,"Zerg Hatchery",_ ,X,Y)) then drop(expandTo(X, Y)).
+		
 		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300) 
 		then drop(true) + adopt(expandTo(NX, NY)).
 		
@@ -59,8 +61,11 @@ module ZergDroneEvent {
 		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
 		not(friendly(_, "Zerg Hydralisk Den", _, _, _)), builder) then drop(true) + adopt(buildHydraDen(X,Y)).
 		
-		if not(goal(true)), bel(mineralField(Id,Amount,X,Y), chokepointlocation(X,Y,CX,CY), distance(X,Y,CX,CY,L), L>10) 
-		then adopt(goGather(Id)).
+		if not(goal(true)), bel(mineralField(Id,Amount,X,Y), friendly(_, Type, _, CX, CY), 
+		member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), distance(X,Y,CX,CY,L), L<10) then adopt(goGather(Id)).
+		
+		if bel(constructionSite(X,Y), minerals(M), M >= 150, gas(G), G >= 100, builder, 
+		not(friendly(_, "Zerg Queens Nest", _, _, _)), friendly(_, "Zerg Lair", _, _, _)) then adopt(build("Zerg Queens Nest", X, Y)).
 		
 		%if bel(isStuck) then adopt(stop).
 		

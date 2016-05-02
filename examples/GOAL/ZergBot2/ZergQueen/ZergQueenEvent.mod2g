@@ -1,9 +1,8 @@
-use ZergZergling as knowledge.
+use ZergQueen as knowledge.
 
-module ZergZerglingEvent {
+module ZergQueenEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
-		
-	%	if percept(isStuck) then insert(isStuck).
+		if percept(energy(C, M)), bel(energy(CO, MO), (CO \= C ; MO \= M)) then delete(energy(CO, MO)) + insert(energy(C, M)).
 		
 		forall percept(friendly(Name,Type,Id,Health,_,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,Health,X,Y)), MyId \= Id) 
 		do insert(friendly(Name,Type,Id,Health,X,Y)).
@@ -15,14 +14,9 @@ module ZergZerglingEvent {
 		forall bel(enemy(Name,Id,Health,Shields,IsFlying,X,Y)) , not(percept(enemy(Name,Id,Health,Shields,IsFlying,X,Y)))
 		do delete(enemy(Name,Id,Health,Shields,IsFlying,X,Y)).
 		
-		forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
-		forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).
-		
 		%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 		
-		if bel(unit("Zerg Zergling", Amount), Amount >= 30, enemyBase(X, Y)) then adopt(attack(X,Y)).
+		if bel(friendly(_, "Zerg Hydralisk", Id, _, _, _)) then adopt(follow(Id)).
 		
-		if bel(enemy(_, Id, _, _, 'false', _, _)) then adopt(attack(Id)).
-		
-		%if bel(isStuck) then adopt(stop).
+		if bel(enemy(_, Id, _, _, _, _, _), energy(C,_), C >= 75) then adopt(ability("Parasite", Id)).
 }

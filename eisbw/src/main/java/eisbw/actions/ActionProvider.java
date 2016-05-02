@@ -30,8 +30,9 @@ public class ActionProvider {
     actions.put("move/2", new Move(api));
     actions.put("train/1", new Train(api));
     actions.put("stop/0", new Stop(api));
-    actions.put("use/1", new Use(api));
-    actions.put("use/2", new UseOnTarget(api));
+    actions.put("ability/1", new Use(api));
+    actions.put("ability/2", new UseOnTarget(api));
+    actions.put("ability/3", new UseOnPosition(api));
     actions.put("research/1", new Research(api));
     actions.put("setRallyPoint/2", new SetRallyPoint(api));
     actions.put("setRallyPoint/1", new SetRallyUnit(api));

@@ -39,7 +39,7 @@ module ZergHatcheryEvent {
 	if bel(friendly(_, "Zerg Spawning Pool", _, _, _), not(trainZergling), minerals(X), X >= 50, supply(Y,Z), Y<Z) 
 	then adopt(train("Zerg Zergling")).
 	
-	if bel(unit("Zerg Hydralisk", Amount), Amount > 1) then adopt(morph("Zerg Lair")).
+	if bel(unit("Zerg Hydralisk", Amount), Amount > 1, not(unit("Zerg Lair", _))) then adopt(morph("Zerg Lair")).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	

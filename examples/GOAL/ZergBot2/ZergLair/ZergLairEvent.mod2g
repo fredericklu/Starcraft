@@ -29,6 +29,9 @@ module ZergLairEvent {
 	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(train("Zerg Overlord")).
 		
 	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(train("Zerg Drone")).
+	
+	if bel(((unit("Zerg Queen", Amount), Amount =< 3) ; not(unit("Zerg Queen",_))), 
+	friendly(_, "Zerg Queens Nest", _, _, _)) then adopt(train("Zerg Queen")).
 		
 	if bel(friendly(_ , "Zerg Hydralisk Den", _, _, _), unit("Zerg Hydralisk", Amount), Amount =< 20, 
 	not(trainHydralisk), minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(train("Zerg Hydralisk")).
