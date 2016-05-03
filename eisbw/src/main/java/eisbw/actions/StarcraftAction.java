@@ -12,7 +12,6 @@ public abstract class StarcraftAction {
 
   public StarcraftAction(JNIBWAPI api) {
     this.api = api;
-    this.utility = new BwapiUtility(api);
   }
 
   public abstract boolean isValid(Action action);

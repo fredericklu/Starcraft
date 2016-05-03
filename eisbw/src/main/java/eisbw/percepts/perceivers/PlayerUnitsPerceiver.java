@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerUnitsPerceiver extends Perceiver {
-  private final BwapiUtility util;
 
-  public PlayerUnitsPerceiver(JNIBWAPI api, BwapiUtility util) {
+  public PlayerUnitsPerceiver(JNIBWAPI api) {
     super(api);
-    this.util = util;
   }
 
   @Override
@@ -24,7 +22,7 @@ public class PlayerUnitsPerceiver extends Perceiver {
     List<Percept> percepts = new ArrayList<>();
 
     for (Unit unit : this.api.getMyUnits()) {
-      percepts.add(new FriendlyPercept(util.getUnitName(unit), unit.getType().getName(), 
+      percepts.add(new FriendlyPercept(BwapiUtility.getUnitName(unit), unit.getType().getName(), 
           unit.getID(), unit.getHitPoints(), unit.getShields(), unit.getPosition().getWX(), 
           unit.getPosition().getWY(), unit.getPosition().getBX(), unit.getPosition().getBY()));
       if (unit.isCloaked()) {

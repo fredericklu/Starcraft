@@ -43,8 +43,7 @@ public class DrawButtons extends JPanel implements ActionListener {
   public void draw(JNIBWAPI api) throws NoTranslatorException, TranslationException {
     if (draw) {
       Translator translator = Translator.getInstance();
-      ConstructionSitePerceiver constructions = new ConstructionSitePerceiver(api,
-          new Unit(UnitTypes.Terran_SCV.getID(), api));
+      ConstructionSitePerceiver constructions = new ConstructionSitePerceiver(api);
       List<Percept> percepts = constructions.perceive();
       for (Percept percept : percepts) {
         LinkedList<Parameter> params = percept.getParameters();

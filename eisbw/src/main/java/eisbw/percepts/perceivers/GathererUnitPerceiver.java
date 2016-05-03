@@ -38,13 +38,12 @@ public class GathererUnitPerceiver extends UnitPerceiver {
       }
     }
 
-    BwapiUtility util = new BwapiUtility(api);
     for (Unit u : api.getMyUnits()) {
       if (u == unit) {
         continue;
       }
       if (u.isGatheringGas() || unit.isGatheringMinerals()) {
-        Percept percept = new GatheringPercept(util.getUnitName(u), u.isGatheringGas());
+        Percept percept = new GatheringPercept(BwapiUtility.getUnitName(u), u.isGatheringGas());
         result.add(percept);
       }
     }

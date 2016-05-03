@@ -47,10 +47,10 @@ public class Configuration {
   }
 
   private void checkSanity() {
-    if (race == null || map == null || scDir == null) {
-      throw new IllegalStateException("Map, Race "
-          + "and starcraft directory have to be defined in the .mas2g file");
-    }
+//    if (race == null || map == null || scDir == null) {
+//      throw new IllegalStateException("Map, Race "
+//          + "and starcraft directory have to be defined in the .mas2g file");
+//    }
   }
 
   private void setSC_dir(String dir) {

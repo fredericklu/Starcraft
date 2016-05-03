@@ -13,10 +13,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConstructionSitePerceiver extends UnitPerceiver {
+public class ConstructionSitePerceiver extends Perceiver {
 
-  public ConstructionSitePerceiver(JNIBWAPI api, Unit unit) {
-    super(api, unit);
+  public ConstructionSitePerceiver(JNIBWAPI api) {
+    super(api);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
     for (int x = 0; x < mapWidth; x++) {
       for (int y = 0; y < mapHeight; y++) {
         Position pos = new Position(x, y, Position.PosType.BUILD);
-        boolean buildable = api.canBuildHere(unit, pos, 
+        boolean buildable = api.canBuildHere(pos, 
             UnitType.UnitTypes.Terran_Command_Center, true);
 
         // boolean zergBuildable = api.canBuildHere(unit, p,

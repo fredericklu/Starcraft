@@ -1,6 +1,5 @@
 package eisbw.units;
 
-import eisbw.BwapiUtility;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.perceivers.AddonPerceiver;
 import eisbw.percepts.perceivers.AttackingUnitsPerceiver;
@@ -37,11 +36,9 @@ import java.util.ArrayList;
 public class StarcraftUnitFactory {
 
   private final JNIBWAPI api;
-  private final BwapiUtility util;
 
-  public StarcraftUnitFactory(JNIBWAPI api, BwapiUtility util) {
+  public StarcraftUnitFactory(JNIBWAPI api) {
     this.api = api;
-    this.util = util;
   }
 
   // These perceptgenerators are only added on init, so a building that can fly
@@ -59,7 +56,7 @@ public class StarcraftUnitFactory {
     perceptGenerators.add(new GenericUnitPerceiver(api, unit));
     perceptGenerators.add(new MapPerceiver(api));
     perceptGenerators.add(new EnemyPerceiver(api));
-    perceptGenerators.add(new PlayerUnitsPerceiver(api, util));
+    perceptGenerators.add(new PlayerUnitsPerceiver(api));
     perceptGenerators.add(new ResearchPerceiver(this.api, unit));
 
     if (unit.getType().isCanMove()) {
@@ -88,7 +85,6 @@ public class StarcraftUnitFactory {
       perceptGenerators.add(new AvailableResourcesPerceiver(api));
       perceptGenerators.add(new BuilderUnitPerceiver(api, unit));
       perceptGenerators.add(new GathererUnitPerceiver(api, unit));
-      perceptGenerators.add(new ConstructionSitePerceiver(api, unit));
       perceptGenerators.add(new WorkerActivityPerceiver(api));
 
       if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
@@ -101,7 +97,7 @@ public class StarcraftUnitFactory {
 
     String un = unit.getType().getName();
     if (UnitTypesEx.isCommandCenter(unit.getType())) {
-      perceptGenerators.add(new IdleWorkersPerceiver(api, util));
+      perceptGenerators.add(new IdleWorkersPerceiver(api));
       // For some reason the refinerys can't be matched in GOAL right now. Just
       // using command center for now
       perceptGenerators.add(new WorkerActivityPerceiver(api));
