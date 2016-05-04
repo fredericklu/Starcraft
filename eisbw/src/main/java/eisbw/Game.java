@@ -47,15 +47,13 @@ public class Game {
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
       LinkedList<Percept> thisUnitPercepts = new LinkedList<Percept>(perceptHolder);
       thisUnitPercepts.addAll(unit.getValue().perceive());
-      
+
       unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
     }
-    
 
     percepts = unitPerceptHolder;
-    System.out.println(percepts);
   }
-  
+
   private LinkedList<Percept> getPercepts(JNIBWAPI bwapi) {
     LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
     perceptHolder.addAll(new TotalResourcesPerceiver(bwapi).perceive());
@@ -101,8 +99,10 @@ public class Game {
    * @return the percepts
    */
   public LinkedList<Percept> getPercepts(String entity) {
-    if (percepts.containsKey(entity)) {
-      return percepts.get(entity);
+    synchronized (percepts) {
+      if (percepts.containsKey(entity)) {
+        return percepts.get(entity);
+      }
     }
     return new LinkedList<Percept>();
   }

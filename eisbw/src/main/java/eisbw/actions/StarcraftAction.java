@@ -1,14 +1,12 @@
 package eisbw.actions;
 
 import eis.iilang.Action;
-import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
 public abstract class StarcraftAction {
 
   protected JNIBWAPI api;
-  protected BwapiUtility utility;
 
   public StarcraftAction(JNIBWAPI api) {
     this.api = api;

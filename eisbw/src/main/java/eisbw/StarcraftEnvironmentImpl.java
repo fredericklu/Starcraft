@@ -16,6 +16,7 @@ import eisbw.configuration.Configuration;
 import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
       e.printStackTrace();
     }
   }
+  
   
   public StarcraftEnvironmentImpl() {
     super();
@@ -69,6 +71,18 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     }
   }
 
+  @Override
+  public Map<String, Collection<Percept>> getAllPercepts(String agent,
+      String... entities) throws PerceiveException,
+      NoEnvironmentException {
+    try {
+      Thread.sleep(5);
+    } catch (InterruptedException exception) {
+      
+    }
+    return super.getAllPercepts(agent, entities);
+  }
+  
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
       throws PerceiveException, NoEnvironmentException {

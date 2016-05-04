@@ -39,7 +39,7 @@ public class BwapiListener implements BWAPIEventListener {
         bwapi.start();
       }
     }.start();
-    
+
     updateThread = new UpdateThread(game, bwapi);
   }
 
@@ -53,6 +53,7 @@ public class BwapiListener implements BWAPIEventListener {
     // set game speed to 30 (0 is the fastest. Tournament speed is 20)
     // You can also change the game speed from within the game by
     // "/speed X" command.
+    updateThread.start();
     bwapi.setGameSpeed(5);
     bwapi.enableUserInput();
 
@@ -63,7 +64,7 @@ public class BwapiListener implements BWAPIEventListener {
     bwapi.drawIDs(true);
     bwapi.drawHealth(true);
     bwapi.drawTargets(true);
-    updateThread.start();
+    bwapi.sendText("power overwhelming");
   }
 
   @Override
@@ -82,7 +83,7 @@ public class BwapiListener implements BWAPIEventListener {
       // if (configuration.getDebugMode().equals("true")) {
       // debug.debug(bwapi);
       // }
-     // game.update(bwapi);
+      // game.update(bwapi);
     }
   }
 
@@ -162,7 +163,7 @@ public class BwapiListener implements BWAPIEventListener {
   public void unitDestroy(int id) {
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
-      game.getUnits().deleteUnit(unitName, id);
+      game.getUnits().deleteUnit(unitName);
     }
   }
 
@@ -172,8 +173,8 @@ public class BwapiListener implements BWAPIEventListener {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().deleteUnit(unitName, id);;
-        game.getUnits().addUnit(unit,factory);
+        game.getUnits().morphUnit(unitName);
+        game.getUnits().addUnit(unit, factory);
       }
     }
   }
@@ -194,7 +195,9 @@ public class BwapiListener implements BWAPIEventListener {
   public void unitComplete(int unitId) {
     Unit unit = bwapi.getUnit(unitId);
     if (bwapi.getMyUnits().contains(unit)) {
-      game.getUnits().addUnit(unit, factory);
+      if (!game.getUnits().getUnitNames().containsKey(unitId)) {
+        game.getUnits().addUnit(unit, factory);
+      }
     }
   }
 

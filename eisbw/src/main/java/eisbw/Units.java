@@ -43,13 +43,13 @@ public class Units {
 
   /**
    * Removes a unit from game data.
-   * @param unitName - the unit name
-   * @param id - the id of the unit
+   * 
+   * @param unitName
+   *          - the unit name
    */
-  public synchronized void deleteUnit(String unitName, int id) {
+  public synchronized void deleteUnit(String unitName) {
     units.remove(unitName);
     starcraftUnits.remove(unitName);
-    unitNames.remove(id);
     environment.deleteFromEnvironment(unitName);
   }
 
@@ -63,5 +63,9 @@ public class Units {
 
   public Map<String, StarcraftUnit> getStarcraftUnits() {
     return new HashMap<String, StarcraftUnit>(starcraftUnits);
+  }
+
+  public void morphUnit(String unitName) {
+    environment.deleteFromEnvironment(unitName);
   }
 }
