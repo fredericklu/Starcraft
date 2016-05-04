@@ -1,7 +1,7 @@
 use TerranSCV as actionspec.
 use TerranSCV as knowledge.
 
-order = linearrandom.
+order = linearall.
 
 module main{	
 		if bel(builder, commandCenter(X,Y), chokepointlocation(X, Y, TX, TY), 
@@ -9,7 +9,7 @@ module main{
 			not(friendly(_ ,"Terran Bunker",_ ,_,_)), buildingLocation(TX, TY, RX, RY)) then
 			build("Terran Bunker", RX, RY).
 		
-		if bel(builder, supply(C, Max), (Max - C) < 10, buildLocation(X, Y)) 
+		if bel((builder ; not(busy)), supply(C, Max), (Max - C) < 10, buildLocation(X, Y)) 
 		then insert(constructing) + build("Terran Supply Depot", X, Y).
 		
 		if percept(vespeneGeyser(_, _, _, X , Y)), bel(not(busy), minerals(M), M > 100, 
