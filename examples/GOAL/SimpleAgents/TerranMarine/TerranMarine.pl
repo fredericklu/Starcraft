@@ -1,4 +1,5 @@
 :-dynamic
+id/1,
 friendly/5,
 base/4.
 
