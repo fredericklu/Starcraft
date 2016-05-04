@@ -1,0 +1,5 @@
+use ProtossNexus as knowledge.
+
+define train(Type) with
+	pre {true}
+	post {true}

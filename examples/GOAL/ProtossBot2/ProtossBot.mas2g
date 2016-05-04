@@ -1,0 +1,22 @@
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Protoss",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
+	
+define protossProbe as agent {
+	use ProtossProbe.ProtossProbe as main module.
+	use ProtossProbe.ProtossProbeInit as init module.
+	use ProtossProbe.ProtossProbeEvent as event module.
+} 
+
+define protossNexus as agent{
+	use ProtossNexus.ProtossNexus as main module.
+	use ProtossNexus.ProtossNexusInit as init module.
+	use ProtossNexus.ProtossNexusEvent as event module.
+}
+
+launchpolicy{
+	when type = protossProbe launch protossProbe.
+	when type = protossNexus launch protossNexus.
+	}
