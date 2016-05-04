@@ -16,7 +16,21 @@ define protossNexus as agent{
 	use ProtossNexus.ProtossNexusEvent as event module.
 }
 
+define protossForge as agent{
+	use ProtossNexus.ProtossNexus as main module.
+	use ProtossNexus.ProtossNexusInit as init module.
+	use ProtossNexus.ProtossNexusEvent as event module.
+}
+
+define protossCybernaticsCore as agent{
+	use ProtossCybernaticsCore.ProtossCybernaticsCore as main module.
+	use ProtossCybernaticsCore.ProtossCybernaticsCoreInit as init module.
+	use ProtossCybernaticsCore.ProtossCybernaticsCoreEvent as event module.
+}
+
 launchpolicy{
 	when type = protossProbe launch protossProbe.
 	when type = protossNexus launch protossNexus.
+	when type = protossForge launch protossForge.
+	when type = protossCybernaticsCore launch protossCybernaticsCore.
 	}

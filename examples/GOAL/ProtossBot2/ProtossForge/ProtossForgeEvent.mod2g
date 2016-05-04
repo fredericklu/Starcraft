@@ -1,6 +1,6 @@
-use ProtossCybernaticsCore as knowledge.
+use ProtossForge as knowledge.
 
-module ProtossCybernaticsCoreEvent {
+module ProtossForgeEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(upgrade(X)) then insert(upgrade(X)).
@@ -11,5 +11,7 @@ module ProtossCybernaticsCoreEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(not(upgrade('Protoss Singularity Charge')), minerals(M), M >= 150, gas(G), G >= 150) then adopt(upgrade('Protoss Singularity Charge')).
+	if bel(not(upgrade('Protoss Ground Weapons')), minerals(M), M >= 100, gas(G), G >= 100) then adopt(upgrade('Protoss Ground Weapons')).
+	
+	if bel(not(upgrade('Protoss Ground Armor')), minerals(M), M >= 100, gas(G), G >= 100) then adopt(upgrade('Protoss Ground Armor')).
 }
