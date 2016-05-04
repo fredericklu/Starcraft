@@ -25,6 +25,7 @@ import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.StarcraftUnitFactory;
+
 import jnibwapi.BWAPIEventListener;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
@@ -68,6 +69,7 @@ public class BwapiBridge extends EIDefaultImpl {
   private Map<Unit, Action> pendingActions = new HashMap<>();
 
   public JNIBWAPI getGame() {
+
     return bwapi;
   }
 
@@ -240,6 +242,7 @@ public class BwapiBridge extends EIDefaultImpl {
     } catch (EntityException ex) {
       throw new RuntimeException(ex);
     }
+
   }
 
   @Override
@@ -363,6 +366,11 @@ public class BwapiBridge extends EIDefaultImpl {
         String unitName = unitNames.get(id);
         Unit unit = units.get(unitName);
         if (bwapi.getMyUnits().contains(unit)) {
+          try {
+            deleteEntity(unitName);
+          } catch (EntityException | RelationException ex) {
+            throw new RuntimeException(ex);
+          }
           register(unit);
         }
       }

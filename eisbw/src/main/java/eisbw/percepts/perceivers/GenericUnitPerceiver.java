@@ -27,7 +27,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     if (unit.isIdle()) {
       result.add(new IdlePercept());
     }
-
     result.add(new IdPercept(unit.getID()));
     result.add(new UnitTypePercept(unit.getType().getName()));
     if (!unit.isCompleted()) {
@@ -39,8 +38,8 @@ public class GenericUnitPerceiver extends UnitPerceiver {
       result.add(new IsStuck());
     }
 
-    result.add(new BuildTilePositionPercept(unit.getPosition().getBX(), 
-        unit.getPosition().getBY()));
+    result
+        .add(new BuildTilePositionPercept(unit.getPosition().getBX(), unit.getPosition().getBY()));
     result.add(new EnergyPercept(unit.getEnergy(), unit.getType().getMaxEnergy()));
 
     return result;
