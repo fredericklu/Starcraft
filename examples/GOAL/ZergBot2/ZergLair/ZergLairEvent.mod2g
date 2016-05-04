@@ -25,8 +25,8 @@ module ZergLairEvent {
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-	if bel(not(isMorphing("Zerg Overlord", _)), not(trainOverlord),
-	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(train("Zerg Overlord")).
+	if bel(not(isMorphing("Zerg Overlord", _)), not(trainOverlord), 
+	minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(train("Zerg Overlord")).
 		
 	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(train("Zerg Drone")).
 	

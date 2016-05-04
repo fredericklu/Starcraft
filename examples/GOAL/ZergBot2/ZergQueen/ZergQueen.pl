@@ -1,6 +1,5 @@
 :- dynamic
 base/4,
-position/2,
 enemy/7,
 friendly/6,
 energy/2,

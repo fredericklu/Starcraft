@@ -26,7 +26,9 @@ buildHydraDen/2,
 buildColony/2,
 isStuck/0,
 stop/0,
-build/3.
+build/3,
+isMorphing/2,
+move/2.
 
 		busy :- constructing ; gathering(_).
 		cost("Zerg Spawning Pool", 200, 0).

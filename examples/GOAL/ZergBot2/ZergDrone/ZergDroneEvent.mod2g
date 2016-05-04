@@ -34,14 +34,19 @@ module ZergDroneEvent {
 		forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
 		forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).
 		
+		if percept(isMorphing(Name, Id)), not(bel(isMorphing(Name, Id))) then insert(isMorphing(Name, Id)).
+		if bel(isMorphing(Name, Id)), not(percept(isMorphing(Name, Id))) then delete(isMorphing(Name, Id)).
+		
 		%if percept(isStuck) then insert(isStuck).
 		
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if goal(expandTo(X, Y)), bel(friendly(_ ,"Zerg Hatchery",_ ,X,Y)) then drop(expandTo(X, Y)).
-		
-		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300) 
+		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300,
+		not(friendly(_, Type, _, NX, NY)), member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) 
 		then drop(true) + adopt(expandTo(NX, NY)).
+		
+		if goal(expandTo(X, Y)), bel((friendly(_ ,Type,_ ,X,Y),
+		member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) ; isMorphing("Zerg Hatchery", _)) then drop(expandTo(X, Y)) + adopt(move(1,1)).
 		
 		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 75, builder, friendly(_, "Zerg Spawning Pool", _, _, _),
 		((unit("Zerg Sunken Colony", Amount), Amount < 2) ; not(unit("Zerg Sunken Colony",_)))) 

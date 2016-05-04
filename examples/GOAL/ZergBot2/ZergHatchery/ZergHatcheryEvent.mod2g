@@ -30,6 +30,9 @@ module ZergHatcheryEvent {
 		
 	if bel(not(isMorphing("Zerg Overlord", _)), not(trainOverlord),
 	queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) then adopt(train("Zerg Overlord")).
+	
+	if bel(((unit("Zerg Queen", Amount), Amount =< 3) ; not(unit("Zerg Queen",_))), 
+	friendly(_, "Zerg Queens Nest", _, _, _)) then adopt(train("Zerg Queen")).
 		
 	if bel(not(trainDrone), queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(train("Zerg Drone")).
 		
@@ -39,7 +42,8 @@ module ZergHatcheryEvent {
 	if bel(friendly(_, "Zerg Spawning Pool", _, _, _), not(trainZergling), minerals(X), X >= 50, supply(Y,Z), Y<Z) 
 	then adopt(train("Zerg Zergling")).
 	
-	if bel(unit("Zerg Hydralisk", Amount), Amount > 1, not(unit("Zerg Lair", _))) then adopt(morph("Zerg Lair")).
+	if bel(unit("Zerg Hydralisk", Amount), Amount > 1, (not(unit("Zerg Lair", _)); isMorphing("Zerg Hatchery", _))) 
+	then adopt(morph("Zerg Lair")).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	

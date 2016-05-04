@@ -15,3 +15,7 @@ define attack(X, Y) with
 define morph(Type) with
 	pre{ true }
 	post{ true }
+	
+define stop with
+	pre{ true }
+	post { true }

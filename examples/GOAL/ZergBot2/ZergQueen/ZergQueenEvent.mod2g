@@ -16,7 +16,7 @@ module ZergQueenEvent {
 		
 		%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 		
-		if bel(friendly(_, "Zerg Hydralisk", Id, _, _, _)) then adopt(follow(Id)).
+		%if bel(friendly(_, "Zerg Hydralisk", Id, _, _, _)) then adopt(follow(Id)).
 		
 		if bel(enemy(_, Id, _, _, _, _, _), energy(C,_), C >= 75) then adopt(ability("Parasite", Id)).
 }
