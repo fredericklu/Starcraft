@@ -1,6 +1,8 @@
 package eisbw;
 
 import eis.exceptions.ActException;
+import eis.exceptions.EntityException;
+import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
@@ -170,7 +172,8 @@ public class BwapiListener implements BWAPIEventListener {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().addUnit(unit, factory);
+        game.getUnits().deleteUnit(unitName, id);;
+        game.getUnits().addUnit(unit,factory);
       }
     }
   }
