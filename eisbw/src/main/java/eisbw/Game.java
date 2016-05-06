@@ -56,10 +56,12 @@ public class Game {
 
     percepts = unitPerceptHolder;
   }
-  
+
   /**
    * updates the constructionsites in the game.
-   * @param bwapi - the JNIBWAPI
+   * 
+   * @param bwapi
+   *          - the JNIBWAPI
    */
   public void updateConstructionSites(JNIBWAPI bwapi) {
     LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
@@ -126,5 +128,4 @@ public class Game {
   public List<Percept> getConstructionSites() {
     return constructionPercepts;
   }
-
 }

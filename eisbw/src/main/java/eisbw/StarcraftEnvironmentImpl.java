@@ -29,8 +29,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private BwapiListener bwapiListener;
   private Configuration configuration;
   private Game game;
-
-  public static void main(String[] args) {
+  public static void main (String[] args){
     try {
       new StarcraftEnvironmentImpl().init(new HashMap<String, Parameter>());
     } catch (ManagementException e) {
@@ -38,7 +37,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
       e.printStackTrace();
     }
   }
-
+  
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
