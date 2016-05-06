@@ -14,6 +14,7 @@ import jnibwapi.types.UnitType;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -21,6 +22,7 @@ public class Game {
 
   private volatile Map<String, LinkedList<Percept>> percepts;
   private Units units;
+  private volatile LinkedList<Percept> constructionPercepts;
 
   /**
    * Constructor.
@@ -46,20 +48,28 @@ public class Game {
     Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
       LinkedList<Percept> thisUnitPercepts = new LinkedList<Percept>(perceptHolder);
+      thisUnitPercepts.addAll(constructionPercepts);
       thisUnitPercepts.addAll(unit.getValue().perceive());
-      
+
       unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
     }
-    
 
     percepts = unitPerceptHolder;
-    System.out.println(percepts);
   }
   
+  /**
+   * updates the constructionsites in the game.
+   * @param bwapi - the JNIBWAPI
+   */
+  public void updateConstructionSites(JNIBWAPI bwapi) {
+    LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
+    perceptHolder.addAll(new ConstructionSitePerceiver(bwapi).perceive());
+    constructionPercepts = perceptHolder;
+  }
+
   private LinkedList<Percept> getPercepts(JNIBWAPI bwapi) {
     LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
     perceptHolder.addAll(new TotalResourcesPerceiver(bwapi).perceive());
-    perceptHolder.addAll(new ConstructionSitePerceiver(bwapi).perceive());
 
     Map<UnitType, Integer> count = new HashMap<>();
     for (Unit myUnit : bwapi.getMyUnits()) {
@@ -101,14 +111,20 @@ public class Game {
    * @return the percepts
    */
   public LinkedList<Percept> getPercepts(String entity) {
-    if (percepts.containsKey(entity)) {
-      return percepts.get(entity);
+    synchronized (percepts) {
+      if (percepts.containsKey(entity)) {
+        return percepts.get(entity);
+      }
     }
     return new LinkedList<Percept>();
   }
 
   public Units getUnits() {
     return units;
+  }
+
+  public List<Percept> getConstructionSites() {
+    return constructionPercepts;
   }
 
 }

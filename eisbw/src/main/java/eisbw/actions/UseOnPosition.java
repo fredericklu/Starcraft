@@ -4,6 +4,7 @@ import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
+import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
@@ -23,7 +24,7 @@ public class UseOnPosition extends StarcraftAction {
 
     if (parameters.size() == 3) { // type, x, y
       boolean isTechType = parameters.get(0) instanceof Identifier
-          && utility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
+          && BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
       return isTechType && parameters.get(1) 
           instanceof Numeral && parameters.get(2) instanceof Numeral;
     }
@@ -34,7 +35,7 @@ public class UseOnPosition extends StarcraftAction {
   @Override
   public boolean canExecute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
+    TechType techType = BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue());
     return techType.isTargetsPosition();
   }
 
@@ -42,7 +43,7 @@ public class UseOnPosition extends StarcraftAction {
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
 
-    TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
+    TechType techType = BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue());
 
     int xpos = ((Numeral) parameters.get(1)).getValue().intValue();
     int ypos = ((Numeral) parameters.get(2)).getValue().intValue();

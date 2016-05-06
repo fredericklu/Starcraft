@@ -3,6 +3,7 @@ package eisbw.actions;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
+import eisbw.BwapiUtility;
 import eisbw.UnitTypesEx;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -21,7 +22,7 @@ public class Upgrade extends StarcraftAction {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 1) {
       return parameters.get(0) instanceof Identifier
-          && utility.getUpgradeType(((Identifier) parameters.get(0)).getValue()) != null;
+          && BwapiUtility.getUpgradeType(((Identifier) parameters.get(0)).getValue()) != null;
     }
     return false;
   }
@@ -37,7 +38,8 @@ public class Upgrade extends StarcraftAction {
   @Override
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    UpgradeType upgradeType = utility.getUpgradeType(((Identifier) parameters.get(0)).getValue());
+    UpgradeType upgradeType = BwapiUtility
+        .getUpgradeType(((Identifier) parameters.get(0)).getValue());
 
     unit.upgrade(upgradeType);
 

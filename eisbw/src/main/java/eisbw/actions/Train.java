@@ -3,6 +3,7 @@ package eisbw.actions;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
+import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
@@ -20,7 +21,7 @@ public class Train extends StarcraftAction {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 1) {
       return parameters.get(0) instanceof Identifier
-          && utility.getUnitType(((Identifier) parameters.get(0)).getValue()) != null;
+          && BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue()) != null;
     }
     return false;
   }
@@ -33,7 +34,7 @@ public class Train extends StarcraftAction {
   @Override
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    UnitType unitType = utility.getUnitType(((Identifier) parameters.get(0)).getValue());
+    UnitType unitType = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
     unit.train(unitType);
   }
 

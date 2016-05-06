@@ -15,12 +15,12 @@ public class UpdateThread extends Thread {
   @Override
   public void run() {
     while (true) {
+      game.update(bwapi);
       try {
-        Thread.sleep(100);
+        Thread.sleep(50);
       } catch (Exception ex) {
         continue;
       }
-      game.update(bwapi);
     }
   }
 }

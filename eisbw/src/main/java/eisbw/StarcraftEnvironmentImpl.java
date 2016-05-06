@@ -16,6 +16,7 @@ import eisbw.configuration.Configuration;
 import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Configuration configuration;
   private Game game;
 
-  public static void main (String[] args){
+  public static void main(String[] args) {
     try {
       new StarcraftEnvironmentImpl().init(new HashMap<String, Parameter>());
     } catch (ManagementException e) {
@@ -37,12 +38,11 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
       e.printStackTrace();
     }
   }
-  
+
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
     game = new Game(this);
-    bwapiListener = new BwapiListener(game);
   }
 
   private void installTranslators() {
@@ -59,6 +59,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
+      bwapiListener = new BwapiListener(game, configuration.getDebugMode().equals("true"));
 
       if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
         WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
@@ -67,6 +68,17 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     } catch (Exception ex) {
       Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
+
+  @Override
+  public Map<String, Collection<Percept>> getAllPercepts(String agent, String... entities)
+      throws PerceiveException, NoEnvironmentException {
+    try {
+      Thread.sleep(20);
+    } catch (InterruptedException exception) {
+
+    }
+    return super.getAllPercepts(agent, entities);
   }
 
   @Override
