@@ -38,5 +38,11 @@ public class AddonPercieverTest {
     assertEquals("unitType",
         addonPerciever.perceive().get(0).getParameters().get(0).toProlog());
   }
+  
+  @Test
+  public void test_Null() {
+    when(unit.getAddon()).thenReturn(null);
+    assertEquals(0, addonPerciever.perceive().size());
+  }
 
 }
