@@ -17,7 +17,7 @@ public class UpdateThread extends Thread {
     while (true) {
       game.update(bwapi);
       try {
-        Thread.sleep(100);
+        Thread.sleep(50);
       } catch (Exception ex) {
         continue;
       }

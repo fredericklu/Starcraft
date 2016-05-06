@@ -5,13 +5,10 @@ import eis.eis2java.exception.TranslationException;
 import eis.eis2java.translation.Translator;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
-import eisbw.percepts.perceivers.ConstructionSitePerceiver;
+import eisbw.Game;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
-import jnibwapi.types.UnitType.UnitTypes;
 import jnibwapi.util.BWColor;
 
 import java.awt.event.ActionEvent;
@@ -26,12 +23,13 @@ public class DrawButtons extends JPanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
   private boolean draw;
+  private Game game;
 
-  public DrawButtons() {
+  public DrawButtons(Game game) {
     JButton drawButton = new JButton("Draw BuildLocations");
     draw = false;
     drawButton.addActionListener(this);
-    
+    this.game = game;
     add(drawButton);
   }
 
@@ -43,8 +41,7 @@ public class DrawButtons extends JPanel implements ActionListener {
   public void draw(JNIBWAPI api) throws NoTranslatorException, TranslationException {
     if (draw) {
       Translator translator = Translator.getInstance();
-      ConstructionSitePerceiver constructions = new ConstructionSitePerceiver(api);
-      List<Percept> percepts = constructions.perceive();
+      List<Percept> percepts = game.getConstructionSites();
       for (Percept percept : percepts) {
         LinkedList<Parameter> params = percept.getParameters();
         int xpos = translator.translate2Java(params.get(0), Integer.class);

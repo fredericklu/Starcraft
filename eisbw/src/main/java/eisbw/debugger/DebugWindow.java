@@ -2,6 +2,7 @@ package eisbw.debugger;
 
 import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
+import eisbw.Game;
 import jnibwapi.JNIBWAPI;
 
 import java.awt.BorderLayout;
@@ -19,7 +20,7 @@ public class DebugWindow extends JFrame {
   CheatButtons cheats;
   DrawButtons draw;
 
-  public DebugWindow() {
+  public DebugWindow(Game game) {
     setTitle("StarCraft GOAL debugger");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(500, 800);
@@ -34,7 +35,7 @@ public class DebugWindow extends JFrame {
     cheats = new CheatButtons();
     contentPane.add(cheats, BorderLayout.WEST);
     
-    draw = new DrawButtons();
+    draw = new DrawButtons(game);
     contentPane.add(draw, BorderLayout.SOUTH);
 
     setVisible(true);

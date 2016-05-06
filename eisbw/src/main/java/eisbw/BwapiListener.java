@@ -1,11 +1,10 @@
 package eisbw;
 
 import eis.exceptions.ActException;
-import eis.exceptions.EntityException;
-import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
+import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.BWAPIEventListener;
 import jnibwapi.JNIBWAPI;
@@ -24,14 +23,23 @@ public class BwapiListener implements BWAPIEventListener {
   private Map<Unit, Action> pendingActions;
   private StarcraftUnitFactory factory;
   private UpdateThread updateThread;
+  private DebugWindow debug;
+  private boolean debugmode;
+  int count = 0;
 
-  public BwapiListener(Game game) {
+  /**
+   * Event listener for BWAPI.
+   * @param game - the game data class
+   * @param debugmode - true iff debugger should be attached
+   */
+  public BwapiListener(Game game, boolean debugmode) {
     bwapi = new JNIBWAPI(this, true);
     this.game = game;
     actionProvider = new ActionProvider();
     actionProvider.loadActions(bwapi);
     pendingActions = new HashMap<Unit, Action>();
     factory = new StarcraftUnitFactory(bwapi);
+    this.debugmode = debugmode;
 
     new Thread() {
       @Override
@@ -54,17 +62,18 @@ public class BwapiListener implements BWAPIEventListener {
     // You can also change the game speed from within the game by
     // "/speed X" command.
     updateThread.start();
+    game.updateConstructionSites(bwapi);
     bwapi.setGameSpeed(5);
-    bwapi.enableUserInput();
 
-    // START THE DEBUGGER, this has to be fixed with mas2g arguments.
-    // if (configuration.getDebugMode().equals("true")) {
-    // debug = new DebugWindow();
-    // }
-    bwapi.drawIDs(true);
-    bwapi.drawHealth(true);
-    bwapi.drawTargets(true);
-    bwapi.sendText("power overwhelming");
+    // START THE DEBUGGER.
+    if (debugmode) {
+      debug = new DebugWindow(game);
+      bwapi.drawIDs(true);
+      bwapi.drawHealth(true);
+      bwapi.drawTargets(true);
+      bwapi.enableUserInput();
+      bwapi.setGameSpeed(30);
+    }
   }
 
   @Override
@@ -80,17 +89,24 @@ public class BwapiListener implements BWAPIEventListener {
 
         it.remove();
       }
-      // if (configuration.getDebugMode().equals("true")) {
-      // debug.debug(bwapi);
-      // }
       // game.update(bwapi);
     }
+    // game.update(bwapi);
+
+    if (debugmode) {
+      debug.debug(bwapi);
+    }
+    
+    if (count == 200) {
+      game.updateConstructionSites(bwapi);
+      count = 0;
+    }
+    count++;
   }
 
   @Override
   public void matchEnd(boolean winner) {
     // TODO Auto-generated method stub
-
   }
 
   @Override

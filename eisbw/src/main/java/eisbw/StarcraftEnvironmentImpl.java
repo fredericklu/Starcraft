@@ -30,7 +30,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Configuration configuration;
   private Game game;
 
-  public static void main (String[] args){
+  public static void main(String[] args) {
     try {
       new StarcraftEnvironmentImpl().init(new HashMap<String, Parameter>());
     } catch (ManagementException e) {
@@ -38,13 +38,11 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
       e.printStackTrace();
     }
   }
-  
-  
+
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
     game = new Game(this);
-    bwapiListener = new BwapiListener(game);
   }
 
   private void installTranslators() {
@@ -61,6 +59,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
+      bwapiListener = new BwapiListener(game, configuration.getDebugMode().equals("true"));
 
       if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
         WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
@@ -72,17 +71,16 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   }
 
   @Override
-  public Map<String, Collection<Percept>> getAllPercepts(String agent,
-      String... entities) throws PerceiveException,
-      NoEnvironmentException {
+  public Map<String, Collection<Percept>> getAllPercepts(String agent, String... entities)
+      throws PerceiveException, NoEnvironmentException {
     try {
-      Thread.sleep(5);
+      Thread.sleep(20);
     } catch (InterruptedException exception) {
-      
+
     }
     return super.getAllPercepts(agent, entities);
   }
-  
+
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
       throws PerceiveException, NoEnvironmentException {
