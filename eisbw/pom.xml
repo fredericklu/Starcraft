@@ -39,6 +39,23 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
       </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+            <sources>
+                <source>src/main/java</source>
+            </sources>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
     </plugins>
   </reporting>
 
@@ -82,18 +99,8 @@
   </dependencies>
   
   <build>
-  
-    <sourceDirectory>src</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
-    
-   
+  	<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>   
     
     <plugins>
       <plugin>
