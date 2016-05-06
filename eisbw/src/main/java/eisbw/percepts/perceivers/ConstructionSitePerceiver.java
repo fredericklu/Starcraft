@@ -13,10 +13,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConstructionSitePerceiver extends UnitPerceiver {
+public class ConstructionSitePerceiver extends Perceiver {
 
-  public ConstructionSitePerceiver(JNIBWAPI api, Unit unit) {
-    super(api, unit);
+  public ConstructionSitePerceiver(JNIBWAPI api) {
+    super(api);
   }
 
   @Override
@@ -36,15 +36,14 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
     for (int x = 0; x < mapWidth; x++) {
       for (int y = 0; y < mapHeight; y++) {
         Position pos = new Position(x, y, Position.PosType.BUILD);
-
-        boolean terranBuildable = api.canBuildHere(unit, pos,
+        boolean terranBuildable = api.canBuildHere(pos,
             UnitType.UnitTypes.Terran_Command_Center, true);
         if (terranBuildable && (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()
             || api.getSelf().getRace().getID() == RaceTypes.Protoss.getID())) {
           Point possible = new Point(x, y);
           boolean add = true;
           for (Point illegal : illegals) {
-            if (illegal.distance(possible) < 10) {
+            if (illegal.distance(possible) < 3) {
               add = false;
               break;
             }
@@ -54,7 +53,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
             percepts.add(new ConstructionSitePercept(possible.x, possible.y));
           }
         } else {
-          boolean zergBuildable = api.canBuildHere(unit, pos, UnitType.UnitTypes.Zerg_Spawning_Pool,
+          boolean zergBuildable = api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Spawning_Pool,
               true);
 
           if (zergBuildable && api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
@@ -62,7 +61,7 @@ public class ConstructionSitePerceiver extends UnitPerceiver {
             Point possible = new Point(x, y);
             boolean add = true;
             for (Point illegal : illegals) {
-              if (illegal.distance(possible) < 10) {
+              if (illegal.distance(possible) < 3) {
                 add = false;
                 break;
               }

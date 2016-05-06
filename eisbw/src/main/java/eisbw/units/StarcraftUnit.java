@@ -31,7 +31,7 @@ public class StarcraftUnit {
    * @return - a list of percepts.
    */
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<>();
+    ArrayList<Percept> percepts = new ArrayList<Percept>();
     for (IPerceiver perceiver : this.perceivers) {
       percepts.addAll(perceiver.perceive());
     }

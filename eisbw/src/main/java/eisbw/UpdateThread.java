@@ -1,0 +1,26 @@
+package eisbw;
+
+import jnibwapi.JNIBWAPI;
+
+public class UpdateThread extends Thread {
+
+  private Game game;
+  private JNIBWAPI bwapi;
+
+  public UpdateThread(Game game, JNIBWAPI bwapi) {
+    this.bwapi = bwapi;
+    this.game = game;
+  }
+
+  @Override
+  public void run() {
+    while (true) {
+      game.update(bwapi);
+      try {
+        Thread.sleep(50);
+      } catch (Exception ex) {
+        continue;
+      }
+    }
+  }
+}

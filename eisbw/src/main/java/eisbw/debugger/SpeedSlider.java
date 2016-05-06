@@ -16,7 +16,7 @@ public class SpeedSlider extends JPanel {
 
   public int initialSpeed = 30;
   public int slowest = 50;
-  public int fastest = 5;
+  public int fastest = 0;
 
   private boolean changed = false;
 

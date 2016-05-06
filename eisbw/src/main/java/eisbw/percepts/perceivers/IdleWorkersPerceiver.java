@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IdleWorkersPerceiver extends Perceiver {
-  private final BwapiUtility util;
 
-  public IdleWorkersPerceiver(JNIBWAPI api, BwapiUtility util) {
+  public IdleWorkersPerceiver(JNIBWAPI api) {
     super(api);
-    this.util = util;
   }
 
   @Override
@@ -24,7 +22,7 @@ public class IdleWorkersPerceiver extends Perceiver {
     List<Unit> units = api.getMyUnits();
     for (Unit unit : units) {
       if (unit.isIdle() && unit.getType().isWorker()) {
-        percepts.add(new IdleWorkerPercept(util.getUnitName(unit)));
+        percepts.add(new IdleWorkerPercept(BwapiUtility.getUnitName(unit)));
       }
     }
 

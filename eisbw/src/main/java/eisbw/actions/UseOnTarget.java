@@ -4,6 +4,7 @@ import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
+import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
@@ -22,7 +23,7 @@ public class UseOnTarget extends StarcraftAction {
 
     if (parameters.size() == 2) { // type, targetId
       boolean isTechType = parameters.get(0) instanceof Identifier
-          && utility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
+          && BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
       return isTechType && parameters.get(1) instanceof Numeral;
     }
     return false;
@@ -31,14 +32,14 @@ public class UseOnTarget extends StarcraftAction {
   @Override
   public boolean canExecute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
+    TechType techType = BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue());
     return techType.isTargetsUnits(); // check if unit has Tech?
   }
 
   @Override
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    TechType techType = utility.getTechType(((Identifier) parameters.get(0)).getValue());
+    TechType techType = BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue());
     unit.useTech(techType, api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
   }
 
