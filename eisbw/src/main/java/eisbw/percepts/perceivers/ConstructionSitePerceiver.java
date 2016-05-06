@@ -61,7 +61,7 @@ public class ConstructionSitePerceiver extends Perceiver {
             Point possible = new Point(x, y);
             boolean add = true;
             for (Point illegal : illegals) {
-              if (illegal.distance(possible) < 10) {
+              if (illegal.distance(possible) < 3) {
                 add = false;
                 break;
               }
