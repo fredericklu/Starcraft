@@ -1,8 +1,6 @@
 package eisbw;
 
 import eis.exceptions.ActException;
-import eis.exceptions.EntityException;
-import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
