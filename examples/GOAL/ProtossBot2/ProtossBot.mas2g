@@ -17,9 +17,9 @@ define protossNexus as agent{
 }
 
 define protossForge as agent{
-	use ProtossNexus.ProtossNexus as main module.
-	use ProtossNexus.ProtossNexusInit as init module.
-	use ProtossNexus.ProtossNexusEvent as event module.
+	use ProtossForge.ProtossForge as main module.
+	use ProtossForge.ProtossForgeInit as init module.
+	use ProtossForge.ProtossForgeEvent as event module.
 }
 
 define protossCybernaticsCore as agent{

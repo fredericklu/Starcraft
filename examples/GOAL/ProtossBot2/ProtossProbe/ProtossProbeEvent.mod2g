@@ -3,9 +3,9 @@ use ProtossProbe as knowledge.
 module ProtossProbeEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if percept(supply(C,Max)), bel(supply(OC, OMax), not(C == OC), not(Max == OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
+		if percept(supply(C,Max)), bel(supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
-		if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
+		if percept(minerals(M)), bel(minerals(OM)) then delete(minerals(OM)) + insert(minerals(M)).
 		
 		if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
 		
@@ -41,14 +41,14 @@ module ProtossProbeEvent {
 		if bel(friendly(_ ,"Protoss Nexus",_,BX,BY), vespeneGeyser(_, X, Y), 
 		builder, minerals(M), M >= 100, distance(BX, BY, X, Y, D), D < 10) then adopt(build("Protoss Assimilator", X, Y)).
 		
-		if bel(builder, supply(C, Max), ((Max/2) - C) < 5, constructionSite(X,Y, _), minerals(M)
-		,M >= 100) then adopt(build("Protoss Pylon", X, Y)).
+		if not(goal(build("Protoss Pylon", X, Y))), bel(builder, supply(C, Max), ((Max/2) - C) =< 5, constructionSite(X,Y, _), minerals(M)
+		,M >= 150) then adopt(build("Protoss Pylon", X, Y)).
 		
 		if bel(constructionSite(X,Y,true), minerals(M), M >= 200, builder, 
 		not(friendly(_, "Protoss Cybernetics Core", _, _, _)), friendly(_, "Protoss Gateway", _, _, _)) 
 		then adopt(build("Protoss Cybernetics Core", X, Y)).
 		
-		if bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
+		if not(goal(build("Protoss Forge", X, Y))), bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
 		not(friendly(_, "Protoss Forge", _, _, _))) then adopt(build("Protoss Forge", X, Y)).
 		
 		if not(goal(true)), bel(mineralField(Id,_,X,Y), friendly(_, "Protoss Nexus", _, CX, CY), distance(X,Y,CX,CY,L), L<10) 

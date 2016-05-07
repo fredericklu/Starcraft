@@ -2,5 +2,5 @@ use ProtossNexus as knowledge.
 use ProtossNexus as actionspec.
 
 module ProtossNexus {
-	if a-goal(train("Protoss Probe")) then train("Protoss Probe").
+	if a-goal(train("Protoss Probe")) then train("Protoss Probe") + drop(train("Protoss Probe")).
 }

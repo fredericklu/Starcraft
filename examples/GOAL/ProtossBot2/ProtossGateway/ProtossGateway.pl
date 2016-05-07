@@ -7,4 +7,5 @@ gas/1,
 mineralField/4,
 supply/2,
 friendly/5,
-train/1.
+train/1,
+queueSize/1.

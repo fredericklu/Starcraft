@@ -24,6 +24,7 @@ build/3.
 		cost("Protoss Nexus", 400, 0).
 		cost("Protoss Gateway", 150, 0).
 		cost("Protoss Assimilator", 100, 0).
+		cost("Protoss Forge", 150, 0).
 		cost("Protoss Cybernetics Core", 200, 0).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).

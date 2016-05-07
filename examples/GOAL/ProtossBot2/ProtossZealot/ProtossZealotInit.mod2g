@@ -1,0 +1,7 @@
+use ProtossZealot as knowledge.
+
+module ProtossZealotInit {
+	forall percept(base(X, Y, Begin, RegionID)) do insert(base(X, Y, Begin, RegionID)).
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+	if percept(position(X,Y)) then insert(position(X,Y)).
+}

@@ -7,9 +7,6 @@ module ProtossNexusEvent {
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	if percept(supply(C,Max)), bel(supply(OC, OMax), (C \= OC ; Max \= OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
-	
-	if percept(unit(Name, Amount)), not(bel(unit(Name, Amount))) then insert(unit(Name, Amount)).
-	if bel(unit(Name, Amount)), not(percept(unit(Name, Amount))) then delete(unit(Name, Amount)).
 		
 	if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
 		
@@ -25,7 +22,7 @@ module ProtossNexusEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then adopt(train("Protoss Probe")).
+	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unit('Protoss Probe',M) ,M<15) then adopt(train("Protoss Probe")).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	

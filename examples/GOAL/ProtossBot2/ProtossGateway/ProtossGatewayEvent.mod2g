@@ -1,11 +1,17 @@
 use ProtossGateway as knowledge.
 
 module ProtossGatewayEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
 	if percept(supply(C,Max)), bel(supply(OC, OMax), not(C == OC), not(Max == OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
 	if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
 		
 	if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
+	
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	if bel(supply(C, Max), ((Max/2) - C) >= 2, minerals(M), M >= 100) then adopt(train("Protoss Zealot")).
 }
