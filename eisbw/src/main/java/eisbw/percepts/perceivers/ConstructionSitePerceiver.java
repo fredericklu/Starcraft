@@ -8,6 +8,7 @@ import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
+import jnibwapi.types.UnitType.UnitTypes;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -17,6 +18,32 @@ public class ConstructionSitePerceiver extends Perceiver {
 
   public ConstructionSitePerceiver(JNIBWAPI api) {
     super(api);
+  }
+
+  /**
+   * @param x
+   *          The x-coordinate.
+   * @param y
+   *          The y-coordinate.
+   * @param illegals
+   *          A list of illegal build places.
+   * @return Check whether the given ConstructionSite is legal or not.
+   */
+  public Boolean checkConstructionSite(int x, int y, ArrayList<Point> illegals) {
+    Point possible = new Point(x, y);
+    boolean add = true;
+    for (Point illegal : illegals) {
+      if (illegal.distance(possible) < 3) {
+        add = false;
+        break;
+      }
+    }
+
+    if (add) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
@@ -33,42 +60,50 @@ public class ConstructionSitePerceiver extends Perceiver {
         illegals.add(new Point(u.getTilePosition().getBX(), u.getTilePosition().getBY()));
       }
     }
+
     for (int x = 0; x < mapWidth; x++) {
       for (int y = 0; y < mapHeight; y++) {
         Position pos = new Position(x, y, Position.PosType.BUILD);
-        boolean terranBuildable = api.canBuildHere(pos,
-            UnitType.UnitTypes.Terran_Command_Center, true);
-        if (terranBuildable && (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()
-            || api.getSelf().getRace().getID() == RaceTypes.Protoss.getID())) {
-          Point possible = new Point(x, y);
-          boolean add = true;
-          for (Point illegal : illegals) {
-            if (illegal.distance(possible) < 3) {
-              add = false;
-              break;
+
+        // Terran ConstructionSite
+        if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
+
+          // check if you can actually build here as terran
+          if (api.canBuildHere(pos, UnitType.UnitTypes.Terran_Command_Center, true)) {
+
+            // checks whether the ConstructionSite is not near an illegal build
+            // place
+            if (checkConstructionSite(x, y, illegals)) {
+              percepts.add(new ConstructionSitePercept(x, y));
             }
           }
 
-          if (add) {
-            percepts.add(new ConstructionSitePercept(possible.x, possible.y));
-          }
-        } else {
-          boolean zergBuildable = api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Spawning_Pool,
-              true);
+          // Zerg ConstructionSite
+        } else if (api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
 
-          if (zergBuildable && api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
+          // check if you can actually build here as zerg
+          if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Spawning_Pool, true)) {
 
-            Point possible = new Point(x, y);
-            boolean add = true;
-            for (Point illegal : illegals) {
-              if (illegal.distance(possible) < 3) {
-                add = false;
-                break;
-              }
+            // checks whether the ConstructionSite is not near an illegal build
+            // place
+            if (checkConstructionSite(x, y, illegals)) {
+              percepts.add(new ConstructionSitePercept(x, y));
             }
+          }
 
-            if (add) {
-              percepts.add(new ConstructionSitePercept(possible.x, possible.y));
+          // Protoss ConstructionSite
+        } else if (api.getSelf().getRace().getID() == RaceTypes.Protoss.getID()) {
+
+          if (api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Nexus, true)) {
+
+            // checks whether the ConstructionSite is not near an illegal build
+            // place
+            boolean legal = checkConstructionSite(x, y, illegals);
+            boolean nearPylon = api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Gateway, true);
+            if (legal && nearPylon) {
+              percepts.add(new ConstructionSitePercept(x, y, true));
+            } else if (legal && !nearPylon) {
+              percepts.add(new ConstructionSitePercept(x, y, false));
             }
           }
         }

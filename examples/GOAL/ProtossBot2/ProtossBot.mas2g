@@ -28,9 +28,21 @@ define protossCybernaticsCore as agent{
 	use ProtossCybernaticsCore.ProtossCybernaticsCoreEvent as event module.
 }
 
+define protossGateway as agent{
+	use ProtossGateway.ProtossGateway as main module.
+	use ProtossGateway.ProtossGatewayInit as init module.
+	use ProtossGateway.ProtossGatewayEvent as event module.
+}
+
+define stayAlive as agent {
+	use stayAlive.stayAlive as main module.	
+}
+
 launchpolicy{
-	when type = protossProbe launch protossProbe.
+	when type = unknown launch stayAlive.
 	when type = protossNexus launch protossNexus.
+	when type = protossProbe launch protossProbe.
 	when type = protossForge launch protossForge.
 	when type = protossCybernaticsCore launch protossCybernaticsCore.
+	when type = protossGateway launch protossGateway.
 	}

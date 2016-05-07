@@ -75,8 +75,8 @@ define stayAlive as agent {
 }
 
 launchpolicy{
-	when type = zergDrone launch zergDrone.
 	when type = zergHatchery launch zergHatchery.
+	when type = zergDrone launch zergDrone.
 	when type = unknown launch stayAlive.
 	when type = zergZergling launch zergZergling.
 	when type = zergSpawningPool launch zergSpawningPool.

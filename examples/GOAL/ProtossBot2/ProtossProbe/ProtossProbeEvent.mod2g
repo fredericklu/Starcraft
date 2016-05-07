@@ -22,8 +22,8 @@ module ProtossProbeEvent {
 		
 		if percept(position(X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 		
-		forall percept(constructionSite(X,Y)), not(bel(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
-		forall bel(constructionSite(X,Y)),not(percept(constructionSite(X,Y))) do delete(constructionSite(X,Y)).
+		forall percept(constructionSite(X,Y,B)), not(bel(constructionSite(X,Y,B))) do insert(constructionSite(X,Y,B)).
+		forall bel(constructionSite(X,Y,B)),not(percept(constructionSite(X,Y,B))) do delete(constructionSite(X,Y,B)).
 		
 		forall percept(vespeneGeyser(Id,_,_,X,Y)), bel(not(vespeneGeyser(Id,X,Y))) do insert(vespeneGeyser(Id,X,Y)).
 		
@@ -35,15 +35,21 @@ module ProtossProbeEvent {
 				
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if bel(constructionSite(X,Y), minerals(M), M >= 150, builder, 
+		if bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
 		((unit("Protoss Gateway",Num), Num < 3) ; not(unit("Protoss Gateway",_)))) then adopt(build("Protoss Gateway", X, Y)).
 		
 		if bel(friendly(_ ,"Protoss Nexus",_,BX,BY), vespeneGeyser(_, X, Y), 
 		builder, minerals(M), M >= 100, distance(BX, BY, X, Y, D), D < 10) then adopt(build("Protoss Assimilator", X, Y)).
 		
-		if bel(constructionSite(X,Y), minerals(M), M >= 200, builder, 
+		if bel(builder, supply(C, Max), ((Max/2) - C) < 5, constructionSite(X,Y, _), minerals(M)
+		,M >= 100) then adopt(build("Protoss Pylon", X, Y)).
+		
+		if bel(constructionSite(X,Y,true), minerals(M), M >= 200, builder, 
 		not(friendly(_, "Protoss Cybernetics Core", _, _, _)), friendly(_, "Protoss Gateway", _, _, _)) 
 		then adopt(build("Protoss Cybernetics Core", X, Y)).
+		
+		if bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
+		not(friendly(_, "Protoss Forge", _, _, _))) then adopt(build("Protoss Forge", X, Y)).
 		
 		if not(goal(true)), bel(mineralField(Id,_,X,Y), friendly(_, "Protoss Nexus", _, CX, CY), distance(X,Y,CX,CY,L), L<10) 
 		then adopt(gather(Id)).

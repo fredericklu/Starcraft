@@ -7,10 +7,9 @@ gas/1,
 mineralField/4,
 supply/2,
 position/2,
-constructionSite/2,
+constructionSite/3,
 workerActivity/2,
 id/1,
-me/1,
 chokepoint/2,
 base/4,
 constructing/0,
@@ -21,6 +20,7 @@ build/3.
 
 
 		busy :- constructing ; gathering(_).
+		cost("Protoss Pylon", 100, 0).
 		cost("Protoss Nexus", 400, 0).
 		cost("Protoss Gateway", 150, 0).
 		cost("Protoss Assimilator", 100, 0).
