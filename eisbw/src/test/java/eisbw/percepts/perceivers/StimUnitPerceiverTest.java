@@ -1,9 +1,9 @@
-package eisbw.percepts.percievers;
+package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.SiegeUnitPerceiver;
+import eisbw.percepts.perceivers.StimUnitPerceiver;
 import jnibwapi.Unit;
 
 import org.junit.Before;
@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class SiegeUnitPerceiverTest {
+public class StimUnitPerceiverTest {
 
-  private SiegeUnitPerceiver perciever;
+  private StimUnitPerceiver perciever;
   @Mock
   private Unit unit;
 
@@ -23,18 +23,19 @@ public class SiegeUnitPerceiverTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    perciever = new SiegeUnitPerceiver(null, unit);
+    when(unit.isStimmed()).thenReturn(true);
+    perciever = new StimUnitPerceiver(null, unit);
   }
   
   @Test
   public void test() {
-    when(unit.isSieged()).thenReturn(true);
-    assertEquals("sieged", perciever.perceive().get(0).getName());
+    when(unit.isStimmed()).thenReturn(true);
+    assertEquals("stimmed", perciever.perceive().get(0).getName());
   }
   
   @Test
-  public void notSieged_test() {
-    when(unit.isSieged()).thenReturn(false);
+  public void notStimmedtest() {
+    when(unit.isStimmed()).thenReturn(false);
     assertEquals(0, perciever.perceive().size());
   }
 

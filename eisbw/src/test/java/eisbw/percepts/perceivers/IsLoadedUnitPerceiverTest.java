@@ -1,9 +1,9 @@
-package eisbw.percepts.percievers;
+package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.StimUnitPerceiver;
+import eisbw.percepts.perceivers.IsLoadedUnitPerceiver;
 import jnibwapi.Unit;
 
 import org.junit.Before;
@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class StimUnitPerceiverTest {
+public class IsLoadedUnitPerceiverTest {
 
-  private StimUnitPerceiver perciever;
+  private IsLoadedUnitPerceiver perciever;
   @Mock
   private Unit unit;
 
@@ -23,19 +23,18 @@ public class StimUnitPerceiverTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    when(unit.isStimmed()).thenReturn(true);
-    perciever = new StimUnitPerceiver(null, unit);
+    when(unit.isLoaded()).thenReturn(true);
+    perciever = new IsLoadedUnitPerceiver(null, unit);
   }
   
   @Test
   public void test() {
-    when(unit.isStimmed()).thenReturn(true);
-    assertEquals("stimmed", perciever.perceive().get(0).getName());
+    assertEquals("loaded", perciever.perceive().get(0).getName());
   }
   
   @Test
-  public void notStimmedtest() {
-    when(unit.isStimmed()).thenReturn(false);
+  public void notLoaded_test() {
+    when(unit.isLoaded()).thenReturn(false);
     assertEquals(0, perciever.perceive().size());
   }
 

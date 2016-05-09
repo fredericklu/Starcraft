@@ -1,9 +1,9 @@
-package eisbw.percepts.percievers;
+package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.IsLoadedUnitPerceiver;
+import eisbw.percepts.perceivers.LiftUnitPerceiver;
 import jnibwapi.Unit;
 
 import org.junit.Before;
@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class IsLoadedUnitPerceiverTest {
+public class LiftUnitPerceiverTest {
 
-  private IsLoadedUnitPerceiver perciever;
+  private LiftUnitPerceiver perciever;
   @Mock
   private Unit unit;
 
@@ -23,18 +23,17 @@ public class IsLoadedUnitPerceiverTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    when(unit.isLoaded()).thenReturn(true);
-    perciever = new IsLoadedUnitPerceiver(null, unit);
+    perciever = new LiftUnitPerceiver(null, unit);
   }
   
   @Test
   public void test() {
-    assertEquals("loaded", perciever.perceive().get(0).getName());
+    when(unit.isLifted()).thenReturn(true);
+    assertEquals("lifted", perciever.perceive().get(0).getName());
   }
   
   @Test
-  public void notLoaded_test() {
-    when(unit.isLoaded()).thenReturn(false);
+  public void notLifted_test() {
     assertEquals(0, perciever.perceive().size());
   }
 
