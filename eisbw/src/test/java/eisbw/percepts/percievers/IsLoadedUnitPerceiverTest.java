@@ -3,7 +3,7 @@ package eisbw.percepts.percievers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.BuilderUnitPerceiver;
+import eisbw.percepts.perceivers.IsLoadedUnitPerceiver;
 import jnibwapi.Unit;
 
 import org.junit.Before;
@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class BuilderUnitPercieverTest {
+public class IsLoadedUnitPerceiverTest {
 
-  private BuilderUnitPerceiver perciever;
+  private IsLoadedUnitPerceiver perciever;
   @Mock
   private Unit unit;
 
@@ -23,18 +23,18 @@ public class BuilderUnitPercieverTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    when(unit.isConstructing()).thenReturn(true);
-    perciever = new BuilderUnitPerceiver(null, unit);
+    when(unit.isLoaded()).thenReturn(true);
+    perciever = new IsLoadedUnitPerceiver(null, unit);
   }
   
   @Test
   public void test() {
-    assertEquals("constructing", perciever.perceive().get(0).getName());
+    assertEquals("loaded", perciever.perceive().get(0).getName());
   }
   
   @Test
-  public void notConstructing_test() {
-    when(unit.isConstructing()).thenReturn(false);
+  public void notLoaded_test() {
+    when(unit.isLoaded()).thenReturn(false);
     assertEquals(0, perciever.perceive().size());
   }
 

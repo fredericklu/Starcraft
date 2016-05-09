@@ -28,11 +28,17 @@ public class BuildUnitPercieverTest {
     when(unit.getID()).thenReturn(1);
     perciever = new BuildUnitPerceiver(null, unit);
   }
-  
+
   @Test
   public void test() {
     assertEquals("buildUnit", perciever.perceive().get(0).getName());
     assertEquals("1", perciever.perceive().get(0).getParameters().get(0).toProlog());
+  }
+
+  @Test
+  public void notBeingConstructed_test() {
+    when(unit.isBeingConstructed()).thenReturn(false);
+    assertEquals(0, perciever.perceive().size());
   }
 
 }

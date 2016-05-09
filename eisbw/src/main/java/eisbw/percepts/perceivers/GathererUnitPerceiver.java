@@ -42,7 +42,7 @@ public class GathererUnitPerceiver extends UnitPerceiver {
       if (u == unit) {
         continue;
       }
-      if (u.isGatheringGas() || unit.isGatheringMinerals()) {
+      if (u.isGatheringGas() || u.isGatheringMinerals()) {
         Percept percept = new GatheringPercept(BwapiUtility.getUnitName(u), u.isGatheringGas());
         result.add(percept);
       }
