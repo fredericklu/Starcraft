@@ -74,7 +74,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   public Map<String, Collection<Percept>> getAllPercepts(String agent, String... entities)
       throws PerceiveException, NoEnvironmentException {
     try {
-      Thread.sleep(10);
+      Thread.sleep(20);
     } catch (InterruptedException exception) {
 
     }

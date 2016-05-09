@@ -34,6 +34,18 @@ define protossGateway as agent{
 	use ProtossGateway.ProtossGatewayEvent as event module.
 }
 
+define protossZealot as agent{
+	use ProtossZealot.ProtossZealot as main module.
+	use ProtossZealot.ProtossZealotInit as init module.
+	use ProtossZealot.ProtossZealotEvent as event module.
+}
+
+define protossDragoon as agent{
+	use ProtossDragoon.ProtossDragoon as main module.
+	use ProtossDragoon.ProtossDragoonInit as init module.
+	use ProtossDragoon.ProtossDragoonEvent as event module.
+}
+
 define stayAlive as agent {
 	use stayAlive.stayAlive as main module.	
 }
@@ -41,8 +53,10 @@ define stayAlive as agent {
 launchpolicy{
 	when type = unknown launch stayAlive.
 	when type = protossNexus launch protossNexus.
-	when type = protossProbe launch protossProbe.
 	when type = protossForge launch protossForge.
 	when type = protossCybernaticsCore launch protossCybernaticsCore.
 	when type = protossGateway launch protossGateway.
+	when type = protossZealot launch protossZealot.
+	when type = protossProbe launch protossProbe.
+	when type = protossDragoon launch protossDragoon.
 	}

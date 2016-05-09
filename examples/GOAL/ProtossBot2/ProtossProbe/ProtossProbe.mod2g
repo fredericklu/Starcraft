@@ -2,13 +2,13 @@ use ProtossProbe as knowledge.
 use ProtossProbe as actionspec.
 
 module ProtossProbe {
-	if a-goal(build("Protoss Pylon", X, Y)) then build("Protoss Pylon", X, Y) + drop(build("Protoss Pylon", X, Y)).
-	
 	if a-goal(build("Protoss Gateway", X, Y)) then build("Protoss Gateway", X, Y) + drop(build("Protoss Gateway", X, Y)).
 	
 	if a-goal(build("Protoss Forge", X, Y)) then build("Protoss Forge", X, Y) + drop(build("Protoss Forge", X, Y)).
 	
 	if a-goal(build("Protoss Cybernetics Core", X, Y)) then build("Protoss Cybernetics Core", X, Y) + drop(build("Protoss Cybernetics Core", X, Y)).
+	
+	if a-goal(build("Protoss Pylon", X, Y)), bel(supply(C, M), (M/2) - C < 3) then build("Protoss Pylon", X, Y) + drop(build("Protoss Pylon", X, Y)).
 	
 	if a-goal(build("Protoss Assimilator", X, Y)) then build("Protoss Assimilator", X, Y) + drop(build("Protoss Assimilator", X, Y)).
 	

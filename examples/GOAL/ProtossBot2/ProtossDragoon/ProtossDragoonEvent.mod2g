@@ -1,8 +1,8 @@
-use ProtossZealot as knowledge.
+use ProtossDragoon as knowledge.
 
-module ProtossZealotEvent {
+module ProtossDragoonEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
-		
+	
 		forall percept(friendly(Name,Type,Id,Health,_,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,Health,X,Y)), MyId \= Id) 
 		do insert(friendly(Name,Type,Id,Health,X,Y)).
 		forall bel(friendly(Name,Type,Id,Health,X,Y)) , not(percept(friendly(Name,Type,Id,Health,_,X,Y)))
@@ -23,5 +23,5 @@ module ProtossZealotEvent {
 		
 		if not(bel(moving)), bel(unit("Protoss Zealot", Amount), Amount >= 10, enemyBase(X, Y)) then adopt(attack(X,Y)).
 		
-		if bel(enemy(_, Id, _, _, 'false', _, _)) then adopt(attack(Id)).
+		if bel(enemy(_, Id, _, _, _, _, _)) then adopt(attack(Id)).
 }

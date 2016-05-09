@@ -1,6 +1,6 @@
-use ProtossZealot as knowledge.
+use ProtossDragoon as knowledge.
 
-module ProtossZealotInit {
+module ProtossDragoonInit {
 	if percept(id(MyId)) then insert(id(MyId)).
 	forall percept(base(X, Y, Begin, RegionID)) do insert(base(X, Y, Begin, RegionID)).
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).

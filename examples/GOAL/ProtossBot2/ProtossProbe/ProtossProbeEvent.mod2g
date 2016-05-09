@@ -44,7 +44,9 @@ module ProtossProbeEvent {
 		if not(goal(build("Protoss Pylon", X, Y))), bel(builder, supply(C, Max), ((Max/2) - C) =< 5, constructionSite(X,Y, _), minerals(M)
 		,M >= 150) then adopt(build("Protoss Pylon", X, Y)).
 		
-		if bel(constructionSite(X,Y,true), minerals(M), M >= 200, builder, 
+		if goal(build("Protoss Pylon", X, Y)), bel(unit("Protoss Pylon", _), not(unit("Protoss Gateway",_))) then drop(build("Protoss Pylon", X, Y)).
+		
+		if not(goal(build("Protoss Cybernetics Core", X, Y))), bel(constructionSite(X,Y,true), minerals(M), M >= 200, builder, 
 		not(friendly(_, "Protoss Cybernetics Core", _, _, _)), friendly(_, "Protoss Gateway", _, _, _)) 
 		then adopt(build("Protoss Cybernetics Core", X, Y)).
 		

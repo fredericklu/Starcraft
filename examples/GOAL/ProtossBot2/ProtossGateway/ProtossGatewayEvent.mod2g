@@ -3,7 +3,7 @@ use ProtossGateway as knowledge.
 module ProtossGatewayEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if percept(supply(C,Max)), bel(supply(OC, OMax), not(C == OC), not(Max == OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
+	if percept(supply(C,Max)), bel(supply(OC, OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
 	if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
 		
@@ -11,7 +11,13 @@ module ProtossGatewayEvent {
 	
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
 	
+	forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
+	forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).
+	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(supply(C, Max), ((Max/2) - C) >= 2, minerals(M), M >= 100) then adopt(train("Protoss Zealot")).
+	if bel(queueSize(N), N < 2, supply(C, Max), (Max - C) >= 2, minerals(M), M >= 100, (unit("Protoss Zealot", X), X =< 10 ; 
+	not(unit("Protoss Zealot", _)))) then adopt(train("Protoss Zealot")).
+	
+	if bel(queueSize(N), N < 2, supply(C, Max), (Max - C) >= 2, minerals(M), M >= 125,gas(G), G >= 50) then adopt(train("Protoss Dragoon")).
 }
