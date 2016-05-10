@@ -35,6 +35,7 @@ public class RallyPerceiverTest {
     assertEquals("rallyPoint", perciever.perceive().get(0).getName());
     assertEquals("1", perciever.perceive().get(0).getParameters().get(0).toProlog());
     assertEquals("2", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    assertEquals(2, perciever.perceive().get(0).getParameters().size());
   }
 
   
