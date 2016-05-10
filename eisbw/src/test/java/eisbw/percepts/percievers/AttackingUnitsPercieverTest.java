@@ -40,14 +40,28 @@ public class AttackingUnitsPercieverTest {
     when(unitType.isAttackCapable()).thenReturn(true);
     perciever = new AttackingUnitsPerceiver(bwapi);
   }
-  
+
   @Test
   public void test() {
     assertEquals("attacking", perciever.perceive().get(0).getName());
-    assertEquals("1",
-        perciever.perceive().get(0).getParameters().get(0).toProlog());
-    assertEquals("1",
-        perciever.perceive().get(0).getParameters().get(1).toProlog());
+    assertEquals("1", perciever.perceive().get(0).getParameters().get(0).toProlog());
+    assertEquals("1", perciever.perceive().get(0).getParameters().get(1).toProlog());
   }
 
+  @Test
+  public void targetNull_test() {
+    when(unit.getOrderTarget()).thenReturn(null);
+    assertEquals(0, perciever.perceive().size());
+  }
+
+  @Test
+  public void notAttackCapable_test() {
+    when(unitType.isAttackCapable()).thenReturn(false);
+    assertEquals(0, perciever.perceive().size());
+
+    when(unitType.isBuilding()).thenReturn(true);
+    assertEquals("attacking", perciever.perceive().get(0).getName());
+    assertEquals("1", perciever.perceive().get(0).getParameters().get(0).toProlog());
+    assertEquals("1", perciever.perceive().get(0).getParameters().get(1).toProlog());
+  }
 }

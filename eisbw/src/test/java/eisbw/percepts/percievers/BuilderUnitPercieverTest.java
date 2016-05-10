@@ -31,5 +31,11 @@ public class BuilderUnitPercieverTest {
   public void test() {
     assertEquals("constructing", perciever.perceive().get(0).getName());
   }
+  
+  @Test
+  public void notConstructing_test() {
+    when(unit.isConstructing()).thenReturn(false);
+    assertEquals(0, perciever.perceive().size());
+  }
 
 }

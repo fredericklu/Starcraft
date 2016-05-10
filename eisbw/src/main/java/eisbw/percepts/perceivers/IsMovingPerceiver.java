@@ -16,7 +16,7 @@ public class IsMovingPerceiver extends UnitPerceiver {
 
   @Override
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<Percept>();
+    ArrayList<Percept> percepts = new ArrayList<>();
 
     if (unit.isMoving()) {
       percepts.add(new MovingPercept());
