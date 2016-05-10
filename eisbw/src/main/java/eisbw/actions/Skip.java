@@ -16,7 +16,7 @@ public class Skip extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 0;
+    return parameters.isEmpty();
   }
 
   @Override
@@ -26,7 +26,7 @@ public class Skip extends StarcraftAction {
 
   @Override
   public void execute(Unit unit, Action action) {
-
+    //Skip action, thus executes nothing.
   }
 
   @Override

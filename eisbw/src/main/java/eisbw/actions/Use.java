@@ -20,9 +20,8 @@ public class Use extends StarcraftAction {
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 1) { // type
-      boolean isTechType = parameters.get(0) instanceof Identifier
+      return parameters.get(0) instanceof Identifier
           && BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
-      return isTechType;
     }
 
     return false;
@@ -45,6 +44,6 @@ public class Use extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "ability(techId)";
+    return "ability(Type)";
   }
 }

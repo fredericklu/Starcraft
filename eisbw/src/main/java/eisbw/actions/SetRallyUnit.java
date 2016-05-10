@@ -17,7 +17,7 @@ public class SetRallyUnit extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 2) { // type
+    if (parameters.size() == 1) { // type
       return parameters.get(0) instanceof Numeral;
     }
 
@@ -38,6 +38,6 @@ public class SetRallyUnit extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "setRallyUnit(Unit)";
+    return "setRallyUnit(targetId)";
   }
 }
