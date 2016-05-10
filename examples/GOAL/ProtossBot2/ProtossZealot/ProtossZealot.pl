@@ -12,7 +12,7 @@ moving/0.
 
 
 enemyBase(X, Y) :- base(X, Y, 'true', _), 
-friendly(_, "Zerg Hatchery", _,_, X1, Y1), distance(X, Y, X1, Y1, Res), Res > 10.
+friendly(_, "Protoss Nexus", _,_, X1, Y1), distance(X, Y, X1, Y1, Res), Res > 10.
 
 rallyLocation(X,Y, RX,RY) 
 	:-	findall([D,BX,BY], (chokepoint(BX,BY), distance(X,Y,BX,BY,D)), L),
