@@ -12,6 +12,7 @@ define terranSCV as agent {
 } 
 
 define terranCommandCenter as agent {
+	use TerranCommandCenter.TerranCommandCenterInit as init module.
 	use TerranCommandCenter.TerranCommandCenter as main module.
 	use TerranCommandCenter.TerranCommandCenterEvent as event module.
 }
@@ -91,9 +92,9 @@ define stayAlive as agent {
 }
 
 launchpolicy{
+	when type = terranCommandCenter launch terranCommandCenter.
 	when type = unknown launch stayAlive.
 	when type = terranSCV launch terranSCV.
-	when type = terranCommandCenter launch terranCommandCenter.
 	when type = terranBarracks launch terranBarracks.
 	when type = terranMarine launch terranMarine.
 	when type = terranAcademy launch terranAcademy.

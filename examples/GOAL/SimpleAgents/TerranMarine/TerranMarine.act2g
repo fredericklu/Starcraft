@@ -14,10 +14,14 @@ define attack(Id) with
 	pre{true}
 	post{true}
 
-define _use(Id) with
+define ability(Id) with
 	pre{true}
 	post{true}
 		
 define skip with
 	pre {true}
 	post {true}	
+	
+define rightClick(Id) with
+	pre {true}
+	post {true}

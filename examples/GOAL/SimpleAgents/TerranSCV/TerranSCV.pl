@@ -4,19 +4,20 @@ minerals/1,
 gathering/1,
 unit/2,
 gas/1,
-mineralField/3,
+mineralField/4,
 supply/2,
 position/2,
 constructionSite/2,
 refinery/3,
 workerActivity/2,
-isStuck/0,
 id/1,
 me/1,
 chokepoint/2,
 base/4,
 constructing/0,
-friendly/5.
+friendly/5,
+build/3,
+gather/1.
 
 		busy :- constructing ; gathering(_).
 		cost("Terran Command Center",400,0).
