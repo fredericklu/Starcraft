@@ -19,9 +19,9 @@ public class BuildAddon extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 1) {
+    if (parameters.size() == 1 && parameters.get(0) instanceof Identifier) {
       UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
-      return parameters.get(0) instanceof Identifier && ut != null && ut.isAddon();
+      return ut != null && ut.isAddon();
     }
     return false;
   }
