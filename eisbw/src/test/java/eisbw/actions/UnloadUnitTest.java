@@ -21,9 +21,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-public class AttackTest {
+public class UnloadUnitTest {
 
-  private Attack action;
+  private UnloadUnit action;
   private LinkedList<Parameter> params;
 
   @Mock
@@ -41,7 +41,7 @@ public class AttackTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    action = new Attack(bwapi);
+    action = new UnloadUnit(bwapi);
 
     params = new LinkedList<>();
     params.add(new Numeral(1));
@@ -62,24 +62,22 @@ public class AttackTest {
 
   @Test
   public void canExecute_test() {
-    when(unitType.isAttackCapable()).thenReturn(true);
-    assertTrue(action.canExecute(unit, act));
-    when(unitType.isAttackCapable()).thenReturn(false);
+    when(unitType.getSpaceProvided()).thenReturn(0);
     assertFalse(action.canExecute(unit, act));
-    
+    when(unitType.getSpaceProvided()).thenReturn(1);
+    assertTrue(action.canExecute(unit, act));
   }
 
   @Test
   public void execute_test() {
     when(bwapi.getUnit(1)).thenReturn(unit);
-    when(unitType.isAttackCapable()).thenReturn(true);
     action.execute(unit, act);
-    verify(unit).attack(unit, false);
+    verify(unit).unload(unit);
   }
 
   @Test
   public void toString_test() {
-    assertEquals("attack(targetId)", action.toString());
+    assertEquals("unload(targetId)", action.toString());
   }
 
 }

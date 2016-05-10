@@ -11,6 +11,8 @@ import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
@@ -21,9 +23,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-public class AttackTest {
+public class BuildTest {
 
-  private Attack action;
+  private Build action;
   private LinkedList<Parameter> params;
 
   @Mock
@@ -41,45 +43,47 @@ public class AttackTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    action = new Attack(bwapi);
-
+    action = new Build(bwapi);
+    
     params = new LinkedList<>();
-    params.add(new Numeral(1));
-
+    params.add(new Identifier("Working"));
+    params.add(new Numeral(2));
+    
     when(act.getParameters()).thenReturn(params);
     when(unit.getType()).thenReturn(unitType);
   }
 
   @Test
   public void isValid_test() {
-    assertTrue(action.isValid(act));
-    params.set(0, new Identifier("Not Working"));
+    assertFalse(action.isValid(act));
+    params.remove(1);
     assertFalse(action.isValid(act));
     params.set(0, new Numeral(1));
-    params.add(new Numeral(10));
+    assertFalse(action.isValid(act));
+    params.set(0, new Identifier("Hero Mojo"));
     assertFalse(action.isValid(act));
   }
-
+  
   @Test
   public void canExecute_test() {
-    when(unitType.isAttackCapable()).thenReturn(true);
-    assertTrue(action.canExecute(unit, act));
-    when(unitType.isAttackCapable()).thenReturn(false);
+    when(unitType.isWorker()).thenReturn(false);
     assertFalse(action.canExecute(unit, act));
-    
+    when(unitType.isWorker()).thenReturn(true);
+    assertTrue(action.canExecute(unit, act));
   }
-
+  
   @Test
   public void execute_test() {
-    when(bwapi.getUnit(1)).thenReturn(unit);
-    when(unitType.isAttackCapable()).thenReturn(true);
+    params.set(0, new Identifier("null"));
+    params.set(1, new Numeral(1));
+    params.add(new Numeral(2));
     action.execute(unit, act);
-    verify(unit).attack(unit, false);
+    verify(unit).build(new Position(1, 2, PosType.BUILD), null);
   }
-
+  
   @Test
   public void toString_test() {
-    assertEquals("attack(targetId)", action.toString());
+    assertEquals("build(Type, X, Y)", action.toString());
   }
 
 }

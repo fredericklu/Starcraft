@@ -3,12 +3,11 @@ package eisbw.actions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eis.iilang.Action;
 import eis.iilang.Identifier;
-import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -21,9 +20,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-public class AttackTest {
+public class SkipTest {
 
-  private Attack action;
+  private Skip action;
   private LinkedList<Parameter> params;
 
   @Mock
@@ -41,45 +40,36 @@ public class AttackTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    action = new Attack(bwapi);
-
+    action = new Skip(bwapi);
+    
     params = new LinkedList<>();
-    params.add(new Numeral(1));
-
+    params.add(new Identifier("Working"));
+    
     when(act.getParameters()).thenReturn(params);
     when(unit.getType()).thenReturn(unitType);
   }
 
   @Test
   public void isValid_test() {
+    assertFalse(action.isValid(act));
+    params.remove(0);
     assertTrue(action.isValid(act));
-    params.set(0, new Identifier("Not Working"));
-    assertFalse(action.isValid(act));
-    params.set(0, new Numeral(1));
-    params.add(new Numeral(10));
-    assertFalse(action.isValid(act));
   }
-
+  
   @Test
   public void canExecute_test() {
-    when(unitType.isAttackCapable()).thenReturn(true);
     assertTrue(action.canExecute(unit, act));
-    when(unitType.isAttackCapable()).thenReturn(false);
-    assertFalse(action.canExecute(unit, act));
-    
   }
-
+  
   @Test
   public void execute_test() {
-    when(bwapi.getUnit(1)).thenReturn(unit);
-    when(unitType.isAttackCapable()).thenReturn(true);
     action.execute(unit, act);
-    verify(unit).attack(unit, false);
+    verifyNoMoreInteractions(unit);
   }
-
+  
   @Test
   public void toString_test() {
-    assertEquals("attack(targetId)", action.toString());
+    assertEquals("skip", action.toString());
   }
 
 }

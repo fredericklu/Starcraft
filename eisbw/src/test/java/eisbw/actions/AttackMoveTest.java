@@ -88,7 +88,7 @@ public class AttackMoveTest {
   
   @Test
   public void toString_test() {
-    assertEquals("attack(x, y)", action.toString());
+    assertEquals("attack(x,y)", action.toString());
   }
 
 }
