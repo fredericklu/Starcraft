@@ -32,7 +32,7 @@ public class Game {
    */
   public Game(StarcraftEnvironmentImpl environment) {
     units = new Units(environment);
-    percepts = new HashMap<String, LinkedList<Percept>>();
+    percepts = new HashMap<>();
   }
 
   /**
@@ -42,12 +42,12 @@ public class Game {
    *          - the game bridge
    */
   public void update(JNIBWAPI bwapi) {
-    Map<String, LinkedList<Percept>> unitPerceptHolder = new HashMap<String, LinkedList<Percept>>();
+    Map<String, LinkedList<Percept>> unitPerceptHolder = new HashMap<>();
     LinkedList<Percept> perceptHolder = getPercepts(bwapi);
 
     Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
-      LinkedList<Percept> thisUnitPercepts = new LinkedList<Percept>(perceptHolder);
+      LinkedList<Percept> thisUnitPercepts = new LinkedList<>(perceptHolder);
       thisUnitPercepts.addAll(constructionPercepts);
       thisUnitPercepts.addAll(unit.getValue().perceive());
 
@@ -64,13 +64,13 @@ public class Game {
    *          - the JNIBWAPI
    */
   public void updateConstructionSites(JNIBWAPI bwapi) {
-    LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
+    LinkedList<Percept> perceptHolder = new LinkedList<>();
     perceptHolder.addAll(new ConstructionSitePerceiver(bwapi).perceive());
     constructionPercepts = perceptHolder;
   }
 
   private LinkedList<Percept> getPercepts(JNIBWAPI bwapi) {
-    LinkedList<Percept> perceptHolder = new LinkedList<Percept>();
+    LinkedList<Percept> perceptHolder = new LinkedList<>();
     perceptHolder.addAll(new TotalResourcesPerceiver(bwapi).perceive());
 
     Map<UnitType, Integer> count = new HashMap<>();
@@ -112,13 +112,13 @@ public class Game {
    *          - the name of the unit
    * @return the percepts
    */
-  public LinkedList<Percept> getPercepts(String entity) {
+  public List<Percept> getPercepts(String entity) {
     synchronized (percepts) {
       if (percepts.containsKey(entity)) {
         return percepts.get(entity);
       }
     }
-    return new LinkedList<Percept>();
+    return new LinkedList<>();
   }
 
   public Units getUnits() {
