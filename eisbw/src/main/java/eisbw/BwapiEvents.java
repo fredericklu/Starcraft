@@ -54,7 +54,7 @@ public class BwapiEvents implements BWAPIEventListener {
   }
 
   @Override
-  public void nukeDetect(Position p) {
+  public void nukeDetect(Position pos) {
     // Method stub
 
   }
