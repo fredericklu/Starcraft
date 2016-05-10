@@ -16,12 +16,12 @@ public class Siege extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 0;
+    return parameters.isEmpty();
   }
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    return unit.getType().getName().equals("Terran Siege Tank Tank Mode");
+    return "Terran Siege Tank Tank Mode".equals(unit.getType().getName());
   }
 
   @Override

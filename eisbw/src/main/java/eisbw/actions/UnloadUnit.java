@@ -33,6 +33,6 @@ public class UnloadUnit extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "unload(Target)";
+    return "unload(targetId)";
   }
 }

@@ -4,6 +4,10 @@ import jnibwapi.types.UnitType;
 
 public class UnitTypesEx {
 
+  private UnitTypesEx() {
+    // Private constructor as this class does not need to be instantiated.
+  }
+
   /**
    * Check if a unit is a resource.
    * 
@@ -32,7 +36,9 @@ public class UnitTypesEx {
 
   /**
    * Check if a unit is a command center.
-   * @param unitType the type of the unit.
+   * 
+   * @param unitType
+   *          the type of the unit.
    * @return true iff the unit is a command center, else false.
    */
   public static boolean isCommandCenter(UnitType unitType) {
@@ -48,7 +54,9 @@ public class UnitTypesEx {
 
   /**
    * Check if a unit is a vespene geyser.
-   * @param unitType - the type of the unit.
+   * 
+   * @param unitType
+   *          - the type of the unit.
    * @return true iff the unit is a vespene geyser.
    */
   public static boolean isVespeneGeyser(UnitType unitType) {
@@ -62,7 +70,9 @@ public class UnitTypesEx {
 
   /**
    * Check if a unit is a mineral field.
-   * @param unitType - the type of the unit.
+   * 
+   * @param unitType
+   *          - the type of the unit.
    * @return true iff the unit is a vespene geyser.
    */
   public static boolean isMineralField(UnitType unitType) {
@@ -78,7 +88,9 @@ public class UnitTypesEx {
 
   /**
    * Check if a unit can do upgrades.
-   * @param unitType the type of the unit.
+   * 
+   * @param unitType
+   *          the type of the unit.
    * @return true iff the unit can upgrade.
    */
   public static boolean isUpgradeCapable(UnitType unitType) {

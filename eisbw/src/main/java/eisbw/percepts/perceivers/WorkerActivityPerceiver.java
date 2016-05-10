@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerActivityPerceiver extends Perceiver {
-  // private final BWApiUtility util;
-
+  
   public WorkerActivityPerceiver(JNIBWAPI api) {
     super(api);
-    // this.util = util;
   }
 
   @Override

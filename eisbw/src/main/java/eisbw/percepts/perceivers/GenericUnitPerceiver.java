@@ -1,7 +1,6 @@
 package eisbw.percepts.perceivers;
 
 import eis.iilang.Percept;
-import eisbw.percepts.BuildTilePositionPercept;
 import eisbw.percepts.EnergyPercept;
 import eisbw.percepts.IdPercept;
 import eisbw.percepts.IdlePercept;
@@ -37,9 +36,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     if (unit.isStuck()) {
       result.add(new IsStuck());
     }
-
-    result
-        .add(new BuildTilePositionPercept(unit.getPosition().getBX(), unit.getPosition().getBY()));
     result.add(new EnergyPercept(unit.getEnergy(), unit.getType().getMaxEnergy()));
 
     return result;

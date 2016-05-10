@@ -39,6 +39,6 @@ public class AttackMove extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "attack(x, y)"; 
+    return "attack(x,y)"; 
   }
 }

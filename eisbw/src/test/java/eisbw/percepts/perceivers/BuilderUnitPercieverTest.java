@@ -1,4 +1,4 @@
-package eisbw.percepts.percievers;
+package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -30,6 +30,12 @@ public class BuilderUnitPercieverTest {
   @Test
   public void test() {
     assertEquals("constructing", perciever.perceive().get(0).getName());
+  }
+  
+  @Test
+  public void notConstructing_test() {
+    when(unit.isConstructing()).thenReturn(false);
+    assertEquals(0, perciever.perceive().size());
   }
 
 }
