@@ -11,8 +11,9 @@ import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
+import jnibwapi.Player;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import org.junit.Before;
@@ -22,9 +23,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-public class AttackMoveTest {
+public class MorphTest {
 
-  private AttackMove action;
+  private Morph action;
   private LinkedList<Parameter> params;
 
   @Mock
@@ -35,6 +36,8 @@ public class AttackMoveTest {
   private Unit unit;
   @Mock
   private UnitType unitType;
+  @Mock
+  private Player player;
 
   /**
    * Initialize mocks.
@@ -42,53 +45,46 @@ public class AttackMoveTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
-    action = new AttackMove(bwapi);
+    action = new Morph(bwapi);
     
     params = new LinkedList<>();
-    params.add(new Numeral(1));
+    params.add(new Identifier("Working"));
     params.add(new Numeral(2));
     
     when(act.getParameters()).thenReturn(params);
     when(unit.getType()).thenReturn(unitType);
+    when(bwapi.getSelf()).thenReturn(player);
   }
 
   @Test
   public void isValid_test() {
-    assertTrue(action.isValid(act));
-    params.set(0, new Identifier("Not Working"));
+    assertFalse(action.isValid(act));
+    params.remove(1);
     assertFalse(action.isValid(act));
     params.set(0, new Numeral(1));
-    params.set(1, new Identifier("Not Working"));
     assertFalse(action.isValid(act));
-    params.set(1, new Numeral(2));
-    params.add(new Numeral(10));
+    params.set(0, new Identifier("Hero Mojo"));
     assertFalse(action.isValid(act));
   }
   
   @Test
   public void canExecute_test() {
-    when(unitType.isAttackCapable()).thenReturn(false);
-    when(unitType.isCanMove()).thenReturn(false);
+    when(player.getRace()).thenReturn(RaceTypes.Terran);
     assertFalse(action.canExecute(unit, act));
-    when(unitType.isCanMove()).thenReturn(true);
-    assertFalse(action.canExecute(unit, act));
-    when(unitType.isAttackCapable()).thenReturn(true);
+    when(player.getRace()).thenReturn(RaceTypes.Zerg);
     assertTrue(action.canExecute(unit, act));
-    when(unitType.isCanMove()).thenReturn(false);
-    assertFalse(action.canExecute(unit, act));
   }
   
   @Test
   public void execute_test() {
-    when(bwapi.getUnit(1)).thenReturn(unit);
-    when(unitType.isAttackCapable()).thenReturn(true);
+    params.set(0, new Identifier("null"));
     action.execute(unit, act);
-    verify(unit).attack(new Position(1, 2, Position.PosType.BUILD), false);
+    verify(unit).morph(null);
   }
   
   @Test
   public void toString_test() {
-    assertEquals("attack(x,y)", action.toString());
+    assertEquals("morph(Type)", action.toString());
   }
 
 }
