@@ -41,6 +41,6 @@ public class BuildAddon extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "build(Type, X, Y)";
+    return "buildAddon(Type)";
   }
 }

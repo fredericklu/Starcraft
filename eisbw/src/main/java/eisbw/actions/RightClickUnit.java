@@ -33,6 +33,6 @@ public class RightClickUnit extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "rightClick(Target)";
+    return "rightClick(targetId)";
   }
 }

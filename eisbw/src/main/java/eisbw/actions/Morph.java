@@ -20,18 +20,16 @@ public class Morph extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 1) {
+    if (parameters.size() == 1 && parameters.get(0) instanceof Identifier) {
       UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
-      boolean check = parameters.get(0) instanceof Identifier && ut != null;
-      return check;
+      return ut != null;
     }
     return false;
   }
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    boolean check = api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
-    return check;
+    return api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
   }
 
   @Override

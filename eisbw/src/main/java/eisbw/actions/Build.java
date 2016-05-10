@@ -22,9 +22,9 @@ public class Build extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 3) {
+    if (parameters.size() == 3 && parameters.get(0) instanceof Identifier) {
       UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
-      return parameters.get(0) instanceof Identifier && ut != null && ut.isBuilding()
+      return ut != null && ut.isBuilding()
           && parameters.get(1) instanceof Numeral && parameters.get(2) instanceof Numeral;
     }
     return false;

@@ -16,7 +16,7 @@ public class Lift extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 0;
+    return parameters.isEmpty();
   }
 
   @Override
