@@ -24,11 +24,13 @@ import java.util.logging.Logger;
 
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
+  private Logger logger = Logger.getLogger("StarCraft Logger");
+
   private static final long serialVersionUID = 1L;
   private BwapiListener bwapiListener;
   private Configuration configuration;
   private Game game;
-  
+
   /**
    * Constructor of the environment.
    */
@@ -69,7 +71,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       Thread.sleep(20);
     } catch (InterruptedException exception) {
-
+      Thread.currentThread().interrupt();
     }
     return super.getAllPercepts(agent, entities);
   }
@@ -113,7 +115,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       addEntity(unitName, eisUnitType);
     } catch (EntityException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
     }
   }
 
@@ -127,9 +129,10 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       deleteEntity(unitName);
     } catch (EntityException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
+          exception);
     } catch (RelationException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
     }
   }
 

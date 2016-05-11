@@ -33,6 +33,7 @@ public class Game {
   public Game(StarcraftEnvironmentImpl environment) {
     units = new Units(environment);
     percepts = new HashMap<>();
+    constructionPercepts = new LinkedList<>();
   }
 
   /**
@@ -127,5 +128,14 @@ public class Game {
 
   public List<Percept> getConstructionSites() {
     return constructionPercepts;
+  }
+
+  /**
+   * Clean the game data.
+   */
+  public void clean() {
+    units.clean();
+    percepts = new HashMap<>();
+    constructionPercepts = new LinkedList<>();
   }
 }

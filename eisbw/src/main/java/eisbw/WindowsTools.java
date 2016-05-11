@@ -6,12 +6,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WindowsTools {
 
+  private WindowsTools() {
+    // Private constructor to hide the public one.
+  }
+
   /**
    * Check if a process is running on the system.
-   * @param process the name of the process.
+   * 
+   * @param process
+   *          the name of the process.
    * @return true iff a process is running.
    */
   public static boolean isProcessRunning(String process) {
@@ -26,7 +34,8 @@ public class WindowsTools {
         }
       }
     } catch (IOException exception) {
-      exception.printStackTrace();
+      Logger.getLogger("StarCraft Logger").log(Level.SEVERE, "Could not read processes.",
+          exception);
     }
 
     return false;
@@ -34,10 +43,15 @@ public class WindowsTools {
 
   /**
    * Starts the Chaoslauncher with launch rules.
-   * @param race the race specified in the mas2g
-   * @param map the map specified in the mas2g
-   * @param scDir the starcraft installation directory in the mas2g.
-   * @throws IOException throws exception when BWAPI.ini cannot be written.
+   * 
+   * @param race
+   *          the race specified in the mas2g
+   * @param map
+   *          the map specified in the mas2g
+   * @param scDir
+   *          the starcraft installation directory in the mas2g.
+   * @throws IOException
+   *           throws exception when BWAPI.ini cannot be written.
    */
   public static void startChaoslauncher(String race, String map, String scDir) throws IOException {
     populateInitFile(race, map, scDir);
@@ -83,7 +97,8 @@ public class WindowsTools {
       out.write(iniFile);
       out.close();
     } catch (Exception exception) {
-      System.err.println("Error: " + exception.getMessage());
+      Logger.getLogger("StarCraft Logger").log(Level.SEVERE, "Could not write config file.",
+          exception);
     }
   }
 }
