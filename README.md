@@ -29,7 +29,7 @@ For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-
 ### Current status
 
 - Most units can be controlled by the MAS.
-- The MAS is not yet fully capable of using other races than Terran.
+- The MAS is capable of playing all three races, see examples for GOAL code.
 
 ### Project overview
 The project contains the following folders:
