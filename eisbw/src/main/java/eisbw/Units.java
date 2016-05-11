@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Units {
 
-  private Map<String, Unit> units;
+  private Map<String, Unit> unitMap;
   private Map<Integer, String> unitNames;
   private Map<String, StarcraftUnit> starcraftUnits;
   private StarcraftEnvironmentImpl environment;
@@ -21,7 +21,7 @@ public class Units {
    *          - the SC environment
    */
   public Units(StarcraftEnvironmentImpl environment) {
-    units = new HashMap<>();
+    unitMap = new HashMap<>();
     unitNames = new HashMap<>();
     starcraftUnits = new HashMap<>();
     this.environment = environment;
@@ -35,7 +35,7 @@ public class Units {
    */
   public synchronized void addUnit(Unit unit, StarcraftUnitFactory factory) {
     String unitName = BwapiUtility.getUnitName(unit);
-    units.put(unitName, unit);
+    unitMap.put(unitName, unit);
     unitNames.put(unit.getID(), unitName);
     starcraftUnits.put(unitName, factory.create(unit));
     environment.addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
@@ -48,13 +48,13 @@ public class Units {
    *          - the unit name
    */
   public synchronized void deleteUnit(String unitName) {
-    units.remove(unitName);
+    unitMap.remove(unitName);
     starcraftUnits.remove(unitName);
     environment.deleteFromEnvironment(unitName);
   }
 
   public Map<String, Unit> getUnits() {
-    return units;
+    return unitMap;
   }
 
   public Map<Integer, String> getUnitNames() {
@@ -62,10 +62,19 @@ public class Units {
   }
 
   public Map<String, StarcraftUnit> getStarcraftUnits() {
-    return new HashMap<String, StarcraftUnit>(starcraftUnits);
+    return new HashMap<>(starcraftUnits);
   }
 
   public void morphUnit(String unitName) {
     environment.deleteFromEnvironment(unitName);
+  }
+
+  /**
+   * Clean units, let garbage collector remove the remains.
+   */
+  public void clean() {
+    unitMap = new HashMap<>();
+    unitNames = new HashMap<>();
+    starcraftUnits = new HashMap<>();
   }
 }

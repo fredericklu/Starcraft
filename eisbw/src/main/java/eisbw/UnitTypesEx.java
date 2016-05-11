@@ -60,12 +60,7 @@ public class UnitTypesEx {
    * @return true iff the unit is a vespene geyser.
    */
   public static boolean isVespeneGeyser(UnitType unitType) {
-    switch (unitType.getName()) {
-      case "Resource Vespene Geyser":
-        return true;
-      default:
-        return false;
-    }
+    return "Resource Vespene Geyser".equals(unitType.getName());
   }
 
   /**

@@ -49,7 +49,6 @@ public class BwapiListener extends BwapiEvents {
       }
     }.start();
 
-    updateThread = new UpdateThread(game, bwapi);
   }
 
   @Override
@@ -57,6 +56,7 @@ public class BwapiListener extends BwapiEvents {
     // set game speed to 30 (0 is the fastest. Tournament speed is 20)
     // You can also change the game speed from within the game by
     // "/speed X" command.
+    updateThread = new UpdateThread(game, bwapi);
     updateThread.start();
     game.updateConstructionSites(bwapi);
     bwapi.setGameSpeed(5);
@@ -87,7 +87,7 @@ public class BwapiListener extends BwapiEvents {
       }
     }
 
-    if (debugmode) {
+    if (debug != null) {
       debug.debug(bwapi);
     }
 
@@ -116,6 +116,19 @@ public class BwapiListener extends BwapiEvents {
         game.getUnits().addUnit(unit, factory);
       }
     }
+  }
+
+  @Override
+  public void matchEnd(boolean winner) {
+    updateThread.terminate();
+    try {
+      updateThread.join();
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
+    pendingActions = new HashMap<>();
+    debug.dispose();
+    game.clean();
   }
 
   @Override
