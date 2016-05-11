@@ -58,7 +58,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
       if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
         WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
-            configuration.get_sc_dir());
+            configuration.getScDir());
       }
     } catch (Exception ex) {
       Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);

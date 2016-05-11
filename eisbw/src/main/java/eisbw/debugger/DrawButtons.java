@@ -25,6 +25,10 @@ public class DrawButtons extends JPanel implements ActionListener {
   private boolean draw;
   private Game game;
 
+  /**
+   * Toggle switches to draw in the game.
+   * @param game - the game data.
+   */
   public DrawButtons(Game game) {
     JButton drawButton = new JButton("Draw BuildLocations");
     draw = false;
@@ -38,6 +42,12 @@ public class DrawButtons extends JPanel implements ActionListener {
     draw = !draw;
   }
 
+  /**
+   * Draw on screen.
+   * @param api - the API.
+   * @throws NoTranslatorException iff there is no translator.
+   * @throws TranslationException iff translation fails.
+   */
   public void draw(JNIBWAPI api) throws NoTranslatorException, TranslationException {
     if (draw) {
       Translator translator = Translator.getInstance();

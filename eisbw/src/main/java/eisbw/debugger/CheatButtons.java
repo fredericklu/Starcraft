@@ -3,6 +3,7 @@ package eisbw.debugger;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,8 +14,11 @@ public class CheatButtons extends JPanel implements ActionListener {
 
   private ArrayList<String> actions;
   
+  /**
+   * Constructor for buttons that inject cheats into the game.
+   */
   public CheatButtons() {
-    actions = new ArrayList<String>();
+    actions = new ArrayList<>();
     JButton resources = new JButton("Give recources");
     resources.setActionCommand("SHOW ME THE MONEY");
     resources.addActionListener(this);
@@ -38,7 +42,7 @@ public class CheatButtons extends JPanel implements ActionListener {
     actions.add(event.getActionCommand());
   }
 
-  public ArrayList<String> getActions() {
+  public List<String> getActions() {
     return actions;
   }
   
