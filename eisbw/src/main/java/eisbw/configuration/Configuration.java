@@ -16,13 +16,13 @@ public class Configuration {
   private String scDir = null;
   private String debug = "false";
 
-  public Configuration(Map<String, Parameter> parameters) 
+  public Configuration(Map<String, Parameter> parameters)
       throws NoTranslatorException, TranslationException {
     parseParams(parameters);
     checkSanity();
   }
 
-  private void parseParams(Map<String, Parameter> parameters) 
+  private void parseParams(Map<String, Parameter> parameters)
       throws NoTranslatorException, TranslationException {
     Translator translator = Translator.getInstance();
     for (Entry<String, Parameter> entry : parameters.entrySet()) {
@@ -38,7 +38,7 @@ public class Configuration {
           setRace(translator.translate2Java(entry.getValue(), String.class));
           break;
         case SC_DIR:
-          setSC_dir(translator.translate2Java(entry.getValue(), String.class));
+          setScDir(translator.translate2Java(entry.getValue(), String.class));
           break;
         default:
           break;
@@ -47,13 +47,13 @@ public class Configuration {
   }
 
   private void checkSanity() {
-//    if (race == null || map == null || scDir == null) {
-//      throw new IllegalStateException("Map, Race "
-//          + "and starcraft directory have to be defined in the .mas2g file");
-//    }
+    if (race == null || map == null || scDir == null) {
+      throw new IllegalStateException(
+          "Map, Race " + "and starcraft directory have to be defined in the .mas2g file");
+    }
   }
 
-  private void setSC_dir(String dir) {
+  private void setScDir(String dir) {
     if (dir == null) {
       throw new IllegalStateException("starcraft directory must be provided");
     }
@@ -90,7 +90,7 @@ public class Configuration {
     return race;
   }
 
-  public String get_sc_dir() {
+  public String getScDir() {
     return scDir;
   }
 }
