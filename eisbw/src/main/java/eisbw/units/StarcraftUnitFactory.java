@@ -6,7 +6,6 @@ import eisbw.percepts.perceivers.AttackingUnitsPerceiver;
 import eisbw.percepts.perceivers.AvailableResourcesPerceiver;
 import eisbw.percepts.perceivers.BuildUnitPerceiver;
 import eisbw.percepts.perceivers.BuilderUnitPerceiver;
-import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import eisbw.percepts.perceivers.EnemyPerceiver;
 import eisbw.percepts.perceivers.GathererUnitPerceiver;
 import eisbw.percepts.perceivers.GenericUnitPerceiver;

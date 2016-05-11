@@ -17,7 +17,6 @@ import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,19 +24,16 @@ import java.util.logging.Logger;
 
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
+  private Logger logger = Logger.getLogger("StarCraft Logger");
+
   private static final long serialVersionUID = 1L;
   private BwapiListener bwapiListener;
   private Configuration configuration;
   private Game game;
-  public static void main (String[] args){
-    try {
-      new StarcraftEnvironmentImpl().init(new HashMap<String, Parameter>());
-    } catch (ManagementException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-  
+
+  /**
+   * Constructor of the environment.
+   */
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
@@ -58,11 +54,11 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
-      bwapiListener = new BwapiListener(game, configuration.getDebugMode().equals("true"));
+      bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode()));
 
       if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
         WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
-            configuration.get_sc_dir());
+            configuration.getScDir());
       }
     } catch (Exception ex) {
       Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,7 +71,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       Thread.sleep(20);
     } catch (InterruptedException exception) {
-
+      Thread.currentThread().interrupt();
     }
     return super.getAllPercepts(agent, entities);
   }
@@ -83,7 +79,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
       throws PerceiveException, NoEnvironmentException {
-    return game.getPercepts(entity);
+    return (LinkedList<Percept>) game.getPercepts(entity);
   }
 
   @Override
@@ -119,7 +115,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       addEntity(unitName, eisUnitType);
     } catch (EntityException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
     }
   }
 
@@ -133,10 +129,10 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       deleteEntity(unitName);
     } catch (EntityException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
+          exception);
     } catch (RelationException exception) {
-      // TODO Auto-generated catch block
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
     }
   }
 

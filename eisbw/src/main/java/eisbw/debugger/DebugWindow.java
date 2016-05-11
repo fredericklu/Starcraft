@@ -8,18 +8,25 @@ import jnibwapi.JNIBWAPI;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DebugWindow extends JFrame {
 
+  private Logger logger = Logger.getLogger("StarCraft Logger");
   private static final long serialVersionUID = 1L;
 
   SpeedSlider speedSlider;
   CheatButtons cheats;
   DrawButtons draw;
 
+  /**
+   * Constructs a debug window for the game.
+   * @param game - the game data.
+   */
   public DebugWindow(Game game) {
     setTitle("StarCraft GOAL debugger");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,12 +50,16 @@ public class DebugWindow extends JFrame {
   }
 
   private ArrayList<String> getActions() {
-    ArrayList<String> result = new ArrayList<String>();
+    ArrayList<String> result = new ArrayList<>();
     result.addAll(cheats.getActions());
     cheats.clean();
     return result;
   }
 
+  /**
+   * Iterates over the debug options and executes.
+   * @param bwapi - the API.
+   */
   public void debug(JNIBWAPI bwapi) {
     Iterator<String> iter = getActions().iterator();
     while (iter.hasNext()) {
@@ -61,9 +72,9 @@ public class DebugWindow extends JFrame {
     try {
       draw.draw(bwapi);
     } catch (NoTranslatorException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "No translator in draw function", exception);
     } catch (TranslationException exception) {
-      exception.printStackTrace();
+      logger.log(Level.WARNING, "Cannot translate in draw function", exception);
     }
   }
 }

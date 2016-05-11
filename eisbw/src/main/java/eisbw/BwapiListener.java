@@ -6,16 +6,14 @@ import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
 import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
-import jnibwapi.BWAPIEventListener;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
 import jnibwapi.Unit;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class BwapiListener implements BWAPIEventListener {
+public class BwapiListener extends BwapiEvents {
 
   private JNIBWAPI bwapi;
   private Game game;
@@ -29,15 +27,18 @@ public class BwapiListener implements BWAPIEventListener {
 
   /**
    * Event listener for BWAPI.
-   * @param game - the game data class
-   * @param debugmode - true iff debugger should be attached
+   * 
+   * @param game
+   *          - the game data class
+   * @param debugmode
+   *          - true iff debugger should be attached
    */
   public BwapiListener(Game game, boolean debugmode) {
     bwapi = new JNIBWAPI(this, true);
     this.game = game;
     actionProvider = new ActionProvider();
     actionProvider.loadActions(bwapi);
-    pendingActions = new HashMap<Unit, Action>();
+    pendingActions = new HashMap<>();
     factory = new StarcraftUnitFactory(bwapi);
     this.debugmode = debugmode;
 
@@ -48,12 +49,6 @@ public class BwapiListener implements BWAPIEventListener {
       }
     }.start();
 
-    updateThread = new UpdateThread(game, bwapi);
-  }
-
-  @Override
-  public void connected() {
-
   }
 
   @Override
@@ -61,6 +56,7 @@ public class BwapiListener implements BWAPIEventListener {
     // set game speed to 30 (0 is the fastest. Tournament speed is 20)
     // You can also change the game speed from within the game by
     // "/speed X" command.
+    updateThread = new UpdateThread(game, bwapi);
     updateThread.start();
     game.updateConstructionSites(bwapi);
     bwapi.setGameSpeed(5);
@@ -89,90 +85,17 @@ public class BwapiListener implements BWAPIEventListener {
 
         it.remove();
       }
-      // game.update(bwapi);
     }
-    // game.update(bwapi);
 
-    if (debugmode) {
+    if (debug != null) {
       debug.debug(bwapi);
     }
-    
+
     if (count == 200) {
       game.updateConstructionSites(bwapi);
       count = 0;
     }
     count++;
-  }
-
-  @Override
-  public void matchEnd(boolean winner) {
-    // TODO Auto-generated method stub
-  }
-
-  @Override
-  public void keyPressed(int keyCode) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void sendText(String text) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void receiveText(String text) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void playerLeft(int playerID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void nukeDetect(Position p) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void nukeDetect() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unitDiscover(int unitID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unitEvade(int unitID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unitShow(int unitID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unitHide(int unitID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unitCreate(int unitID) {
-    // TODO Auto-generated method stub
-
   }
 
   @Override
@@ -196,31 +119,24 @@ public class BwapiListener implements BWAPIEventListener {
   }
 
   @Override
-  public void unitRenegade(int unitID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void saveGame(String gameName) {
-    // TODO Auto-generated method stub
-
+  public void matchEnd(boolean winner) {
+    updateThread.terminate();
+    try {
+      updateThread.join();
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
+    pendingActions = new HashMap<>();
+    debug.dispose();
+    game.clean();
   }
 
   @Override
   public void unitComplete(int unitId) {
     Unit unit = bwapi.getUnit(unitId);
-    if (bwapi.getMyUnits().contains(unit)) {
-      if (!game.getUnits().getUnitNames().containsKey(unitId)) {
-        game.getUnits().addUnit(unit, factory);
-      }
+    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+      game.getUnits().addUnit(unit, factory);
     }
-  }
-
-  @Override
-  public void playerDropped(int playerID) {
-    // TODO Auto-generated method stub
-
   }
 
   protected boolean isSupportedByEntity(Action act, String name) {
@@ -234,18 +150,26 @@ public class BwapiListener implements BWAPIEventListener {
     return actionProvider.getAction(action.getName() + "/" + action.getParameters().size());
   }
 
+  /**
+   * Adds an action to the action queue, the action is then executed on the next
+   * frame.
+   * 
+   * @param name
+   *          - the name of the unit.
+   * @param act
+   *          - the action.
+   * @throws ActException
+   *           - mandatory from EIS
+   */
   public void performEntityAction(String name, Action act) throws ActException {
     Unit unit = game.getUnits().getUnits().get(name);
 
     // cant act during construction
-    if (!unit.isBeingConstructed()) {
-      if (!pendingActions.containsKey(unit)) {
-        StarcraftAction action = getAction(act);
-        // Action might be invalid
-        if (action.isValid(act)) {
-          pendingActions.put(unit, act);
-        }
-
+    if (!unit.isBeingConstructed() && !pendingActions.containsKey(unit)) {
+      StarcraftAction action = getAction(act);
+      // Action might be invalid
+      if (action.isValid(act)) {
+        pendingActions.put(unit, act);
       }
     }
 

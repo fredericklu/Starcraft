@@ -1,9 +1,5 @@
 package eisbw.debugger;
 
-import jnibwapi.JNIBWAPI;
-
-import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -22,6 +18,9 @@ public class SpeedSlider extends JPanel {
 
   private int speed = initialSpeed;
 
+  /**
+   * Slider to change gamespeed.
+   */
   public SpeedSlider() {
     final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
     slider.addChangeListener(new ChangeListener() {
@@ -38,6 +37,10 @@ public class SpeedSlider extends JPanel {
     add(slider);
   }
 
+  /**
+   * The on change function.
+   * @return true iff changed.
+   */
   public boolean speedChanged() {
     if (changed) {
       changed = false;
