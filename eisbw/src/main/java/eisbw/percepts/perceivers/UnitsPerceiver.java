@@ -1,0 +1,67 @@
+package eisbw.percepts.perceivers;
+
+import eis.iilang.Parameter;
+import eis.iilang.Percept;
+import eisbw.percepts.Attacking;
+import eisbw.percepts.IsCloakedPercept;
+import eisbw.percepts.IsMorphingPercept;
+import eisbw.percepts.UnitPercept;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Unit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class UnitsPerceiver extends UnitPerceiver {
+
+  public UnitsPerceiver(JNIBWAPI api, Unit unit) {
+    super(api, unit);
+  }
+
+  /**
+   * Sets some of the generic Unit percepts.
+   * 
+   * @param units
+   *          The perceived units
+   * @param isFriendly
+   *          indicates whether these units are friendly or not
+   * @param percepts
+   *          The list of percepts
+   */
+  private void setUnitPercepts(List<Unit> units, boolean isFriendly, ArrayList<Percept> percepts) {
+    for (Unit u : units) {
+      percepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(), u.getHitPoints(),
+          u.getShields(), u.getType().isFlyer(), u.getPosition().getBX(), u.getPosition().getBY()));
+      if (u.isMorphing()) {
+        percepts.add(new IsMorphingPercept(u.getBuildType().getName(), u.getID()));
+      }
+      if (isFriendly && unit.getType().isAttackCapable() && u.getType().isAttackCapable()) {
+        Unit targetUnit = u.getOrderTarget();
+        if (targetUnit != null) {
+          percepts.add(new Attacking(u.getID(), targetUnit.getID()));
+        }
+      }
+      if (u.isCloaked()) {
+        percepts.add(new IsCloakedPercept(u.getType().getName(), u.getID()));
+      }
+    }
+  }
+
+  @Override
+  public List<Percept> perceive() {
+    ArrayList<Percept> percepts = new ArrayList<>();
+
+    // perceive friendly units
+    setUnitPercepts(api.getMyUnits(), true, percepts);
+
+    // perceive enemy units
+    setUnitPercepts(api.getEnemyUnits(), false, percepts);
+
+    return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
+  }
+}

@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.HasResearchedPercept;
 import eisbw.percepts.ResearchPercept;
@@ -20,10 +21,6 @@ public class ResearchPerceiver extends UnitPerceiver {
   public List<Percept> perceive() {
     ArrayList<Percept> percepts = new ArrayList<>();
 
-    if (unit.getTech().getID() != TechTypes.None.getID()) {
-      percepts.add(new ResearchPercept(unit.getTech().getName()));
-    }
-
     for (TechType tech : TechTypes.getAllTechTypes()) {
       if (api.getSelf().isResearched(tech)) {
         percepts.add(new HasResearchedPercept(tech.getName()));
@@ -31,5 +28,10 @@ public class ResearchPerceiver extends UnitPerceiver {
     }
 
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
   }
 }

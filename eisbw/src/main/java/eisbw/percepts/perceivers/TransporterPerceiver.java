@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.SpaceProvidedPercept;
 import eisbw.percepts.UnitLoadedPercept;
@@ -26,5 +27,10 @@ public class TransporterPerceiver extends UnitPerceiver {
     }
 
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return null;
   }
 }
