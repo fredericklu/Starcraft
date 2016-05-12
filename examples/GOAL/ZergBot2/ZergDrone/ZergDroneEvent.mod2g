@@ -41,40 +41,40 @@ module ZergDroneEvent {
 		
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300,
-		not(friendly(_, Type, _, NX, NY)), member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) 
-		then drop(true) + adopt(expandTo(NX, NY)).
-		
-		if goal(expandTo(X, Y)), bel((friendly(_ ,Type,_ ,X,Y),
-		member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) ; isMorphing("Zerg Hatchery", _)) then drop(expandTo(X, Y)) + adopt(move(1,1)).
-		
-		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 75, builder, friendly(_, "Zerg Spawning Pool", _, _, _),
+		if not(goal(expandTo(_, _))), bel(builder, constructionSite(X,Y), minerals(M), M >= 75, friendly(_, "Zerg Spawning Pool", _, _, _),
 		((unit("Zerg Sunken Colony", Amount), Amount < 2) ; not(unit("Zerg Sunken Colony",_)))) 
 		then adopt(buildColony(X, Y)).
 		
-		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 200, builder, 
+		if not(goal(expandTo(_, _))), bel(builder, constructionSite(X,Y), minerals(M), M >= 200, 
 		not(friendly(_, "Zerg Spawning Pool", _, _, _))) then adopt(buildPool(X, Y)).
 		
-		if not(goal(expandTo(_, _))), bel(friendly(_ ,"Zerg Hatchery",_,BX,BY), vespeneGeyser(Id, X , Y), 
-		friendly(_, "Zerg Spawning Pool", _, _, _), builder, minerals(M), M >= 75, distance(BX, BY, X, Y, D), D < 10) 
+		if not(goal(expandTo(_, _))), bel(builder, friendly(_ ,"Zerg Hatchery",_,BX,BY), vespeneGeyser(Id, X , Y), 
+		friendly(_, "Zerg Spawning Pool", _, _, _), minerals(M), M >= 75, distance(BX, BY, X, Y, D), D < 10) 
 		then adopt(buildExtractor(X, Y)).
 		
-		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 75, builder, 
+		if not(goal(expandTo(_, _))), bel(builder, constructionSite(X,Y), minerals(M), M >= 75, 
 		not(friendly(_, "Zerg Evolution Chamber", _, _, _)), friendly(_, "Zerg Spawning Pool", _, _, _)) 
 		then drop(true) + adopt(buildEvoChamber(X, Y)).
 		
-		if not(goal(expandTo(_, _))), bel(constructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
-		not(friendly(_, "Zerg Hydralisk Den", _, _, _)), builder) then drop(true) + adopt(buildHydraDen(X,Y)).
+		if bel(builder, constructionSite(X,Y), minerals(M), M >= 100, gas(G), G >= 50,
+		not(friendly(_, "Zerg Hydralisk Den", _, _, _))) then drop(true) + adopt(buildHydraDen(X,Y)).
 		
 		if not(goal(true)), bel(mineralField(Id,Amount,X,Y), friendly(_, Type, _, CX, CY), 
 		member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), distance(X,Y,CX,CY,L), L<10) then adopt(goGather(Id)).
 		
-		if bel(constructionSite(X,Y), minerals(M), M >= 150, gas(G), G >= 100, builder, 
+		if bel(builder, constructionSite(X,Y), minerals(M), M >= 150, gas(G), G >= 100, 
 		not(friendly(_, "Zerg Queens Nest", _, _, _)), friendly(_, "Zerg Lair", _, _, _)) then adopt(build("Zerg Queens Nest", X, Y)).
+		
+		if bel(builder, friendly(_ ,"Zerg Hatchery",_ ,X,Y) ,nearestBase(X, Y, NX, NY), minerals(M), M >= 300,
+		(not(unit(Type, Amount)), member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), Amount > 1, not(isMorphing("Zerg Hatchery", _)))) 
+		then drop(true) + adopt(expandTo(NX, NY)).
+		
+		if goal(expandTo(X, Y)), bel((friendly(_ ,Type,_ ,X,Y),
+		member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) ; isMorphing("Zerg Hatchery", _)) then drop(expandTo(X, Y)).
 		
 		%if bel(isStuck) then adopt(stop).
 		
 		%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if (Name).sent(builder) then insert(builder).
+		if (Name).sent:(builder) then insert(builder).
 }

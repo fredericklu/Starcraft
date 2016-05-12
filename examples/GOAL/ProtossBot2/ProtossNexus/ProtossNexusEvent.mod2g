@@ -22,7 +22,10 @@ module ProtossNexusEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unit('Protoss Probe',M) ,M<20) then adopt(train("Protoss Probe")).
+	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unit('Protoss Probe',M) ,M<15) then adopt(train("Protoss Probe")).
+	
+	%if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unit('Protoss Probe',M) ,M<18,
+	%friendly(_, "Protoss Pylon",_,_,_)) then adopt(trainMore("Protoss Probe")).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	

@@ -9,4 +9,5 @@ unit/2,
 gas/1,
 supply/2,
 train/1,
-probe/2.
+probe/2,
+trainMore/1.

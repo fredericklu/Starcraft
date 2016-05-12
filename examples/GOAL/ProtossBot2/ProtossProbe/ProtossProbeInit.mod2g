@@ -9,4 +9,5 @@ module ProtossProbeInit {
 	forall percept(constructionSite(X,Y,B)) do insert(constructionSite(X,Y,B)).
 	if percept(position(X,Y)) then insert(position(X,Y)).
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+	%if bel(position(X,Y), chokepointlocation(X,Y, TX,TY), buildingLocation(TX, TY, RX, RY)) then adopt(beginPylon(RX, RY)).
 }

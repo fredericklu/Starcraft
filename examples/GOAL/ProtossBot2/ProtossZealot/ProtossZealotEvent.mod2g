@@ -21,7 +21,8 @@ module ProtossZealotEvent {
 		
 		%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 		
-		if not(bel(moving)), bel(unit("Protoss Zealot", Amount), Amount >= 10, enemyBase(X, Y)) then adopt(attack(X,Y)).
+		if not(bel(moving)), bel(unit("Protoss Zealot", Amount), Amount >= 10, unit("Protoss Dragoon", Amount),
+		Amount >= 5,enemyBase(X, Y)) then adopt(attack(X,Y)).
 		
-		if bel(enemy(_, Id, _, _, 'false', _, _)) then adopt(attack(Id)).
+		if bel(enemy(_, _, _, _, _, X, Y)) then adopt(attack(X, Y)).
 }

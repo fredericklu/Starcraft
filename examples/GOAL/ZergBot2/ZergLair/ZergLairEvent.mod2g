@@ -16,9 +16,9 @@ module ZergLairEvent {
 	if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
 	
 	forall percept(friendly(Name,Type,Id,Health,Shields,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,X,Y)), MyId \= Id) 
-	do insert(friendly(Name,Type,Id,X,Y)).
+	do insert(friendly(Name,Type,Id,X,Y)) + ("OverMind").send(friendly(Name,Type,Id,X,Y)).
 	forall bel(friendly(Name,Type,Id,X,Y)) , not(percept(friendly(Name,Type,Id,_,_,X,Y)))
-	do delete(friendly(Name,Type,Id,X,Y)).
+	do delete(friendly(Name,Type,Id,X,Y)) + ("OverMind").send(nfriendly(Name,Type,Id,X,Y)).
 	
 	forall percept(unit(Type,Count)), not(bel(unit(Type,Count))) do insert(unit(Type,Count)).
 	forall bel(unit(Type,Count)),not(percept(unit(Type,Count))) do delete(unit(Type,Count)).

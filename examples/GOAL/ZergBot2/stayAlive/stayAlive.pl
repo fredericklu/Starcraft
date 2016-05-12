@@ -1,2 +1,0 @@
-:- dynamic
-mandatory/0.

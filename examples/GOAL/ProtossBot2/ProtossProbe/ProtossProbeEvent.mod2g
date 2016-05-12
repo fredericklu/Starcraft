@@ -35,23 +35,26 @@ module ProtossProbeEvent {
 				
 		%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
-		if bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
-		((unit("Protoss Gateway",Num), Num < 3) ; not(unit("Protoss Gateway",_)))) then adopt(build("Protoss Gateway", X, Y)).
+		if not(goal(build("Protoss Pylon", X, Y))), bel(builder, supply(C, Max), ((Max/2) - C) =< 5, 
+		constructionSite(X,Y, _), minerals(M), M >= 150) then adopt(build("Protoss Pylon", X, Y)).
 		
-		if bel(friendly(_ ,"Protoss Nexus",_,BX,BY), vespeneGeyser(_, X, Y), 
-		builder, minerals(M), M >= 100, distance(BX, BY, X, Y, D), D < 10) then adopt(build("Protoss Assimilator", X, Y)).
+		if not(goal(build("Protoss Forge", X, Y))), bel(builder, constructionSite(X,Y,true), minerals(M), M >= 150, 
+		not(friendly(_, "Protoss Forge", _, _, _))) then adopt(build("Protoss Forge", X, Y)).
 		
-		if not(goal(build("Protoss Pylon", X, Y))), bel(builder, supply(C, Max), ((Max/2) - C) =< 5, constructionSite(X,Y, _), minerals(M)
-		,M >= 150) then adopt(build("Protoss Pylon", X, Y)).
+		if not(goal(build("Protoss Gateway", X, Y))), bel(builder, constructionSite(X,Y,true), minerals(M), 
+		M >= 150, ((unit("Protoss Gateway",Num), Num < 2) ; not(unit("Protoss Gateway",_)))) then adopt(build("Protoss Gateway", X, Y)).
 		
-		if goal(build("Protoss Pylon", X, Y)), bel(unit("Protoss Pylon", _), not(unit("Protoss Gateway",_))) then drop(build("Protoss Pylon", X, Y)).
+		if bel(builder, not(unit("Protoss Photon Cannon",_)), friendly(_, "Protoss Forge", _, _, _), constructionSite(X, Y, true), 
+		chokepointlocation(X,Y, CX,CY), buildingLocation(CX,CY, RX,RY)) then adopt(build("Protoss Photon Cannon", RX, RY)).
 		
-		if not(goal(build("Protoss Cybernetics Core", X, Y))), bel(constructionSite(X,Y,true), minerals(M), M >= 200, builder, 
+		if bel(builder, friendly(_ ,"Protoss Nexus",_,BX,BY), vespeneGeyser(_, X, Y), 
+		minerals(M), M >= 100, distance(BX, BY, X, Y, D), D < 10) then adopt(build("Protoss Assimilator", X, Y)).
+		
+		if goal(build("Protoss Pylon", X, Y)), bel(builder, unit("Protoss Pylon", _), not(unit("Protoss Gateway",_))) then drop(build("Protoss Pylon", X, Y)).
+		
+		if not(goal(build("Protoss Cybernetics Core", X, Y))), bel(builder, constructionSite(X,Y,true), minerals(M), M >= 200, 
 		not(friendly(_, "Protoss Cybernetics Core", _, _, _)), friendly(_, "Protoss Gateway", _, _, _)) 
 		then adopt(build("Protoss Cybernetics Core", X, Y)).
-		
-		if not(goal(build("Protoss Forge", X, Y))), bel(constructionSite(X,Y,true), minerals(M), M >= 150, builder, 
-		not(friendly(_, "Protoss Forge", _, _, _))) then adopt(build("Protoss Forge", X, Y)).
 		
 		if not(goal(true)), bel(mineralField(Id,_,X,Y), friendly(_, "Protoss Nexus", _, CX, CY), distance(X,Y,CX,CY,L), L<10) 
 		then adopt(gather(Id)).
@@ -59,5 +62,6 @@ module ProtossProbeEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 		
 		if (Name).sent(builder) then insert(builder).
-	
+		
+		%if goal(beginPylon(X, Y)), bel(not(builder), friendly(_, "Protoss Pylon", _, _, _)) then drop(beginPylon(X, Y)).
 }

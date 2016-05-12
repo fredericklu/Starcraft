@@ -2,6 +2,10 @@ use ZergHatchery as knowledge.
 
 
 module ZergHatcheryEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	forall bel(friendly(_,"Zerg Drone",Id,_,_)) , not(percept(friendly(_,"Zerg Drone",Id,_,_,_,_))) do ("overMind").send:(death(Id)).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
@@ -45,13 +49,4 @@ module ZergHatcheryEvent {
 	if bel(unit("Zerg Hydralisk", Amount), Amount > 1, (not(unit("Zerg Lair", _)); isMorphing("Zerg Hatchery", _))) 
 	then adopt(morph("Zerg Lair")).
 	
-	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
-	
-	forall (Name).sent(drone(Id)) do insert(drone(Name, Id)).	
-
-	if bel(done, drone(Name, Id), not(friendly(_ ,"Zerg Drone",Id,_ ,_ ))) then delete(done) + delete(drone(Name, Id)).
-		
-	if bel(not(done), drone(Name, Id), friendly(_ ,"Zerg Drone",Id,_ ,_ )) then insert(done) + (Name).send(builder).
-		
-
 }
