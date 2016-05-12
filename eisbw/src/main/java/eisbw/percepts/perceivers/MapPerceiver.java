@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointPercept;
@@ -37,5 +38,10 @@ public class MapPerceiver extends Perceiver {
     }
 
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
   }
 }

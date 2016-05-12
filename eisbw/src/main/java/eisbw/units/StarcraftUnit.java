@@ -1,6 +1,8 @@
 package eisbw.units;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.percepts.ConditionPercept;
 import eisbw.percepts.perceivers.IPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -32,9 +34,12 @@ public class StarcraftUnit {
    */
   public List<Percept> perceive() {
     ArrayList<Percept> percepts = new ArrayList<>();
+    ArrayList<Parameter> conditions = new ArrayList<>();
     for (IPerceiver perceiver : this.perceivers) {
       percepts.addAll(perceiver.perceive());
+      conditions.addAll(perceiver.getConditions());
     }
+    percepts.add(new ConditionPercept(conditions));
     return percepts;
   }
 }

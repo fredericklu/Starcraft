@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.RepairPercept;
 import jnibwapi.JNIBWAPI;
@@ -29,6 +30,11 @@ public class RepairPerceiver extends Perceiver {
     }
 
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
   }
 
 }

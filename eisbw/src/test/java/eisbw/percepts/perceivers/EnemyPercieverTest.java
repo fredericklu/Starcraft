@@ -3,7 +3,7 @@ package eisbw.percepts.perceivers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.EnemyPerceiver;
+import eisbw.percepts.perceivers.UnitsPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
 
 public class EnemyPercieverTest {
 
-  private EnemyPerceiver perciever;
+  private UnitsPerceiver perciever;
   private LinkedList<Unit> toreturn;
   @Mock
   private Unit unit;
@@ -36,7 +36,7 @@ public class EnemyPercieverTest {
     MockitoAnnotations.initMocks(this);
     toreturn = new LinkedList<>();
     toreturn.add(unit);
-    perciever = new EnemyPerceiver(bwapi);
+    perciever = new UnitsPerceiver(bwapi);
     
     when(unit.getType()).thenReturn(unitType);
     when(unitType.getName()).thenReturn("unitType");

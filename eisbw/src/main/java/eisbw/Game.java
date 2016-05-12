@@ -1,12 +1,10 @@
 package eisbw;
 
 import eis.iilang.Percept;
-import eisbw.percepts.GameStartPercept;
 import eisbw.percepts.MineralFieldPercept;
-import eisbw.percepts.UnitPercept;
+import eisbw.percepts.UnitAmountPercept;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
-import eisbw.percepts.perceivers.TotalResourcesPerceiver;
 import eisbw.units.StarcraftUnit;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -71,10 +69,8 @@ public class Game {
   }
 
   private LinkedList<Percept> getPercepts(JNIBWAPI bwapi) {
-    LinkedList<Percept> perceptHolder = new LinkedList<>();
-    perceptHolder.addAll(new TotalResourcesPerceiver(bwapi).perceive());
-
     Map<UnitType, Integer> count = new HashMap<>();
+
     for (Unit myUnit : bwapi.getMyUnits()) {
       UnitType unitType = myUnit.getType();
       if (!count.containsKey(unitType)) {
@@ -82,8 +78,10 @@ public class Game {
       }
       count.put(unitType, count.get(unitType) + 1);
     }
+    LinkedList<Percept> perceptHolder = new LinkedList<>();
+
     for (UnitType unitType : count.keySet()) {
-      perceptHolder.add(new UnitPercept(unitType.getName(), count.get(unitType)));
+      perceptHolder.add(new UnitAmountPercept(unitType.getName(), count.get(unitType)));
     }
 
     for (Unit u : bwapi.getNeutralUnits()) {
@@ -101,8 +99,6 @@ public class Game {
         }
       }
     }
-
-    perceptHolder.add(new GameStartPercept());
     return perceptHolder;
   }
 

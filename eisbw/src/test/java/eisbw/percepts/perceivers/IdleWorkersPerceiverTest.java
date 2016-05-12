@@ -3,7 +3,7 @@ package eisbw.percepts.perceivers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.EnemyPerceiver;
+import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.percepts.perceivers.IdleWorkersPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;

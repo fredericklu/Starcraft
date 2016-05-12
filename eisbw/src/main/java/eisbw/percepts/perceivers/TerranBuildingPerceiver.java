@@ -1,5 +1,7 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Identifier;
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.AddonPercept;
 import jnibwapi.JNIBWAPI;
@@ -8,8 +10,8 @@ import jnibwapi.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddonPerceiver extends UnitPerceiver {
-  public AddonPerceiver(JNIBWAPI api, Unit unit) {
+public class TerranBuildingPerceiver extends UnitPerceiver {
+  public TerranBuildingPerceiver(JNIBWAPI api, Unit unit) {
     super(api, unit);
   }
 
@@ -22,5 +24,16 @@ public class AddonPerceiver extends UnitPerceiver {
     }
 
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    List<Parameter> conditions = new ArrayList<>();
+    
+    if (unit.isLifted()) {
+      conditions.add(new Identifier("isLifted"));
+    }
+    
+    return conditions;
   }
 }

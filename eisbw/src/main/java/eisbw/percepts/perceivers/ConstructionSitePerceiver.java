@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.ConstructionSitePercept;
@@ -77,6 +78,7 @@ public class ConstructionSitePerceiver extends Perceiver {
    */
   private void perceiveZerg(Position pos, int xpos, int ypos, ArrayList<Point> illegals,
       ArrayList<Percept> percepts) {
+
     // check if you can actually build here as zerg
     if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Spawning_Pool, true)
         && checkConstructionSite(xpos, ypos, illegals)) {
@@ -147,5 +149,10 @@ public class ConstructionSitePerceiver extends Perceiver {
       }
     }
     return percepts;
+  }
+
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
   }
 }
