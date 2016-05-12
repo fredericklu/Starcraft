@@ -1,0 +1,6 @@
+use ProtossCybernaticsCore as knowledge.
+
+module ProtossCybernaticsCoreInit {
+	if percept(minerals(M)) then insert(minerals(M)).
+	if percept(gas(G)) then insert(gas(G)).
+}

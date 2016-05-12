@@ -1,0 +1,8 @@
+use ProtossGateway as knowledge.
+use ProtossGateway as actionspec.
+
+module ProtossGateway {
+	if a-goal(train("Protoss Zealot")) then train("Protoss Zealot") + drop(train("Protoss Zealot")).
+	
+	if a-goal(train("Protoss Dragoon")) then train("Protoss Dragoon") + drop(train("Protoss Dragoon")).
+}

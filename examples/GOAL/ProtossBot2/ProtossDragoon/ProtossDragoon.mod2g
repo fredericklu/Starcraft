@@ -1,0 +1,10 @@
+use ProtossDragoon as knowledge.
+use ProtossDragoon as actionspec.
+
+module ProtossDragoon {
+	%if bel(closeEnemy(X, Y)) then move(X, Y).
+	
+	if a-goal(attack(X,Y)) then attack(X,Y) + drop(attack(X, Y)).
+	
+	%if a-goal(attack(Id)) then attack(Id) + drop(attack(Id)).
+}

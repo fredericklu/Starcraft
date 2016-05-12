@@ -1,13 +1,8 @@
 use TerranCommandCenter as knowledge.
-
-define move(X, Y) with
-	pre{true}
-	post{true}	
-		
 		
 define train(Id) with
-	pre {trainSCV}
-	post {not(trainSCV)}
+	pre {true}
+	post {true}
 		
 		
 define lift with

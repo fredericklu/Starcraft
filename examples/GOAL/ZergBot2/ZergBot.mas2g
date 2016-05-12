@@ -70,14 +70,13 @@ define zergQueen as agent{
 	use ZergQueen.ZergQueenEvent as event module.
 }
 
-define stayAlive as agent {
-	use stayAlive.stayAlive as main module.	
+define overMind as agent {
+	use OverMind.OverMindEvent as main module.	
 }
 
 launchpolicy{
-	when type = zergDrone launch zergDrone.
+	when type = unknown launch overMind.
 	when type = zergHatchery launch zergHatchery.
-	when type = unknown launch stayAlive.
 	when type = zergZergling launch zergZergling.
 	when type = zergSpawningPool launch zergSpawningPool.
 	when type = zergEvolutionChamber launch zergEvolutionChamber.
@@ -87,4 +86,5 @@ launchpolicy{
 	when type = zergHydraliskDen launch zergHydraliskDen.
 	when type = zergQueensNest launch zergQueensNest.
 	when type = zergQueen launch zergQueen.
+	when type = zergDrone launch zergDrone.
 	}

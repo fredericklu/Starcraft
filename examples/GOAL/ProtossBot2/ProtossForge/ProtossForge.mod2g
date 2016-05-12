@@ -1,0 +1,8 @@
+use ProtossForge as knowledge.
+use ProtossForge as actionspec.
+
+module ProtossForge {
+	if a-goal(upgrade('Protoss Ground Weapons')) then upgrade('Protoss Ground Weapons').
+	
+	if a-goal(upgrade('Protoss Ground Armor')) then upgrade('Protoss Ground Armor').
+}
