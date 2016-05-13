@@ -3,10 +3,10 @@ package eisbw.debugger;
 import eisbw.Game;
 import jnibwapi.JNIBWAPI;
 
-import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -23,26 +23,25 @@ public class DebugWindow extends JFrame {
    * @param game
    *          - the game data.
    */
-  public DebugWindow(Game game) {
-    setTitle("StarCraft GOAL debugger");
+  public DebugWindow(Game game) {    
+    setTitle("StarCraft GOAL visualizer");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(500, 800);
+    setSize(500, 300);
 
     JPanel contentPane = new JPanel();
     setContentPane(contentPane);
-    contentPane.setLayout(new BorderLayout());
+    contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
 
     speedSlider = new SpeedSlider();
-    contentPane.add(speedSlider, BorderLayout.NORTH);
+    contentPane.add(speedSlider);
 
     cheats = new CheatButtons();
-    contentPane.add(cheats, BorderLayout.WEST);
+    contentPane.add(cheats);
 
     draw = new DrawButtons(game);
-    contentPane.add(draw, BorderLayout.SOUTH);
+    contentPane.add(draw);
 
     setVisible(true);
-
   }
 
   private ArrayList<String> getActions() {
