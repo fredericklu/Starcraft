@@ -4,8 +4,8 @@ import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.EnergyPercept;
-import eisbw.percepts.IdPercept;
 import eisbw.percepts.ResourcesPercept;
+import eisbw.percepts.SelfPercept;
 import eisbw.percepts.StatusPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -27,7 +27,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
         api.getSelf().getSupplyUsed(), api.getSelf().getSupplyTotal()));
 
-    percepts.add(new IdPercept(unit.getID()));
+    percepts.add(new SelfPercept(unit.getID(), unit.getType().getName()));
 
     percepts.add(new StatusPercept(unit.getHitPoints(), unit.getShields(),
         unit.getPosition().getBX(), unit.getPosition().getBY()));
@@ -61,7 +61,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
    *          The conditions of the unit
    * @return The conditions of the (moving) unit.
    */
-  private List<Parameter> setMovingPercepts(List<Parameter> conditions) {
+  private List<Parameter> setMovingConditions(List<Parameter> conditions) {
 
     if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
       setTerranTypes(conditions);
@@ -99,7 +99,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     }
 
     if (unit.getType().isCanMove()) {
-      setMovingPercepts(conditions);
+      setMovingConditions(conditions);
     }
 
     return conditions;

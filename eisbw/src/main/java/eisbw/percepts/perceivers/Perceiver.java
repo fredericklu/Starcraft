@@ -1,6 +1,10 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Perceiver implements IPerceiver {
 
@@ -8,5 +12,10 @@ public abstract class Perceiver implements IPerceiver {
 
   public Perceiver(JNIBWAPI api) {
     this.api = api;
+  }
+  
+  @Override
+  public List<Parameter> getConditions() {
+    return new ArrayList<>();
   }
 }

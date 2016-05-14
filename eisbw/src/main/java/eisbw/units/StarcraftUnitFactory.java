@@ -1,19 +1,13 @@
 package eisbw.units;
 
-import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.percepts.perceivers.BuildingPerceiver;
 import eisbw.percepts.perceivers.GenericUnitPerceiver;
 import eisbw.percepts.perceivers.IPerceiver;
 import eisbw.percepts.perceivers.MapPerceiver;
-import eisbw.percepts.perceivers.RepairPerceiver;
-import eisbw.percepts.perceivers.ResearchPerceiver;
-import eisbw.percepts.perceivers.TerranBuildingPerceiver;
-import eisbw.percepts.perceivers.TransporterPerceiver;
-
+import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.percepts.perceivers.WorkerPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 
 import java.util.ArrayList;
 
@@ -38,8 +32,7 @@ public class StarcraftUnitFactory {
   public StarcraftUnit create(Unit unit) {
     ArrayList<IPerceiver> perceptGenerators = new ArrayList<>();
     perceptGenerators.add(new GenericUnitPerceiver(api, unit));
-    perceptGenerators.add(new UnitsPerceiver(api, unit));
-    perceptGenerators.add(new ResearchPerceiver(api, unit));
+    perceptGenerators.add(new UnitsPerceiver(api));
 
     if (unit.getType().isCanMove()) {
       perceptGenerators.add(new MapPerceiver(api));
@@ -47,19 +40,10 @@ public class StarcraftUnitFactory {
 
     if (unit.getType().isBuilding()) {
       perceptGenerators.add(new BuildingPerceiver(api, unit));
-      if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
-        perceptGenerators.add(new TerranBuildingPerceiver(api, unit));
-      }
     }
+
     if (unit.getType().isWorker()) {
       perceptGenerators.add(new WorkerPerceiver(api, unit));
-
-      if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
-        perceptGenerators.add(new RepairPerceiver(api));
-      }
-    }
-    if (unit.getType().getSpaceProvided() > 0) {
-      perceptGenerators.add(new TransporterPerceiver(api, unit));
     }
 
     return new StarcraftUnit(api, unit, perceptGenerators);

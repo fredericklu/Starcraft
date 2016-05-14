@@ -1,6 +1,5 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.Attacking;
 import eisbw.percepts.IsCloakedPercept;
@@ -12,10 +11,10 @@ import jnibwapi.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnitsPerceiver extends UnitPerceiver {
+public class UnitsPerceiver extends Perceiver {
 
-  public UnitsPerceiver(JNIBWAPI api, Unit unit) {
-    super(api, unit);
+  public UnitsPerceiver(JNIBWAPI api) {
+    super(api);
   }
 
   /**
@@ -35,7 +34,7 @@ public class UnitsPerceiver extends UnitPerceiver {
       if (u.isMorphing()) {
         percepts.add(new IsMorphingPercept(u.getBuildType().getName(), u.getID()));
       }
-      if (isFriendly && unit.getType().isAttackCapable() && u.getType().isAttackCapable()) {
+      if (u.getType().isAttackCapable()) {
         Unit targetUnit = u.getOrderTarget();
         if (targetUnit != null) {
           percepts.add(new Attacking(u.getID(), targetUnit.getID()));
@@ -60,8 +59,4 @@ public class UnitsPerceiver extends UnitPerceiver {
     return percepts;
   }
 
-  @Override
-  public List<Parameter> getConditions() {
-    return new ArrayList<>();
-  }
 }

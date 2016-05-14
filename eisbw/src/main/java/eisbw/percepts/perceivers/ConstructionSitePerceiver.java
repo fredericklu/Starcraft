@@ -129,8 +129,8 @@ public class ConstructionSitePerceiver extends Perceiver {
       }
     }
 
-    for (int x = 0; x < mapWidth; x++) {
-      for (int y = 0; y < mapHeight; y++) {
+    for (int x = 0; x < mapWidth; x = x + 3) {
+      for (int y = 0; y < mapHeight; y = y + 3) {
         Position pos = new Position(x, y, Position.PosType.BUILD);
 
         if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
@@ -151,8 +151,4 @@ public class ConstructionSitePerceiver extends Perceiver {
     return percepts;
   }
 
-  @Override
-  public List<Parameter> getConditions() {
-    return new ArrayList<>();
-  }
 }
