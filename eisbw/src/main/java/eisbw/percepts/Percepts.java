@@ -2,10 +2,10 @@ package eisbw.percepts;
 
 public class Percepts {
 
+  public static final String Condition = "condition";
   public static final String Status = "status";
   public static final String Resources = "resources";
   public static final String MineralField = "mineralField";
-  public static final String HasUpgraded = "HasUpgraded";
   public static final String UnitAmount = "UnitAmount";
   public static final String HitPoint = "hitPoint";
   public static final String Base = "base";
@@ -17,7 +17,7 @@ public class Percepts {
   public static final String Unit = "unit";
   public static final String UnitType = "unitType";
   public static final String BuildUnit = "buildUnit";
-  public static final String Id = "id";
+  public static final String Self = "self";
   public static final String Position = "position";
   public static final String Gathering = "gathering";
   public static final String Carrying = "carrying";
@@ -45,7 +45,7 @@ public class Percepts {
   public static final String Loadable = "loadable";
   public static final String IsLoaded = "loaded";
   public static final String Moving = "moving";
-  public static final String Upgrade = "upgrade";
+  public static final String Upgrading = "upgrading";
   public static final String Addon = "addon";
   // Documentation goes to this point
   public static final String Following = "following";

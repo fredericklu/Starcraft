@@ -9,6 +9,16 @@ public class UnitPercept extends Percept {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * @param isFriendly
+   * @param type
+   * @param id
+   * @param health
+   * @param shields
+   * @param isFlying
+   * @param bx
+   * @param by
+   */
   public UnitPercept(boolean isFriendly, String type, int id, int health, int shields,
       boolean isFlying, int bx, int by) {
     super(Percepts.Unit, new TruthValue(isFriendly), new Identifier(type), new Numeral(id),

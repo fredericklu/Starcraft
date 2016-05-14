@@ -39,9 +39,4 @@ public class MapPerceiver extends Perceiver {
 
     return percepts;
   }
-
-  @Override
-  public List<Parameter> getConditions() {
-    return new ArrayList<>();
-  }
 }
