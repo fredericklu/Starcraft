@@ -64,8 +64,6 @@ public class BwapiListener extends BwapiEvents {
     // START THE DEBUGGER.
     if (debugmode) {
       debug = new DebugWindow(game);
-      bwapi.drawIDs(true);
-      bwapi.drawHealth(true);
       bwapi.drawTargets(true);
       bwapi.enableUserInput();
       bwapi.setGameSpeed(30);
