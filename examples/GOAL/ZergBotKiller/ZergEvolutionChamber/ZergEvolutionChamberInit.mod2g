@@ -1,5 +1,0 @@
-use ZergEvolutionChamber as knowledge.
-
-module ZergEvolutionChamberInit {
-	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
-}

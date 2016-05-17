@@ -1,7 +1,0 @@
-use "../GenericMods/GenericPredicates.pl" as knowledge.
-
-module ZergCreepColonyInit {
-
-if percept(resources(M, _, _, _)) then insert(minerals(M)).
-
-}
