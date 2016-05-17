@@ -1,0 +1,50 @@
+use ZergHatchery as knowledge.
+use "../GenericMods/GenericPercepts.mod2g" as module.
+
+
+module ZergHatcheryEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	forall bel(friendly("Zerg Drone",Id,_,_,_,_)) , not(percept(unit(true, "Zerg Drone",Id,_,_,_,_,_))) do ('overMind').send:(death(Id)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).
+	
+	if percept(resources(_, G, _, _)), bel(gas(OG), not(OG == G)) then delete(gas(OG)) + insert(gas(G)).
+	
+	forall percept(unit(true, Type,Id,Health,Shields,_,X,Y)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields,X,Y)), MyId \= Id) 
+	do insert(friendly(Type, Id, Health, Shields, X, Y)).
+	forall bel(friendly(Type, Id, Health, Shields, X, Y)) , not(percept(unit(true, Type,Id,Health,Shields,_,X,Y)))
+	do delete(friendly(Type,Id,Health, Shields,X,Y)).
+	
+	forall percept(isMorphing(Name, Id)), not(bel(isMorphing(Name, Id))) do insert(isMorphing(Name, Id)).
+	forall bel(isMorphing(Name, Id)), not(percept(isMorphing(Name, Id))) do delete(isMorphing(Name, Id)).
+	
+	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
+	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
+	
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+		
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS ------------------------------------------- %%%%%%%%%%%%%%%
+	
+	if not(goal(unitAmount("Zerg Drone",15))), bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount("Zerg Drone",M) ,M<15) 
+	then adopt(unitAmount("Zerg Drone",15)) + print("Hier gekomen!").
+		
+	if bel(not(isMorphing("Zerg Overlord", _)), queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) 
+	then adopt(train("Zerg Overlord")).
+	
+	if bel(((unitAmount("Zerg Queen", Amount), Amount =< 3) ; not(unitAmount("Zerg Queen",_))), 
+	friendly("Zerg Queens Nest", _, _, _,_,_)) then adopt(train("Zerg Queen")).
+		
+	if bel(friendly("Zerg Hydralisk Den", _, _, _, _,_), unitAmount("Zerg Zergling", Amount), Amount > 10
+	, minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(train("Zerg Hydralisk")).
+		
+	if bel(friendly("Zerg Spawning Pool", _, _, _, _, _), minerals(X), X >= 50, supply(Y,Z), Y<Z) then adopt(train("Zerg Zergling")).
+	
+	if bel(unitAmount("Zerg Hydralisk", Amount), Amount > 1, (not(unitAmount("Zerg Lair", _)); isMorphing("Zerg Lair", _))) 
+	then adopt(morph("Zerg Lair")).
+	
+}

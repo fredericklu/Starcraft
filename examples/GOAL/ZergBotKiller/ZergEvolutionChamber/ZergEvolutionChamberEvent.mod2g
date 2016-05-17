@@ -1,0 +1,18 @@
+use ZergEvolutionChamber as knowledge.
+
+
+module ZergEvolutionChamberEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if percept(upgrading(X)) then insert(upgrading(X)).
+		
+	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).
+	
+	if percept(resources(_, G, _, _)), bel(gas(OG), not(G == OG)) then delete(gas(OG)) + insert(gas(G)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if bel(not(upgrading('Zerg Melee Attacks')), minerals(M), M >= 100, gas(G), G >= 100) then adopt(upgrading('Zerg Melee Attacks')).
+	
+	if bel(not(upgrading('Zerg Carapace')), minerals(M), M >= 150, gas(G), G >= 150) then adopt(upgrading('Zerg Carapace')).	
+}

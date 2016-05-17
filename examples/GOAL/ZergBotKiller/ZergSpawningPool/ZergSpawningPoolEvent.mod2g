@@ -1,0 +1,18 @@
+use ZergSpawningPool as knowledge.
+
+module ZergSpawningPoolEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if percept(upgrading(X)) then insert(upgrading(X)).
+		
+	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).
+	
+	if percept(resources(_, G, _, _)), bel(gas(OG), not(G == OG)) then delete(gas(OG)) + insert(gas(G)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if bel(not(upgrading('Metabolic Boost')), minerals(M), M >= 100, gas(G), G >= 100) then adopt(upgrading('Metabolic Boost')).
+	
+	if percept(unit(true,"Zerg Hive", _, _, _, _, _,_)),
+	bel(not(upgrading('Adrenal Glands')), minerals(M), M >= 200, gas(G), G >= 200) then adopt(upgrading("Adrenal Glands")).
+}

@@ -1,0 +1,22 @@
+use ZergHydralisk as knowledge.
+use "../GenericMods/GenericPercepts.mod2g" as module.
+
+module ZergHydraliskEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if true then GenericPercepts.
+		
+	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
+	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
+	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
+	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
+		
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+		
+	if bel(unitAmount("Zerg Zergling", Amount), Amount >= 30, enemyBase(X, Y)) then adopt(attack(X,Y)).
+	
+	if bel(enemy(_, Id, _, _, _, _, _)) then adopt(attack(Id)).
+	
+	if bel((unitAmount("Zerg Lurker", Amount), Amount =< 30 ; not(unitAmount("Zerg Lurker", _))), minerals(M), M >= 50, gas(G), G >= 100)
+	then adopt(morph("Zerg Lurker")).
+}
