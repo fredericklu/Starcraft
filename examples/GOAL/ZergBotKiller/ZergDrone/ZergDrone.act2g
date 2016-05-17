@@ -1,11 +1,10 @@
 use ZergDrone as knowledge.
 
-
-define stop with
+define move(X, Y) with
 	pre{ true }
 	post{ true }
-
-define move(X, Y) with
+	
+define attack(Id) with
 	pre{ true }
 	post{ true }
 

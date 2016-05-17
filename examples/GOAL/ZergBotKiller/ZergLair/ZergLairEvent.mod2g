@@ -1,8 +1,6 @@
-use ZergHatchery as knowledge.
-use "../GenericMods/GenericPercepts.mod2g" as module.
+use ZergLair as knowledge.
 
-
-module ZergHatcheryEvent {
+module ZergLairEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	forall bel(friendly("Zerg Drone",Id,_,_,_,_)) , not(percept(unit(true, "Zerg Drone",Id,_,_,_,_,_))) do ('overMind').send:(death(Id)).
@@ -27,24 +25,15 @@ module ZergHatcheryEvent {
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
-		
-	%%%%%%%%%%%%%%% --------------------------------------- GOALS ------------------------------------------- %%%%%%%%%%%%%%%
-	
-	if not(goal(unitAmount("Zerg Drone",15))), bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount("Zerg Drone",M) ,M<15) 
-	then adopt(unitAmount("Zerg Drone",15)) + print("Hier gekomen!").
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 		
 	if bel(not(isMorphing("Zerg Overlord", _)), queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) 
 	then adopt(train("Zerg Overlord")).
-	
-	if bel(((unitAmount("Zerg Queen", Amount), Amount =< 3) ; not(unitAmount("Zerg Queen",_))), 
-	friendly("Zerg Queens Nest", _, _, _,_,_)) then adopt(train("Zerg Queen")).
 		
-	if bel(friendly("Zerg Hydralisk Den", _, _, _, _,_), unitAmount("Zerg Zergling", Amount), Amount > 10
-	, minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(train("Zerg Hydralisk")).
-		
-	if bel(friendly("Zerg Spawning Pool", _, _, _, _, _), minerals(X), X >= 50, supply(Y,Z), Y<Z) then adopt(train("Zerg Zergling")).
+	if not(goal(unitAmount("Zerg Drone",12))), bel(unitAmount("Zerg Drone",M) ,M<12) then adopt(unitAmount("Zerg Drone",12)).
 	
-	if bel(unitAmount("Zerg Hydralisk", Amount), Amount > 1, (not(unitAmount("Zerg Lair", _)); isMorphing("Zerg Lair", _))) 
-	then adopt(morph("Zerg Lair")).
+	if bel(friendly("Zerg Spawning Pool", _, _, _, _, _)) then adopt(unitAmount("Zerg Zergling", 50)).
+	
+	if bel(friendly("Zerg Spire", _, _, _, _, _)) then adopt(unitAmount("Zerg Mutalisk", 30)). 
 	
 }

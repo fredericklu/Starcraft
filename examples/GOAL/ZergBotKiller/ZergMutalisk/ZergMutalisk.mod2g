@@ -1,0 +1,12 @@
+use ZergMutalisk as knowledge.
+use ZergMutalisk as actionspec.
+
+module ZergMutalisk {
+	if goal(position(X, Y)) then move(X, Y) + drop(position(X, Y)).
+	
+	if goal(attack(X, Y)) then attack(X, Y) + drop(attack(X, Y)).
+	
+	if a-goal(attack(X, Y, Bool)), bel(Bool == 'true') then attack(X, Y) + drop(attack(X, Y, Bool)).
+	
+	if a-goal(attack(X, Y, Bool)), bel(Bool == 'false') then attack(X, Y) + drop(attack(X, Y, Bool)).
+}

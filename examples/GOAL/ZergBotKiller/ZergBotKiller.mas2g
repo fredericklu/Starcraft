@@ -28,30 +28,22 @@ define zergSpawningPool as agent{
 	use ZergSpawningPool.ZergSpawningPoolEvent as event module.
 }
 
-define zergEvolutionChamber as agent{
-	use ZergEvolutionChamber.ZergEvolutionChamberInit as init module.
-	use ZergEvolutionChamber.ZergEvolutionChamber as main module.
-	use ZergEvolutionChamber.ZergEvolutionChamberEvent as event module.	
-}
-
-define zergHydralisk as agent{
-	use ZergHydralisk.ZergHydraliskInit as init module.
-	use ZergHydralisk.ZergHydralisk as main module.
-	use ZergHydralisk.ZergHydraliskEvent as event module.
-}
-
-define zergHydraliskDen as agent{
-	use ZergHydraliskDen.ZergHydraliskDenInit as init module.
-	use ZergHydraliskDen.ZergHydraliskDen as main module.
-	use ZergHydraliskDen.ZergHydraliskDenEvent as event module.
-}
-
 define zergCreepColony as agent{
-	use ZergCreepColony.ZergCreepColonyInit as init module.
 	use ZergCreepColony.ZergCreepColony as main module.
 	use ZergCreepColony.ZergCreepColonyEvent as event module.	
 }
 
+define zergLair as agent{
+	use ZergLair.ZergLairInit as init module.
+	use ZergLair.ZergLair as main module.
+	use ZergLair.ZergLairEvent as event module.	
+}
+
+define zergMutalisk as agent{
+	use ZergMutalisk.ZergMutaliskInit as init module.
+	use ZergMutalisk.ZergMutalisk as main module.
+	use ZergMutalisk.ZergMutaliskEvent as event module.	
+}
 
 define overMind as agent {
 	use OverMind.OverMindEvent as main module.	
@@ -62,9 +54,8 @@ launchpolicy{
 	when type = zergHatchery launch zergHatchery.
 	when type = zergZergling launch zergZergling.
 	when type = zergSpawningPool launch zergSpawningPool.
-	when type = zergEvolutionChamber launch zergEvolutionChamber.
-	when type = zergHydralisk launch zergHydralisk.
-	when type = zergCreepColony launch zergCreepColony.
-	when type = zergHydraliskDen launch zergHydraliskDen.
 	when type = zergDrone launch zergDrone.
+	when type = zergCreepColony launch zergCreepColony.
+	when type = zergLair launch zergLair.
+	when type = zergMutalisk launch zergMutalisk.
 	}
