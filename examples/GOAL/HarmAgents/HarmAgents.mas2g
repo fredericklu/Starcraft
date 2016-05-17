@@ -1,0 +1,60 @@
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Terran",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
+
+
+define terranSCV as agent {
+	use TerranSCV.TerranSCV as main module.
+	use TerranSCV.TerranSCVInit as init module.
+	use TerranSCV.TerranSCVEvent as event module.
+} 
+
+define scoutSCV as agent {
+	use TerranSCV.ScoutSCV as main module.
+	use TerranSCV.TerranSCVInit as init module.
+	use TerranSCV.ScoutSCVEvent as event module.
+} 
+
+define buildSCV as agent {
+	use TerranSCV.BuildSCV as main module.
+	use TerranSCV.TerranSCVInit as init module.
+	use TerranSCV.BuildSCVEvent as event module.
+} 
+
+define terranCommandCenter as agent {
+	use TerranCommandCenter.TerranCommandCenterInit as init module.
+	use TerranCommandCenter.TerranCommandCenter as main module.
+	use TerranCommandCenter.TerranCommandCenterEvent as event module.
+}
+
+define terranBarracks as agent {
+	use TerranBarracks.TerranBarracks as main module.
+	use TerranBarracks.TerranBarracksInit as init module.
+	use TerranBarracks.TerranBarracksEvent as event module.
+}
+
+define terranMarine as agent {
+	use TerranMarine.TerranMarine as main module.
+	use TerranMarine.TerranMarineEvent as event module.
+}
+
+define terranMedic as agent {
+	use TerranMedic.TerranMedic as main module.
+}
+
+define stayAlive as agent {
+	use stayAlive.stayAlive as main module.	
+}
+
+launchpolicy{
+	when type = terranCommandCenter launch terranCommandCenter.
+	when type = unknown launch stayAlive.
+	when type = terranSCV launch scoutSCV with max = 1.
+	when type = terranSCV launch buildSCV with max = 1.
+	when type = terranSCV launch terranSCV.
+	when type = terranBarracks launch terranBarracks.
+	when type = terranMarine launch terranMarine.
+	when type = terranMedic launch terranMedic.
+}

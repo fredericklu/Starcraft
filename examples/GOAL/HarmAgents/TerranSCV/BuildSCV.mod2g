@@ -1,0 +1,10 @@
+use TerranSCV as actionspec.
+use TerranSCV as knowledge.
+
+order = linearall.
+
+module main{	
+	if a-goal(build(Name,X,Y)) then build(Name,X,Y).	
+	
+	if bel(not(busy),mineralField(Id,_,_,_)) then gather(Id).
+}
