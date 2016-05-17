@@ -1,6 +1,12 @@
-use ZergZergling as knowledge.
+use ZergMutalisk as knowledge.
 
-module ZergZerglingEvent {
+module ZergMutaliskEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if (_).sent:(leader(Id)) then insert(leader(Id)).
+	
+	if bel(leader(Id), self(Id,_)) then insert(leader).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
@@ -19,22 +25,17 @@ module ZergZerglingEvent {
 		
 	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
 	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
-		
-	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(not(ready(_)), position(X1, Y1), groupLocation(X2, Y2), distance(X1, Y1, X2, Y2, D), D < 10,
-	self(Id, _)) then (overMind).send(ready(Id)) + insert(ready(Id)).
-	
-	if (_).sent(attack) then insert(attack).
+	forall percept(attacking(Unit,Target)), not(bel(attacking(Unit,Target))) do insert(attacking(Unit,Target)).
+	forall bel(attacking(Unit,Target)),not(percept(attacking(Unit,Target))) do delete(attacking(Unit,Target)).
 		
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	%if bel(hitPoints(H), H < 35, position(X, Y)) then adopt(move(X + 5, Y + 5)).
+	if bel(self(Id,_), attacking(_, Id), enemyBase(X, Y)) then adopt(position(X, Y)).
 	
-	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 25) 
-	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
-	
-	if bel(enemyBase(X, Y), unitAmount("Zerg Zergling",Count), Count > 5) then adopt(attack2(X,Y)).
+	if bel(leader, enemyBase(X, Y), unitAmount("Zerg Mutalisk",Count), Count > 5) then adopt(attack(X,Y)).
 		
-	if bel(enemy(_, Id, _, _, 'false', X, Y)) then adopt(attack(X, Y)).
+	if bel(leader, enemy(_, Id, _, _, Bool, X, Y)) then adopt(attack(X, Y, Bool)).
+	
+	if bel(not(leader), leader(Id), friendly(_,Id,_,_,X,Y)) then adopt(attack(X, Y)).
 }

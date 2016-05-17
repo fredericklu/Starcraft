@@ -2,7 +2,7 @@
 builder/0,
 resources/4,
 gathering/1,
-unit/2,
+unitAmount/2,
 mineralField/4,
 position/2,
 constructionSite/2,

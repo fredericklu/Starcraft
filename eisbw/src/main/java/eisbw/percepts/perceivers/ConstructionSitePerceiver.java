@@ -80,7 +80,7 @@ public class ConstructionSitePerceiver extends Perceiver {
       ArrayList<Percept> percepts) {
 
     // check if you can actually build here as zerg
-    if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Spawning_Pool, true)
+    if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Hatchery, true) && api.hasCreep(pos)
         && checkConstructionSite(xpos, ypos, illegals)) {
       percepts.add(new ConstructionSitePercept(xpos, ypos));
     }

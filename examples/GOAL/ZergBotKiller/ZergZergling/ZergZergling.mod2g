@@ -2,11 +2,13 @@ use ZergZergling as knowledge.
 use ZergZergling as actionspec.
 
 module ZergZergling {
-	if a-goal(stop) then stop.
+	%if a-goal(attack(Id)) then attack(Id).
 	
-	if a-goal(attack(Id)) then attack(Id).
+	if goal(move(X, Y)) then move(X, Y).
 	
-	if a-goal(attack(X,Y)) then attack(X,Y).
+	if bel(enemy("Protoss Zealot", Id, _, _, 'false', _, _), enemyBase(X, Y)) then attack(X, Y).
 	
-	if a-goal(move(X, Y)) then move(X, Y).
+	if a-goal(attack(X, Y)), bel(groupLocation(X, Y)) then attack(X, Y) + drop(attack(X, Y)).
+		
+	if a-goal(attack2(X, Y)), bel(attack, position(X1, Y1), groupLocation(X2, Y2), distance(X1, Y1, X2, Y2, D), D < 5) then attack(X, Y).
 }
