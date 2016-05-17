@@ -1,0 +1,19 @@
+use GenericPredicates as knowledge.
+
+module GenericPercepts {
+	
+	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).
+	
+	if percept(resources(_, G, _, _)), bel(gas(OG), not(OG == G)) then delete(gas(OG)) + insert(gas(G)).
+	
+	forall percept(unit(true, Type,Id,Health,Shields,_,X,Y)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields,X,Y)), MyId \= Id) 
+	do insert(friendly(Type, Id, Health, Shields, X, Y)).
+	forall bel(friendly(Type, Id, Health, Shields, X, Y)) , not(percept(unit(true, Type,Id,Health,Shields,_,X,Y)))
+	do delete(friendly(Type,Id,Health, Shields,X,Y)).
+	
+	forall percept(isMorphing(Name, Id)), not(bel(isMorphing(Name, Id))) do insert(isMorphing(Name, Id)).
+	forall bel(isMorphing(Name, Id)), not(percept(isMorphing(Name, Id))) do delete(isMorphing(Name, Id)).
+	
+	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
+	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
+}
