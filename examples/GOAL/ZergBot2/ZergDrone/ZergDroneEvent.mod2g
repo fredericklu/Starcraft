@@ -3,20 +3,14 @@ use ZergDrone as knowledge.
 
 module ZergDroneEvent {
 		%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
-
-		if percept(supply(C,Max)), bel(supply(OC, OMax), not(C == OC), not(Max == OMax)) then delete(supply(OC, OMax)) + insert(supply(C,Max)).
 		
-		if percept(minerals(M)), bel(minerals(OM), not(M == OM)) then insert(minerals(M)) + delete(minerals(OM)).
-		
-		if percept(gas(M)), bel(gas(OM), not(M = OM)) then insert(gas(M)) + delete(gas(OM)).
-		
-		if percept(gathering(X)), not(bel(gathering(X))) then insert(gathering(X)).
-		if bel(gathering(X)), not(percept(gathering(X))) then delete(gathering(X)).
+		if percept(resources(M, G, CS, TS)), bel(resources(OM, OG, OCS, OTS)) then 
+		delete(resources(OM, OG, OCS, OTS)) + insert(resources(M, G, CS, TS)).
 				
 		forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralField(Id,Amount,X,Y))) do insert(mineralField(Id,Amount,X,Y)).
 		forall percept(mineralField(Id,Amount1,_,X,Y)), bel(mineralField(Id,Amount2,X,Y), (Amount1 \= Amount2)) do delete(mineralField(Id,Amount2,X,Y)).
 		
-		forall percept(friendly(Name,Type,Id,Health,Shields,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,X,Y)), MyId \= Id) 
+		forall percept(unit(Name,Type,Id,Health,Shields,X,Y)), bel(id(MyId), not(friendly(Name,Type,Id,X,Y)), MyId \= Id) 
 		do insert(friendly(Name,Type,Id,X,Y)).
 		forall bel(friendly(Name,Type,Id,X,Y)) , not(percept(friendly(Name,Type,Id,_,_,X,Y)))
 		do delete(friendly(Name,Type,Id,X,Y)).

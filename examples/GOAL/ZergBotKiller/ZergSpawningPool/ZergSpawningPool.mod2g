@@ -1,0 +1,8 @@
+use ZergSpawningPool as knowledge.
+use ZergSpawningPool as actionspec.
+
+module ZergSpawningPool {
+	if a-goal(upgrading('Metabolic Boost')) then upgrade('Metabolic Boost').
+	
+	if a-goal(upgrading('Adrenal Glands')) then upgrade('Adrenal Glands').	
+}
