@@ -2,7 +2,7 @@ use ZergDrone as knowledge.
 use ZergDrone as actionspec.
 
 module ZergDrone {
-		if a-goal(expandTo(X, Y)), bel(position(X, Y), not(friendly(_,"Zerg Hatchery",_,X,Y))) then build("Zerg Hatchery", X, Y).
+		if a-goal(expandTo(X, Y)), bel(position(X, Y), not(friendly("Zerg Hatchery",_,_,_,X,Y))) then build("Zerg Hatchery", X, Y).
 		
 		if a-goal(expandTo(X, Y)) then move(X, Y).
 		
@@ -18,7 +18,7 @@ module ZergDrone {
 		
 		if a-goal(build("Zerg Queens Nest", X, Y)) then build("Zerg Queens Nest", X, Y).
 		
-		if bel(not(busy), friendly(_,"Zerg Extractor",Id,_,_), shouldMineVespene) then gather(Id).
+		if bel(friendly("Zerg Extractor",Id,_,_,_,_), shouldMineVespene) then gather(Id).
 		
 		if not(goal(expandTo(_, _))), goal(goGather(Id)), bel(not(busy)) then gather(Id).
 }

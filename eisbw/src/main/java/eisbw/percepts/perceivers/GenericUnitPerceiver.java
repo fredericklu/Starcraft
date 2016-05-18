@@ -3,11 +3,13 @@ package eisbw.percepts.perceivers;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.EnergyPercept;
 import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
 import eisbw.percepts.StatusPercept;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 
@@ -23,6 +25,10 @@ public class GenericUnitPerceiver extends UnitPerceiver {
   @Override
   public List<Percept> perceive() {
     List<Percept> percepts = new ArrayList<>();
+
+    for (Player p : api.getEnemies()) {
+      percepts.add(new EnemyRacePercept(p.getRace().getName()));
+    }
 
     percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
         api.getSelf().getSupplyUsed(), api.getSelf().getSupplyTotal()));

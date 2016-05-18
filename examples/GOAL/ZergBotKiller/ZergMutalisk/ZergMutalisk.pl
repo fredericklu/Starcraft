@@ -2,14 +2,13 @@
 move/2,
 position/2,
 attack/2,
+attack/3,
 unitAmount/2,
 base/4,
 enemy/7,
 self/2,
 friendly/6,
 chokepoint/2,
-isStuck/0,
-stop/0,
 attack/1,
 chokePoint/2,
 groupLocation/2,
@@ -18,7 +17,10 @@ enemyBase/2,
 ready/1,
 attack/0,
 hitPoints/1,
-enemyRace/1
+enemyRace/1,
+attacking/2,
+leader/1,
+leader/0
 .
 
 %enemyBase(X, Y) :- base(X, Y, 'true', _), friendly(Type,_ ,_,_, X1, Y1), 

@@ -1,5 +1,4 @@
 use ZergHatchery as knowledge.
-use "../GenericMods/GenericPercepts.mod2g" as module.
 
 
 module ZergHatcheryEvent {
@@ -30,21 +29,16 @@ module ZergHatcheryEvent {
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS ------------------------------------------- %%%%%%%%%%%%%%%
 	
-	if not(goal(unitAmount("Zerg Drone",15))), bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount("Zerg Drone",M) ,M<15) 
-	then adopt(unitAmount("Zerg Drone",15)) + print("Hier gekomen!").
+	if not(goal(unitAmount("Zerg Drone",12))), bel(unitAmount("Zerg Drone",M) ,M<12, enemyRace("Protoss")) 
+	then adopt(unitAmount("Zerg Drone",12)).
 		
-	if bel(not(isMorphing("Zerg Overlord", _)), queueSize(N), N < 2 , minerals(X), X >= 100, supply(Y, Z), (Z - Y) < 6) 
-	then adopt(train("Zerg Overlord")).
+	if bel(not(isMorphing("Zerg Overlord", _)), queueSize(N), N < 2, supply(Y, Z), (Z - Y) < 6, M is Z + 16) then adopt(supply(Y, M)).
+		
+	if bel(unitAmount("Zerg Spire", _); not(enemyRace("Protoss"))) then adopt(unitAmount("Zerg Zergling", 50)).
 	
-	if bel(((unitAmount("Zerg Queen", Amount), Amount =< 3) ; not(unitAmount("Zerg Queen",_))), 
-	friendly("Zerg Queens Nest", _, _, _,_,_)) then adopt(train("Zerg Queen")).
-		
-	if bel(friendly("Zerg Hydralisk Den", _, _, _, _,_), unitAmount("Zerg Zergling", Amount), Amount > 10
-	, minerals(X), X >= 75, gas(G), G >= 25, supply(Y,Z), Y < Z) then adopt(train("Zerg Hydralisk")).
-		
-	if bel(friendly("Zerg Spawning Pool", _, _, _, _, _), minerals(X), X >= 50, supply(Y,Z), Y<Z) then adopt(train("Zerg Zergling")).
+	if bel(not(unitAmount("Zerg Spire", _)), friendly("Zerg Spawning Pool", _, _, _, _, _), enemyRace("Protoss")) 
+	then adopt(unitAmount("Zerg Zergling", 2)).	
 	
-	if bel(unitAmount("Zerg Hydralisk", Amount), Amount > 1, (not(unitAmount("Zerg Lair", _)); isMorphing("Zerg Lair", _))) 
+	if bel((not(unitAmount("Zerg Lair", _)) ; unitAmount("Zerg Lair", Count), Count < 1); isMorphing("Zerg Lair", _), enemyRace("Protoss")) 
 	then adopt(morph("Zerg Lair")).
-	
 }

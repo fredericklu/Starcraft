@@ -18,6 +18,7 @@ public class Percepts {
   public static final String Queue = "queue";
   public static final String Attacking = "attacking";
   public static final String ConstructionSite = "constructionSite";
+  public static final String EnemyRace = "enemyRace";
 
   public static final String SpaceProvided = "spaceProvided";
   public static final String UnitLoaded = "unitLoaded";

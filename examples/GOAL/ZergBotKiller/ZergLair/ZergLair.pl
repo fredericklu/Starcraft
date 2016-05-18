@@ -8,5 +8,4 @@ unitAmount/2,
 gas/1,
 supply/2,
 morph/1,
-train/1,
-enemyRace/1.
+train/1.
