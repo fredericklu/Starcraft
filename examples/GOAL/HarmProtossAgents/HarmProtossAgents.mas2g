@@ -1,0 +1,56 @@
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Protoss",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
+
+
+define protossProbe as agent {
+	use ProtossProbe.ProtossSCV as main module.
+	use ProtossProbe.ProtossSCVInit as init module.
+	use ProtossProbe.ProtossSCVEvent as event module.
+} 
+
+define scoutSCV as agent {
+	use ProtossProbe.ScoutSCV as main module.
+	use ProtossProbe.ProtossSCVInit as init module.
+	use ProtossProbe.ScoutSCVEvent as event module.
+} 
+
+define buildSCV as agent {
+	use ProtossProbe.BuildSCV as main module.
+	use ProtossProbe.ProtossSCVInit as init module.
+	use ProtossProbe.BuildSCVEvent as event module.
+} 
+
+define protossNexus as agent {
+	use ProtossNexus.ProtossNexusInit as init module.
+	use ProtossNexus.ProtossNexus as main module.
+	use ProtossNexus.ProtossNexusEvent as event module.
+}
+
+define protossGateway as agent {
+	use ProtossGateway.ProtossGateway as main module.
+	use ProtossGateway.ProtossGatewayInit as init module.
+	use ProtossGateway.ProtossGatewayEvent as event module.
+}
+
+define protossZealot as agent {
+	use ProtossZealot.ProtossZealotInit as init module.
+	use ProtossZealot.ProtossZealot as main module.
+	use ProtossZealot.ProtossZealotEvent as event module.
+}
+
+define stayAlive as agent {
+	use stayAlive.stayAlive as main module.	
+}
+
+launchpolicy{
+	when type = protossNexus launch protossNexus.
+	when type = unknown launch stayAlive.
+	when type = protossProbe launch scoutSCV with max = 1.
+	when type = protossProbe launch buildSCV with max = 1.
+	when type = protossProbe launch protossProbe.
+	when type = protossGateway launch protossGateway.
+	when type = protossZealot launch protossZealot.
+}

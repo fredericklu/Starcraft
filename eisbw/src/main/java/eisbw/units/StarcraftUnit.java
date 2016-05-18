@@ -1,11 +1,13 @@
 package eisbw.units;
 
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.percepts.ConditionPercept;
 import eisbw.percepts.perceivers.IPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StarcraftUnit {
@@ -31,10 +33,13 @@ public class StarcraftUnit {
    * @return - a list of percepts.
    */
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
+    List<Parameter> conditions = new LinkedList<>();
     for (IPerceiver perceiver : this.perceivers) {
       percepts.addAll(perceiver.perceive());
+      conditions.addAll(perceiver.getConditions());
     }
+    percepts.add(new ConditionPercept(conditions));
     return percepts;
   }
 }

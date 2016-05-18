@@ -2,7 +2,7 @@ use ZergEvolutionChamber as knowledge.
 use ZergEvolutionChamber as actionspec.
 
 module ZergEvolutionChamber {
-	if a-goal(upgrade('Zerg Melee Attacks')) then upgrade('Zerg Melee Attacks').
+	if a-goal(upgrading('Zerg Melee Attacks')) then upgrade('Zerg Melee Attacks').
 	
-	if a-goal(upgrade('Zerg Carapace')) then upgrade('Zerg Carapace').	
+	if a-goal(upgrading('Zerg Carapace')) then upgrade('Zerg Carapace').	
 }

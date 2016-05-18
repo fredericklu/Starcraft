@@ -8,7 +8,7 @@ import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MapPerceiver extends Perceiver {
@@ -19,7 +19,7 @@ public class MapPerceiver extends Perceiver {
 
   @Override
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
     jnibwapi.Map map = api.getMap();
 
     Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());

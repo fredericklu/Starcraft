@@ -1,0 +1,11 @@
+use ZergZergling as knowledge.
+
+% attack action
+define attack(Id) with
+	pre{ true }
+	post{ true }
+
+% attack-move action
+define attack(X, Y) with
+	pre{ true }
+	post{ true }

@@ -1,0 +1,8 @@
+use TerranMarine as knowledge.
+
+module TerranMarineInit {
+	if percept(id(Id)) then insert(id(Id)).
+	forall percept(base(X, Y, Begin, RegionID)) do insert(base(X, Y, Begin, RegionID)).
+		if percept(unit(_,'Terran Command Center',_,_,_,_,X,Y)) then insert(cmd(X,Y)).
+		if bel(base(X,Y,'true',_),cmd(X2,Y2),distance(X,Y,X2,Y2,D), D>10) then insert(enemyBase(X,Y)).
+}

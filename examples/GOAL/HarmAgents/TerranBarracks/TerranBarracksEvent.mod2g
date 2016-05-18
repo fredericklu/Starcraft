@@ -1,0 +1,7 @@
+use TerranBarracks as knowledge.
+
+module TerranBarracksEvent {
+	if percept(queueSize(N), resources(X,_,Y,Z)), bel(N < 2, X>=50 , (Z - Y) >= 2 ) then{
+			 if not(goal(train('Terran Marine'))) then adopt(train('Terran Marine')).
+			}
+}

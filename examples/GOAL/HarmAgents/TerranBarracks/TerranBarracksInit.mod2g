@@ -1,0 +1,5 @@
+use TerranBarracks as knowledge.
+
+module TerranBarracksInit {
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+}

@@ -11,8 +11,9 @@ public class ConstructionSitePercept extends Percept {
   public ConstructionSitePercept(int xpos, int ypos) {
     super(Percepts.ConstructionSite, new Numeral(xpos), new Numeral(ypos));
   }
-  
+
   public ConstructionSitePercept(int xpos, int ypos, Boolean isInRange) {
-    super(Percepts.ConstructionSite, new Numeral(xpos), new Numeral(ypos), new TruthValue(isInRange));
+    super(Percepts.ConstructionSite, new Numeral(xpos), new Numeral(ypos),
+        new TruthValue(isInRange));
   }
 }

@@ -1,0 +1,5 @@
+use ProtossGateway as knowledge.
+
+module ProtossGatewayInit {
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+}
