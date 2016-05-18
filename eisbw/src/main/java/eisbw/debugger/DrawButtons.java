@@ -2,19 +2,18 @@ package eisbw.debugger;
 
 import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
-import eis.eis2java.translation.Translator;
-import eis.iilang.Parameter;
-import eis.iilang.Percept;
 import eisbw.Game;
+import eisbw.debugger.draw.DrawBases;
+import eisbw.debugger.draw.DrawChokepoints;
+import eisbw.debugger.draw.DrawConstructionSite;
+import eisbw.debugger.draw.IDraw;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
-import jnibwapi.util.BWColor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,43 +21,52 @@ import javax.swing.JPanel;
 public class DrawButtons extends JPanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
-  private boolean draw;
-  private Game game;
+  private Map<String, IDraw> draw;
 
   /**
    * Toggle switches to draw in the game.
-   * @param game - the game data.
+   * 
+   * @param game
+   *          - the game data.
    */
   public DrawButtons(Game game) {
-    JButton drawButton = new JButton("Draw BuildLocations");
-    draw = false;
-    drawButton.addActionListener(this);
-    this.game = game;
-    add(drawButton);
+    draw = new HashMap<>();
+    draw.put(Draw.CONSTRUCTION_SITES.getName(), new DrawConstructionSite(game));
+    draw.put(Draw.CHOKEPOINTS.getName(), new DrawChokepoints(game));
+    draw.put(Draw.BASE_LOCATIONS.getName(), new DrawBases(game));
+    JButton buildButton = new JButton("Draw BuildLocations");
+    buildButton.setActionCommand(Draw.CONSTRUCTION_SITES.getName());
+    buildButton.addActionListener(this);
+    JButton chokeButton = new JButton("Draw Chokepoints");
+    chokeButton.setActionCommand(Draw.CHOKEPOINTS.getName());
+    chokeButton.addActionListener(this);
+    JButton baseButton = new JButton("Draw BaseLocations");
+    baseButton.setActionCommand(Draw.BASE_LOCATIONS.getName());
+    baseButton.addActionListener(this);
+
+    add(baseButton);
+    add(chokeButton);
+    add(buildButton);
   }
 
   @Override
   public void actionPerformed(ActionEvent event) {
-    draw = !draw;
+    draw.get(event.getActionCommand()).toggle();
   }
 
   /**
    * Draw on screen.
-   * @param api - the API.
-   * @throws NoTranslatorException iff there is no translator.
-   * @throws TranslationException iff translation fails.
+   * 
+   * @param api
+   *          - the API.
+   * @throws NoTranslatorException
+   *           iff there is no translator.
+   * @throws TranslationException
+   *           iff translation fails.
    */
-  public void draw(JNIBWAPI api) throws NoTranslatorException, TranslationException {
-    if (draw) {
-      Translator translator = Translator.getInstance();
-      List<Percept> percepts = game.getConstructionSites();
-      for (Percept percept : percepts) {
-        LinkedList<Parameter> params = percept.getParameters();
-        int xpos = translator.translate2Java(params.get(0), Integer.class);
-        int ypos = translator.translate2Java(params.get(1), Integer.class);
-        api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-            new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
-      }
+  public void draw(JNIBWAPI api) {
+    for (Entry<String, IDraw> drawable : draw.entrySet()) {
+      drawable.getValue().draw(api);
     }
   }
 

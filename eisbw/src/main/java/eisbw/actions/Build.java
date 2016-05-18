@@ -9,7 +9,6 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
