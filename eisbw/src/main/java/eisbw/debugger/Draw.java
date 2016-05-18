@@ -1,7 +1,8 @@
 package eisbw.debugger;
 
 public enum Draw {
-  CHOKEPOINTS("choke"), CONSTRUCTION_SITES("construct"), BASE_LOCATIONS("base");
+  CHOKEPOINTS("choke"), CONSTRUCTION_SITES("construct"), BASE_LOCATIONS("base"), BUILDING_DETAILS(
+      "buildings");
 
   private String parameter;
 

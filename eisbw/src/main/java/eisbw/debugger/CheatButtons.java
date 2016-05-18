@@ -1,24 +1,36 @@
 package eisbw.debugger;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class CheatButtons extends JPanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
 
   private ArrayList<String> actions;
+
+  private Color buttonBackground;
   
   /**
    * Constructor for buttons that inject cheats into the game.
    */
   public CheatButtons() {
+    setLayout(new BorderLayout());
+    
+    JLabel label = new JLabel("Cheat actions", SwingConstants.CENTER);
+    add(label,BorderLayout.NORTH);
+    
     actions = new ArrayList<>();
+    
     JButton resources = new JButton("Give recources");
     resources.setActionCommand("SHOW ME THE MONEY");
     resources.addActionListener(this);
@@ -31,15 +43,27 @@ public class CheatButtons extends JPanel implements ActionListener {
     JButton godmode = new JButton("Enemy attacks deal 0 damage");
     godmode.setActionCommand("power overwhelming");
     godmode.addActionListener(this);
+    
+    buttonBackground = resources.getBackground();
 
-    add(resources);
-    add(godmode);
-    add(mapview);
+    JPanel cheatbuttons = new JPanel();
+    
+    cheatbuttons.add(resources);
+    cheatbuttons.add(godmode);
+    cheatbuttons.add(mapview);
+    
+    add(cheatbuttons);
   }
 
   @Override
   public void actionPerformed(ActionEvent event) {
     actions.add(event.getActionCommand());
+    JButton buttonPressed = (JButton) event.getSource();
+    if (buttonPressed.getBackground().equals(Color.GRAY)) {
+      buttonPressed.setBackground(buttonBackground);
+    } else {
+      buttonPressed.setBackground(Color.GRAY);
+    }
   }
 
   public List<String> getActions() {
