@@ -1,6 +1,6 @@
-use TerranCommandCenter as knowledge.
+use ProtossNexus as knowledge.
 
-module TerranCommandCenterEvent {	
+module ProtossNexusEvent {	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
@@ -14,8 +14,8 @@ module TerranCommandCenterEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Terran SCV',M) ,M<6) then adopt(train("Terran SCV")).
-	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Terran Supply Depot',G), G>0, unitAmount('Terran SCV',M) ,M<10) then adopt(train("Terran SCV")).
-	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Terran Barracks',G), G>0, unitAmount('Terran SCV',M) ,M<8) then adopt(train("Terran SCV")).
+	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Protoss Probe',M) ,M<6) then adopt(train("Protoss Probe")).
+	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Protoss Pylon',G), G>0, unitAmount('Protoss Probe',M) ,M<10) then adopt(train("Protoss Probe")).
+	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z, unitAmount('Protoss Gateway',G), G>0, unitAmount('Protoss Probe',M) ,M<8) then adopt(train("Protoss Probe")).
 		
 }

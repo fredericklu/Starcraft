@@ -1,5 +1,5 @@
-use TerranMarine as actionspec.
-use TerranMarine as knowledge.
+use ProtossZealot as actionspec.
+use ProtossZealot as knowledge.
 
 module TerranMarineEvent {
 	
