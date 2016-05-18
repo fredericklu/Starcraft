@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-public class EnemyPercieverTest {
+public class UnitsPercieverTest {
 
   private UnitsPerceiver perciever;
   private LinkedList<Unit> toreturn;
@@ -51,14 +51,15 @@ public class EnemyPercieverTest {
   
   @Test
   public void test() {
-    assertEquals("enemy", perciever.perceive().get(0).getName());
-    assertEquals("unitType", perciever.perceive().get(0).getParameters().get(0).toProlog());
-    assertEquals("1", perciever.perceive().get(0).getParameters().get(1).toProlog());
-    assertEquals("20", perciever.perceive().get(0).getParameters().get(2).toProlog());
-    assertEquals("10", perciever.perceive().get(0).getParameters().get(3).toProlog());
-    assertEquals("true", perciever.perceive().get(0).getParameters().get(4).toProlog());
-    assertEquals("34", perciever.perceive().get(0).getParameters().get(5).toProlog());
-    assertEquals("45", perciever.perceive().get(0).getParameters().get(6).toProlog());
+    assertEquals("unit", perciever.perceive().get(0).getName());
+    assertEquals("false", perciever.perceive().get(0).getParameters().get(0).toProlog());
+    assertEquals("unitType", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    assertEquals("1", perciever.perceive().get(0).getParameters().get(2).toProlog());
+    assertEquals("20", perciever.perceive().get(0).getParameters().get(3).toProlog());
+    assertEquals("10", perciever.perceive().get(0).getParameters().get(4).toProlog());
+    assertEquals("true", perciever.perceive().get(0).getParameters().get(5).toProlog());
+    assertEquals("34", perciever.perceive().get(0).getParameters().get(6).toProlog());
+    assertEquals("45", perciever.perceive().get(0).getParameters().get(7).toProlog());
   }
 
 }
