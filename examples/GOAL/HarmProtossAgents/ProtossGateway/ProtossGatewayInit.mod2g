@@ -1,5 +1,5 @@
-use TerranBarracks as knowledge.
+use ProtossGateway as knowledge.
 
-module TerranBarracksInit {
+module ProtossGatewayInit {
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
 }

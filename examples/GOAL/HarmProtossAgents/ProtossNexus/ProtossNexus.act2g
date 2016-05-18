@@ -1,0 +1,21 @@
+use ProtossNexus as knowledge.
+		
+define train(Id) with
+	pre {true}
+	post {true}
+		
+		
+define lift with
+	pre{true}
+	post{true}	
+		
+		
+define buildAddon(X) with
+	pre{true}
+	post{true}	
+		
+		
+define land(X,Y) with
+	pre{true}
+	post{true}	
+		

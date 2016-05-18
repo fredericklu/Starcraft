@@ -1,31 +1,30 @@
-use TerranSCV as actionspec.
-use TerranSCV as knowledge.
+use ProtossSCV as actionspec.
+use ProtossSCV as knowledge.
 
-module TerranSCVEvent {
+module ProtossSCVEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(resources(Min,Gas,C,Max)), bel(supply(OC, OMax),minerals(OM), gas(Go))
-		then delete(supply(OC, OMax)) + insert(supply(C,Max)) + delete(minerals(OM))+ insert(minerals(Min))+
-		delete(gas(Go))+ insert(gas(Gas)).
+		then delete(supply(OC, OMax)) + insert(supply(C,Max)) + insert(minerals(Min)) + delete(minerals(OM))+
+		insert(gas(Gas)) + delete(gas(Go)).
 				
 	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralField(Id,Amount,X,Y))) do insert(mineralField(Id,Amount,X,Y)).
 	forall percept(mineralField(Id,Amount1,_,X,Y)), bel(mineralField(Id,Amount2,X,Y), (Amount1 \= Amount2)) do delete(mineralField(Id,Amount2,X,Y)).
 
-	forall percept(constructionSite(X,Y)), not(bel(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
-	forall bel(constructionSite(X,Y)), not(percept(constructionSite(X,Y))) do delete(constructionSite(X,Y)).
-		
+	forall percept(constructionSite(X,Y,Z)), not(bel(constructionSite(X,Y,Z))) do insert(constructionSite(X,Y,Z)).
+	forall bel(constructionSite(X,Y,Z)), not(percept(constructionSite(X,Y,Z))) do delete(constructionSite(X,Y,Z)).
+	
 	if percept(constructing), not(bel(constructing)) then insert(constructing).
 	if bel(constructing), not(percept(constructing)) then delete(constructing).
 		
 	if percept(refinery(Id, Resources, Group)), bel(not(refinery(Id, Resources, Group))) then insert(refinery(Id, Resources, Group)).
 	if bel(refinery(Id, Resources, Group)), not(percept(refinery(Id, Resources, Group))) then delete(refinery(Id, Resources, Group)).
 	
-	if percept(condition(X)), bel(condition(Y)) then insert(condition(X))+delete(condition(Y)).
+	if percept(condition(X)), bel(not(condition(X))) then insert(condition(X)).
+	if bel(condition(X)), not(percept(condition(X))) then delete(condition(X)).
 		
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
-	if bel(buildLocation(X,Y), supply(C,M), D is M-C, D<8),not(goal(build('Terran Supply Depot',_,_))) 
-		then adopt(build('Terran Supply Depot',X,Y)).
-	if bel(buildLocation(X,Y), minerals(Min),Min > 150),not(goal(build('Terran Barracks',_,_))) 
-		then adopt(build('Terran Barracks',X,Y)).
+		
+	if bel(not(busy),mineralField(Id,Amount,X,Y), ownbase(CX,CY), distance(X,Y,CX,CY,L), L<10) then gather(Id).
 }

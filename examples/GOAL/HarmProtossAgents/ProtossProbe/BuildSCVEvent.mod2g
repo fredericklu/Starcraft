@@ -1,7 +1,7 @@
-use TerranSCV as actionspec.
-use TerranSCV as knowledge.
+use ProtossSCV as actionspec.
+use ProtossSCV as knowledge.
 
-module TerranSCVEvent {
+module ProtossSCVEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	if percept(resources(Min,Gas,C,Max)), bel(supply(OC, OMax),minerals(OM), gas(Go))
@@ -11,8 +11,8 @@ module TerranSCVEvent {
 	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralField(Id,Amount,X,Y))) do insert(mineralField(Id,Amount,X,Y)).
 	forall percept(mineralField(Id,Amount1,_,X,Y)), bel(mineralField(Id,Amount2,X,Y), (Amount1 \= Amount2)) do delete(mineralField(Id,Amount2,X,Y)).
 
-	forall percept(constructionSite(X,Y)), not(bel(constructionSite(X,Y))) do insert(constructionSite(X,Y)).
-	forall bel(constructionSite(X,Y)), not(percept(constructionSite(X,Y))) do delete(constructionSite(X,Y)).
+	forall percept(constructionSite(X,Y,Z)), not(bel(constructionSite(X,Y,Z))) do insert(constructionSite(X,Y,Z)).
+	forall bel(constructionSite(X,Y,Z)), not(percept(constructionSite(X,Y,Z))) do delete(constructionSite(X,Y,Z)).
 		
 	if percept(constructing), not(bel(constructing)) then insert(constructing).
 	if bel(constructing), not(percept(constructing)) then delete(constructing).
@@ -21,11 +21,16 @@ module TerranSCVEvent {
 	if bel(refinery(Id, Resources, Group)), not(percept(refinery(Id, Resources, Group))) then delete(refinery(Id, Resources, Group)).
 	
 	if percept(condition(X)), bel(condition(Y)) then insert(condition(X))+delete(condition(Y)).
+	
+	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
+	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
 		
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
-	if bel(buildLocation(X,Y), supply(C,M), D is M-C, D<8),not(goal(build('Terran Supply Depot',_,_))) 
-		then adopt(build('Terran Supply Depot',X,Y)).
-	if bel(buildLocation(X,Y), minerals(Min),Min > 150),not(goal(build('Terran Barracks',_,_))) 
-		then adopt(build('Terran Barracks',X,Y)).
+	if bel(buildPylonLocation(X,Y), supply(C,M), D is M-C, D<8),not(goal(build('Protoss Pylon',_,_))) 
+		then adopt(build('Protoss Pylon',X,Y)).
+	if bel(buildLocation(X,Y), minerals(Min),Min > 150,unitAmount('Protoss Gateway',G),G<2),not(goal(build('Protoss Gateway',_,_))) 
+		then adopt(build('Protoss Gateway',X,Y)).
+	if bel(buildLocation(X,Y), minerals(Min),Min > 150,not(unitAmount('Protoss Gateway',G))),not(goal(build('Protoss Gateway',_,_))) 
+		then adopt(build('Protoss Gateway',X,Y)).
 }
