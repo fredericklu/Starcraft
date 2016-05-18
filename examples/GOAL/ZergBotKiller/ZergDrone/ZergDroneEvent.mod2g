@@ -48,28 +48,30 @@ module ZergDroneEvent {
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(scout, enemyBase(X, Y), condition(List), not(member(moving, List))) then adopt(position(X, Y)).
+	if bel(scout, enemyRace("Protoss"), enemyBase(X, Y), condition(List), not(member(moving, List))) then adopt(position(X, Y)).
 	
-	if percept(unit(false, _,Id,Health,_,_,_,_)), bel(scout, Health > 200, self(MyId,_)) then adopt(attacking(MyId, Id)).
+	if percept(unit(false, _,Id,Health,_,_,_,_)), bel(scout, enemyRace("Protoss"), Health > 200, self(MyId,_)) then adopt(attacking(MyId, Id)).
 	
-	if percept(attacking(_, MyId)), bel(scout, self(MyId,_), friendly(Type, _,_ ,_ , X, Y), 
+	if percept(attacking(_, MyId)), bel(scout, enemyRace("Protoss"),self(MyId,_), friendly(Type, _,_ ,_ , X, Y), 
 	member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"])) then adopt(position(X, Y)).
 	
 	if bel(builder, enemyRace("Protoss"), friendly("Zerg Hatchery",_,_,_,BX,BY), vespeneGeyser(Id, X , Y),
 	minerals(M), M >= 75, distance(BX, BY, X, Y, D), D < 10) then adopt(buildExtractor(X, Y)).
 	
-	if bel(builder, minerals(M), M >= 200, gas(G), G >= 150, friendly("Zerg Lair", _, _, _,_,_),
-	not(friendly("Zerg Spire",_,_,_,_,_))) then adopt(unitAmount("Zerg Spire", 1)).
+	%if bel(builder, minerals(M), M >= 200, gas(G), G >= 150, friendly("Zerg Lair", _, _, _,_,_),
+	%not(friendly("Zerg Spire",_,_,_,_,_))) then adopt(unitAmount("Zerg Spire", 1)).
 	
 	if not(goal(unitAmount("Zerg Sunken Colony", 3))), bel(builder, enemyRace("Protoss"), friendly("Zerg Spawning Pool", _, _, _,_,_),
 	((unitAmount("Zerg Sunken Colony", Amount), Amount < 3) ; not(unitAmount("Zerg Sunken Colony",_))),
 	not(unitAmount("Zerg Creep Colony", _))) then adopt(unitAmount("Zerg Sunken Colony", 3)).
 	
-	if not(goal(buildHatchery(X, Y))), bel(builder, enemyRace("Protoss"), constructionSite(X,Y), minerals(M), M >= 300, 
-	friendly("Zerg Spire", _, _, _,_,_), not(unitAmount("Zerg Hatchery", _))) then adopt(buildHatchery(X, Y)).
+	%if not(goal(buildHatchery(X, Y))), bel(builder, enemyRace("Protoss"), constructionSite(X,Y), minerals(M), M >= 300, 
+	%friendly("Zerg Spire", _, _, _,_,_), not(unitAmount("Zerg Hatchery", _))) then adopt(buildHatchery(X, Y)).
 		
 	if bel(builder, constructionSite(X,Y), minerals(M), M >= 200, 
 	not(friendly("Zerg Spawning Pool", _, _, _,_,_))) then adopt(buildPool(X, Y)).
+	
+	if bel(builder, enemyRace("Protoss"), friendly("Zerg Spawning Pool", _, _, _,_,_)) then adopt(unitAmount("Zerg Hydralisk Den", 1)).
 		
 	if bel(not(scout), mineralField(Id,Amount,X,Y), friendly(Type, _,_ ,_ , CX, CY), 
 	member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), distance(X,Y,CX,CY,L), L<10) then adopt(goGather(Id)).

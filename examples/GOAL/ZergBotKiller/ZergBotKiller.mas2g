@@ -45,6 +45,18 @@ define zergMutalisk as agent{
 	use ZergMutalisk.ZergMutaliskEvent as event module.	
 }
 
+define zergHydralisk as agent{
+	use ZergHydralisk.ZergHydraliskInit as init module.
+	use ZergHydralisk.ZergHydralisk as main module.
+	use ZergHydralisk.ZergHydraliskEvent as event module.
+}
+
+define zergHydraliskDen as agent{
+	use ZergHydraliskDen.ZergHydraliskDenInit as init module.
+	use ZergHydraliskDen.ZergHydraliskDen as main module.
+	use ZergHydraliskDen.ZergHydraliskDenEvent as event module.
+}
+
 define overMind as agent {
 	use OverMind.OverMindEvent as main module.	
 }
@@ -58,4 +70,6 @@ launchpolicy{
 	when type = zergCreepColony launch zergCreepColony.
 	when type = zergLair launch zergLair.
 	when type = zergMutalisk launch zergMutalisk.
+	when type = zergHydraliskDen launch zergHydraliskDen.
+	when type = zergHydralisk launch zergHydralisk.
 	}

@@ -14,6 +14,9 @@ module ZergDrone {
 	
 	if a-goal(buildPool(X, Y)) then build("Zerg Spawning Pool", X, Y).
 	
+	if a-goal(unitAmount("Zerg Hydralisk Den", 1)), bel(minerals(M), gas(G), M >= 100, G >= 50, constructionSite(X,Y)) 
+	then build("Zerg Hydralisk Den", X, Y).
+	
 	if bel(friendly("Zerg Extractor",Id,_,_,_,_), shouldMineVespene) then gather(Id).
 		
 	if goal(goGather(Id)), bel(not(busy)) then gather(Id).

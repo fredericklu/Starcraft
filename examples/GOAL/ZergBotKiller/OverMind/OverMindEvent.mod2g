@@ -14,7 +14,7 @@ module OverMindEvent {
 	
 	forall (_).sent:(death(Id)), bel(drone(Name, Id)) do delete(drone(Name, Id)).
 	
-	forall (_).sent:(enemy(Race)), not(bel(enemy(Race))) do insert(enemy(Race)) + print(Race).
+	forall (_).sent:(enemy(Race)), not(bel(enemy(Race))) do insert(enemy(Race)).
 	
 	forall (Name).sent(drone(Id)) do insert(drone(Name, Id)).	
 

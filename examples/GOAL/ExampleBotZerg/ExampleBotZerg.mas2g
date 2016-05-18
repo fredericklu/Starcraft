@@ -1,0 +1,35 @@
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Zerg",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
+	
+define zergDrone as agent {
+	use ZergDrone.ZergDrone as main module.
+	use ZergDrone.ZergDroneInit as init module.
+	use ZergDrone.ZergDroneEvent as event module.
+} 
+
+define zergHatchery as agent {
+	use ZergHatchery.ZergHatcheryInit as init module.
+	use ZergHatchery.ZergHatchery as main module.
+	use ZergHatchery.ZergHatcheryEvent as event module.
+}	
+
+define zergZergling as agent{
+	use ZergZergling.ZergZerglingInit as init module.
+	use ZergZergling.ZergZergling as main module.
+	use ZergZergling.ZergZerglingEvent as event module.
+}
+
+
+define overMind as agent {
+	use OverMind.OverMindEvent as main module.	
+}
+
+launchpolicy{
+	when type = unknown launch overMind.
+	when type = zergHatchery launch zergHatchery.
+	when type = zergZergling launch zergZergling.
+	when type = zergDrone launch zergDrone.
+	}
