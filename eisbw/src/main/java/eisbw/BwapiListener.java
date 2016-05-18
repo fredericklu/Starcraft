@@ -9,9 +9,9 @@ import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BwapiListener extends BwapiEvents {
 
@@ -38,7 +38,7 @@ public class BwapiListener extends BwapiEvents {
     this.game = game;
     actionProvider = new ActionProvider();
     actionProvider.loadActions(bwapi);
-    pendingActions = new HashMap<>();
+    pendingActions = new ConcurrentHashMap<>();
     factory = new StarcraftUnitFactory(bwapi);
     this.debugmode = debugmode;
 
@@ -74,17 +74,15 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void matchFrame() {
-    synchronized (pendingActions) {
-      Iterator<Unit> it = pendingActions.keySet().iterator();
-      while (it.hasNext()) {
-        Unit unit = it.next();
-        Action act = pendingActions.get(unit);
+    Iterator<Unit> it = pendingActions.keySet().iterator();
+    while (it.hasNext()) {
+      Unit unit = it.next();
+      Action act = pendingActions.get(unit);
 
-        StarcraftAction action = getAction(act);
-        action.execute(unit, act);
+      StarcraftAction action = getAction(act);
+      action.execute(unit, act);
 
-        it.remove();
-      }
+      it.remove();
     }
 
     if (debug != null) {
@@ -126,7 +124,7 @@ public class BwapiListener extends BwapiEvents {
     } catch (InterruptedException ex) {
       Thread.currentThread().interrupt();
     }
-    pendingActions = new HashMap<>();
+    pendingActions = new ConcurrentHashMap<>();
     debug.dispose();
     game.clean();
   }
@@ -165,7 +163,7 @@ public class BwapiListener extends BwapiEvents {
     Unit unit = game.getUnits().getUnits().get(name);
 
     // cant act during construction
-    if (!unit.isBeingConstructed() && !pendingActions.containsKey(unit)) {
+    if (!unit.isBeingConstructed()) {
       StarcraftAction action = getAction(act);
       // Action might be invalid
       if (action.isValid(act)) {

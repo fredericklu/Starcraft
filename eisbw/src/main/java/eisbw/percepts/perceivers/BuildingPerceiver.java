@@ -13,11 +13,11 @@ import eisbw.percepts.UpgradePercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 import jnibwapi.types.RaceType.RaceTypes;
+import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BuildingPerceiver extends UnitPerceiver {
@@ -28,7 +28,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 
   @Override
   public List<Percept> perceive() {
-    List<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
 
     if (!unit.getRallyPosition().equals(Positions.None)) {
       percepts.add(
@@ -65,7 +65,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 
   @Override
   public List<Parameter> getConditions() {
-    List<Parameter> conditions = new ArrayList<>();
+    List<Parameter> conditions = new LinkedList<>();
 
     if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 

@@ -1,10 +1,11 @@
 package eisbw.percepts.perceivers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.BuildUnitPerceiver;
-import eisbw.percepts.perceivers.GenericUnitPerceiver;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
@@ -15,6 +16,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Set;
+
 public class GenericUnitPercieverTest {
 
   private GenericUnitPerceiver perciever;
@@ -22,6 +25,12 @@ public class GenericUnitPercieverTest {
   private Unit unit;
   @Mock
   private UnitType unitType;
+  @Mock
+  private Player self;
+  @Mock
+  private JNIBWAPI api;
+  
+  private Set<Player> toReturn;
 
   /**
    * Initialize mocks.
@@ -29,16 +38,25 @@ public class GenericUnitPercieverTest {
   @Before
   public void start() {
     MockitoAnnotations.initMocks(this);
+    when(api.getEnemies()).thenReturn(toReturn);
+    
+    when(api.getSelf()).thenReturn(self);
+    when(self.getMinerals()).thenReturn(50);
+    when(self.getGas()).thenReturn(90);
+    when(self.getSupplyUsed()).thenReturn(10);
+    when(self.getSupplyTotal()).thenReturn(20);
+    
     when(unit.getID()).thenReturn(1);
-    when(unit.isIdle()).thenReturn(true);
-    when(unit.isCompleted()).thenReturn(false);
     when(unit.getType()).thenReturn(unitType);
-    when(unitType.getName()).thenReturn("unitType");
-    when(unit.getPosition()).thenReturn(new Position(2, 3, PosType.BUILD));
-    when(unit.isStuck()).thenReturn(true);
-    when(unit.getEnergy()).thenReturn(20);
-    when(unitType.getMaxEnergy()).thenReturn(30);
-    perciever = new GenericUnitPerceiver(null, unit);
+    when(unitType.getName()).thenReturn("type");
+
+    when(unit.getHitPoints()).thenReturn(25);
+    when(unit.getShields()).thenReturn(30);
+    when(unit.getPosition()).thenReturn(new Position(2,1,PosType.BUILD));
+
+    when(unit.getEnergy()).thenReturn(100);
+    when(unitType.getMaxEnergy()).thenReturn(110);
+    perciever = new GenericUnitPerceiver(api, unit);
   }
 
   @Test

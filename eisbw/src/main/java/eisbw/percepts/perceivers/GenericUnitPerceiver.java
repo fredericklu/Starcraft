@@ -13,7 +13,7 @@ import jnibwapi.Player;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GenericUnitPerceiver extends UnitPerceiver {
@@ -24,7 +24,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
   @Override
   public List<Percept> perceive() {
-    List<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
 
     for (Player p : api.getEnemies()) {
       percepts.add(new EnemyRacePercept(p.getRace().getName()));
@@ -90,7 +90,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
   @Override
   public List<Parameter> getConditions() {
-    List<Parameter> conditions = new ArrayList<>();
+    List<Parameter> conditions = new LinkedList<>();
 
     if (unit.isIdle()) {
       conditions.add(new Identifier("idle"));
