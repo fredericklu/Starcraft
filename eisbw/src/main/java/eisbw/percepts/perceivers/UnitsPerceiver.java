@@ -8,7 +8,7 @@ import eisbw.percepts.UnitPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UnitsPerceiver extends Perceiver {
@@ -27,7 +27,7 @@ public class UnitsPerceiver extends Perceiver {
    * @param percepts
    *          The list of percepts
    */
-  private void setUnitPercepts(List<Unit> units, boolean isFriendly, ArrayList<Percept> percepts) {
+  private void setUnitPercepts(List<Unit> units, boolean isFriendly, List<Percept> percepts) {
     for (Unit u : units) {
       percepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(), u.getHitPoints(),
           u.getShields(), u.getType().isFlyer(), u.getPosition().getBX(), u.getPosition().getBY()));
@@ -48,7 +48,7 @@ public class UnitsPerceiver extends Perceiver {
 
   @Override
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
 
     // perceive friendly units
     setUnitPercepts(api.getMyUnits(), true, percepts);

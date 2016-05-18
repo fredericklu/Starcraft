@@ -8,10 +8,10 @@ import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.WorkerActivityPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 import jnibwapi.types.RaceType.RaceTypes;
+import jnibwapi.types.UnitType;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WorkerPerceiver extends UnitPerceiver {
@@ -29,7 +29,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    *          the evaluated terran worker
    * @return the new list of percepts
    */
-  private List<Percept> perceiveWorkerActivity(ArrayList<Percept> percepts, Unit unit) {
+  private List<Percept> perceiveWorkerActivity(List<Percept> percepts, Unit unit) {
     if (unit.isGatheringGas()) {
       percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringGas"));
     } else if (unit.isGatheringMinerals()) {
@@ -52,7 +52,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    *          the evaluated terran worker
    * @return the new list of percepts
    */
-  private List<Percept> perceiveRepair(ArrayList<Percept> percepts, Unit unit) {
+  private List<Percept> perceiveRepair(List<Percept> percepts, Unit unit) {
     int hp = unit.getHitPoints();
     int maxHp = unit.getType().getMaxHitPoints();
     if (hp < maxHp) {
@@ -68,7 +68,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    * @param percepts
    *          The list of percepts
    */
-  private void perceiveWorkers(ArrayList<Percept> percepts) {
+  private void perceiveWorkers(List<Percept> percepts) {
     for (Unit unit : this.api.getMyUnits()) {
       if (unit.getType().isWorker()) {
         perceiveWorkerActivity(percepts, unit);
@@ -82,7 +82,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    * @param percepts
    *          The list of percepts
    */
-  private void perceiveTerranWorkers(ArrayList<Percept> percepts) {
+  private void perceiveTerranWorkers(List<Percept> percepts) {
     for (Unit unit : this.api.getMyUnits()) {
       if (unit.getType().isWorker()) {
         perceiveWorkerActivity(percepts, unit);
@@ -95,7 +95,7 @@ public class WorkerPerceiver extends UnitPerceiver {
 
   @Override
   public List<Percept> perceive() {
-    ArrayList<Percept> percepts = new ArrayList<>();
+    List<Percept> percepts = new LinkedList<>();
 
     if (unit.getType().getID() == RaceTypes.Terran.getID()) {
       perceiveTerranWorkers(percepts);
@@ -116,7 +116,7 @@ public class WorkerPerceiver extends UnitPerceiver {
 
   @Override
   public List<Parameter> getConditions() {
-    List<Parameter> conditions = new ArrayList<>();
+    List<Parameter> conditions = new LinkedList<>();
 
     if (unit.isCarryingGas() || unit.isCarryingMinerals()) {
       conditions.add(new Identifier("carrying"));

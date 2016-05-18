@@ -9,7 +9,8 @@ import eisbw.percepts.perceivers.WorkerPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StarcraftUnitFactory {
 
@@ -30,7 +31,7 @@ public class StarcraftUnitFactory {
    * @return - a StarCraft unit with perceivers.
    */
   public StarcraftUnit create(Unit unit) {
-    ArrayList<IPerceiver> perceptGenerators = new ArrayList<>();
+    List<IPerceiver> perceptGenerators = new LinkedList<>();
     perceptGenerators.add(new GenericUnitPerceiver(api, unit));
     perceptGenerators.add(new UnitsPerceiver(api));
 
