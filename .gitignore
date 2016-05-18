@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 /eisbw/.classpath
 /eisbw/.settings/
-=======
 /examples/Jason/bin/
 /*/build/
 /*/dist/
@@ -17,8 +15,4 @@ examples/Jason/SimpleAgentsAorta/bin/build.xml
 examples/Jason/SimpleAgents/bin/build.xml
 StarterPack/JNIBWAPI 1.0/run.bat
 eisbw/.classpath
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/Convert_to_new_goal
-=======
->>>>>>> refs/remotes/origin/Convert_to_new_goal
 examples/GOAL/ZergBot2/.project
