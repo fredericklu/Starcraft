@@ -56,7 +56,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 
       percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
       for (Unit u : loadedUnits) {
-        percepts.add(new UnitLoadedPercept(u.getID(), unit.getType().getName()));
+        percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
       }
     }
 
