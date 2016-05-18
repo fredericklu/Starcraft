@@ -1,0 +1,12 @@
+use ZergHydralisk as knowledge.
+%use AttackModule.AttackKnowledge as knowledge.
+
+module ZergHydraliskInit {
+	if percept(self(Id,Type)) then insert(self(Id, Type)).
+	forall percept(base(X, Y, Begin, RegionID)) do insert(base(X, Y, Begin, RegionID)).
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+	if percept(status(H,_,X,Y)) then insert(hitPoints(H), position(X,Y)).
+	if percept(unit(true, Type,_,_,_,_,X,Y)), bel(base(X1, Y1, true, _), 
+	member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
+	%if bel(position(X,Y), rallyLocation(X,Y,NX,NY)) then adopt(move(NX,NY)).	
+}

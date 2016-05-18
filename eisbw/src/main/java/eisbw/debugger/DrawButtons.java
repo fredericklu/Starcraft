@@ -69,5 +69,4 @@ public class DrawButtons extends JPanel implements ActionListener {
       drawable.getValue().draw(api);
     }
   }
-
 }
