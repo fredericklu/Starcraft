@@ -73,8 +73,9 @@ public class Units {
    * Clean units, let garbage collector remove the remains.
    */
   public void clean() {
-    unitMap = new HashMap<>();
+    for (String unitName : starcraftUnits.keySet()) {
+      deleteUnit(unitName);
+    }
     unitNames = new HashMap<>();
-    starcraftUnits = new HashMap<>();
   }
 }
