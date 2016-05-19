@@ -1,0 +1,15 @@
+use ProtossProbe as knowledge.
+use ProtossProbe as actionspec.
+
+module ProtossProbe {
+	if a-goal(unitAmount("Protoss Gateway", 2)), bel(constructionSite(X,Y,true), minerals(M), M >= 150) then build("Protoss Gateway", X, Y).
+	
+	if a-goal(unitAmount("Protoss Pylon", N)), bel(constructionSite(X,Y,_), unitAmount("Protoss Pylon", P), P < N,
+	minerals(M), M >= 100,unitAmount("Protoss Zealot", Z), Z > 1) then build("Protoss Pylon", X, Y).
+	
+	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructionSite(X,Y,false), unitAmount("Protoss Probe", 8),
+	minerals(M), M >= 100) then build("Protoss Pylon", X, Y).
+	
+	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralField(MinId,_,X,Y), friendly("Protoss Nexus", _,_ ,_ , CX, CY), 
+	self(Id,_), distance(X,Y,CX,CY,L), L<8) then gather(MinId).
+}

@@ -1,0 +1,21 @@
+use ProtossGateway as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ProtossGatewayEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	% The handling of the supply percept
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	
+	% The handling of the queueSize percept
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	if not(goal(unitAmount("Protoss Zealot", 50))), bel((unitAmount("Protoss Zealot", X), X < 50);
+	not(unitAmount("Protoss Zealot", _))) then adopt(unitAmount("Protoss Zealot", 50)).
+
+}

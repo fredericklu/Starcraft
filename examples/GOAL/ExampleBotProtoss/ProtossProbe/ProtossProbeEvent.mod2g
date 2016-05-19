@@ -1,0 +1,51 @@
+use ProtossProbe as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ProtossProbeEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+		
+	% The generic percepts most units use
+	if true then GenericPercepts.	
+	
+	% The handling of condition gathering
+	if percept(condition(NewList)), bel(member(gathering, NewList), condition(OldList), not(member(gathering, OldList))) then insert(gathering).
+	if bel(gathering), percept(condition(List)), bel(not(member(gathering, List))) then delete(gathering).
+	
+	% The handling of the supply percept
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	
+	% The handling of mineralfields	
+	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralField(Id,Amount,X,Y))) do insert(mineralField(Id,Amount,X,Y)).
+	forall bel(mineralField(Id,Amount,X,Y)), not(percept(mineralField(Id,Amount,_,X,Y))) do delete(mineralField(Id,Amount,X,Y)).
+	
+	% The handling of the constructionSites
+	forall percept(constructionSite(X,Y,B)), not(bel(constructionSite(X,Y,B))) do insert(constructionSite(X,Y,B)).
+	forall bel(constructionSite(X,Y,B)),not(percept(constructionSite(X,Y,B))) do delete(constructionSite(X,Y,B)).
+	
+	% The handling of the workerActivity
+	forall percept(workerActivity(ID,ACT)), bel(not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
+	forall bel(workerActivity(ID,ACT)),not(percept(workerActivity(ID,ACT))) do delete(workerActivity(ID,ACT)).
+				
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If there is no Pylon yet and 8 probes already, create one
+	if bel(builder, not(friendly("Protoss Pylon", _, _, _,_,_))) then adopt(unitAmount("Protoss Pylon", 1)).
+	
+	% If no Gateways yet, build two of them	
+	if bel(builder, not(unitAmount("Protoss Gateway",_))) then adopt(unitAmount("Protoss Gateway", 2)).
+	
+	% Build pylons for supply
+	if bel(builder, unitAmount("Protoss Pylon", N), M is N +1, unitAmount("Protoss Gateway", 2), supply(CS, TS), TS - CS < 8) 
+	then adopt(unitAmount("Protoss Pylon", M)).
+	
+	% If the worker is not busy yet, start gathering minerals
+	if bel(not(busy), not(builder), self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
+	
+	% If builder then only gather when building work is over
+	if bel(builder, self(Id, _), (not(unitAmount("Protoss Pylon", _)) ; unitAmount("Protoss Gateway", 2))) 
+	then adopt(workerActivity(Id, gatheringMinerals)).
+				
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+		
+	if (Name).sent(builder) then insert(builder).
+}
