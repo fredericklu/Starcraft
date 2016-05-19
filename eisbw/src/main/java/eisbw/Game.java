@@ -80,8 +80,8 @@ public class Game {
     }
     LinkedList<Percept> perceptHolder = new LinkedList<>();
 
-    for (UnitType unitType : count.keySet()) {
-      perceptHolder.add(new UnitAmountPercept(unitType.getName(), count.get(unitType)));
+    for (Entry<UnitType, Integer> entry : count.entrySet()) {
+      perceptHolder.add(new UnitAmountPercept(entry.getKey().getName(), entry.getValue()));
     }
 
     for (Unit u : bwapi.getNeutralUnits()) {

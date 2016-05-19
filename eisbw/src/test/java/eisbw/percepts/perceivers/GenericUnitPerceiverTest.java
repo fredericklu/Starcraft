@@ -8,6 +8,7 @@ import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
@@ -30,6 +31,8 @@ public class GenericUnitPerceiverTest {
   private Player self;
   @Mock
   private JNIBWAPI api;
+  @Mock
+  private RaceType race;
   
   private Set<Player> toReturn;
 
@@ -66,7 +69,8 @@ public class GenericUnitPerceiverTest {
 
   @Test
   public void size_test() {
-    when(self.getRace()).thenReturn(RaceTypes.Terran);
+    when(race.getName()).thenReturn("race");
+    when(self.getRace()).thenReturn(race);
     assertEquals(5, perciever.perceive().size());
     toReturn = new HashSet<>();
     when(api.getEnemies()).thenReturn(toReturn);

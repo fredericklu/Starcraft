@@ -27,7 +27,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     List<Percept> percepts = new LinkedList<>();
 
     for (Player p : api.getEnemies()) {
-      percepts.add(new EnemyRacePercept(p.getRace().getName()));
+      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
     }
 
     percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
