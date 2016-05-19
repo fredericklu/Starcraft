@@ -1,6 +1,7 @@
 package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
@@ -64,6 +65,11 @@ public class ConstructionSitePercieverTest {
   @Test
   public void test() {
     assertEquals("constructionSite", perciever.perceive().get(0).getName());
+  }
+  
+  @Test
+  public void conditions_test() {
+    assertTrue(perciever.getConditions().isEmpty());
   }
 
 }

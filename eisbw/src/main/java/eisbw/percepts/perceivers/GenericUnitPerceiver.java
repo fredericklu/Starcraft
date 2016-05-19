@@ -27,7 +27,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     List<Percept> percepts = new LinkedList<>();
 
     for (Player p : api.getEnemies()) {
-      percepts.add(new EnemyRacePercept(p.getRace().getName()));
+      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
     }
 
     percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
@@ -82,7 +82,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     }
 
     if (unit.isLoaded()) {
-      conditions.add(new Identifier("isLoaded"));
+      conditions.add(new Identifier("loaded"));
     }
 
     return conditions;
@@ -97,11 +97,11 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     }
 
     if (!unit.isCompleted()) {
-      conditions.add(new Identifier("isBeingConstructed"));
+      conditions.add(new Identifier("beingConstructed"));
     }
 
     if (unit.isCloaked()) {
-      conditions.add(new Identifier("isCloaked"));
+      conditions.add(new Identifier("cloaked"));
     }
 
     if (unit.getType().isCanMove()) {
