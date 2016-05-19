@@ -1,0 +1,9 @@
+use ProtossZealot as knowledge.
+
+define attack(Id) with
+	pre{ true }
+	post{ true }
+	
+define attack(X, Y) with
+	pre{ true }
+	post{ true }

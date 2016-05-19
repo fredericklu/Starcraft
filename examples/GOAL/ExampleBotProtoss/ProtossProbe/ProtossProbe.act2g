@@ -1,0 +1,11 @@
+use ProtossProbe as knowledge.
+
+% gather action
+define gather(Id) with
+	pre { true }
+	post { true }
+
+% build action
+define build(Building, X, Y) with
+	pre { cost(Building, M, G), minerals(MQ), M =< MQ, gas(GQ), G =< GQ }
+	post { true }	

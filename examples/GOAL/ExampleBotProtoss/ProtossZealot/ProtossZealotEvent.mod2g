@@ -1,0 +1,39 @@
+use ProtossZealot as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ProtossZealotEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	% Insert enemy when one is perceived
+	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
+	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
+	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
+	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
+	
+	% The handling of the position 
+	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If at grouping location, tell Tassadar ready
+	if bel(not(ready(_)), position(X1, Y1), groupLocation(X2, Y2), distance(X1, Y1, X2, Y2, D), D < 10,
+	self(Id, _)) then (tassadar).send(ready(Id)) + insert(ready(Id)).
+	
+	% If told to attack insert it to the knowledge base
+	if (_).sent(attack) then insert(attack).
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
+	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25) 
+	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
+	
+	% If bel to attack then adopt goal to attack enemy base
+	if bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
+	
+	% if someone is attacking and not flying, kill him
+	if percept(attacking(Id, _)), bel(enemy(_, Id,_,_,false,_,_)) then adopt(attack(Id)). 
+}

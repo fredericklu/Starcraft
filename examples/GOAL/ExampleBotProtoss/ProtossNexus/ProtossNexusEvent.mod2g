@@ -1,0 +1,24 @@
+use ProtossNexus as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ProtossNexusEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	% The handling of the supply percept
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	
+	% The handling of the queueSize percept
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if bel(unitAmount("Protoss Probe", X), X < 8) then adopt(unitAmount("Protoss Probe", 8)).
+	
+	%if bel(unitAmount("Protoss Pylon", 1)) then adopt(unitAmount("Protoss Probe", 9)).
+	
+	%if bel(unitAmount("Protoss Gateway", 2)) then adopt(unitAmount("Protoss Probe", 10)).
+
+}

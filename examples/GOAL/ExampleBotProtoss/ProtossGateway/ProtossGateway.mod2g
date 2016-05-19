@@ -1,0 +1,9 @@
+use ProtossGateway as knowledge.
+use ProtossGateway as actionspec.
+
+module ProtossGateway {
+	
+	if a-goal(unitAmount("Protoss Zealot", 50)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
+	then train("Protoss Zealot").
+	
+}
