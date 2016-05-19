@@ -42,8 +42,8 @@ public class GenericUnitPerceiverTest {
     toReturn = new HashSet<>();
     toReturn.add(self);
     when(api.getEnemies()).thenReturn(toReturn);
-    
-    when(self.getRace()).thenReturn(RaceTypes.Terran);
+
+    when(self.getRace()).thenReturn(RaceTypes.None);
     
     when(api.getSelf()).thenReturn(self);
     when(self.getMinerals()).thenReturn(50);
@@ -66,6 +66,7 @@ public class GenericUnitPerceiverTest {
 
   @Test
   public void size_test() {
+    when(self.getRace()).thenReturn(RaceTypes.Terran);
     assertEquals(5, perciever.perceive().size());
     toReturn = new HashSet<>();
     when(api.getEnemies()).thenReturn(toReturn);
@@ -73,6 +74,68 @@ public class GenericUnitPerceiverTest {
     when(unitType.getMaxEnergy()).thenReturn(0);
     assertEquals(3, perciever.perceive().size());
     
+  }
+  
+  @Test
+  public void idle_test() {
+    when(unit.isIdle()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    assertEquals("idle", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void completed_test() {
+    when(unit.isCompleted()).thenReturn(false);
+    assertEquals("beingConstructed", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void cloaked_test() {
+    when(unit.isCloaked()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    assertEquals("cloaked", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void moving_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isMoving()).thenReturn(true);
+    assertEquals("moving", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void following_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isFollowing()).thenReturn(true);
+    assertEquals("following", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void loaded_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isLoaded()).thenReturn(true);
+    assertEquals("loaded", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void stimmed_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(self.getRace()).thenReturn(RaceTypes.Terran);
+    when(unit.isStimmed()).thenReturn(true);
+    assertEquals("stimmed", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void sieged_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(self.getRace()).thenReturn(RaceTypes.Terran);
+    when(unit.isSieged()).thenReturn(true);
+    assertEquals("sieged", perciever.getConditions().get(0).toProlog());
   }
 
 }

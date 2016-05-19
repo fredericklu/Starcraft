@@ -9,6 +9,6 @@ public class UnitLoadedPercept extends Percept {
   private static final long serialVersionUID = 1L;
 
   public UnitLoadedPercept(int id, String type) {
-    super(Percepts.UnitLoaded, new Numeral(id), new Identifier(type));
+    super(Percepts.UNITLOADED, new Numeral(id), new Identifier(type));
   }
 }

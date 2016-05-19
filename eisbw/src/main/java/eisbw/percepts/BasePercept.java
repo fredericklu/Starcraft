@@ -9,7 +9,7 @@ public class BasePercept extends Percept {
   private static final long serialVersionUID = 1L;
 
   public BasePercept(int xpos, int ypos, boolean isStart, int regionId) {
-    super(Percepts.Base, new Numeral(xpos), new Numeral(ypos), 
+    super(Percepts.BASE, new Numeral(xpos), new Numeral(ypos), 
         new TruthValue(isStart), new Numeral(regionId));
   }
 }
