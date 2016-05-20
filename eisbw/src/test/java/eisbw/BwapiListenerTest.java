@@ -3,7 +3,11 @@ package eisbw;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import eis.exceptions.ActException;
 import eis.iilang.Action;
@@ -131,10 +135,8 @@ public class BwapiListenerTest {
     verify(bwapi, times(1)).setGameSpeed(5);
     listener.matchEnd(true);
     verify(game, times(1)).clean();
-    listener = new BwapiListener(game, true);
-    listener.bwapi = bwapi;
     listener.matchStart();
-    verify(bwapi, times(1)).setGameSpeed(30);
+    listener.debug = debug;
     listener.matchEnd(true);
     verify(game, times(2)).clean();
   }
