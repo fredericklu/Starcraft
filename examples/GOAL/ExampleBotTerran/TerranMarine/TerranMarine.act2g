@@ -1,0 +1,12 @@
+use TerranMarine as knowledge.
+
+% attack-move action
+define attack(X,Y) with
+	pre{true}
+	post{true}
+	
+% attack action
+define attack(Id) with
+	pre{true}
+	post{true}
+

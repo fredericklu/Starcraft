@@ -1,0 +1,49 @@
+use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	race="Terran",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true".
+
+
+define terranSCV as agent {
+	use TerranSCV.TerranSCV as main module.
+	use TerranSCV.TerranSCVInit as init module.
+	use TerranSCV.TerranSCVEvent as event module.
+} 
+
+define terranCommandCenter as agent {
+	use TerranCommandCenter.TerranCommandCenterInit as init module.
+	use TerranCommandCenter.TerranCommandCenter as main module.
+	use TerranCommandCenter.TerranCommandCenterEvent as event module.
+}
+
+define terranBarracks as agent {
+	use TerranBarracks.TerranBarracks as main module.
+	use TerranBarracks.TerranBarracksInit as init module.
+	use TerranBarracks.TerranBarracksEvent as event module.
+}
+
+define terranMarine as agent {
+	use TerranMarine.TerranMarineInit as init module.
+	use TerranMarine.TerranMarine as main module.
+	use TerranMarine.TerranMarineEvent as event module.
+}
+
+define terranMedic as agent {
+	use TerranMedic.TerranMedicInit as init module.
+	use TerranMedic.TerranMedic as main module.
+	use TerranMedic.TerranMedicEvent as event module.
+}
+
+define raynor as agent {
+	use Raynor.Raynor as main module.	
+}
+
+launchpolicy{
+	when type = unknown launch raynor.
+	when type = terranCommandCenter launch terranCommandCenter.
+	when type = terranSCV launch terranSCV.
+	when type = terranBarracks launch terranBarracks.
+	when type = terranMarine launch terranMarine.
+	when type = terranMedic launch terranMedic.
+}

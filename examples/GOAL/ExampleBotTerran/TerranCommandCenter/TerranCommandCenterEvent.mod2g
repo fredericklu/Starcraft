@@ -1,0 +1,17 @@
+use TerranCommandCenter as knowledge.
+use "../GenericMods/GenericPercepts.mod2g" as module.
+
+module TerranCommandCenterEvent {	
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if true then GenericPercepts.
+	
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if bel(unitAmount('Terran SCV',M) ,M<8) then adopt(unitAmount('Terran SCV',8)).
+	
+	if bel(unitAmount('Terran Barracks',2), unitAmount('Terran SCV',M) ,M<9) then adopt(unitAmount('Terran SCV',9)).
+			
+}
