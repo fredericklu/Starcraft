@@ -2,7 +2,9 @@ package eisbw.percepts;
 
 public class Percepts {
   
+  public static final String DefensiveMatrix = "defensiveMatrix";
   public static final String Gathering = "gathering";
+ 
   public static final String Condition = "condition";
   public static final String Status = "status";
   public static final String Resources = "resources";

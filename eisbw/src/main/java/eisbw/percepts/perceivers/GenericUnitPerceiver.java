@@ -3,6 +3,7 @@ package eisbw.percepts.perceivers;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.EnergyPercept;
 import eisbw.percepts.ResourcesPercept;
@@ -28,6 +29,10 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
     for (Player p : api.getEnemies()) {
       percepts.add(new EnemyRacePercept(p.getRace().getName()));
+    }
+
+    if (unit.isDefenseMatrixed()) {
+      percepts.add(new DefensiveMatrixPercept(unit.getDefenseMatrixPoints()));
     }
 
     percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
