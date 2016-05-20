@@ -3,6 +3,7 @@ package eisbw.percepts.perceivers;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.percepts.GatheringPercept;
 import eisbw.percepts.RepairPercept;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.WorkerActivityPercept;
@@ -101,6 +102,10 @@ public class WorkerPerceiver extends UnitPerceiver {
       perceiveTerranWorkers(percepts);
     } else {
       perceiveWorkers(percepts);
+    }
+
+    if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
+      percepts.add(new GatheringPercept(unit.getOrderTarget().getID()));
     }
 
     for (Unit u : api.getNeutralUnits()) {

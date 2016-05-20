@@ -34,10 +34,7 @@ public class StarcraftUnitFactory {
     List<IPerceiver> perceptGenerators = new LinkedList<>();
     perceptGenerators.add(new GenericUnitPerceiver(api, unit));
     perceptGenerators.add(new UnitsPerceiver(api));
-
-    if (unit.getType().isCanMove()) {
-      perceptGenerators.add(new MapPerceiver(api));
-    }
+    perceptGenerators.add(new MapPerceiver(api));
 
     if (unit.getType().isBuilding()) {
       perceptGenerators.add(new BuildingPerceiver(api, unit));
