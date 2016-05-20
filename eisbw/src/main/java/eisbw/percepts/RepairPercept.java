@@ -13,7 +13,7 @@ public class RepairPercept extends Percept {
    * Repair percept.
    */
   public RepairPercept(Unit unit) {
-    super(Percepts.RequiresRepair, new Numeral(unit.getID()), new Identifier(
+    super(Percepts.REQUIRESREPAIR, new Numeral(unit.getID()), new Identifier(
         unit.getType().getName()), new Numeral(unit.getHitPoints()), 
         new Numeral(unit.getType().getMaxHitPoints()));
   }

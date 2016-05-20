@@ -30,7 +30,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    *          the evaluated terran worker
    * @return the new list of percepts
    */
-  private List<Percept> perceiveWorkerActivity(List<Percept> percepts, Unit unit) {
+  private void perceiveWorkerActivity(List<Percept> percepts, Unit unit) {
     if (unit.isGatheringGas()) {
       percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringGas"));
     } else if (unit.isGatheringMinerals()) {
@@ -40,8 +40,6 @@ public class WorkerPerceiver extends UnitPerceiver {
     } else {
       percepts.add(new WorkerActivityPercept(unit.getID(), "idling"));
     }
-
-    return percepts;
   }
 
   /**
@@ -53,14 +51,12 @@ public class WorkerPerceiver extends UnitPerceiver {
    *          the evaluated terran worker
    * @return the new list of percepts
    */
-  private List<Percept> perceiveRepair(List<Percept> percepts, Unit unit) {
+  private void perceiveRepair(List<Percept> percepts, Unit unit) {
     int hp = unit.getHitPoints();
     int maxHp = unit.getType().getMaxHitPoints();
     if (hp < maxHp) {
       percepts.add(new RepairPercept(unit));
     }
-
-    return percepts;
   }
 
   /**

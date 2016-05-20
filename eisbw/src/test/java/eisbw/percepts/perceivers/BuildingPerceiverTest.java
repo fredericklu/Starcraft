@@ -71,8 +71,10 @@ public class BuildingPerceiverTest {
     loadedunits.add(unit);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
     assertEquals(3, perciever.perceive().size());
+    when(unitType.getSpaceProvided()).thenReturn(0);
+    assertEquals(1, perciever.perceive().size());
     when(self.isResearched(any(TechType.class))).thenReturn(true);
-    assertTrue(perciever.perceive().size() > 3);
+    assertTrue(perciever.perceive().size() > 2);
   }
   
   @Test

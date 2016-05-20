@@ -30,14 +30,15 @@ public class WindowsTools {
       String line;
       while ((line = stdInput.readLine()) != null) {
         if (line.contains(process)) {
+          stdInput.close();
           return true;
         }
       }
+      stdInput.close();
     } catch (IOException exception) {
       Logger.getLogger("StarCraft Logger").log(Level.SEVERE, "Could not read processes.",
           exception);
     }
-
     return false;
   }
 

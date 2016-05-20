@@ -1,9 +1,9 @@
 package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.UnitsPerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
@@ -37,7 +37,7 @@ public class UnitsPercieverTest {
     toreturn = new LinkedList<>();
     toreturn.add(unit);
     perciever = new UnitsPerceiver(bwapi);
-    
+
     when(unit.getType()).thenReturn(unitType);
     when(unitType.getName()).thenReturn("unitType");
     when(unitType.isFlyer()).thenReturn(true);
@@ -45,10 +45,10 @@ public class UnitsPercieverTest {
     when(unit.getHitPoints()).thenReturn(20);
     when(unit.getShields()).thenReturn(10);
     when(unit.getPosition()).thenReturn(new Position(34, 45, PosType.BUILD));
-    
+
     when(bwapi.getEnemyUnits()).thenReturn(toreturn);
   }
-  
+
   @Test
   public void test() {
     assertEquals("unit", perciever.perceive().get(0).getName());
@@ -60,6 +60,33 @@ public class UnitsPercieverTest {
     assertEquals("true", perciever.perceive().get(0).getParameters().get(5).toProlog());
     assertEquals("34", perciever.perceive().get(0).getParameters().get(6).toProlog());
     assertEquals("45", perciever.perceive().get(0).getParameters().get(7).toProlog());
+  }
+
+  @Test
+  public void morphing_test() {
+    when(unit.isMorphing()).thenReturn(true);
+    when(unit.getBuildType()).thenReturn(unitType);
+    assertEquals("isMorphing", perciever.perceive().get(1).getName());
+  }
+
+  @Test
+  public void cloaked_test() {
+    when(unit.isCloaked()).thenReturn(true);
+    assertEquals("isCloaked", perciever.perceive().get(1).getName());
+  }
+
+  @Test
+  public void attackcapable_test() {
+    when(unitType.isAttackCapable()).thenReturn(true);
+    when(unit.getOrderTarget()).thenReturn(unit);
+    assertEquals(2, perciever.perceive().size());
+    when(unit.getOrderTarget()).thenReturn(null);
+    assertEquals(1, perciever.perceive().size());
+  }
+
+  @Test
+  public void conditions_test() {
+    assertTrue(perciever.getConditions().isEmpty());
   }
 
 }

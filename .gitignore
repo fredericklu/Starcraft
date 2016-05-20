@@ -17,3 +17,5 @@ examples/Jason/SimpleAgents/bin/build.xml
 StarterPack/JNIBWAPI 1.0/run.bat
 eisbw/.classpath
 examples/GOAL/ZergBot2/.project
+*/.project
+*.project

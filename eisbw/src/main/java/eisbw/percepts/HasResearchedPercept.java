@@ -8,6 +8,6 @@ public class HasResearchedPercept extends Percept {
   private static final long serialVersionUID = 1L;
 
   public HasResearchedPercept(String name) {
-    super(Percepts.HasResearched, new Identifier(name));
+    super(Percepts.HASRESEARCHED, new Identifier(name));
   }
 }

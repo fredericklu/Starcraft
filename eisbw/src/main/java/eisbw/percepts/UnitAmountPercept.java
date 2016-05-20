@@ -9,6 +9,6 @@ public class UnitAmountPercept extends Percept {
   private static final long serialVersionUID = 1L;
 
   public UnitAmountPercept(String name, int count) {
-    super(Percepts.UnitAmount, new Identifier(name), new Numeral(count));
+    super(Percepts.UNITAMOUNT, new Identifier(name), new Numeral(count));
   }
 }

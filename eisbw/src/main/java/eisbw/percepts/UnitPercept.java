@@ -31,7 +31,7 @@ public class UnitPercept extends Percept {
    */
   public UnitPercept(boolean isFriendly, String type, int id, int health, int shields,
       boolean isFlying, int bx, int by) {
-    super(Percepts.Unit, new TruthValue(isFriendly), new Identifier(type), new Numeral(id),
+    super(Percepts.UNIT, new TruthValue(isFriendly), new Identifier(type), new Numeral(id),
         new Numeral(health), new Numeral(shields), new TruthValue(isFlying), new Numeral(bx),
         new Numeral(by));
   }

@@ -11,6 +11,7 @@ import jnibwapi.Unit;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BwapiListener extends BwapiEvents {
@@ -72,10 +73,11 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void matchFrame() {
-    Iterator<Unit> it = pendingActions.keySet().iterator();
+    Iterator<Entry<Unit,Action>> it = pendingActions.entrySet().iterator();
     while (it.hasNext()) {
-      Unit unit = it.next();
-      Action act = pendingActions.get(unit);
+      Entry<Unit,Action> entry = it.next();
+      Unit unit = entry.getKey();
+      Action act = entry.getValue();
 
       StarcraftAction action = getAction(act);
       action.execute(unit, act);
