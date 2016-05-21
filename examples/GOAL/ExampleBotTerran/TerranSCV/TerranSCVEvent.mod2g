@@ -48,7 +48,7 @@ module TerranSCVEvent {
 	
 	% Build Supply Depots for supply
 	if not(goal(unitAmount("Terran Supply Depot", _))), bel(builder, unitAmount("Terran Supply Depot", N), M is N +1, unitAmount("Terran Barracks", 2), 
-	supply(CS, TS), TS - CS < 8) then adopt(unitAmount("Terran Supply Depot", M)).
+	supply(CS, TS), TS - CS < 8, not(constructing)) then adopt(unitAmount("Terran Supply Depot", M)).
 	
 	% If there is a refinery and not enough scv units are gathering gas, adopt goal to do so
 	if bel(friendly("Terran Refinery",_,_,_,_,_), shouldMineVespene) then adopt(shouldMineVespene).
