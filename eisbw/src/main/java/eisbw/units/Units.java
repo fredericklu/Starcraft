@@ -6,6 +6,7 @@ import jnibwapi.Unit;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Units {
 
@@ -23,7 +24,7 @@ public class Units {
   public Units(StarcraftEnvironmentImpl environment) {
     unitMap = new HashMap<>();
     unitNames = new HashMap<>();
-    starcraftUnits = new HashMap<>();
+    starcraftUnits = new ConcurrentHashMap<>();
     this.environment = environment;
   }
 
