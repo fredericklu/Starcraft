@@ -22,6 +22,7 @@ public class Game {
   private volatile Map<String, LinkedList<Percept>> percepts;
   private Units units;
   private volatile LinkedList<Percept> constructionPercepts;
+  private StarcraftEnvironmentImpl env;
 
   /**
    * Constructor.
@@ -33,6 +34,7 @@ public class Game {
     units = new Units(environment);
     percepts = new HashMap<>();
     constructionPercepts = new LinkedList<>();
+    env = environment;
   }
 
   /**
@@ -137,6 +139,6 @@ public class Game {
   }
 
   public int getAgentCount() {
-    return units.getUnits().size();
+    return env.getAgents().size();
   }
 }

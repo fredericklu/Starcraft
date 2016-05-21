@@ -3,6 +3,7 @@ package eisbw;
 import eis.EIDefaultImpl;
 import eis.eis2java.translation.Translator;
 import eis.exceptions.ActException;
+import eis.exceptions.AgentException;
 import eis.exceptions.EntityException;
 import eis.exceptions.ManagementException;
 import eis.exceptions.NoEnvironmentException;
@@ -127,12 +128,17 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    */
   public void deleteFromEnvironment(String unitName) {
     try {
+      for (String agentName : getAssociatedAgents(unitName)) {
+        unregisterAgent(agentName);
+      }
       deleteEntity(unitName);
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
           exception);
     } catch (RelationException exception) {
       logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
+    } catch (AgentException exception) {
+      logger.log(Level.WARNING, "Agent could not be removed", exception);
     }
   }
 
