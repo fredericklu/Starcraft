@@ -135,4 +135,8 @@ public class Game {
     percepts = new HashMap<>();
     constructionPercepts = new LinkedList<>();
   }
+
+  public int getAgentCount() {
+    return units.getUnits().size();
+  }
 }
