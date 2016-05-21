@@ -110,7 +110,7 @@ public class BwapiListener extends BwapiEvents {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().morphUnit(unitName);
+        game.getUnits().deleteUnit(unitName);
         game.getUnits().addUnit(unit, factory);
       }
     }

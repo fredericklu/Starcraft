@@ -1,7 +1,7 @@
-package eisbw;
+package eisbw.units;
 
-import eisbw.units.StarcraftUnit;
-import eisbw.units.StarcraftUnitFactory;
+import eisbw.BwapiUtility;
+import eisbw.StarcraftEnvironmentImpl;
 import jnibwapi.Unit;
 
 import java.util.HashMap;
@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class Units {
 
-  private Map<String, Unit> unitMap;
-  private Map<Integer, String> unitNames;
-  private Map<String, StarcraftUnit> starcraftUnits;
-  private StarcraftEnvironmentImpl environment;
+  protected Map<String, Unit> unitMap;
+  protected Map<Integer, String> unitNames;
+  protected Map<String, StarcraftUnit> starcraftUnits;
+  protected StarcraftEnvironmentImpl environment;
 
   /**
    * Constructor.
@@ -63,10 +63,6 @@ public class Units {
 
   public Map<String, StarcraftUnit> getStarcraftUnits() {
     return new HashMap<>(starcraftUnits);
-  }
-
-  public void morphUnit(String unitName) {
-    environment.deleteFromEnvironment(unitName);
   }
 
   /**
