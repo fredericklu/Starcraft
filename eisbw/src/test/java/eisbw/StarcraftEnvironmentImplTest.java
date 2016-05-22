@@ -66,7 +66,7 @@ public class StarcraftEnvironmentImplTest {
     assertTrue(env.performEntityAction("entity", new Action("siege")) == null);
     env.deleteFromEnvironment("none");
     when(bwapiListener.isSupportedByEntity(any(Action.class), any(String.class))).thenReturn(true);
-    assertTrue(env.isSupportedByEntity(new Action(""), ""));
+    assertTrue(env.isSupportedByEntity(new Action("action"), "action"));
   }
 
 }
