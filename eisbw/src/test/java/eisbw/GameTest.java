@@ -9,6 +9,7 @@ import eisbw.percepts.ConstructionSitePercept;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +35,8 @@ public class GameTest {
   private StarcraftUnit scUnit;
   @Mock
   private Units units;
+  @Mock
+  private jnibwapi.Map map;
 
   /**
    * Init mocks.
@@ -68,8 +71,8 @@ public class GameTest {
 
   @Test
   public void constructionsites_test() {
-    when(bwapi.getMap())
-        .thenReturn(new jnibwapi.Map(0, 0, null, null, null, null, new int[5], new int[3]));
+    when(bwapi.getMap()).thenReturn(map);
+    when(map.getSize()).thenReturn(new Position(0, 0));
     game.updateConstructionSites(bwapi);
     assertTrue(game.getConstructionSites().isEmpty());
     game.clean();

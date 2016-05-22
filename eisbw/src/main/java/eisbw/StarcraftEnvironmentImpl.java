@@ -28,7 +28,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Logger logger = Logger.getLogger("StarCraft Logger");
 
   private static final long serialVersionUID = 1L;
-  private BwapiListener bwapiListener;
+  protected BwapiListener bwapiListener;
   private Configuration configuration;
   private Game game;
 

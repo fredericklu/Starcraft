@@ -1,6 +1,6 @@
 package eisbw.configuration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
