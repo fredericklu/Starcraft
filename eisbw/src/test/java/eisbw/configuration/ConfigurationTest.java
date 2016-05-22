@@ -56,7 +56,7 @@ public class ConfigurationTest {
     new Configuration(parameters);
   }
   
-  @Test(expected = IllegalStateException.class)  
+  @Test
   public void noException_test() throws NoTranslatorException, TranslationException {
     Map<String,Parameter> parameters = new HashMap<>();
     parameters.put("debug", new Identifier("debug"));
