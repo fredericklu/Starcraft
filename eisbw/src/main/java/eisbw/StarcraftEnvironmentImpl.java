@@ -57,7 +57,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
       addEntity("player");
       bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode()));
 
-      if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
+      if (!"test".equals(configuration.getRace())
+          && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
         WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
             configuration.getScDir());
       }
