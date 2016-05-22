@@ -15,6 +15,9 @@ import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
+import eisbw.actions.Siege;
+import eisbw.actions.StarcraftAction;
+import jnibwapi.Unit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,9 +57,11 @@ public class StarcraftEnvironmentImplTest {
     env.registerAgent("none");
     env.associateEntity("none", "none");
     env.getAllPercepts("none", "none");
-    assertTrue(env.isSupportedByType(new Action("siege"), null));
-    assertFalse(env.isSupportedByType(new Action("fake"), null));
     env.bwapiListener = bwapiListener;
+    when(bwapiListener.getAction(any(Action.class))).thenReturn(new Siege(null));
+    assertTrue(env.isSupportedByType(new Action("siege"), null));
+    when(bwapiListener.getAction(any(Action.class))).thenReturn(null);
+    assertFalse(env.isSupportedByType(new Action("fake"), null));
     doNothing().when(bwapiListener).performEntityAction(any(String.class), any(Action.class));
     assertTrue(env.performEntityAction("entity", new Action("siege")) == null);
     env.deleteFromEnvironment("none");
