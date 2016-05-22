@@ -1,15 +1,11 @@
 package eisbw;
 
 import eis.iilang.Percept;
-import eisbw.percepts.MineralFieldPercept;
-import eisbw.percepts.UnitAmountPercept;
-import eisbw.percepts.VespeneGeyserPercept;
+import eisbw.percepts.perceivers.BufferPerceiver;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -19,10 +15,10 @@ import java.util.Map.Entry;
 
 public class Game {
 
-  private volatile Map<String, LinkedList<Percept>> percepts;
-  private Units units;
-  private volatile LinkedList<Percept> constructionPercepts;
-  private StarcraftEnvironmentImpl env;
+  protected volatile Map<String, LinkedList<Percept>> percepts;
+  protected Units units;
+  protected volatile LinkedList<Percept> constructionPercepts;
+  protected StarcraftEnvironmentImpl env;
 
   /**
    * Constructor.
@@ -72,36 +68,8 @@ public class Game {
   }
 
   private LinkedList<Percept> getPercepts(JNIBWAPI bwapi) {
-    Map<UnitType, Integer> count = new HashMap<>();
-
-    for (Unit myUnit : bwapi.getMyUnits()) {
-      UnitType unitType = myUnit.getType();
-      if (!count.containsKey(unitType)) {
-        count.put(unitType, 0);
-      }
-      count.put(unitType, count.get(unitType) + 1);
-    }
     LinkedList<Percept> perceptHolder = new LinkedList<>();
-
-    for (Entry<UnitType, Integer> entry : count.entrySet()) {
-      perceptHolder.add(new UnitAmountPercept(entry.getKey().getName(), entry.getValue()));
-    }
-
-    for (Unit u : bwapi.getNeutralUnits()) {
-      UnitType unitType = u.getType();
-      if (u.isVisible()) {
-        if (UnitTypesEx.isMineralField(unitType)) {
-          MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-          perceptHolder.add(mineralfield);
-        } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
-          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-          perceptHolder.add(mineralfield);
-
-        }
-      }
-    }
+    perceptHolder.addAll(new BufferPerceiver(bwapi).perceive());
     return perceptHolder;
   }
 
