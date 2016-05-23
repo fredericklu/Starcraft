@@ -1,0 +1,31 @@
+use ZergHatchery as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ZergHatcheryEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If a friendly drone dies, let the OverMind know
+	forall bel(friendly("Zerg Drone",Id,_,_,_,_)) , not(percept(unit(true, "Zerg Drone",Id,_,_,_,_,_))) do ('overMind').send:(death(Id)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	% The handling of the supply percept
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	
+	% The handling of the queueSize percept
+	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+		
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS ------------------------------------------- %%%%%%%%%%%%%%%
+	
+	%if not(goal(unitAmount("Zerg Drone",20))), bel(unitAmount("Zerg Drone",M) ,M<20) then adopt(unitAmount("Zerg Drone",20)).
+	
+	% If getting low on supply and no overlord is on it's way, adopt goal to make one
+	if bel(not(isMorphing("Zerg Overlord", _)), queueSize(N), N < 2, supply(CS, TS), (TS - CS) < 6,
+	unitAmount("Zerg Overlord",Amount), NewAmount is Amount + 1) then adopt(unitAmount("Zerg Overlord", NewAmount)).
+	
+	if not(goal(unitAmount("Zerg Zergling", 200))), 
+	bel(not(unitAmount("Zerg Zergling", 200)), friendly("Zerg Spawning Pool", _, _, _, _, _)) then adopt(unitAmount("Zerg Zergling", 200)).
+}

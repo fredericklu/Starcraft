@@ -1,0 +1,14 @@
+use ZergHatchery as knowledge.
+use Zerghatchery as actionspec.
+
+module ZergHatchery {	
+	
+	% If goal to make an overlord and have enough minerals, start training an overlord
+	if a-goal(unitAmount("Zerg Overlord", Amount)), bel(not(isMorphing("Zerg Overlord", _)), minerals(X), X >= 100,
+	supply(CS, TS), (TS - CS) < 6) then train("Zerg Overlord").
+	
+	%if a-goal(unitAmount("Zerg Drone",20)), bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then train("Zerg Drone").
+		
+	% If goal to make zergling and have enough minerals, start training zerglings
+	if a-goal(unitAmount("Zerg Zergling", 200)), bel(minerals(M), M >= 50) then train("Zerg Zergling").
+}
