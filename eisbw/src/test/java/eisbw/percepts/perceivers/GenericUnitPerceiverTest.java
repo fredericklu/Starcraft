@@ -76,7 +76,8 @@ public class GenericUnitPerceiverTest {
     when(api.getEnemies()).thenReturn(toReturn);
     assertEquals(4, perciever.perceive().size());
     when(unitType.getMaxEnergy()).thenReturn(0);
-    assertEquals(3, perciever.perceive().size());
+    when(unit.isDefenseMatrixed()).thenReturn(true);
+    assertEquals(4, perciever.perceive().size());
     
   }
   
@@ -140,6 +141,94 @@ public class GenericUnitPerceiverTest {
     when(self.getRace()).thenReturn(RaceTypes.Terran);
     when(unit.isSieged()).thenReturn(true);
     assertEquals("sieged", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void blinded_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isBlind()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    assertEquals("blinded", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void lockedDown_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isLockedDown()).thenReturn(true);
+    assertEquals("lockDowned", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void irradiated_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isIrradiated()).thenReturn(true);
+    assertEquals("irradiated", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void underStorm_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isUnderStorm()).thenReturn(true);
+    assertEquals("underStorm", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void stasised_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isStasised()).thenReturn(true);
+    assertEquals("stasised", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void maelstrommed_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isMaelstrommed()).thenReturn(true);
+    assertEquals("maelstrommed", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void disruptionWebbed_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isUnderDisruptionWeb()).thenReturn(true);
+    assertEquals("disruptionWebbed", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void ensnared_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isEnsnared()).thenReturn(true);
+    assertEquals("ensnared", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void parasited_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isParasited()).thenReturn(true);
+    assertEquals("parasited", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void plagued_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isPlagued()).thenReturn(true);
+    assertEquals("plagued", perciever.getConditions().get(0).toProlog());
+  }
+  
+  @Test
+  public void darkSwarmed_test() {
+    when(unitType.isCanMove()).thenReturn(true);
+    when(unit.isCompleted()).thenReturn(true);
+    when(unit.isUnderDarkSwarm()).thenReturn(true);
+    assertEquals("darkSwarmed", perciever.getConditions().get(0).toProlog());
   }
 
 }
