@@ -19,7 +19,7 @@ public class DrawBuildingDetails extends IDraw {
     // Draw "is working" box
     int barHeight = 18;
 
-    for (Unit unit : api.getAllUnits()) {
+    for (Unit unit : api.getMyUnits()) {
       int total = 0;
       int done = 0;
       String txt = "";

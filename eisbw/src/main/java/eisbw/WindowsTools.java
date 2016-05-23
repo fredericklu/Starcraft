@@ -55,10 +55,6 @@ public class WindowsTools {
    *           throws exception when BWAPI.ini cannot be written.
    */
   public static void startChaoslauncher(String race, String map, String scDir) throws IOException {
-    if (race == "test") {
-      //Used for testing, race can never be test
-      return;
-    }
     populateInitFile(race, map, scDir);
     Runtime.getRuntime().exec(scDir + "\\Chaoslauncher\\Chaoslauncher.exe", null,
         new File(scDir + "\\Chaoslauncher\\"));

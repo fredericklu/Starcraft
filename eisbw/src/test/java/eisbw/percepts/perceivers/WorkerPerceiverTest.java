@@ -66,6 +66,9 @@ public class WorkerPerceiverTest {
     assertEquals("workerActivity", perciever.perceive().get(0).getName());
     assertEquals("gatheringMinerals",
         perciever.perceive().get(0).getParameters().get(1).toProlog());
+    when(unit.getOrderTarget()).thenReturn(unit);
+    assertEquals("0",
+        perciever.perceive().get(1).getParameters().get(0).toProlog());
   }
 
   @Test
@@ -125,18 +128,6 @@ public class WorkerPerceiverTest {
   @Test
   public void conditions_minerals_test() {
     when(unit.isCarryingMinerals()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
-
-  @Test
-  public void conditions_gatheringGas_test() {
-    when(unit.isGatheringGas()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
-
-  @Test
-  public void conditions_gatheringMinerals_test() {
-    when(unit.isGatheringMinerals()).thenReturn(true);
     assertEquals(1, perciever.getConditions().size());
   }
 

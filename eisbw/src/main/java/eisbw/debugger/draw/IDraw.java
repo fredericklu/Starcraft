@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public abstract class IDraw {
 
-  private Logger logger = Logger.getLogger("StarCraft Logger");
+  protected Logger logger = Logger.getLogger("StarCraft Logger");
 
   protected boolean toggle = false;
   protected Game game;

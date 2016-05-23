@@ -10,9 +10,9 @@ public class SpeedSlider extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  public int initialSpeed = 30;
-  public int slowest = 50;
-  public int fastest = 0;
+  private int initialSpeed = 30;
+  private int slowest = 50;
+  private int fastest = 0;
 
   private boolean changed = false;
 
