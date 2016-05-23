@@ -33,6 +33,6 @@ supply/2.
 	
 	% building location near base	
 	buildingLocation(X,Y, RX,RY) 
-		:-	findall([D,BX,BY], (constructionSite(BX,BY, false), distance(X,Y,BX,BY,D)), L),
+		:-	findall([D,BX,BY], (constructionSite(BX,BY, _), distance(X,Y,BX,BY,D)), L),
 			sort(L, [[_,RX,RY]|_]).
 						
