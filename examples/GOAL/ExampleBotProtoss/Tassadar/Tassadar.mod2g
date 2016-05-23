@@ -4,7 +4,7 @@ module Tassadar {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If enough zealots gathered, tell zealots to attack
-	forall bel(allReady) do allother.send(attack) + print("GOOOOOOOOOOOO").
+	forall bel(allReady) do allother.send(attack).
 	
 	% If probe sent info, insert in knowledge base
 	forall (Name).sent(probe(Id)) do insert(probe(Name, Id)).	

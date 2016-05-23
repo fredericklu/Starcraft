@@ -2,6 +2,8 @@ package eisbw.percepts;
 
 public class Percepts {
   
+  public static final String DEFENSIVEMATRIX = "defensiveMatrix";
+  public static final String GATHERING = "gathering";
   public static final String CONDITION = "condition";
   public static final String STATUS = "status";
   public static final String RESOURCES = "resources";

@@ -2,14 +2,19 @@ use ProtossProbe as knowledge.
 use ProtossProbe as actionspec.
 
 module ProtossProbe {
+	
+	% If goal to make gateways and there is a constructionsite available, start making one
 	if a-goal(unitAmount("Protoss Gateway", 2)), bel(constructionSite(X,Y,true), minerals(M), M >= 150) then build("Protoss Gateway", X, Y).
 	
+	% If goal to make a pylon for supply, start making one
 	if a-goal(unitAmount("Protoss Pylon", N)), bel(constructionSite(X,Y,_), unitAmount("Protoss Pylon", P), P < N,
 	minerals(M), M >= 100,unitAmount("Protoss Zealot", Z), Z > 1) then build("Protoss Pylon", X, Y).
 	
+	% If goal to make first pylon and have enough resources, start making one
 	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructionSite(X,Y,false), unitAmount("Protoss Probe", 8),
 	minerals(M), M >= 100) then build("Protoss Pylon", X, Y).
 	
+	% If goal to gather minerals, start gathering minerals from mineralfields near the nexus
 	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralField(MinId,_,X,Y), friendly("Protoss Nexus", _,_ ,_ , CX, CY), 
 	self(Id,_), distance(X,Y,CX,CY,L), L<8) then gather(MinId).
 }
