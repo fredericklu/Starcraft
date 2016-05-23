@@ -37,6 +37,8 @@ module ZergDroneEvent {
 	% If there is no spawningpool yet, create one
 	if bel(builder, not(friendly("Zerg Spawning Pool", _, _, _,_,_))) then adopt(unitAmount("Zerg Spawning Pool", 1)).
 	
+	if bel(builder, friendly("Zerg Spawning Pool", _, _, _,_,_)) then adopt(unitAmount("Zerg Hatchery", 4)).
+	
 	% If the worker is not busy yet, start gathering minerals
 	if bel(not(busy), self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
 }
