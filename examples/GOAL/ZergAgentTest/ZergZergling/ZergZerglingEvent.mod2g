@@ -1,6 +1,7 @@
 use ZergZergling as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
+order = randomall.
 module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -20,6 +21,8 @@ module ZergZerglingEvent {
 	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	if goal(position(X,Y)), bel(position(X2,Y2), distance(X,Y,X2,Y2,D), D<49) then drop(position(X,Y)).
 	
-	if percept(chokepoint(X, Y)) then adopt(position(X, Y)).
+	if percept(chokepoint(X, Y),condition(List)), bel(not(member(moving, List)),position(X2,Y2),distance(X,Y,X2,Y2,D), D>49) 
+		then adopt(position(X, Y)).
 }

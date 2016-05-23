@@ -3,6 +3,7 @@ package eisbw;
 import eis.iilang.Percept;
 import eisbw.percepts.perceivers.BufferPerceiver;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
+import eisbw.percepts.perceivers.MapPerceiver;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
@@ -17,8 +18,9 @@ public class Game {
 
   protected volatile Map<String, LinkedList<Percept>> percepts;
   protected Units units;
-  protected volatile LinkedList<Percept> constructionPercepts;
+  protected volatile List<Percept> constructionPercepts;
   protected StarcraftEnvironmentImpl env;
+  private List<Percept> mapPercepts;
 
   /**
    * Constructor.
@@ -30,9 +32,20 @@ public class Game {
     units = new Units(environment);
     percepts = new HashMap<>();
     constructionPercepts = new LinkedList<>();
+    mapPercepts = new LinkedList<>();
     env = environment;
   }
 
+  /**
+   * update the map.
+   * @param api - the API.
+   */
+  public void updateMap(JNIBWAPI api) {
+    LinkedList<Percept> perceptHolder = new LinkedList<>();
+    perceptHolder.addAll(new MapPerceiver(api).perceive());
+    mapPercepts = perceptHolder;
+  }
+  
   /**
    * Updates the percepts.
    * 
@@ -47,6 +60,7 @@ public class Game {
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
       LinkedList<Percept> thisUnitPercepts = new LinkedList<>(perceptHolder);
       thisUnitPercepts.addAll(constructionPercepts);
+      thisUnitPercepts.addAll(mapPercepts);
       thisUnitPercepts.addAll(unit.getValue().perceive());
 
       unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);

@@ -1,7 +1,7 @@
 package eisbw.units;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
@@ -24,10 +24,10 @@ public class StarcraftUnitFactoryTest {
     MockitoAnnotations.initMocks(this);
     factory = new StarcraftUnitFactory(null);
     when(unit.getType()).thenReturn(unitType);
-    assertEquals(3,factory.create(unit).perceivers.size());
+    assertEquals(2,factory.create(unit).perceivers.size());
     when(unitType.isBuilding()).thenReturn(true);
     when(unitType.isWorker()).thenReturn(true);
-    assertEquals(5,factory.create(unit).perceivers.size());
+    assertEquals(4,factory.create(unit).perceivers.size());
   }
 
 }

@@ -17,4 +17,4 @@ hitPoints/1
 .
 
 % default distance check
-distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).	 
+distance(X1,Y1,X2,Y2,D) :- D is ((X2-X1)**2 + (Y2-Y1)**2).	 

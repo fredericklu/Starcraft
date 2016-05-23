@@ -50,7 +50,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   public void init(Map<String, Parameter> parameters) throws ManagementException {
     super.init(parameters);
     setState(EnvironmentState.PAUSED);
-
+    Thread.currentThread().setPriority(3);
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
@@ -70,11 +70,12 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   @Override
   public Map<String, Collection<Percept>> getAllPercepts(String agent, String... entities)
       throws PerceiveException, NoEnvironmentException {
-    try {
-      Thread.sleep(20);
-    } catch (InterruptedException exception) {
-      Thread.currentThread().interrupt();
-    }
+    Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+    // try {
+    // Thread.sleep(20);
+    // } catch (InterruptedException exception) {
+    // Thread.currentThread().interrupt();
+    // }
     return super.getAllPercepts(agent, entities);
   }
 

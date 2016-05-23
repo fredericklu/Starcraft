@@ -3,7 +3,6 @@ package eisbw.units;
 import eisbw.percepts.perceivers.BuildingPerceiver;
 import eisbw.percepts.perceivers.GenericUnitPerceiver;
 import eisbw.percepts.perceivers.IPerceiver;
-import eisbw.percepts.perceivers.MapPerceiver;
 import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.percepts.perceivers.WorkerPerceiver;
 import jnibwapi.JNIBWAPI;
@@ -34,7 +33,6 @@ public class StarcraftUnitFactory {
     List<IPerceiver> perceptGenerators = new LinkedList<>();
     perceptGenerators.add(new GenericUnitPerceiver(api, unit));
     perceptGenerators.add(new UnitsPerceiver(api));
-    perceptGenerators.add(new MapPerceiver(api));
 
     if (unit.getType().isBuilding()) {
       perceptGenerators.add(new BuildingPerceiver(api, unit));
