@@ -47,6 +47,6 @@ public class StarcraftUnitFactory {
       perceptGenerators.add(new WorkerPerceiver(api, unit));
     }
 
-    return new StarcraftUnit(api, unit, perceptGenerators);
+    return new StarcraftUnit(perceptGenerators);
   }
 }

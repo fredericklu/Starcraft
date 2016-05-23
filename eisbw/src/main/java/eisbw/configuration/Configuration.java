@@ -11,10 +11,10 @@ import java.util.Map.Entry;
 
 public class Configuration {
 
-  private String race = null;
-  private String map = null;
-  private String scDir = null;
-  private String debug = "false";
+  protected String race = null;
+  protected String map = null;
+  protected String scDir = null;
+  protected String debug = "false";
 
   public Configuration(Map<String, Parameter> parameters)
       throws NoTranslatorException, TranslationException {
@@ -41,6 +41,7 @@ public class Configuration {
           setScDir(translator.translate2Java(entry.getValue(), String.class));
           break;
         default:
+          //Unreachable clause.
           break;
       }
     }
@@ -54,9 +55,6 @@ public class Configuration {
   }
 
   private void setScDir(String dir) {
-    if (dir == null) {
-      throw new IllegalStateException("starcraft directory must be provided");
-    }
     this.scDir = dir;
   }
 
@@ -65,16 +63,10 @@ public class Configuration {
   }
 
   private void setMap(String map) {
-    if (map == null) {
-      throw new IllegalStateException("map must be provided");
-    }
     this.map = map;
   }
 
   private void setRace(String race) {
-    if (race == null) {
-      throw new IllegalStateException("race must be provided");
-    }
     this.race = race;
   }
 

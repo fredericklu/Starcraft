@@ -3,6 +3,7 @@ package eisbw;
 import eis.EIDefaultImpl;
 import eis.eis2java.translation.Translator;
 import eis.exceptions.ActException;
+import eis.exceptions.AgentException;
 import eis.exceptions.EntityException;
 import eis.exceptions.ManagementException;
 import eis.exceptions.NoEnvironmentException;
@@ -27,7 +28,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Logger logger = Logger.getLogger("StarCraft Logger");
 
   private static final long serialVersionUID = 1L;
-  private BwapiListener bwapiListener;
+  protected BwapiListener bwapiListener;
   private Configuration configuration;
   private Game game;
 
@@ -54,11 +55,13 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
-      bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode()));
+      if (!"test".equals(configuration.getRace())) {
+        bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode()));
 
-      if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-        WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
-            configuration.getScDir());
+        if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
+          WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
+              configuration.getScDir());
+        }
       }
     } catch (Exception ex) {
       Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,12 +130,17 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    */
   public void deleteFromEnvironment(String unitName) {
     try {
+      for (String agentName : getAssociatedAgents(unitName)) {
+        unregisterAgent(agentName);
+      }
       deleteEntity(unitName);
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
           exception);
     } catch (RelationException exception) {
       logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
+    } catch (AgentException exception) {
+      logger.log(Level.WARNING, "Agent could not be removed", exception);
     }
   }
 

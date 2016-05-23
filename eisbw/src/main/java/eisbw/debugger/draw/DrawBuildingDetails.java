@@ -57,6 +57,7 @@ public class DrawBuildingDetails extends IDraw {
   public void draw(JNIBWAPI api) {
     api.drawHealth(toggle);
     api.drawTargets(toggle);
+    api.drawIDs(toggle);
     super.draw(api);
   }
 }

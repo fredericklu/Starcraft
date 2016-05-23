@@ -16,15 +16,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class BwapiListener extends BwapiEvents {
 
-  private JNIBWAPI bwapi;
-  private Game game;
-  private ActionProvider actionProvider;
-  private Map<Unit, Action> pendingActions;
-  private StarcraftUnitFactory factory;
-  private UpdateThread updateThread;
-  private DebugWindow debug;
-  private boolean debugmode;
-  int count = 0;
+  protected JNIBWAPI bwapi;
+  protected Game game;
+  protected ActionProvider actionProvider;
+  protected Map<Unit, Action> pendingActions;
+  protected StarcraftUnitFactory factory;
+  protected UpdateThread updateThread;
+  protected DebugWindow debug;
+  protected boolean debugmode;
+  protected int count = 0;
 
   /**
    * Event listener for BWAPI.
@@ -73,9 +73,9 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void matchFrame() {
-    Iterator<Entry<Unit,Action>> it = pendingActions.entrySet().iterator();
+    Iterator<Entry<Unit, Action>> it = pendingActions.entrySet().iterator();
     while (it.hasNext()) {
-      Entry<Unit,Action> entry = it.next();
+      Entry<Unit, Action> entry = it.next();
       Unit unit = entry.getKey();
       Action act = entry.getValue();
 
@@ -110,7 +110,7 @@ public class BwapiListener extends BwapiEvents {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().morphUnit(unitName);
+        game.getUnits().deleteUnit(unitName);
         game.getUnits().addUnit(unit, factory);
       }
     }
@@ -125,7 +125,9 @@ public class BwapiListener extends BwapiEvents {
       Thread.currentThread().interrupt();
     }
     pendingActions = new ConcurrentHashMap<>();
-    debug.dispose();
+    if (debug != null) {
+      debug.dispose();
+    }
     game.clean();
   }
 
@@ -141,7 +143,7 @@ public class BwapiListener extends BwapiEvents {
     Unit unit = game.getUnits().getUnits().get(name);
 
     StarcraftAction action = getAction(act);
-    return action.isValid(act) && action.canExecute(unit, act);
+    return action != null && action.isValid(act) && action.canExecute(unit, act);
   }
 
   public StarcraftAction getAction(Action action) {
