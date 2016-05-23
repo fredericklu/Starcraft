@@ -1,0 +1,25 @@
+use ZergZergling as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ZergZerglingEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	% Insert enemy when one is perceived
+	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
+	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
+	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
+	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
+	
+	% The handling of the position 
+	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	
+	% The handling of the health
+	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
+		
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if percept(chokepoint(X, Y)) then adopt(position(X, Y)).
+}

@@ -1,0 +1,12 @@
+use ZergDrone as knowledge.
+
+% Gather action
+define gather(Id) with
+	pre { true }
+	post { true }
+
+% Building action
+define build(Building, X, Y) with
+	pre { cost(Building, M, G), minerals(MQ), M =< MQ, gas(GQ), G =< GQ }
+	post { true }	
+	
