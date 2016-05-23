@@ -1,18 +1,19 @@
-package eisbw;
+package eisbw.units;
 
-import eisbw.units.StarcraftUnit;
-import eisbw.units.StarcraftUnitFactory;
+import eisbw.BwapiUtility;
+import eisbw.StarcraftEnvironmentImpl;
 import jnibwapi.Unit;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Units {
 
-  private Map<String, Unit> unitMap;
-  private Map<Integer, String> unitNames;
-  private Map<String, StarcraftUnit> starcraftUnits;
-  private StarcraftEnvironmentImpl environment;
+  protected Map<String, Unit> unitMap;
+  protected Map<Integer, String> unitNames;
+  protected Map<String, StarcraftUnit> starcraftUnits;
+  protected StarcraftEnvironmentImpl environment;
 
   /**
    * Constructor.
@@ -23,7 +24,7 @@ public class Units {
   public Units(StarcraftEnvironmentImpl environment) {
     unitMap = new HashMap<>();
     unitNames = new HashMap<>();
-    starcraftUnits = new HashMap<>();
+    starcraftUnits = new ConcurrentHashMap<>();
     this.environment = environment;
   }
 
@@ -65,16 +66,13 @@ public class Units {
     return new HashMap<>(starcraftUnits);
   }
 
-  public void morphUnit(String unitName) {
-    environment.deleteFromEnvironment(unitName);
-  }
-
   /**
    * Clean units, let garbage collector remove the remains.
    */
   public void clean() {
-    unitMap = new HashMap<>();
+    for (String unitName : starcraftUnits.keySet()) {
+      deleteUnit(unitName);
+    }
     unitNames = new HashMap<>();
-    starcraftUnits = new HashMap<>();
   }
 }
