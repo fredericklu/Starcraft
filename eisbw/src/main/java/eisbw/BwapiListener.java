@@ -46,6 +46,8 @@ public class BwapiListener extends BwapiEvents {
     new Thread() {
       @Override
       public void run() {
+        Thread.currentThread().setPriority(MAX_PRIORITY);
+        Thread.currentThread().setName("BWAPI thread");
         bwapi.start();
       }
     }.start();
@@ -60,6 +62,7 @@ public class BwapiListener extends BwapiEvents {
     updateThread = new UpdateThread(game, bwapi);
     updateThread.start();
     game.updateConstructionSites(bwapi);
+    game.updateMap(bwapi);
     bwapi.setGameSpeed(5);
 
     // START THE DEBUGGER.

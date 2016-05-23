@@ -28,6 +28,7 @@ public class UpdateThread extends Thread {
   
   @Override
   public void run() {
+    Thread.currentThread().setName("Update thread");
     while (running) {
       game.update(bwapi);
       try {
