@@ -49,5 +49,6 @@ public class ActionProvider {
     actions.put("unload/1", new UnloadUnit(api));
     actions.put("unloadAll/0", new UnloadAll(api));
     actions.put("morph/1", new Morph(api));
+    actions.put("patrol/1", new Patrol(api));
   }
 }
