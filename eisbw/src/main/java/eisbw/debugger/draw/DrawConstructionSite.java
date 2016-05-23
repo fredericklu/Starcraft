@@ -22,16 +22,14 @@ public class DrawConstructionSite extends IDraw {
 
   @Override
   protected void drawOnMap(JNIBWAPI api) throws NoTranslatorException, TranslationException {
-    if (toggle) {
-      Translator translator = Translator.getInstance();
-      List<Percept> percepts = game.getConstructionSites();
-      for (Percept percept : percepts) {
-        LinkedList<Parameter> params = percept.getParameters();
-        int xpos = translator.translate2Java(params.get(0), Integer.class);
-        int ypos = translator.translate2Java(params.get(1), Integer.class);
-        api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-            new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
-      }
+    Translator translator = Translator.getInstance();
+    List<Percept> percepts = game.getConstructionSites();
+    for (Percept percept : percepts) {
+      LinkedList<Parameter> params = percept.getParameters();
+      int xpos = translator.translate2Java(params.get(0), Integer.class);
+      int ypos = translator.translate2Java(params.get(1), Integer.class);
+      api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
     }
   }
 
