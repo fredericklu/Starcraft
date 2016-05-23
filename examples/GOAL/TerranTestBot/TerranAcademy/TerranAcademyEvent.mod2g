@@ -1,0 +1,12 @@
+use TerranAcademy as actionspec.
+use TerranAcademy as knowledge.
+
+module TerranAcademyEvent {
+
+	if percept(hasResearched(X)), bel(not(hasResearched(X))) then insert(hasResearched(X)).
+	
+	if percept(upgrading(X)), bel(not(upgrade(X))) then insert(upgrade(X)).
+	
+	if bel(not(hasResearched('Stim Packs'))) then adopt(hasResearched('Stim Packs')).
+	
+}

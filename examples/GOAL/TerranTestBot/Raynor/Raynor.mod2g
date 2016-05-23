@@ -1,0 +1,26 @@
+use Raynor as knowledge.
+
+module Raynor {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If enough marines gathered, tell marines to attack
+	forall bel(allReady) do allother.send(attack).
+	
+	% If scv info received, insert it in knowledge base
+	forall (Name).sent(scv(Id)) do insert(scv(Name, Id)).
+	
+	% If marine is ready, insert it in knowledge base
+	forall (_).sent:(ready(Id)) do insert(ready(Id)).	
+	
+	% If believe done1, but the corresponding scv does not exist anymore, delete done1 from knowledge base
+	if bel(done1(Name, Id), not(scv(Name, Id))) then delete(done1(Name, Id)).
+	
+	% If not believing done1 yet and have info about scv, insert in knowledge base and tell the scv he is the builder 
+	if bel(not(done1(Name, Id)), scv(Name, Id), not(done2(Name, Id))) then insert(done1(Name, Id)) + (Name).send(builder).
+	
+	% If believe done2, but the corresponding scv does not exist anymore, delete done2 from knowledge base
+	if bel(done2(Name, Id), not(scv(Name, Id))) then delete(done2(Name, Id)).
+	
+	% If not believing done2 yet and have info about scv, insert in knowledge base and tell the scv he is the backup-builder 
+	if bel(not(done2(Name, Id)), scv(Name, Id), not(done1(Name, Id))) then insert(done2(Name, Id)) + (Name).send(backupBuilder).
+}

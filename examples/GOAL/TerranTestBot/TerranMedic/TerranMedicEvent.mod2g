@@ -1,0 +1,16 @@
+use "../GenericMods/GenericPredicates" as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+
+module TerranMedicEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The generic percepts most units use
+	if true then GenericPercepts.
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If bel to attack then adopt goal to attack enemy base
+	if bel(friendly("Terran Marine", Id, _, _, _, _), not(following(_))) then adopt(following(Id)) + allother.send(following(Id)).
+	 
+}
