@@ -123,10 +123,6 @@ public class WorkerPerceiver extends UnitPerceiver {
       conditions.add(new Identifier("carrying"));
     }
 
-    if (unit.isGatheringGas() || unit.isGatheringMinerals()) {
-      conditions.add(new Identifier("gathering"));
-    }
-
     if (unit.isConstructing()) {
       conditions.add(new Identifier("constructing"));
     }
