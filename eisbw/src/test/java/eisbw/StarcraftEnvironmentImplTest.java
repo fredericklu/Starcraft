@@ -16,8 +16,6 @@ import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eisbw.actions.Siege;
-import eisbw.actions.StarcraftAction;
-import jnibwapi.Unit;
 
 import org.junit.Before;
 import org.junit.Test;
