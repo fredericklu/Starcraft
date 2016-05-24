@@ -29,7 +29,6 @@ public class Upgrade extends StarcraftAction {
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    // TODO check unit type (can be buildings that can train units)
     return UnitTypesEx.isUpgradeCapable(unit.getType());
   }
 

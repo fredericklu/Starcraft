@@ -8,7 +8,7 @@ public class WindowsToolsTest {
 
   @Test
   public void test() {
-    assertNotNull(WindowsTools.getIniFile("race", "map", "scDir"));
+    assertNotNull(WindowsTools.getIniFile("race", "map"));
   }
 
 }
