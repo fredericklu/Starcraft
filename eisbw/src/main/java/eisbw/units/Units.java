@@ -24,8 +24,8 @@ public class Units {
    */
   public Units(StarcraftEnvironmentImpl environment) {
     unitMap = new HashMap<>();
-    unitNames = new HashMap<>();
-    starcraftUnits = new ConcurrentHashMap<>();
+    unitNames = new ConcurrentHashMap<>();
+    starcraftUnits = new HashMap<>();
     this.environment = environment;
   }
 
