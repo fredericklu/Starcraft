@@ -24,6 +24,7 @@ public class SpeedSlider extends JPanel {
   public SpeedSlider() {
     final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
     slider.addChangeListener(new ChangeListener() {
+      @Override
       public void stateChanged(ChangeEvent event) {
         changed = true;
         speed = slider.getValue();

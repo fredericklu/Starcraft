@@ -123,10 +123,10 @@ public class BwapiListenerTest {
   @Test
   public void unitDestroy_test() {
     listener.unitDestroy(0);
-    verify(units,times(0)).deleteUnit(any(String.class));
+    verify(units,times(0)).deleteUnit(any(String.class),any(Integer.class));
     when(units.getUnitNames()).thenReturn(unitNames);
     listener.unitDestroy(0);
-    verify(units,times(1)).deleteUnit(any(String.class));
+    verify(units,times(1)).deleteUnit(any(String.class),any(Integer.class));
   }
   
   @Test

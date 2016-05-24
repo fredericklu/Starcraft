@@ -103,7 +103,20 @@ public class BwapiListener extends BwapiEvents {
   public void unitDestroy(int id) {
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
-      game.getUnits().deleteUnit(unitName);
+      Unit unit = bwapi.getUnit(id);
+      if (unit != null && unit.isExists()
+          && "terran Siege Tank".equals(BwapiUtility.getEisUnitType(unit))) {
+        return;
+      }
+      game.getUnits().deleteUnit(unitName,id);
+    }
+  }
+
+  @Override
+  public void unitComplete(int unitId) {
+    Unit unit = bwapi.getUnit(unitId);
+    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+      game.getUnits().addUnit(unit, factory);
     }
   }
 
@@ -113,7 +126,7 @@ public class BwapiListener extends BwapiEvents {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().deleteUnit(unitName);
+        game.getUnits().deleteUnit(unitName,id);
         game.getUnits().addUnit(unit, factory);
       }
     }
@@ -132,14 +145,6 @@ public class BwapiListener extends BwapiEvents {
       debug.dispose();
     }
     game.clean();
-  }
-
-  @Override
-  public void unitComplete(int unitId) {
-    Unit unit = bwapi.getUnit(unitId);
-    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
-      game.getUnits().addUnit(unit, factory);
-    }
   }
 
   protected boolean isSupportedByEntity(Action act, String name) {

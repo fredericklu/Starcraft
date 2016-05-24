@@ -21,7 +21,9 @@ public class BwapiUtility {
 
   /**
    * Get the name of a unit.
-   * @param unit - the unit that has to be named.
+   * 
+   * @param unit
+   *          - the unit that has to be named.
    * @return the name of the unit.
    */
   public static String getUnitName(Unit unit) {
@@ -32,18 +34,25 @@ public class BwapiUtility {
 
   /**
    * Get the EIS unittype of a unit.
-   * @param unit - the unit that you want yhe Type from.
+   * 
+   * @param unit
+   *          - the unit that you want yhe Type from.
    * @return the type of a unit.
    */
   public static String getEisUnitType(Unit unit) {
     String type = unit.getType().getName().replace(" ", "");
     type = type.substring(0, 1).toLowerCase() + type.substring(1);
+    if ("terran Siege Tank Tank Mode".equals(type) || "terran Siege Tank Siege Mode".equals(type)) {
+      return "terran Siege Tank";
+    }
     return type;
   }
 
   /**
    * Convert EIS type to unit.
-   * @param type - the type to be converted.
+   * 
+   * @param type
+   *          - the type to be converted.
    * @return the unit.
    */
   public static UnitType getUnitType(String type) {
@@ -58,7 +67,9 @@ public class BwapiUtility {
 
   /**
    * Convert type string to a techtype.
-   * @param type - the string to be converted.
+   * 
+   * @param type
+   *          - the string to be converted.
    * @return a techtype.
    */
   public static TechType getTechType(String type) {
@@ -73,7 +84,9 @@ public class BwapiUtility {
 
   /**
    * Convert a string to a upgradetype.
-   * @param type - the string to be converted.
+   * 
+   * @param type
+   *          - the string to be converted.
    * @return a upgradetype.
    */
   public static UpgradeType getUpgradeType(String type) {
