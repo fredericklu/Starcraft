@@ -7,7 +7,6 @@ import eis.exceptions.AgentException;
 import eis.exceptions.EntityException;
 import eis.exceptions.ManagementException;
 import eis.exceptions.NoEnvironmentException;
-import eis.exceptions.PerceiveException;
 import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eis.iilang.EnvironmentState;
@@ -71,7 +70,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
-      throws PerceiveException, NoEnvironmentException {
+      throws NoEnvironmentException {
     return (LinkedList<Percept>) game.getPercepts(entity);
   }
 

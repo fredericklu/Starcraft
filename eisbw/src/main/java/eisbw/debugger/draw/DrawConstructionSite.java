@@ -1,6 +1,5 @@
 package eisbw.debugger.draw;
 
-import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
 import eis.eis2java.translation.Translator;
 import eis.iilang.Parameter;
@@ -21,7 +20,7 @@ public class DrawConstructionSite extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws NoTranslatorException, TranslationException {
+  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
     Translator translator = Translator.getInstance();
     List<Percept> percepts = game.getConstructionSites();
     for (Percept percept : percepts) {

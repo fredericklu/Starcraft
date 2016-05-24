@@ -1,6 +1,5 @@
 package eisbw.debugger.draw;
 
-import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
 import jnibwapi.JNIBWAPI;
@@ -15,7 +14,7 @@ public class AgentCounter extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws NoTranslatorException, TranslationException {
+  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
     api.drawText(new Position(10, 10, PosType.PIXEL), "Agentcount: " + game.getAgentCount(), true);
   }
 

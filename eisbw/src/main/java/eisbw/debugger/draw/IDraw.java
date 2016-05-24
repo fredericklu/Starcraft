@@ -20,7 +20,7 @@ public abstract class IDraw {
   }
 
   protected abstract void drawOnMap(JNIBWAPI api)
-      throws NoTranslatorException, TranslationException;
+      throws TranslationException;
 
   /**
    * Draw on the map.
