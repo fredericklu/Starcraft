@@ -1,0 +1,17 @@
+use TerranAcademy as knowledge.
+use "../GenericMods/GenericPredicates.pl" as knowledge.
+use "../GenericMods/GenericPercepts.mod2g" as module.
+
+module TerranAcademyEvent {
+
+	if true then GenericPercepts.
+	
+	if percept(hasResearched(X)), bel(not(hasResearched(X))) then insert(hasResearched(X)).
+	
+	if percept(upgrading(X)), bel(not(upgrade(X))) then insert(upgrade(X)).
+	
+	if percept(friendly("Terran Marine", Id, _, _ ,_ ,_)), bel(not(friendly("Terran Marine", Id, _, _ ,_ ,_))) then allother.send(stim).
+	
+	if bel(not(hasResearched('Stim Packs'))) then adopt(hasResearched('Stim Packs')).
+	
+}
