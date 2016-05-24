@@ -1,8 +1,8 @@
 package eisbw.units;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -66,7 +66,7 @@ public class UnitsTest {
 
   @Test
   public void getStarcraftUnits_test() {
-    assertFalse(units.getStarcraftUnits() == units.starcraftUnits);
+    assertTrue(units.getStarcraftUnits() == units.starcraftUnits);
   }
 
 }
