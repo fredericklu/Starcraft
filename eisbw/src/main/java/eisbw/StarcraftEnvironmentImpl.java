@@ -16,7 +16,6 @@ import eisbw.configuration.Configuration;
 import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceTypeTranslator;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -50,7 +49,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   public void init(Map<String, Parameter> parameters) throws ManagementException {
     super.init(parameters);
     setState(EnvironmentState.PAUSED);
-    Thread.currentThread().setPriority(3);
+
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
