@@ -8,6 +8,7 @@ import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType.RaceTypes;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -103,11 +104,6 @@ public class BwapiListener extends BwapiEvents {
   public void unitDestroy(int id) {
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
-      Unit unit = bwapi.getUnit(id);
-      if (unit != null && unit.isExists()
-          && "terran Siege Tank".equals(BwapiUtility.getEisUnitType(unit))) {
-        return;
-      }
       game.getUnits().deleteUnit(unitName, id);
     }
   }
@@ -122,6 +118,9 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void unitMorph(int id) {
+    if (bwapi.getSelf().getRace().getID() != RaceTypes.Zerg.getID()) {
+      return;
+    }
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);

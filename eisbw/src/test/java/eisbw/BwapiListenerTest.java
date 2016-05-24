@@ -17,7 +17,9 @@ import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import org.junit.Before;
@@ -50,6 +52,8 @@ public class BwapiListenerTest {
   private UnitType unitType;
   @Mock
   private DebugWindow debug;
+  @Mock
+  private Player self;
 
   /**
    * Init mocks.
@@ -109,6 +113,9 @@ public class BwapiListenerTest {
   
   @Test
   public void unitMorph_test() {
+    when(bwapi.getSelf()).thenReturn(self);
+    when(self.getRace()).thenReturn(RaceTypes.Zerg);
+    
     listener.unitMorph(0);
     verify(units, times(0)).getUnits();
     when(units.getUnitNames()).thenReturn(unitNames);
