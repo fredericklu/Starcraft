@@ -4,7 +4,6 @@ import eisbw.BwapiUtility;
 import eisbw.StarcraftEnvironmentImpl;
 import jnibwapi.Unit;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,9 +22,9 @@ public class Units {
    *          - the SC environment
    */
   public Units(StarcraftEnvironmentImpl environment) {
-    unitMap = new HashMap<>();
+    unitMap = new ConcurrentHashMap<>();
     unitNames = new ConcurrentHashMap<>();
-    starcraftUnits = new HashMap<>();
+    starcraftUnits = new ConcurrentHashMap<>();
     this.environment = environment;
   }
 
@@ -67,7 +66,7 @@ public class Units {
   }
 
   public Map<String, StarcraftUnit> getStarcraftUnits() {
-    return new HashMap<>(starcraftUnits);
+    return starcraftUnits;
   }
 
   /**
