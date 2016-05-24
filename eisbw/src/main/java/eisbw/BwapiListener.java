@@ -66,7 +66,7 @@ public class BwapiListener extends BwapiEvents {
     game.updateMap(bwapi);
     bwapi.setGameSpeed(5);
 
-    // START THE DEBUGGER.
+    // START THE DEBUG TOOLS.
     if (debugmode) {
       debug = new DebugWindow(game);
       bwapi.drawTargets(true);
