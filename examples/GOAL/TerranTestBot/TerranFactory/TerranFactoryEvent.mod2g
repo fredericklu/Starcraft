@@ -15,7 +15,6 @@ module TerranFactoryEvent {
 	
 	%if percept(condition(NewList)), bel(member('Terran Machine Shop', NewList), condition(OldList), not(member('Terran Machine Shop', OldList))) then insert(shop).
 	%if bel(shop), percept(condition(List)), bel(not(member('Terran Machine Shop', List))) then delete(shop).
-	if percept(condition(List)) then print(List).
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
