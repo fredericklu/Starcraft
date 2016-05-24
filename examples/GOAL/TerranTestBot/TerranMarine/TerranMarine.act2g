@@ -10,3 +10,8 @@ define attack(Id) with
 	pre{true}
 	post{true}
 
+define ability(Type) with
+	pre{true}
+	post{true}
+
+

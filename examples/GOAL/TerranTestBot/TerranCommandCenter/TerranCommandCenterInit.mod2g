@@ -7,6 +7,11 @@ module TerranCommandCenterInit {
 	% Init queueSize percept
 	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
 	
+	% Perceive base locations
+	forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)).
+	
 	% Init resources percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
+	
+	if percept(condition(List)) then insert(condition(List)).
 }

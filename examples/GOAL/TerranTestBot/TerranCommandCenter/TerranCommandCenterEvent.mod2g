@@ -7,6 +7,9 @@ module TerranCommandCenterEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.
 	
+	if percept(condition(NewList)), bel(member(lifted, NewList), condition(OldList), not(member(lifted, OldList))) then insert(lifted).
+	if bel(lifted), percept(condition(List)), bel(not(member(lifted, List))) then delete(lifted).
+	
 	% The handling of the queueSize percept
 	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
 	

@@ -7,6 +7,9 @@ module main{
 		%if bel(not(research('Restoration'))) then research('Restoration').
 		%if bel(not(research('Stim Packs'))) then research('Stim Packs').
 		
+		if a-goal(hasResearched('Stim Packs')), bel(minerals(M), M >= 100, gas(G), G >= 100) then research('Stim Packs') + 
+		allother.send(stim).
+		
 		if bel(not(upgrade('U-238 Shells'))) then upgrade('U-238 Shells').
 }
 

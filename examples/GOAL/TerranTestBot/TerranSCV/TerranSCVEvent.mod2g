@@ -37,6 +37,8 @@ module TerranSCVEvent {
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
+	if not(goal(unitAmount("Terran Factory", 1))), bel(friendly("Terran Barracks", _, _, _, _, _)) then adopt(unitAmount("Terran Factory", 1)).
+	
 	% If there are 8 scv units, start building barracks
 	if bel(builder ; (backupBuilder, unitAmount("Terran Barracks", 1)), unitAmount("Terran SCV", 8)) then adopt(unitAmount("Terran Barracks", 2)).
 	

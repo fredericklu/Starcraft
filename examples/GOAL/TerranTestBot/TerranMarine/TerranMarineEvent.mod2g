@@ -14,6 +14,10 @@ module TerranMarineEvent {
 	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
 	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
 	
+	% The handling of condition stim
+	if percept(condition(NewList)), bel(member(stimmed, NewList), condition(OldList), not(member(stimmed, OldList))) then insert(stimmed).
+	if bel(stimmed), percept(condition(List)), bel(not(member(stimmed, List))) then delete(stimmed).
+	
 	% The handling of the position 
 	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
@@ -29,8 +33,10 @@ module TerranMarineEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If bel to attack then adopt goal to attack enemy base
-	if bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
+	%if not(goal(attack(_, _))), bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
+	
+	if (_).sent(stim) then adopt(stimmed).
 	
 	% if someone is attacking and not flying, kill him
-	if percept(attacking(Id, _)), bel(enemy(_, Id,_,_,false,_,_)) then adopt(attack(Id)). 
+	%if not(goal(attack(_))), percept(attacking(Id, _)), bel(enemy(_, Id,_,_,false,_,_)) then adopt(attack(Id)). 
 }

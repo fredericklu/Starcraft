@@ -35,6 +35,30 @@ define terranMedic as agent {
 	use TerranMedic.TerranMedicEvent as event module.
 }
 
+define terranAcademy as agent {
+	use TerranAcademy.TerranAcademyInit as init module.
+	use TerranAcademy.TerranAcademy as main module.
+	use TerranAcademy.TerranAcademyEvent as event module.
+}
+
+define terranEngineeringBay as agent {
+	use TerranEngineeringBay.TerranEngineeringBayInit as init module.
+	use TerranEngineeringBay.TerranEngineeringBay as main module.
+	use TerranEngineeringBay.TerranEngineeringBayEvent as event module.
+}
+
+define terranFactory as agent {
+	use TerranFactory.TerranFactoryInit as init module.
+	use TerranFactory.TerranFactory as main module.
+	use TerranFactory.TerranFactoryEvent as event module.
+}
+
+define terranSiegeTankTankMode as agent{
+	use TerranSiegeTankTankMode.TerranSiegeTankTankMode as main module.
+	use TerranSiegeTankTankMode.TerranSiegeTankTankModeEvent as event module.
+	use TerranSiegeTankTankMode.TerranSiegeTankTankModeInit as init module. 
+}
+
 define raynor as agent {
 	use Raynor.Raynor as main module.	
 }
@@ -46,4 +70,8 @@ launchpolicy{
 	when type = terranBarracks launch terranBarracks.
 	when type = terranMarine launch terranMarine.
 	when type = terranMedic launch terranMedic.
+	when type = terranAcademy launch terranAcademy.
+	when type = terranEngineeringBay launch terranEngineeringBay.
+	when type = terranFactory launch terranFactory.
+	when type = terranSiegeTankTankMode launch terranSiegeTankTankMode.
 }

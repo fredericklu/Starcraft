@@ -12,4 +12,7 @@ gas/1,
 supply/2,
 train/1,
 trainSCV/0,
-unitAmount/2.
+unitAmount/2,
+lifted/0,
+condition/1,
+base/4.

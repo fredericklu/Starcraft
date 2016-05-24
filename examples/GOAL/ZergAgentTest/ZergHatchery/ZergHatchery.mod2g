@@ -10,5 +10,5 @@ module ZergHatchery {
 	%if a-goal(unitAmount("Zerg Drone",20)), bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then train("Zerg Drone").
 		
 	% If goal to make zergling and have enough minerals, start training zerglings
-	if a-goal(unitAmount("Zerg Zergling", 200)), bel(minerals(M), M >= 50) then train("Zerg Zergling").
+	if a-goal(unitAmount("Zerg Zergling", 200)), bel(minerals(M), M >= 100) then train("Zerg Zergling").
 }

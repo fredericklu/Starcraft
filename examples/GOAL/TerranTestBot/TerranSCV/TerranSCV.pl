@@ -22,8 +22,13 @@ vespeneGeyser/2.
 		cost("Terran Command Center",400,0).
 		cost("Terran Supply Depot", 100, 0).
 		cost("Terran Barracks", 150, 0).
+		cost("Terran Bunker", 100, 0).
 		cost("Terran Refinery", 100, 0).
-		cost("Terran Academy", 150,0).
+		cost('Terran Academy',150,0).
+		cost("Terran Engineering Bay", 125, 0).
+		cost("Terran Factory", 200, 100).
+		cost('Terran Starport',150,100).
+		cost("Terran Science Facility", 100, 150).
 						
 		distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).
 			

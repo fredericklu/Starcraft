@@ -1,0 +1,8 @@
+use TerranSiegeTankTankMode as actionspec.
+use TerranSiegeTankTankMode as knowledge.
+
+module main{
+	if a-goal(sieged) then ability("Tank Siege Mode").
+	
+	if a-goal(unsieged), bel(sieged) then ability("Tank Siege Mode") + insert(unsieged).
+}

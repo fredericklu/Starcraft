@@ -1,11 +1,11 @@
 use TerranAcademy as knowledge.
 
 define upgrade(Type) with
-	pre {not(upgrading)}
+	pre {true}
 	post {true}
 	
 define research(Name) with
-	pre{not(researching)}
+	pre{true}
 	post{true}
 		
 define skip with 
