@@ -1,0 +1,21 @@
+use TerranSCV as knowledge.
+
+module taTerranSCVInit {
+	% Send probe info to Tassadar
+	if percept(self(Id,Type)) then insert(self(Id, Type)) + (raynor).send:(scv(Id)).
+		
+	% Init resource percepts
+	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
+		
+	% Perceive base locations
+	forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)).
+		
+	% Init ConstructionSites
+	forall percept(constructionSite(X,Y)) do insert(constructionSite(X,Y)).
+		
+	% Perceive chokepoints of the map 
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+		
+	% Init conditions
+	if percept(condition(List)) then insert(condition(List)).
+}

@@ -70,7 +70,7 @@ public class BuildingPerceiver extends UnitPerceiver {
     if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 
       if (unit.isLifted()) {
-        conditions.add(new Identifier("isLifted"));
+        conditions.add(new Identifier("lifted"));
       }
 
       if (unit.getAddon() != null) {

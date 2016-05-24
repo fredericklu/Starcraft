@@ -25,5 +25,5 @@ module ZergHatcheryEvent {
 	unitAmount("Zerg Overlord",Amount), NewAmount is Amount + 1) then adopt(unitAmount("Zerg Overlord", NewAmount)).
 	
 	% If there is a Spawning Pool start making zerglings
-	if bel(friendly("Zerg Spawning Pool", _, _, _, _, _)) then adopt(unitAmount("Zerg Zergling", 50)).	
+	if not(goal(unitAmount("Zerg Zergling", 50))), bel(friendly("Zerg Spawning Pool", _, _, _, _, _)) then adopt(unitAmount("Zerg Zergling", 50)).	
 }
