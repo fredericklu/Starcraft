@@ -1,6 +1,5 @@
 package eisbw.configuration;
 
-import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
 import eis.eis2java.translation.Translator;
 import eis.iilang.Identifier;
@@ -17,13 +16,13 @@ public class Configuration {
   protected String debug = "false";
 
   public Configuration(Map<String, Parameter> parameters)
-      throws NoTranslatorException, TranslationException {
+      throws TranslationException {
     parseParams(parameters);
     checkSanity();
   }
 
   private void parseParams(Map<String, Parameter> parameters)
-      throws NoTranslatorException, TranslationException {
+      throws TranslationException {
     Translator translator = Translator.getInstance();
     for (Entry<String, Parameter> entry : parameters.entrySet()) {
       ParamEnum param = translator.translate2Java(new Identifier(entry.getKey()), ParamEnum.class);

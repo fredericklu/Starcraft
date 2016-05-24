@@ -3,10 +3,10 @@ package eisbw;
 import eis.EIDefaultImpl;
 import eis.eis2java.translation.Translator;
 import eis.exceptions.ActException;
+import eis.exceptions.AgentException;
 import eis.exceptions.EntityException;
 import eis.exceptions.ManagementException;
 import eis.exceptions.NoEnvironmentException;
-import eis.exceptions.PerceiveException;
 import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eis.iilang.EnvironmentState;
@@ -18,6 +18,7 @@ import eisbw.translators.RaceTypeTranslator;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +51,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     super.init(parameters);
     setState(EnvironmentState.PAUSED);
     Thread.currentThread().setPriority(3);
-    
+
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
@@ -69,7 +70,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
-      throws PerceiveException, NoEnvironmentException {
+      throws NoEnvironmentException {
     return (LinkedList<Percept>) game.getPercepts(entity);
   }
 
@@ -118,12 +119,18 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    */
   public void deleteFromEnvironment(String unitName) {
     try {
+      Set<String> agents = getAssociatedAgents(unitName);
       deleteEntity(unitName);
+      for (String agent : agents) {
+        unregisterAgent(agent);
+      }
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
           exception);
     } catch (RelationException exception) {
       logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
+    } catch (AgentException exception) {
+      logger.log(Level.WARNING, "Exception when deleting agent from the environment", exception);
     }
   }
 
