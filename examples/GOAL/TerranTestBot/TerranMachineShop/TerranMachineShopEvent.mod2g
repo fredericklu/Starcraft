@@ -1,0 +1,15 @@
+use TerranMachineShop as knowledge.
+use "../GenericMods/GenericPredicates.pl" as knowledge.
+use "../GenericMods/GenericPercepts.mod2g" as module.
+
+module TerranMachineShopEvent {
+	if true then GenericPercepts.
+	
+	if percept(hasResearched(X)), bel(not(hasResearched(X))) then insert(hasResearched(X)).
+	
+	if percept(upgrading(X)), bel(not(upgrade(X))) then insert(upgrade(X)).
+	
+	if percept(friendly("Terran Siege Tank Tank Mode", Id, _, _ ,_ ,_)), bel(not(friendly("Terran Siege Tank Tank Mode", Id, _, _ ,_ ,_))) then allother.send(siegeUpgrade).
+	
+	if bel(not(hasResearched('Tank Siege Mode'))) then adopt(hasResearched('Tank Siege Mode')).
+}

@@ -1,0 +1,13 @@
+use TerranMachineShop as actionspec.
+use TerranMachineShop as knowledge.
+use "../GenericMods/GenericPredicates.pl" as knowledge.
+
+
+module main{	
+	
+		if percept(isBeingConstructed) then skip.
+		
+		if a-goal(hasResearched('Tank Siege Mode')), bel(minerals(M), M >= 150, gas(G), G >= 150) then research('Tank Siege Mode') + 
+		allother.send(siegeUpgrade).
+		
+}

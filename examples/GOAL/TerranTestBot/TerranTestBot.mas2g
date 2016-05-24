@@ -59,6 +59,16 @@ define terranSiegeTank as agent{
 	use TerranSiegeTankTankMode.TerranSiegeTankTankModeInit as init module. 
 }
 
+define terranBunker as agent {
+	use TerranBunker.TerranBunker as main module.
+	use TerranBunker.TerranBunkerEvent as event module.
+}
+
+define terranMachineShop as agent{
+	use TerranMachineShop.TerranMachineShop as main module.
+	use TerranMachineShop.TerranMachineShopEvent as event module.
+}
+
 define raynor as agent {
 	use Raynor.Raynor as main module.	
 }
@@ -74,4 +84,6 @@ launchpolicy{
 	when type = terranEngineeringBay launch terranEngineeringBay.
 	when type = terranFactory launch terranFactory.
 	when type = terranSiegeTank launch terranSiegeTank.
+	when type = terranMachineShop launch terranMachineShop.
+	when type = terranBunker launch terranBunker.
 }

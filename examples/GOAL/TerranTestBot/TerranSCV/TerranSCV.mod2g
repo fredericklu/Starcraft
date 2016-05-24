@@ -5,8 +5,10 @@ module main{
 	if a-goal(unitAmount("Terran Supply Depot", N)), bel(constructionSite(X,Y), supply(CS, TS), TS - CS < 8,
 	minerals(M), M >= 100, N > 1) then build("Terran Supply Depot", X, Y).
 	
-	if a-goal(unitAmount("Terran Factory", 1)), bel(constructionSite(X,Y), minerals(M), M >= 200, gas(G), G >= 100) then 
-	build("Terran Factory", X, Y).
+	if a-goal(unitAmount("Terran Factory", 1)), bel(not(unitAmount("Terran Factory", _)), 
+	constructionSite(X,Y), minerals(M), M >= 200, gas(G), G >= 100) then build("Terran Factory", X, Y).
+	
+	if a-goal(unitAmount("Terran Bunker", 1)), bel(constructionSite(X, Y), minerals(M), M >= 100) then build("Terran Bunker", X, Y).
 	
 	if bel(workerActivity(Id, gatheringGas), self(Id, _), gas(G), G > 125) then stop. 
 	

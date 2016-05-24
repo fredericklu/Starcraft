@@ -3,6 +3,8 @@ use "../GenericMods/GenericPercepts" as module.
 
 
 module TerranSiegeTankTankModeEvent {
+	if (_).sent(siegeUpgrade) then insert(siegeUpgrade).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% The generic percepts most units use
@@ -23,7 +25,7 @@ module TerranSiegeTankTankModeEvent {
 
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	if not(goal(sieged)), not(bel(sieged)) then adopt(sieged).
+	if not(goal(sieged)), bel(not(sieged), siegeUpgrade) then adopt(sieged).
 	
 	if not(goal(unsieged)), not(bel(unsieged)) then adopt(unsieged).
 	

@@ -39,6 +39,8 @@ module TerranSCVEvent {
 	
 	if not(goal(unitAmount("Terran Factory", 1))), bel(friendly("Terran Barracks", _, _, _, _, _)) then adopt(unitAmount("Terran Factory", 1)).
 	
+	if bel(builder, friendly("Terran Barracks",_ ,_,_,_,_), not(friendly("Terran Bunker",_ ,_,_,_,_))) then adopt(unitAmount("Terran Bunker", 1)).
+	
 	% If there are 8 scv units, start building barracks
 	if bel(builder ; (backupBuilder, unitAmount("Terran Barracks", 1)), unitAmount("Terran SCV", 8)) then adopt(unitAmount("Terran Barracks", 2)).
 	
@@ -49,7 +51,7 @@ module TerranSCVEvent {
 	if bel(backupBuilder, unitAmount("Terran Barracks", 2), not(unitAmount("Terran Academy", 1))) then adopt(unitAmount("Terran Academy", 1)).
 	
 	% Build Supply Depots for supply
-	if not(goal(unitAmount("Terran Supply Depot", _))), bel(builder, unitAmount("Terran Supply Depot", N), M is N +1, unitAmount("Terran Barracks", 2), 
+	if not(goal(unitAmount("Terran Supply Depot", _))), bel(builder, unitAmount("Terran Supply Depot", N), M is N +1, 
 	supply(CS, TS), TS - CS < 8, not(constructing)) then adopt(unitAmount("Terran Supply Depot", M)).
 	
 	% If there is a refinery and not enough scv units are gathering gas, adopt goal to do so
