@@ -110,7 +110,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   }
 
   /**
-   * Deletes a unit to the environment.
+   * Deletes a unit drom the environment.
    * 
    * @param unitName
    *          - the name of the unit
