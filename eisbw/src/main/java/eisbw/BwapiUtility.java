@@ -42,8 +42,8 @@ public class BwapiUtility {
   public static String getEisUnitType(Unit unit) {
     String type = unit.getType().getName().replace(" ", "");
     type = type.substring(0, 1).toLowerCase() + type.substring(1);
-    if ("terran Siege Tank Tank Mode".equals(type) || "terran Siege Tank Siege Mode".equals(type)) {
-      return "terran Siege Tank";
+    if ("terranSiegeTankTankMode".equals(type) || "terranSiegeTankSiegeMode".equals(type)) {
+      return "terranSiegeTank";
     }
     return type;
   }

@@ -108,7 +108,7 @@ public class BwapiListener extends BwapiEvents {
           && "terran Siege Tank".equals(BwapiUtility.getEisUnitType(unit))) {
         return;
       }
-      game.getUnits().deleteUnit(unitName,id);
+      game.getUnits().deleteUnit(unitName, id);
     }
   }
 
@@ -126,7 +126,7 @@ public class BwapiListener extends BwapiEvents {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().deleteUnit(unitName,id);
+        game.getUnits().deleteUnit(unitName, id);
         game.getUnits().addUnit(unit, factory);
       }
     }
