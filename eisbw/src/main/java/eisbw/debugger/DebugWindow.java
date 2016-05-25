@@ -25,7 +25,7 @@ public class DebugWindow extends JFrame {
    *          - the game data.
    */
   public DebugWindow(Game game) {    
-    setTitle("StarCraft GOAL visualizer");
+    setTitle("StarCraft GOAL development tools");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(500, 300);
 

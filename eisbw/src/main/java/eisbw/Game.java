@@ -37,7 +37,7 @@ public class Game {
   }
 
   /**
-   * update the map.
+   * Update the map.
    * @param api - the API.
    */
   public void updateMap(JNIBWAPI api) {
