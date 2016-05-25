@@ -8,14 +8,14 @@ module GenericPercepts {
 	if percept(resources(_, G, _, _)), bel(gas(OG), not(OG == G)) then delete(gas(OG)) + insert(gas(G)).
 	
 	% The handling of the friendly units percept
-	forall percept(unit(true, Type,Id,Health,Shields,_,X,Y)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields,X,Y)), MyId \= Id) 
+	forall percept(unit(true, Type,Id,Health,Shields,_,_,_,X,Y)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields,X,Y)), MyId \= Id) 
 	do insert(friendly(Type, Id, Health, Shields, X, Y)).
-	forall bel(friendly(Type, Id, Health, Shields, X, Y)) , not(percept(unit(true, Type,Id,Health,Shields,_,X,Y)))
+	forall bel(friendly(Type, Id, Health, Shields, X, Y)) , not(percept(unit(true, Type,Id,Health,Shields,_,_,_,X,Y)))
 	do delete(friendly(Type,Id,Health, Shields,X,Y)).
 	
 	% The handling of the isMorphing percept
-	forall percept(isMorphing(Name, Id)), not(bel(isMorphing(Name, Id))) do insert(isMorphing(Name, Id)).
-	forall bel(isMorphing(Name, Id)), not(percept(isMorphing(Name, Id))) do delete(isMorphing(Name, Id)).
+	forall percept(unit(true, Type,Id,_,_,_,true,_,_,_)), not(bel(isMorphing(Type, Id))) do insert(isMorphing(Type, Id)).
+	forall bel(isMorphing(Type, Id)), not(percept(unit(true, Type,Id,_,_,_,false,_,_,_))) do delete(isMorphing(Type, Id)).
 	
 	% The handling of the unitAmount percept
 	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).

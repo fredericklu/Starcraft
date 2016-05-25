@@ -29,9 +29,7 @@ public class Percepts {
   public static final String RALLYUNIT = "rallyUnit";
   public static final String LOADABLE = "loadable";
   public static final String UPGRADING = "upgrading";
-  public static final String ISMORPHING = "isMorphing";
   public static final String ENERGY = "energy";
-  public static final String ISCLOACKED = "isCloaked";
   public static final String HASRESEARCHED = "hasResearched";
   
   private Percepts() {

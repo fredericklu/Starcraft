@@ -41,6 +41,8 @@ public class UnitsPercieverTest {
     when(unit.getType()).thenReturn(unitType);
     when(unitType.getName()).thenReturn("unitType");
     when(unitType.isFlyer()).thenReturn(true);
+    when(unit.isMorphing()).thenReturn(true);
+    when(unit.isCloaked()).thenReturn(false);
     when(unit.getID()).thenReturn(1);
     when(unit.getHitPoints()).thenReturn(20);
     when(unit.getShields()).thenReturn(10);
@@ -58,21 +60,10 @@ public class UnitsPercieverTest {
     assertEquals("20", perciever.perceive().get(0).getParameters().get(3).toProlog());
     assertEquals("10", perciever.perceive().get(0).getParameters().get(4).toProlog());
     assertEquals("true", perciever.perceive().get(0).getParameters().get(5).toProlog());
-    assertEquals("34", perciever.perceive().get(0).getParameters().get(6).toProlog());
-    assertEquals("45", perciever.perceive().get(0).getParameters().get(7).toProlog());
-  }
-
-  @Test
-  public void morphing_test() {
-    when(unit.isMorphing()).thenReturn(true);
-    when(unit.getBuildType()).thenReturn(unitType);
-    assertEquals("isMorphing", perciever.perceive().get(1).getName());
-  }
-
-  @Test
-  public void cloaked_test() {
-    when(unit.isCloaked()).thenReturn(true);
-    assertEquals("isCloaked", perciever.perceive().get(1).getName());
+    assertEquals("true", perciever.perceive().get(0).getParameters().get(6).toProlog());
+    assertEquals("false", perciever.perceive().get(0).getParameters().get(7).toProlog());
+    assertEquals("34", perciever.perceive().get(0).getParameters().get(8).toProlog());
+    assertEquals("45", perciever.perceive().get(0).getParameters().get(9).toProlog());
   }
 
   @Test
