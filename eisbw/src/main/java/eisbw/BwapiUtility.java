@@ -17,6 +17,7 @@ public class BwapiUtility {
   private static final HashMap<String, UpgradeType> upgradeTypeMap = new HashMap<>();
 
   private BwapiUtility() {
+    //Private constructor for static class.
   }
 
   /**
