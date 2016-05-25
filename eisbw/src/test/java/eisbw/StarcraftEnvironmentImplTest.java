@@ -41,8 +41,8 @@ public class StarcraftEnvironmentImplTest {
 
     env = new StarcraftEnvironmentImpl();
     Map<String, Parameter> parameters = new HashMap<>();
-    parameters.put("debug", new Identifier("debug"));
-    parameters.put("race", new Identifier("test"));
+    parameters.put("debug", new Identifier("true"));
+    parameters.put("own_race", new Identifier("test"));
     parameters.put("map", new Identifier("map"));
     parameters.put("starcraft_location", new Identifier("scdir"));
     env.init(parameters);
