@@ -1,11 +1,15 @@
 package eisbw.percepts.perceivers;
 
+import eis.iilang.Identifier;
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eis.iilang.TruthValue;
 import eisbw.percepts.Attacking;
 import eisbw.percepts.UnitPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,10 +31,20 @@ public class UnitsPerceiver extends Perceiver {
    */
   private void setUnitPercepts(List<Unit> units, boolean isFriendly, List<Percept> percepts) {
     for (Unit u : units) {
+      List<Parameter> conditions = new LinkedList<>();
+
+      if (u.getType().isFlyer()) {
+        conditions.add(new Identifier("flying"));
+      }
+      if (u.isMorphing()) {
+        conditions.add(new Identifier("morphing"));
+      }
+      if (u.isCloaked()) {
+        conditions.add(new Identifier("cloaked"));
+      }
 
       percepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(), u.getHitPoints(),
-          u.getShields(), u.getType().isFlyer(), u.isMorphing(), u.isCloaked(),
-          u.getPosition().getBX(), u.getPosition().getBY()));
+          u.getShields(), conditions));
 
       if (u.getType().isAttackCapable()) {
         Unit targetUnit = u.getOrderTarget();

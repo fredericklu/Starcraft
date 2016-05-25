@@ -10,9 +10,9 @@ workerActivity/2,
 self/2,
 chokepoint/2,
 base/4,
-friendly/6,
 unitAmount/2,
-supply/2.
+supply/2,
+nexusPosition/2.
 
 	% Indicates when agent is busy gathering
 	busy :- gathering.

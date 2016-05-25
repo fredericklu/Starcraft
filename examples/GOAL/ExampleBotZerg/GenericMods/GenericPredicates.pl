@@ -1,5 +1,5 @@
 :- dynamic
-friendly/6,
+friendly/4,
 self/2,
 unitAmount/2,
 minerals/1,

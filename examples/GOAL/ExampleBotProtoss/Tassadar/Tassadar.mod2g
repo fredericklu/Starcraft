@@ -1,4 +1,5 @@
 use Tassadar as knowledge.
+order = linearall.
 
 module Tassadar {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
@@ -12,9 +13,14 @@ module Tassadar {
 	% If zealot is ready, insert it in knowledge base
 	forall (_).sent:(ready(Id)) do insert(ready(Id)).	
 	
+	% When nexusPosition received, insert it to knowledge base
+	if (_).sent:(nexusPosition(X, Y)) then insert(nexusPosition(X, Y)) + print("GODDIII").
+	
 	% If bel done, but the corresponding probe does not exist anymore, delete done from knowledge base
 	if bel(done(Name, Id), not(probe(Name, Id))) then delete(done(Name, Id)).
 	
 	% If not bel done yet and have info about probe, insert in knowledge base and tell the probe he is the builder 
 	if bel(not(done(Name, Id)), probe(Name, Id)) then insert(done(Name, Id)) + (Name).send(builder).
+	
+	forall (Name).sent?(nexusPosition), bel(nexusPosition(X, Y)) do (Name).send:(nexusPosition(X, Y)).
 }
