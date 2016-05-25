@@ -8,6 +8,7 @@ import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType.RaceTypes;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class BwapiListener extends BwapiEvents {
     game.updateMap(bwapi);
     bwapi.setGameSpeed(5);
 
-    // START THE DEBUGGER.
+    // START THE DEBUG TOOLS.
     if (debugmode) {
       debug = new DebugWindow(game);
       bwapi.drawTargets(true);
@@ -103,17 +104,28 @@ public class BwapiListener extends BwapiEvents {
   public void unitDestroy(int id) {
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
-      game.getUnits().deleteUnit(unitName);
+      game.getUnits().deleteUnit(unitName, id);
+    }
+  }
+
+  @Override
+  public void unitComplete(int unitId) {
+    Unit unit = bwapi.getUnit(unitId);
+    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+      game.getUnits().addUnit(unit, factory);
     }
   }
 
   @Override
   public void unitMorph(int id) {
+    if (bwapi.getSelf().getRace().getID() != RaceTypes.Zerg.getID()) {
+      return;
+    }
     if (game.getUnits().getUnitNames().containsKey(id)) {
       String unitName = game.getUnits().getUnitNames().get(id);
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
-        game.getUnits().deleteUnit(unitName);
+        game.getUnits().deleteUnit(unitName, id);
         game.getUnits().addUnit(unit, factory);
       }
     }
@@ -132,14 +144,6 @@ public class BwapiListener extends BwapiEvents {
       debug.dispose();
     }
     game.clean();
-  }
-
-  @Override
-  public void unitComplete(int unitId) {
-    Unit unit = bwapi.getUnit(unitId);
-    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
-      game.getUnits().addUnit(unit, factory);
-    }
   }
 
   protected boolean isSupportedByEntity(Action act, String name) {

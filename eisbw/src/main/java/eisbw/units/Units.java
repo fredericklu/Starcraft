@@ -4,8 +4,8 @@ import eisbw.BwapiUtility;
 import eisbw.StarcraftEnvironmentImpl;
 import jnibwapi.Unit;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Units {
@@ -22,8 +22,8 @@ public class Units {
    *          - the SC environment
    */
   public Units(StarcraftEnvironmentImpl environment) {
-    unitMap = new HashMap<>();
-    unitNames = new HashMap<>();
+    unitMap = new ConcurrentHashMap<>();
+    unitNames = new ConcurrentHashMap<>();
     starcraftUnits = new ConcurrentHashMap<>();
     this.environment = environment;
   }
@@ -35,11 +35,13 @@ public class Units {
    *          - the unit to add
    */
   public synchronized void addUnit(Unit unit, StarcraftUnitFactory factory) {
-    String unitName = BwapiUtility.getUnitName(unit);
-    unitMap.put(unitName, unit);
-    unitNames.put(unit.getID(), unitName);
-    starcraftUnits.put(unitName, factory.create(unit));
-    environment.addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+    if (!unitNames.containsKey(unit.getID())) {
+      String unitName = BwapiUtility.getUnitName(unit);
+      unitMap.put(unitName, unit);
+      unitNames.put(unit.getID(), unitName);
+      starcraftUnits.put(unitName, factory.create(unit));
+      environment.addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+    }
   }
 
   /**
@@ -48,8 +50,9 @@ public class Units {
    * @param unitName
    *          - the unit name
    */
-  public synchronized void deleteUnit(String unitName) {
+  public synchronized void deleteUnit(String unitName, int id) {
     unitMap.remove(unitName);
+    unitNames.remove(id);
     starcraftUnits.remove(unitName);
     environment.deleteFromEnvironment(unitName);
   }
@@ -63,16 +66,15 @@ public class Units {
   }
 
   public Map<String, StarcraftUnit> getStarcraftUnits() {
-    return new HashMap<>(starcraftUnits);
+    return starcraftUnits;
   }
 
   /**
    * Clean units, let garbage collector remove the remains.
    */
   public void clean() {
-    for (String unitName : starcraftUnits.keySet()) {
-      deleteUnit(unitName);
+    for (Entry<Integer, String> entry : unitNames.entrySet()) {
+      deleteUnit(entry.getValue(),entry.getKey());
     }
-    unitNames = new HashMap<>();
   }
 }

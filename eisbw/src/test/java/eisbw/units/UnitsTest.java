@@ -1,8 +1,8 @@
 package eisbw.units;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -57,7 +57,7 @@ public class UnitsTest {
     assertNotNull(units.getUnits().get("name0"));
     verify(factory, times(1)).create(any(Unit.class));
     verify(env, times(1)).addToEnvironment("name0", "name");
-    units.deleteUnit("name0");
+    units.deleteUnit("name0",0);
     verify(env, times(1)).deleteFromEnvironment("name0");
     units.addUnit(unit, factory);
     units.clean();
@@ -66,7 +66,7 @@ public class UnitsTest {
 
   @Test
   public void getStarcraftUnits_test() {
-    assertFalse(units.getStarcraftUnits() == units.starcraftUnits);
+    assertTrue(units.getStarcraftUnits() == units.starcraftUnits);
   }
 
 }

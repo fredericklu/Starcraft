@@ -1,0 +1,29 @@
+use TerranSCV as actionspec.
+use TerranSCV as knowledge.
+
+module main{	
+	if a-goal(unitAmount("Terran Supply Depot", N)), bel(constructionSite(X,Y), supply(CS, TS), TS - CS < 8,
+	minerals(M), M >= 100, N > 1) then build("Terran Supply Depot", X, Y).
+	
+	if a-goal(unitAmount("Terran Factory", 1)), bel(not(unitAmount("Terran Factory", _)), 
+	constructionSite(X,Y), minerals(M), M >= 200, gas(G), G >= 100) then build("Terran Factory", X, Y).
+	
+	if a-goal(unitAmount("Terran Bunker", 1)), bel(constructionSite(X, Y), minerals(M), M >= 100) then build("Terran Bunker", X, Y).
+	
+	if bel(workerActivity(Id, gatheringGas), self(Id, _), gas(G), G > 125) then stop. 
+	
+	if a-goal(shouldMineVespene), bel(friendly("Terran Refinery",Id,_,_,_,_), gas(G), G < 125) then gather(Id).
+	
+	if a-goal(unitAmount("Terran Academy", 1)), bel(constructionSite(X,Y), minerals(M), M >= 150) then build("Terran Academy", X, Y).
+	
+	if a-goal(unitAmount("Terran Barracks", 2)), bel(constructionSite(X,Y), minerals(M), M >= 150) then build("Terran Barracks", X, Y).
+	
+	if a-goal(unitAmount("Terran Refinery", 1)), bel(vespeneGeyser(X,Y), minerals(M), M >= 100) then build("Terran Refinery", X, Y).
+	
+	if a-goal(unitAmount("Terran Supply Depot", 1)), bel(constructionSite(X,Y), unitAmount("Terran SCV", 9),
+	minerals(M), M >= 100) then build("Terran Supply Depot", X, Y).
+	
+	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralField(MinId,_,X,Y), friendly("Terran Command Center", _,_ ,_ , CX, CY), 
+	self(Id,_), distance(X,Y,CX,CY,L), L<8) then gather(MinId).
+	
+}

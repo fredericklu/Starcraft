@@ -56,7 +56,9 @@ public class BuildingPerceiver extends UnitPerceiver {
 
       percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
       for (Unit u : loadedUnits) {
-        percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
+        if (u != null) {
+          percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
+        }
       }
     }
 
@@ -70,7 +72,7 @@ public class BuildingPerceiver extends UnitPerceiver {
     if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 
       if (unit.isLifted()) {
-        conditions.add(new Identifier("isLifted"));
+        conditions.add(new Identifier("lifted"));
       }
 
       if (unit.getAddon() != null) {

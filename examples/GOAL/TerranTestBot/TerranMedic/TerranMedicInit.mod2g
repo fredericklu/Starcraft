@@ -1,0 +1,6 @@
+use "../GenericMods/GenericPredicates" as knowledge.
+
+module TerranMedicInit {
+	% Insert info about me
+	if percept(self(Id,Type)) then insert(self(Id, Type)).
+}
