@@ -7,10 +7,14 @@ module ZergZerglingEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.
 	
+	% The handling of condition gathering
+	if percept(condition(NewList)), bel(member(moving, NewList), condition(OldList), not(member(moving, OldList))) then insert(moving).
+	if bel(moving), percept(condition(List)), bel(not(member(moving, List))) then delete(moving).
+	
 	% Insert enemy when one is perceived
-	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
+	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,_,_,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
 	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
-	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
+	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,_,_X,Y)))
 	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
 	
 	% The handling of the position 
@@ -18,6 +22,9 @@ module ZergZerglingEvent {
 	
 	% The handling of the health
 	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
+	
+	forall percept(attacking(Id1, Id2)), not(bel(attacking(Id1, Id2))) do insert(attacking(Id1, Id2)).
+	forall bel(attacking(Id1, Id2)), not(percept(attacking(Id1, Id2))) do delete(attacking(Id1, Id2)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -31,9 +38,9 @@ module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
-	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 25) 
+	if not(goal(attack(X, Y))), bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 25) 
 	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
 	
 	% If bel to attack then adopt goal to attack enemy base
-	if bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
+	if not(goal(attack(X, Y))), bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
 }

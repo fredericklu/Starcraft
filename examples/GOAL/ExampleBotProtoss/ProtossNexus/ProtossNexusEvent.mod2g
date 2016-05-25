@@ -17,3 +17,4 @@ module ProtossNexusEvent {
 	
 	if bel(unitAmount("Protoss Probe", X), X < 8) then adopt(unitAmount("Protoss Probe", 8)).
 }
+

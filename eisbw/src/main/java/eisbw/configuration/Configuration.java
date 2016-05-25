@@ -10,44 +10,54 @@ import java.util.Map.Entry;
 
 public class Configuration {
 
-  protected String race = null;
+  protected RaceString ownRace = null;
+  protected RaceString enemyRace = new RaceString("random");
   protected String map = null;
   protected String scDir = null;
-  protected String debug = "false";
+  protected String autoMenu = "OFF";
+  protected BooleanString debug = new BooleanString("false");
 
-  public Configuration(Map<String, Parameter> parameters)
-      throws TranslationException {
+  public Configuration(Map<String, Parameter> parameters) throws TranslationException {
     parseParams(parameters);
     checkSanity();
   }
 
-  private void parseParams(Map<String, Parameter> parameters)
-      throws TranslationException {
+  private void parseParams(Map<String, Parameter> parameters) throws TranslationException {
     Translator translator = Translator.getInstance();
     for (Entry<String, Parameter> entry : parameters.entrySet()) {
       ParamEnum param = translator.translate2Java(new Identifier(entry.getKey()), ParamEnum.class);
       switch (param) {
         case DEBUG:
-          setDebugMode(translator.translate2Java(entry.getValue(), String.class));
+          setDebugMode(translator.translate2Java(entry.getValue(), BooleanString.class));
           break;
         case MAP:
           setMap(translator.translate2Java(entry.getValue(), String.class));
           break;
-        case RACE:
-          setRace(translator.translate2Java(entry.getValue(), String.class));
+        case OWN_RACE:
+          setOwnRace(translator.translate2Java(entry.getValue(), RaceString.class));
+          break;
+        case ENEMY_RACE:
+          setEnemyRace(translator.translate2Java(entry.getValue(), RaceString.class));
           break;
         case SC_DIR:
           setScDir(translator.translate2Java(entry.getValue(), String.class));
           break;
+        case AUTO_MENU:
+          setAutoMenu(translator.translate2Java(entry.getValue(), String.class));
+          break;
         default:
-          //Unreachable clause.
+          // Unreachable clause.
           break;
       }
     }
   }
 
+  private void setEnemyRace(RaceString race) {
+    enemyRace = race;
+  }
+
   private void checkSanity() {
-    if (race == null || map == null || scDir == null) {
+    if (ownRace == null || map == null || scDir == null) {
       throw new IllegalStateException(
           "Map, Race " + "and starcraft directory have to be defined in the .mas2g file");
     }
@@ -57,7 +67,7 @@ public class Configuration {
     this.scDir = dir;
   }
 
-  private void setDebugMode(String debug) {
+  private void setDebugMode(BooleanString debug) {
     this.debug = debug;
   }
 
@@ -65,11 +75,15 @@ public class Configuration {
     this.map = map;
   }
 
-  private void setRace(String race) {
-    this.race = race;
+  private void setAutoMenu(String autoMenu) {
+    this.autoMenu = autoMenu;
   }
 
-  public String getDebugMode() {
+  private void setOwnRace(RaceString race) {
+    this.ownRace = race;
+  }
+
+  public BooleanString getDebugMode() {
     return debug;
   }
 
@@ -77,11 +91,19 @@ public class Configuration {
     return map;
   }
 
-  public String getRace() {
-    return race;
+  public RaceString getOwnRace() {
+    return ownRace;
+  }
+
+  public RaceString getEnemyRace() {
+    return enemyRace;
   }
 
   public String getScDir() {
     return scDir;
+  }
+
+  public String getAutoMenu() {
+    return autoMenu;
   }
 }

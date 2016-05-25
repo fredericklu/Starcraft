@@ -1,8 +1,9 @@
 use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
 	map="(2)Destination.scx",
-	race="Zerg",
+	own_race="Zerg",
 	starcraft_location="C:\\Starcraft No Install",
-	debug="true".
+	debug="true",
+	auto_menu="off".
 	
 define zergDrone as agent {
 	use ZergDrone.ZergDrone as main module.
