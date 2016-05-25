@@ -1,9 +1,11 @@
 package eisbw.percepts.perceivers;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.HasResearchedPercept;
+import eisbw.percepts.Percepts;
 import eisbw.percepts.QueueSizePercept;
 import eisbw.percepts.RallyPointPercept;
 import eisbw.percepts.RallyUnitPercept;
@@ -17,8 +19,10 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class BuildingPerceiver extends UnitPerceiver {
 
@@ -27,42 +31,80 @@ public class BuildingPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public List<Percept> perceive() {
+  public Map<PerceptFilter, List<Percept>> perceive() {
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+
+    rallyPointPercept(toReturn);
+    rallyUnitPercept(toReturn);
+    queueSizePercept(toReturn);
+    upgradingPercept(toReturn);
+    researchedPercept(toReturn);
+    if (unit.getType().getSpaceProvided() > 0) {
+      List<Unit> loadedUnits = unit.getLoadedUnits();
+      spaceProvidedPercept(toReturn, loadedUnits);
+      unitLoadedPercept(toReturn, loadedUnits);
+    }
+
+    return toReturn;
+  }
+
+  private void unitLoadedPercept(Map<PerceptFilter, List<Percept>> toReturn,
+      List<Unit> loadedUnits) {
     List<Percept> percepts = new LinkedList<>();
-
-    if (!unit.getRallyPosition().equals(Positions.None)) {
-      percepts.add(
-          new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
+    for (Unit u : loadedUnits) {
+      if (u != null) {
+        percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
+      }
     }
+    toReturn.put(new PerceptFilter(Percepts.UNITLOADED, Filter.Type.ALWAYS), percepts);
+  }
 
-    if (unit.getRallyUnit() != null) {
-      percepts.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
-    }
+  private void spaceProvidedPercept(Map<PerceptFilter, List<Percept>> toReturn,
+      List<Unit> loadedUnits) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
+    toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
+  }
 
-    percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
-
-    if (unit.isUpgrading()) {
-      percepts.add(new UpgradePercept(unit.getUpgrade().getName()));
-    }
-
+  private void researchedPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
     for (TechType tech : TechTypes.getAllTechTypes()) {
       if (api.getSelf().isResearched(tech)) {
         percepts.add(new HasResearchedPercept(tech.getName()));
       }
     }
+    toReturn.put(new PerceptFilter(Percepts.HASRESEARCHED, Filter.Type.ONCE), percepts);
+  }
 
-    if (unit.getType().getSpaceProvided() > 0) {
-      List<Unit> loadedUnits = unit.getLoadedUnits();
-
-      percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
-      for (Unit u : loadedUnits) {
-        if (u != null) {
-          percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
-        }
-      }
+  private void rallyPointPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    if (!unit.getRallyPosition().equals(Positions.None)) {
+      percepts.add(
+          new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
+      toReturn.put(new PerceptFilter(Percepts.RALLYPOINT, Filter.Type.ON_CHANGE), percepts);
     }
+  }
 
-    return percepts;
+  private void upgradingPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    if (unit.isUpgrading()) {
+      percepts.add(new UpgradePercept(unit.getUpgrade().getName()));
+      toReturn.put(new PerceptFilter(Percepts.UPGRADING, Filter.Type.ALWAYS), percepts);
+    }
+  }
+
+  private void queueSizePercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
+    toReturn.put(new PerceptFilter(Percepts.QUEUESIZE, Filter.Type.ON_CHANGE), percepts);
+  }
+
+  private void rallyUnitPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    if (unit.getRallyUnit() != null) {
+      percepts.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
+      toReturn.put(new PerceptFilter(Percepts.RALLYUNIT, Filter.Type.ON_CHANGE), percepts);
+    }
   }
 
   @Override

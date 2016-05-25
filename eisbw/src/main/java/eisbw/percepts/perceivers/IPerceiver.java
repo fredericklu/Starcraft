@@ -4,9 +4,10 @@ import eis.iilang.Parameter;
 import eis.iilang.Percept;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IPerceiver {
-  List<Percept> perceive();
+  Map<PerceptFilter,List<Percept>> perceive();
 
   List<Parameter> getConditions();
 }

@@ -1,8 +1,10 @@
 package eisbw.percepts.perceivers;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.ConstructionSitePercept;
+import eisbw.percepts.Percepts;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
@@ -10,8 +12,10 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ConstructionSitePerceiver extends Perceiver {
 
@@ -114,7 +118,7 @@ public class ConstructionSitePerceiver extends Perceiver {
   }
 
   @Override
-  public List<Percept> perceive() {
+  public Map<PerceptFilter, List<Percept>> perceive() {
     List<Percept> percepts = new LinkedList<>();
     jnibwapi.Map map = api.getMap();
 
@@ -147,7 +151,9 @@ public class ConstructionSitePerceiver extends Perceiver {
         }
       }
     }
-    return percepts;
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    toReturn.put(new PerceptFilter(Percepts.CONSTRUCTIONSITE, Filter.Type.ALWAYS), percepts);
+    return toReturn;
   }
 
 }

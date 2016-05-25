@@ -1,21 +1,23 @@
 package eisbw.percepts.perceivers;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.DefensiveMatrixPercept;
-import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.EnergyPercept;
+import eisbw.percepts.Percepts;
 import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
 import eisbw.percepts.StatusPercept;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Player;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class GenericUnitPerceiver extends UnitPerceiver {
 
@@ -24,30 +26,52 @@ public class GenericUnitPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public List<Percept> perceive() {
-    List<Percept> percepts = new LinkedList<>();
+  public Map<PerceptFilter, List<Percept>> perceive() {
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
 
-    for (Player p : api.getEnemies()) {
-      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
+    defenceMatrixPercept(toReturn);
+    resourcesPercept(toReturn);
+    selfPercept(toReturn);
+    statusPercept(toReturn);
+    if (unit.getType().getMaxEnergy() > 0) {
+      energyPercept(toReturn);
     }
 
+    return toReturn;
+  }
+
+  private void energyPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new EnergyPercept(unit.getEnergy(), unit.getType().getMaxEnergy()));
+    toReturn.put(new PerceptFilter(Percepts.ENERGY, Filter.Type.ON_CHANGE), percepts);
+  }
+
+  private void statusPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new StatusPercept(unit.getHitPoints(), unit.getShields(),
+        unit.getPosition().getBX(), unit.getPosition().getBY()));
+    toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), percepts);
+  }
+
+  private void selfPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new SelfPercept(unit.getID(), unit.getType().getName()));
+    toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), percepts);
+  }
+
+  private void resourcesPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
+    percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
+        api.getSelf().getSupplyUsed(), api.getSelf().getSupplyTotal()));
+    toReturn.put(new PerceptFilter(Percepts.RESOURCES, Filter.Type.ON_CHANGE), percepts);
+  }
+
+  private void defenceMatrixPercept(Map<PerceptFilter, List<Percept>> toReturn) {
+    List<Percept> percepts = new LinkedList<>();
     if (unit.isDefenseMatrixed()) {
       percepts.add(new DefensiveMatrixPercept(unit.getDefenseMatrixPoints()));
     }
-
-    percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
-        api.getSelf().getSupplyUsed(), api.getSelf().getSupplyTotal()));
-
-    percepts.add(new SelfPercept(unit.getID(), unit.getType().getName()));
-
-    percepts.add(new StatusPercept(unit.getHitPoints(), unit.getShields(),
-        unit.getPosition().getBX(), unit.getPosition().getBY()));
-
-    if (unit.getType().getMaxEnergy() > 0) {
-      percepts.add(new EnergyPercept(unit.getEnergy(), unit.getType().getMaxEnergy()));
-    }
-
-    return percepts;
+    toReturn.put(new PerceptFilter(Percepts.DEFENSIVEMATRIX, Filter.Type.ALWAYS), percepts);
   }
 
   /**

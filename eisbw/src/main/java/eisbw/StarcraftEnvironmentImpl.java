@@ -14,7 +14,6 @@ import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.configuration.Configuration;
 import eisbw.translators.ParamEnumTranslator;
-import eisbw.translators.RaceTypeTranslator;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private void installTranslators() {
     Translator translatorfactory = Translator.getInstance();
     translatorfactory.registerParameter2JavaTranslator(new ParamEnumTranslator());
-    translatorfactory.registerParameter2JavaTranslator(new RaceTypeTranslator());
   }
 
   @Override
