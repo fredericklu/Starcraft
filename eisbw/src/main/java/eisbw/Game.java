@@ -194,4 +194,8 @@ public class Game {
   public int getAgentCount() {
     return env.getAgents().size();
   }
+
+  public StarcraftEnvironmentImpl getEnvironment() {
+    return env;
+  }
 }
