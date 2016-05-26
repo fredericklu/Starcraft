@@ -33,7 +33,7 @@ module ProtossProbeEvent {
 	if bel(builder, not(friendly("Protoss Pylon", _, _, _))) then adopt(unitAmount("Protoss Pylon", 1)).
 	
 	% If no Gateways yet, build two of them	
-	if bel(builder, not(unitAmount("Protoss Gateway",_))) then adopt(unitAmount("Protoss Gateway", 2)).
+	if bel(builder, not(unitAmount("Protoss Gateway",_)), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
 	
 	% Build pylons for supply
 	if bel(builder, unitAmount("Protoss Pylon", N), M is N +1, unitAmount("Protoss Gateway", 2), supply(CS, TS), TS - CS < 8) 

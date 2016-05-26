@@ -4,7 +4,8 @@ use TerranSCV as knowledge.
 module main{	
 	if bel(workerActivity(Id, gatheringGas), self(Id, _), gas(G), G > 125) then stop + delete(vespeneMiner). 
 	
-	if bel(vespeneMiner, self(MyId,_), not(workerActivity(MyId, gatheringGas)), friendly("Terran Refinery",Id,_,_), gas(G), G < 125) then gather(Id).
+	if bel(vespeneMiner, self(MyId,_), not(workerActivity(MyId, gatheringGas)), unitCondition("Terran Factory", Condition), 
+	not(member(beingConstructed, Condition)), gas(G), G < 125, friendly("Terran Factory", Id, _, _)) then gather(Id).
 	
 	if a-goal(unitAmount("Terran Academy", 1)), bel(constructionSite(X,Y), minerals(M), M >= 150) then build("Terran Academy", X, Y).
 	

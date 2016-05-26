@@ -8,7 +8,7 @@ module TerranCommandCenterEvent {
 	if true then GenericPercepts.
 	
 	% The handling of the queueSize percept
-	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	

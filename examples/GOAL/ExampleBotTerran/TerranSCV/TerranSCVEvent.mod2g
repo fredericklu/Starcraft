@@ -17,12 +17,14 @@ module TerranSCVEvent {
 	if true then GenericPercepts.	
 	
 	% The handling of condition gathering
-	if percept(condition(NewList)), bel(member(gathering, NewList), condition(OldList), not(member(gathering, OldList))) then insert(gathering).
-	if bel(gathering), percept(condition(List)), bel(not(member(gathering, List))) then delete(gathering).
+	%if percept(condition(NewList)), bel(member(gathering, NewList), condition(OldList), not(member(gathering, OldList))) then insert(gathering).
+	%if bel(gathering), percept(condition(List)), bel(not(member(gathering, List))) then delete(gathering).
 	
 	% The handling of condition constructing
-	if percept(condition(NewList)), bel(member(constructing, NewList), condition(OldList), not(member(constructing, OldList))) then insert(constructing).
-	if bel(constructing), percept(condition(List)), bel(not(member(constructing, List))) then delete(constructing).
+	%if percept(condition(NewList)), bel(member(constructing, NewList), condition(OldList), not(member(constructing, OldList))) then insert(constructing).
+	%if bel(constructing), percept(condition(List)), bel(not(member(constructing, List))) then delete(constructing).
+	
+	if bel(condition(List)), percept(condition(OList)) then delete(condition(List)) + insert(condition(OList)).
 	
 	% The handling of the supply percept
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
@@ -42,6 +44,12 @@ module TerranSCVEvent {
 	% The handling of vespeneGeyser percept
 	if percept(vespeneGeyser(_, _, _, X , Y)), bel(not(vespeneGeyser(X ,Y))) then insert(vespeneGeyser(X ,Y)).
 	if bel(vespeneGeyser(X ,Y)),not(percept(vespeneGeyser(_, _, _, X , Y))) then delete(vespeneGeyser(X ,Y)).
+	
+	% The handling of the friendly units percept
+	forall bel(unitCondition(Type, Condition1)) , not(percept(unit(true, Type,_,_,_,Condition2))), bel(Condition1 \= Condition2)
+	do delete(unitCondition(Type, Condition1)).
+	forall percept(unit(true, Type,_,_,_,Condition)), bel(not(unitCondition(Type,Condition))) 
+	do insert(unitCondition(Type, Condition)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -62,6 +70,8 @@ module TerranSCVEvent {
 	% If there is a vespeneGeyser near base, build a refinery
 	if bel(vespeneGeyser(X ,Y), not(builder), not(busy), commandCenterPosition(BX, BY) ,distance(BX, BY, X, Y, D), D < 10,
 	unitAmount("Terran Barracks", 2)) then adopt(unitAmount("Terran Refinery", 1)).
+	
+	%if bel(builder ; backupBuilder, condition(List)) then print(List).
 	
 	% If the worker is not busy yet, start gathering minerals
 	if bel(not(busy), self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
