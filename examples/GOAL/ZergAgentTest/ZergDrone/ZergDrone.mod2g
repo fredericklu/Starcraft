@@ -7,7 +7,4 @@ module ZergDrone {
 	
 	if a-goal(unitAmount("Zerg Hatchery", 4)), bel(constructionSite(X,Y), minerals(M), M >= 300) then build("Zerg Hatchery", X, Y).
 	
-	% If goal to have workerActivity gatheringMinerals and there is a mineralfield close to the base, gather from mineralfield
-	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralField(MinId,_,X,Y), friendly(Type, _,_ ,_ , CX, CY), self(Id,_),
-	member(Type,["Zerg Hatchery", "Zerg Lair", "Zerg Hive"]), distance(X,Y,CX,CY,L), L<8) then gather(MinId).
 }
