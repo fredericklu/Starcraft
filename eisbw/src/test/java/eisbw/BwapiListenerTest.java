@@ -65,7 +65,7 @@ public class BwapiListenerTest {
     unitMap = new HashMap<>();
     unitMap.put("unit", unit);
     unitNames = new HashMap<>();
-    unitNames.put(0,"unit");
+    unitNames.put(0, "unit");
     when(unit.getType()).thenReturn(unitType);
     when(unitType.getName()).thenReturn("Terran Siege Tank Tank Mode");
     when(units.getUnits()).thenReturn(unitMap);
@@ -94,48 +94,48 @@ public class BwapiListenerTest {
     when(unitType.isBuilding()).thenReturn(true);
     assertTrue(listener.isSupportedByEntity(new Action("setRallyPoint", list), "unit"));
   }
-  
+
   @Test
   public void unitCompleted_test() {
-    when(units.getUnitNames()).thenReturn(new HashMap<Integer,String>());
-    listener.unitComplete(0);
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
-    when(units.getUnitNames()).thenReturn(unitNames);
-    listener.unitComplete(0);
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
-    when(bwapi.getMyUnits()).thenReturn(new LinkedList<Unit>());
-    listener.unitComplete(0);
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
     when(units.getUnitNames()).thenReturn(new HashMap<Integer, String>());
     listener.unitComplete(0);
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    when(units.getUnitNames()).thenReturn(unitNames);
+    listener.unitComplete(0);
+    verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    when(bwapi.getMyUnits()).thenReturn(new LinkedList<Unit>());
+    listener.unitComplete(0);
+    verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    when(units.getUnitNames()).thenReturn(new HashMap<Integer, String>());
+    listener.unitComplete(0);
+    verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
   }
-  
+
   @Test
   public void unitMorph_test() {
     when(bwapi.getSelf()).thenReturn(self);
     when(self.getRace()).thenReturn(RaceTypes.Zerg);
-    
+
     listener.unitMorph(0);
     verify(units, times(0)).getUnits();
     when(units.getUnitNames()).thenReturn(unitNames);
     listener.unitMorph(0);
-    verify(units, times(1)).getUnits();
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    // verify(units, times(1)).getUnits();
+    verify(units, times(2)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
     when(bwapi.getMyUnits()).thenReturn(new LinkedList<Unit>());
     listener.unitMorph(0);
-    verify(units,times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
+    verify(units, times(2)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
   }
-  
+
   @Test
   public void unitDestroy_test() {
     listener.unitDestroy(0);
-    verify(units,times(0)).deleteUnit(any(String.class),any(Integer.class));
+    verify(units, times(0)).deleteUnit(any(String.class), any(Integer.class));
     when(units.getUnitNames()).thenReturn(unitNames);
     listener.unitDestroy(0);
-    verify(units,times(1)).deleteUnit(any(String.class),any(Integer.class));
+    verify(units, times(1)).deleteUnit(any(String.class), any(Integer.class));
   }
-  
+
   @Test
   public void matchStart_test() {
     listener.matchStart();
@@ -148,26 +148,26 @@ public class BwapiListenerTest {
     listener.matchEnd(true);
     verify(game, times(2)).clean();
   }
-  
+
   @Test
   public void matchFrame_test() throws ActException {
     listener.matchFrame();
-    verify(game,times(0)).updateConstructionSites(bwapi);
+    verify(game, times(0)).updateConstructionSites(bwapi);
     listener.count = 200;
     listener.matchFrame();
     assertTrue(listener.count == 1);
-    verify(game,times(1)).updateConstructionSites(bwapi);
+    verify(game, times(1)).updateConstructionSites(bwapi);
     listener.performEntityAction("unit", new Action("siege"));
     eis.iilang.Parameter[] list = new eis.iilang.Parameter[1];
     list[0] = new Identifier("fail");
-    listener.performEntityAction("unit", new Action("setRallyPoint",list));
+    listener.performEntityAction("unit", new Action("setRallyPoint", list));
     when(unit.isBeingConstructed()).thenReturn(true);
     listener.performEntityAction("unit", new Action("siege"));
     assertTrue(listener.pendingActions.size() == 1);
     listener.debug = debug;
     listener.matchFrame();
     assertTrue(listener.pendingActions.size() == 0);
-    verify(debug,times(1)).debug(bwapi);
+    verify(debug, times(1)).debug(bwapi);
   }
 
 }

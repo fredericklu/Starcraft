@@ -25,7 +25,6 @@ public class Game {
 
   private Map<PerceptFilter, List<Percept>> mapPercepts;
   private Map<String, Map<String, List<Percept>>> previous;
-  private Map<String, Integer> hasPercepted;
   private Map<String, Map<String, List<Percept>>> previousHolder;
 
   /**
@@ -40,7 +39,6 @@ public class Game {
     constructionPercepts = new HashMap<>();
     mapPercepts = new HashMap<>();
     previous = new HashMap<>();
-    hasPercepted = new HashMap<>();
     previousHolder = new HashMap<>();
     env = environment;
   }
@@ -87,7 +85,6 @@ public class Game {
     if (!previous.containsKey(unitName)) {
       previousHolder.put(unitName, new HashMap<>());
       previous.put(unitName, new HashMap<>());
-      hasPercepted.put(unitName, 0);
     }
     for (Entry<PerceptFilter, List<Percept>> entry : thisUnitPercepts.entrySet()) {
       switch (entry.getKey().getType()) {
@@ -188,7 +185,6 @@ public class Game {
     mapPercepts.clear();
     previousHolder.clear();
     previous.clear();
-    hasPercepted.clear();
   }
 
   public int getAgentCount() {
