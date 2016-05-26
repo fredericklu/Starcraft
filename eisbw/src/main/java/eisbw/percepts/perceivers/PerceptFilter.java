@@ -30,4 +30,9 @@ public class PerceptFilter {
     PerceptFilter that = (PerceptFilter) other;
     return name.equals(that.getName());
   }
+  
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
 }
