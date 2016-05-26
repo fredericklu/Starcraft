@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("deprecation")
 public class GenericUnitPerceiverTest {
 
   private GenericUnitPerceiver perciever;
