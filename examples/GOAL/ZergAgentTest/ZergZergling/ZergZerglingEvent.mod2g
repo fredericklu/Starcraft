@@ -4,25 +4,18 @@ use "../GenericMods/GenericPercepts" as module.
 order = randomall.
 module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
-	
-	% The generic percepts most units use
-	if true then GenericPercepts.
-	
-	% Insert enemy when one is perceived
-	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
-	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
-	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,X,Y)))
-	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
-	
 	% The handling of the position 
 	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
 	% The handling of the health
 	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
 		
+	
+	if percept(condition(H1)), bel(condition(H2), H1 \= H2) then delete(condition(H2)) + insert(condition(H1)).
+		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	if goal(position(X,Y)), bel(position(X2,Y2), distance(X,Y,X2,Y2,D), D<49) then drop(position(X,Y)).
 	
-	if percept(chokepoint(X, Y),condition(List)), bel(not(member(moving, List)),position(X2,Y2),distance(X,Y,X2,Y2,D), D>49) 
+	if bel(chokepoint(X, Y),condition(List),not(member(moving, List)),position(X2,Y2),distance(X,Y,X2,Y2,D), D>49) 
 		then adopt(position(X, Y)).
 }

@@ -183,11 +183,12 @@ public class Game {
    */
   public void clean() {
     units.clean();
-    percepts = new HashMap<>();
-    constructionPercepts = new HashMap<>();
-    mapPercepts = new HashMap<>();
-    previousHolder = new HashMap<>();
-    previous = new HashMap<>();
+    percepts.clear();
+    constructionPercepts.clear();
+    mapPercepts.clear();
+    previousHolder.clear();
+    previous.clear();
+    hasPercepted.clear();
   }
 
   public int getAgentCount() {

@@ -1,6 +1,5 @@
 package eisbw.percepts.perceivers;
 
-
 import eis.eis2java.translation.Filter;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -28,15 +27,15 @@ public class UnitsPerceiver extends Perceiver {
    *          The perceived units
    * @param isFriendly
    *          indicates whether these units are friendly or not
+   * @param attackingpercepts - list with unitPercepts
+   * @param unitpercepts - list with attackingPercepts
    * @param percepts
    *          The list of percepts
    * @param toReturn
    *          - the map that will be returned
    */
-  private void setUnitPercepts(List<Unit> units, boolean isFriendly,
-      Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> unitpercepts = new LinkedList<>();
-    List<Percept> attackingpercepts = new LinkedList<>();
+  private void setUnitPercepts(List<Unit> units, boolean isFriendly, List<Percept> unitpercepts,
+      List<Percept> attackingpercepts) {
 
     for (Unit u : units) {
       List<Parameter> conditions = new LinkedList<>();
@@ -60,19 +59,22 @@ public class UnitsPerceiver extends Perceiver {
         }
       }
     }
-
-    toReturn.put(new PerceptFilter(Percepts.UNIT, Filter.Type.ALWAYS), unitpercepts);
-    toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
   }
 
   @Override
   public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
+    List<Percept> unitpercepts = new LinkedList<>();
+    List<Percept> attackingpercepts = new LinkedList<>();
+
     // perceive friendly units
-    setUnitPercepts(api.getMyUnits(), true, toReturn);
+    setUnitPercepts(api.getMyUnits(), true, unitpercepts, attackingpercepts);
 
     // perceive enemy units
-    setUnitPercepts(api.getEnemyUnits(), false, toReturn);
+    setUnitPercepts(api.getEnemyUnits(), false, unitpercepts, attackingpercepts);
+
+    toReturn.put(new PerceptFilter(Percepts.UNIT, Filter.Type.ALWAYS), unitpercepts);
+    toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
 
     return toReturn;
   }

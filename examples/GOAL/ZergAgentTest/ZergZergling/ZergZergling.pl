@@ -5,7 +5,7 @@ unitAmount/2,
 base/4,
 enemy/7,
 self/2,
-friendly/6,
+friendly/4,
 chokepoint/2,
 attack/1,
 chokePoint/2,
@@ -13,7 +13,8 @@ groupLocation/2,
 enemyBase/2,
 ready/1,
 attack/0,
-hitPoints/1
+hitPoints/1,
+condition/1
 .
 
 % default distance check
