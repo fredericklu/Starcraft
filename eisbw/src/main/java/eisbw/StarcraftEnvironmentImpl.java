@@ -13,7 +13,9 @@ import eis.iilang.EnvironmentState;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.configuration.Configuration;
+import eisbw.translators.BooleanStringTranslator;
 import eisbw.translators.ParamEnumTranslator;
+import eisbw.translators.RaceStringTranslator;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -42,6 +44,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private void installTranslators() {
     Translator translatorfactory = Translator.getInstance();
     translatorfactory.registerParameter2JavaTranslator(new ParamEnumTranslator());
+    translatorfactory.registerParameter2JavaTranslator(new BooleanStringTranslator());
+    translatorfactory.registerParameter2JavaTranslator(new RaceStringTranslator());
   }
 
   @Override
@@ -53,12 +57,14 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
     try {
       configuration = new Configuration(parameters);
       addEntity("player");
-      if (!"test".equals(configuration.getRace())) {
-        bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode()));
+      if (!"test".equals(configuration.getOwnRace().getData())) {
+        bwapiListener = new BwapiListener(game,
+            "true".equals(configuration.getDebugMode().getData()));
 
         if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-          WindowsTools.startChaoslauncher(configuration.getRace(), configuration.getMap(),
-              configuration.getScDir());
+          WindowsTools.startChaoslauncher(configuration.getOwnRace().getData(),
+              configuration.getMap(), configuration.getScDir(), configuration.getAutoMenu(),
+              configuration.getEnemyRace().getData());
         }
       }
     } catch (Exception ex) {

@@ -5,7 +5,7 @@ module ZergDroneEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% receive builder task from the Overmind
-	if (Name).sent:(builder) then insert(builder).
+	if (Name).sent:(builder) then insert(builder) + print("I AM BUILDER").
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -35,7 +35,8 @@ module ZergDroneEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If there is no spawningpool yet, create one
-	if bel(builder, not(friendly("Zerg Spawning Pool", _, _, _,_,_))) then adopt(unitAmount("Zerg Spawning Pool", 1)).
+	if not(goal(unitAmount("Zerg Spawning Pool", 1))), bel(builder, not(friendly("Zerg Spawning Pool", _, _, _,_,_))) 
+	then adopt(unitAmount("Zerg Spawning Pool", 1)) + print("SPAWNING POOL INCOMMING").
 	
 	% If the worker is not busy yet, start gathering minerals
 	if bel(not(busy), self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
