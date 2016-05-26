@@ -1,8 +1,11 @@
 use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
 	map="(2)Destination.scx",
-	race="Zerg",
+	own_race="Zerg",
 	starcraft_location="C:\\Starcraft No Install",
-	debug="true".
+	debug="true",
+	auto_menu="Single_Player",
+	enemy_race="random".
+	
 	
 define zergDrone as agent {
 	use ZergDrone.ZergDrone as main module.
@@ -24,7 +27,7 @@ define zergZergling as agent{
 
 
 define overMind as agent {
-	use OverMind.OverMindEvent as main module.	
+	use OverMind.OverMind as main module.	
 }
 
 launchpolicy{

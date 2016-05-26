@@ -12,8 +12,4 @@ module ProtossZealotInit {
 		
 	% Init position and health
 	if percept(status(_,_,X,Y)) then insert(position(X,Y)).
-	
-	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
-	if percept(unit(true, "Protoss Nexus",_,_,_,_,X,Y)), bel(base(X1, Y1, true, _), 
-	distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
 }

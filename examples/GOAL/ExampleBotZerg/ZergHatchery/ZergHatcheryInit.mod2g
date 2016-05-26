@@ -9,4 +9,7 @@ module ZergHatcheryInit {
 	
 	% Init resources percepts
 	if percept(resources(M, G, C, T)) then insert(minerals(M), gas(G), supply(C, T)).
+	
+	% send location to the Overmind
+	if percept(status(_,_,X, Y)) then (overMind).send(hatcheryPosition(X, Y)).
 }

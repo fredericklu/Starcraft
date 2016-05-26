@@ -5,7 +5,7 @@ module ZergHatcheryEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If a friendly drone dies, let the OverMind know
-	forall bel(friendly("Zerg Drone",Id,_,_,_,_)) , not(percept(unit(true, "Zerg Drone",Id,_,_,_,_,_))) do ('overMind').send:(death(Id)).
+	forall bel(friendly("Zerg Drone",Id,_,_)) , not(percept(unit(true, "Zerg Drone",Id,_,_,_))) do (overMind).send:(death(Id)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts ---------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -25,5 +25,5 @@ module ZergHatcheryEvent {
 	unitAmount("Zerg Overlord",Amount), NewAmount is Amount + 1) then adopt(unitAmount("Zerg Overlord", NewAmount)).
 	
 	% If there is a Spawning Pool start making zerglings
-	if not(goal(unitAmount("Zerg Zergling", 50))), bel(friendly("Zerg Spawning Pool", _, _, _, _, _)) then adopt(unitAmount("Zerg Zergling", 50)).	
+	if not(goal(unitAmount("Zerg Zergling", 50))), bel(friendly("Zerg Spawning Pool", _, _, _)) then adopt(unitAmount("Zerg Zergling", 50)).	
 }

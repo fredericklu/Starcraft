@@ -3,13 +3,10 @@ use TerranMarine as knowledge.
 
 module main{
 	
-	% If someone is attacking, attack back
-	if goal(attack(Id)) then attack(Id) + drop(attack(Id)).
-	
-	% If percept an enemy with lower health than most structures, kill them first
-	if bel(enemy(_, Id, H, _,false,X,Y), H < 200) then attack(Id).
+	% If goal to attack and bel in groupLocation then attack-move to location
+	if goal(attack(X, Y)), bel(groupLocation(X, Y)) then attack(X, Y) + drop(attack(X, Y)).
 	
 	% If goal to attack and bel to attack, go attack
-	if goal(attack(X, Y)), bel(attack) then attack(X, Y).
+	if goal(attack(X, Y)), bel(attack, not(attacking)) then attack(X, Y) + insert(attacking).
 }
 
