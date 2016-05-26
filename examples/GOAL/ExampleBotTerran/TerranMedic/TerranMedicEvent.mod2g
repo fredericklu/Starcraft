@@ -11,6 +11,6 @@ module TerranMedicEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If bel to attack then adopt goal to attack enemy base
-	if bel(friendly("Terran Marine", Id, _, _, _, _), not(following(_))) then adopt(following(Id)) + allother.send(following(Id)).
+	if bel(friendly("Terran Marine", Id, _, _), not(following(_))) then adopt(following(Id)) + allother.send(following(Id)).
 	 
 }

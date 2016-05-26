@@ -15,6 +15,6 @@ module ProtossNexusEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(unitAmount("Protoss Probe", X), X < 8) then adopt(unitAmount("Protoss Probe", 8)).
+	if bel(unitAmount("Protoss Probe", X), X < 7) then adopt(unitAmount("Protoss Probe", 8)).
 }
 

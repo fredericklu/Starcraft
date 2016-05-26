@@ -11,7 +11,8 @@ self/2,
 chokepoint/2,
 base/4,
 friendly/6,
-unitAmount/2.
+unitAmount/2,
+hatcheryPosition/2.
 
 	% Indicates when agent is busy gathering
 	busy :- gathering.

@@ -2,9 +2,9 @@ use TerranSCV as actionspec.
 use TerranSCV as knowledge.
 
 module main{	
-	if bel(workerActivity(Id, gatheringGas), self(Id, _), gas(G), G > 125) then stop. 
+	if bel(workerActivity(Id, gatheringGas), self(Id, _), gas(G), G > 125) then stop + delete(vespeneMiner). 
 	
-	if a-goal(shouldMineVespene), bel(friendly("Terran Refinery",Id,_,_,_,_), gas(G), G < 125) then gather(Id).
+	if bel(vespeneMiner, self(MyId,_), not(workerActivity(MyId, gatheringGas)), friendly("Terran Refinery",Id,_,_), gas(G), G < 125) then gather(Id).
 	
 	if a-goal(unitAmount("Terran Academy", 1)), bel(constructionSite(X,Y), minerals(M), M >= 150) then build("Terran Academy", X, Y).
 	
@@ -18,7 +18,7 @@ module main{
 	if a-goal(unitAmount("Terran Supply Depot", 1)), bel(constructionSite(X,Y), unitAmount("Terran SCV", 9),
 	minerals(M), M >= 100) then build("Terran Supply Depot", X, Y).
 	
-	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralField(MinId,_,X,Y), friendly("Terran Command Center", _,_ ,_ , CX, CY), 
+	if a-goal(workerActivity(Id, gatheringMinerals)), bel(not(vespeneMiner), mineralField(MinId,_,X,Y), commandCenterPosition(CX, CY), 
 	self(Id,_), distance(X,Y,CX,CY,L), L<8) then gather(MinId).
 	
 }

@@ -14,7 +14,7 @@ module Tassadar {
 	forall (_).sent:(ready(Id)) do insert(ready(Id)).	
 	
 	% When nexusPosition received, insert it to knowledge base
-	if (_).sent:(nexusPosition(X, Y)) then insert(nexusPosition(X, Y)) + print("GODDIII").
+	if (_).sent:(nexusPosition(X, Y)) then insert(nexusPosition(X, Y)).
 	
 	% If bel done, but the corresponding probe does not exist anymore, delete done from knowledge base
 	if bel(done(Name, Id), not(probe(Name, Id))) then delete(done(Name, Id)).
@@ -22,5 +22,6 @@ module Tassadar {
 	% If not bel done yet and have info about probe, insert in knowledge base and tell the probe he is the builder 
 	if bel(not(done(Name, Id)), probe(Name, Id)) then insert(done(Name, Id)) + (Name).send(builder).
 	
+	% If nexus position is requested, send the nexus location
 	forall (Name).sent?(nexusPosition), bel(nexusPosition(X, Y)) do (Name).send:(nexusPosition(X, Y)).
 }

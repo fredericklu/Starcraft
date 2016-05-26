@@ -1,4 +1,5 @@
 use Raynor as knowledge.
+order=linearall.
 
 module Raynor {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
@@ -12,6 +13,13 @@ module Raynor {
 	% If marine is ready, insert it in knowledge base
 	forall (_).sent:(ready(Id)) do insert(ready(Id)).	
 	
+	% If request to mine vespene, tell a scv to mine vespene
+	if (_).sent?(mineVespene), bel(not(mineVespene), scv(Name, Id), not(done1(Name, Id)), not(done2(Name, Id))) 
+	then (Name).send!(mineVespene) + insert(mineVespene).
+	
+	% When commandCenterPosition received, insert it to knowledge base
+	if (_).sent:(commandCenterPosition(X, Y)) then insert(commandCenterPosition(X, Y)).
+	
 	% If believe done1, but the corresponding scv does not exist anymore, delete done1 from knowledge base
 	if bel(done1(Name, Id), not(scv(Name, Id))) then delete(done1(Name, Id)).
 	
@@ -23,4 +31,7 @@ module Raynor {
 	
 	% If not believing done2 yet and have info about scv, insert in knowledge base and tell the scv he is the backup-builder 
 	if bel(not(done2(Name, Id)), scv(Name, Id), not(done1(Name, Id))) then insert(done2(Name, Id)) + (Name).send(backupBuilder).
+	
+	% If Command Center Position is requested, send the Command Center location
+	forall (Name).sent?(commandCenterPosition), bel(commandCenterPosition(X, Y)) do (Name).send:(commandCenterPosition(X, Y)).
 }

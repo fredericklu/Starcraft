@@ -9,4 +9,7 @@ module TerranCommandCenterInit {
 	
 	% Init resources percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
+	
+	% send location to Raynor
+	if percept(status(_,_,X, Y)) then (raynor).send(commandCenterPosition(X, Y)).
 }

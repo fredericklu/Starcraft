@@ -1,4 +1,5 @@
 use OverMind as knowledge.
+order=linearall.
 
 module OverMindEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
@@ -15,9 +16,15 @@ module OverMindEvent {
 	% If zergling is ready, insert it in knowledge base
 	forall (_).sent:(ready(Id)) do insert(ready(Id)).	
 	
+	% When hatcheryPosition received, insert it to knowledge base
+	if (_).sent:(hatcheryPosition(X, Y)) then insert(hatcheryPosition(X, Y)).
+	
 	% If believe done, but the corresponding drone does not exist anymore, delete done from knowledge base
 	if bel(done(Name, Id), not(drone(Name, Id))) then delete(done(Name, Id)).
 	
 	% If not believing done yet and have info about drone, insert in knowledge base and tell the drone he is the builder 
 	if bel(not(done(Name, Id)), drone(Name, Id)) then insert(done(Name, Id)) + (Name).send(builder).
+	
+	% If hatchery position is requested, send the nexus location
+	forall (Name).sent?(hatcheryPosition), bel(hatcheryPosition(X, Y)) do (Name).send:(hatcheryPosition(X, Y)).
 }

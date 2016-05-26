@@ -6,13 +6,12 @@ module main{
 	% If goal to set rallypoint, set the rallypoint
 	if a-goal(rallyPoint(X, Y)), bel(not(rallyPoint(X, Y))) then setRallyPoint(X, Y) + insert(rallyPoint(X, Y)).
 	
-	% If goal to make marines and hhave sufficient resources, start making marines
+	% If goal to make medics and have sufficient resources, start making medics
 	if a-goal(unitAmount("Terran Medic", 5)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 50, gas(G), G >= 25) 
 	then train("Terran Medic").
 	
-	% If goal to make marines and hhave sufficient resources, start making marines
-	if a-goal(unitAmount("Terran Marine", 20)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 50,
-	(unitAmount("Terran Medic", Amount1), unitAmount("Terran Marine", Amount2), Amount2 / 3 =< Amount1) ; not(unitAmount("Terran Marine", 5))) 
+	% If goal to make marines and have sufficient resources, start making marines
+	if a-goal(unitAmount("Terran Marine", 30)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 50) 
 	then train("Terran Marine").
 	
 }

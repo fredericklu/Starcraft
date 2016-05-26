@@ -2,6 +2,12 @@ use ZergZergling as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
 module ZergZerglingEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if not(bel(hatcheryPosition(_, _))) then (overMind).send?(hatcheryPosition).
+	
+	if (_).sent:(hatcheryPosition(X, Y)) then insert(hatcheryPosition(X, Y)).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% The generic percepts most units use
@@ -12,10 +18,10 @@ module ZergZerglingEvent {
 	if bel(moving), percept(condition(List)), bel(not(member(moving, List))) then delete(moving).
 	
 	% Insert enemy when one is perceived
-	forall percept(unit(false, Type,Id,Health,Shields,IsFlying,_,_,X,Y)), bel(not(enemy(Type,Id,Health,Shields,IsFlying,X,Y))) 
-	do insert(enemy(Type,Id,Health,Shields,IsFlying,X,Y)).
-	forall bel(enemy(Type, Id, Health, Shields,IsFlying ,X, Y)) , not(percept(unit(false, Type,Id,Health,Shields,IsFlying,_,_X,Y)))
-	do delete(enemy(Type,Id,Health, Shields,IsFlying,X,Y)).	
+	forall percept(unit(false, Type,Id,Health,Shields,Conditions)), bel(not(enemy(Type,Id,Health,Shields))) 
+	do insert(enemy(Type,Id,Health,Shields)).
+	forall bel(enemy(Type, Id, Health, Shields)) , not(percept(unit(false, Type,Id,Health,Shields, Conditions)))
+	do delete(enemy(Type,Id,Health, Shields)).	
 	
 	% The handling of the position 
 	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
@@ -25,6 +31,9 @@ module ZergZerglingEvent {
 	
 	forall percept(attacking(Id1, Id2)), not(bel(attacking(Id1, Id2))) do insert(attacking(Id1, Id2)).
 	forall bel(attacking(Id1, Id2)), not(percept(attacking(Id1, Id2))) do delete(attacking(Id1, Id2)).
+	
+	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
+	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -38,7 +47,7 @@ module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
-	if not(goal(attack(X, Y))), bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 25) 
+	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25) 
 	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
 	
 	% If bel to attack then adopt goal to attack enemy base

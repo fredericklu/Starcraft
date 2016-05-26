@@ -2,6 +2,14 @@ use TerranBarracks as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
 module TerranBarracksEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If don't know the location of the nexus, request it from tassadar
+	if not(bel(commandCenterPosition(_, _))) then (raynor).send?(commandCenterPosition).
+	
+	% If received Nexus Location, insert it in knowledge base
+	if (_).sent:(commandCenterPosition(X, Y)) then insert(commandCenterPosition(X, Y)).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% The generic percepts most units use
@@ -15,14 +23,14 @@ module TerranBarracksEvent {
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there are no marines yet or less than 50 start training marines
-	if not(goal(unitAmount("Terran Marine", 20))), bel(not(unitAmount("Terran Marine", 20))) then adopt(unitAmount("Terran Marine", 20)).
+	% If there are no marines yet or less than 30 start training marines
+	if not(goal(unitAmount("Terran Marine", 30))), bel(not(unitAmount("Terran Marine", 30))) then adopt(unitAmount("Terran Marine", 30)).
 	
-	% If there are no marines yet or less than 50 start training marines
-	if not(goal(unitAmount("Terran Medic", 5))), bel(not(unitAmount("Terran Medic", 5)), friendly("Terran Academy", _, _, _,_,_)) 
+	% If there are no medic yet or less than 5 start training medics
+	if not(goal(unitAmount("Terran Medic", 5))), bel(not(unitAmount("Terran Medic", 5)), friendly("Terran Academy", _, _, _)) 
 	then adopt(unitAmount("Terran Medic", 5)).
 	
 	% If no rallyPoint set yet, start setting one
-	if not(goal(rallyPoint(_,_))), bel(chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25,
-	not(rallyPoint(X, Y))) then adopt(rallyPoint(X,Y)).
+	if not(goal(rallyPoint(_,_))), bel(chokepoint(X1, Y1), commandCenterPosition(X2, Y2), distance(X1, Y1, X2, Y2, D), D < 25,
+	not(rallyPoint(X1, Y1))) then adopt(rallyPoint(X1,Y1)).
 }
