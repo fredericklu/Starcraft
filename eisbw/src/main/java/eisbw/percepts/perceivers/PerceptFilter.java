@@ -10,12 +10,24 @@ public class PerceptFilter {
     this.name = name;
     this.type = type;
   }
-  
+
   public String getName() {
     return name;
   }
-  
+
   public Type getType() {
     return type;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    }
+    if (!(other instanceof PerceptFilter)) {
+      return false;
+    }
+    PerceptFilter that = (PerceptFilter) other;
+    return name.equals(that.getName());
   }
 }

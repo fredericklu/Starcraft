@@ -1,12 +1,12 @@
 package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
@@ -15,7 +15,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class UnitsPerceiverTest {
 
@@ -52,23 +55,19 @@ public class UnitsPerceiverTest {
 
   @Test
   public void test() {
-    assertEquals("unit", perceiver.perceive().get(0).getName());
-    assertEquals("false", perceiver.perceive().get(0).getParameters().get(0).toProlog());
-    assertEquals("unitType", perceiver.perceive().get(0).getParameters().get(1).toProlog());
-    assertEquals("1", perceiver.perceive().get(0).getParameters().get(2).toProlog());
-    assertEquals("20", perceiver.perceive().get(0).getParameters().get(3).toProlog());
-    assertEquals("10", perceiver.perceive().get(0).getParameters().get(4).toProlog());
-    assertEquals("[flying,morphing]",
-        perceiver.perceive().get(0).getParameters().get(5).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perceiver.perceive(ret).isEmpty());
   }
 
   @Test
   public void attackcapable_test() {
     when(unitType.isAttackCapable()).thenReturn(true);
     when(unit.getOrderTarget()).thenReturn(unit);
-    assertEquals(2, perceiver.perceive().size());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertEquals(4, perceiver.perceive(ret).size());
     when(unit.getOrderTarget()).thenReturn(null);
-    assertEquals(1, perceiver.perceive().size());
+    ret = new HashMap<>();
+    assertEquals(4, perceiver.perceive(ret).size());
   }
 
   @Test

@@ -9,7 +9,6 @@ import eisbw.percepts.UnitPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +53,7 @@ public class UnitsPerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     // perceive friendly units
     setUnitPercepts(api.getMyUnits(), true, toReturn);

@@ -3,6 +3,7 @@ package eisbw.percepts.perceivers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
@@ -17,7 +18,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class GenericUnitPerceiverTest {
@@ -69,15 +73,18 @@ public class GenericUnitPerceiverTest {
 
   @Test
   public void size_test() {
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
     when(race.getName()).thenReturn("race");
     when(self.getRace()).thenReturn(race);
-    assertEquals(5, perciever.perceive().size());
+    assertEquals(5, perciever.perceive(ret).size());
     toReturn = new HashSet<>();
     when(api.getEnemies()).thenReturn(toReturn);
-    assertEquals(4, perciever.perceive().size());
+    ret = new HashMap<>();
+    assertEquals(5, perciever.perceive(ret).size());
     when(unitType.getMaxEnergy()).thenReturn(0);
     when(unit.isDefenseMatrixed()).thenReturn(true);
-    assertEquals(4, perciever.perceive().size());
+    ret = new HashMap<>();
+    assertEquals(4, perciever.perceive(ret).size());
     
   }
   

@@ -4,8 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.percepts.ConstructionSitePercept;
+import eisbw.percepts.Percepts;
+import eisbw.percepts.perceivers.PerceptFilter;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
@@ -24,7 +27,7 @@ import java.util.Map;
 public class GameTest {
 
   private Game game;
-  private List<Percept> percepts;
+  private Map<PerceptFilter, List<Percept>> percepts;
   private Map<String, StarcraftUnit> unitList;
 
   @Mock
@@ -48,8 +51,10 @@ public class GameTest {
     unitList = new HashMap<>();
     unitList.put("unit", scUnit);
 
-    percepts = new LinkedList<>();
-    percepts.add(new ConstructionSitePercept(1, 2));
+    percepts = new HashMap<>();
+    List<Percept> perc = new LinkedList<>();
+    perc.add(new ConstructionSitePercept(1, 2));
+    percepts.put(new PerceptFilter(Percepts.CONSTRUCTIONSITE, Filter.Type.ALWAYS),perc);
 
     when(scUnit.perceive()).thenReturn(percepts);
 

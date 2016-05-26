@@ -3,7 +3,7 @@ use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as en
 	own_race="Zerg",
 	starcraft_location="C:\\Starcraft No Install",
 	debug="true",
-	auto_menu="off".
+	auto_menu="single_player".
 	
 define zergDrone as agent {
 	use ZergDrone.ZergDrone as main module.

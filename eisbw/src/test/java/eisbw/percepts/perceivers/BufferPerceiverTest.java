@@ -3,6 +3,7 @@ package eisbw.percepts.perceivers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
@@ -15,8 +16,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class BufferPerceiverTest {
 
@@ -83,7 +86,8 @@ public class BufferPerceiverTest {
 
   @Test
   public void size_test() {
-    assertEquals(5, perciever.perceive().size());
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    assertEquals(4, perciever.perceive(toReturn).size());
   }
   
   @Test

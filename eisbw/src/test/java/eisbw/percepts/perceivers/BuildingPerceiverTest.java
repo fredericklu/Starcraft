@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
@@ -20,8 +21,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class BuildingPerceiverTest {
 
@@ -60,21 +63,28 @@ public class BuildingPerceiverTest {
 
   @Test
   public void size_test() {
-    assertEquals(5, perciever.perceive().size());
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    assertEquals(7, perciever.perceive(toReturn).size());
     when(unit.getRallyPosition()).thenReturn(Positions.None);
-    assertEquals(4, perciever.perceive().size());
+    toReturn = new HashMap<>();
+    assertEquals(6, perciever.perceive(toReturn).size());
     when(unit.getRallyUnit()).thenReturn(null);
-    assertEquals(3, perciever.perceive().size());
+    toReturn = new HashMap<>();
+    assertEquals(5, perciever.perceive(toReturn).size());
+    toReturn = new HashMap<>();
     when(unit.isUpgrading()).thenReturn(false);
-    assertEquals(2, perciever.perceive().size());
+    assertEquals(4, perciever.perceive(toReturn).size());
+    toReturn = new HashMap<>();
     List<Unit> loadedunits = new LinkedList<>();
     loadedunits.add(unit);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
-    assertEquals(3, perciever.perceive().size());
+    assertEquals(4, perciever.perceive(toReturn).size());
+    toReturn = new HashMap<>();
     when(unitType.getSpaceProvided()).thenReturn(0);
-    assertEquals(1, perciever.perceive().size());
+    assertEquals(2, perciever.perceive(toReturn).size());
+    toReturn = new HashMap<>();
     when(self.isResearched(any(TechType.class))).thenReturn(true);
-    assertTrue(perciever.perceive().size() > 2);
+    assertTrue(perciever.perceive(toReturn).size() > 1);
   }
   
   @Test
