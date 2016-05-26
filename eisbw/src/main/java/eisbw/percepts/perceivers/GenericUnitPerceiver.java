@@ -14,7 +14,6 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +25,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     defenceMatrixPercept(toReturn);
     resourcesPercept(toReturn);

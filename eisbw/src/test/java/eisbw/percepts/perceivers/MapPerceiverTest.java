@@ -1,9 +1,9 @@
 package eisbw.percepts.perceivers;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
-import eisbw.percepts.perceivers.MapPerceiver;
+import eis.iilang.Percept;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
@@ -16,7 +16,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class MapPerceiverTest {
 
@@ -51,9 +54,8 @@ public class MapPerceiverTest {
 
   @Test
   public void mapsize_test() {
-    assertEquals("map", perciever.perceive().get(0).getName());
-    assertEquals("10", perciever.perceive().get(0).getParameters().get(0).toProlog());
-    assertEquals("11", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
@@ -66,11 +68,8 @@ public class MapPerceiverTest {
     when(baselocation.getRegion()).thenReturn(region);
     when(region.getID()).thenReturn(5);
 
-    assertEquals("base", perciever.perceive().get(1).getName());
-    assertEquals("3", perciever.perceive().get(1).getParameters().get(0).toProlog());
-    assertEquals("4", perciever.perceive().get(1).getParameters().get(1).toProlog());
-    assertEquals("true", perciever.perceive().get(1).getParameters().get(2).toProlog());
-    assertEquals("5", perciever.perceive().get(1).getParameters().get(3).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
@@ -80,9 +79,8 @@ public class MapPerceiverTest {
     when(map.getChokePoints()).thenReturn(locs);
     when(chokepoint.getCenter()).thenReturn(new Position(5, 6, PosType.BUILD));
 
-    assertEquals("chokepoint", perciever.perceive().get(1).getName());
-    assertEquals("5", perciever.perceive().get(1).getParameters().get(0).toProlog());
-    assertEquals("6", perciever.perceive().get(1).getParameters().get(1).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
 }

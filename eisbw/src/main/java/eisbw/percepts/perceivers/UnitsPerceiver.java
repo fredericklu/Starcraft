@@ -1,5 +1,6 @@
 package eisbw.percepts.perceivers;
 
+
 import eis.eis2java.translation.Filter;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -10,7 +11,6 @@ import eisbw.percepts.UnitPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,6 @@ public class UnitsPerceiver extends Perceiver {
 
       unitpercepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(),
           u.getHitPoints(), u.getShields(), conditions));
-
       if (u.getType().isAttackCapable()) {
         Unit targetUnit = u.getOrderTarget();
         if (targetUnit != null && targetUnit.getType().isAttackCapable()) {
@@ -67,8 +66,7 @@ public class UnitsPerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     // perceive friendly units
     setUnitPercepts(api.getMyUnits(), true, toReturn);

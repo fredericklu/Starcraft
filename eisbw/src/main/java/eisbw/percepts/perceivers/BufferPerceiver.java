@@ -68,8 +68,7 @@ public class BufferPerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     unitAmount(toReturn);
     resourcesPercepts(toReturn);

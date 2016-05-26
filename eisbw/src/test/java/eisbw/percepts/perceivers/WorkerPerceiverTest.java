@@ -1,9 +1,10 @@
 package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
+import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
@@ -16,8 +17,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class WorkerPerceiverTest {
 
@@ -54,8 +57,9 @@ public class WorkerPerceiverTest {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isGatheringGas()).thenReturn(true);
-    assertEquals("workerActivity", perciever.perceive().get(0).getName());
-    assertEquals("gatheringGas", perciever.perceive().get(0).getParameters().get(1).toProlog());
+
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
@@ -63,12 +67,10 @@ public class WorkerPerceiverTest {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isGatheringMinerals()).thenReturn(true);
-    assertEquals("workerActivity", perciever.perceive().get(0).getName());
-    assertEquals("gatheringMinerals",
-        perciever.perceive().get(0).getParameters().get(1).toProlog());
-    when(unit.getOrderTarget()).thenReturn(unit);
-    assertEquals("0",
-        perciever.perceive().get(1).getParameters().get(0).toProlog());
+
+
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
@@ -76,26 +78,26 @@ public class WorkerPerceiverTest {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isConstructing()).thenReturn(true);
-    assertEquals("workerActivity", perciever.perceive().get(0).getName());
-    assertEquals("constructing", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
   public void idle_test() {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
-    assertEquals("workerActivity", perciever.perceive().get(0).getName());
-    assertEquals("idling", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
   public void noTerran_test() {
     when(unitType.getID()).thenReturn(RaceTypes.None.getID());
     when(unitType.isWorker()).thenReturn(true);
-    assertEquals("workerActivity", perciever.perceive().get(0).getName());
-    assertEquals("idling", perciever.perceive().get(0).getParameters().get(1).toProlog());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
     when(unitType.isWorker()).thenReturn(false);
-    assertTrue(perciever.perceive().isEmpty());
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
@@ -103,9 +105,10 @@ public class WorkerPerceiverTest {
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.getHitPoints()).thenReturn(0);
     when(unitType.getMaxHitPoints()).thenReturn(1);
-    assertEquals("requiresRepair", perciever.perceive().get(0).getName());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getHitPoints()).thenReturn(1);
-    assertTrue(perciever.perceive().isEmpty());    
+    assertFalse(perciever.perceive(ret).isEmpty());    
   }
 
 
@@ -114,9 +117,10 @@ public class WorkerPerceiverTest {
     when(api.getNeutralUnits()).thenReturn(toreturn);
     when(unit.getType()).thenReturn(UnitType.UnitTypes.Resource_Vespene_Geyser);
     when(unit.getPosition()).thenReturn(new Position(1, 2));
-    assertEquals("vespeneGeyser", perciever.perceive().get(0).getName());
+    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getType()).thenReturn(unitType);
-    assertTrue(perciever.perceive().isEmpty());        
+    assertFalse(perciever.perceive(ret).isEmpty());        
   }
 
   @Test

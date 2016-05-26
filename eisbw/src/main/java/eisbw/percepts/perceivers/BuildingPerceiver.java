@@ -19,7 +19,6 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +30,7 @@ public class BuildingPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     rallyPointPercept(toReturn);
     rallyUnitPercept(toReturn);

@@ -14,7 +14,6 @@ import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -101,8 +100,7 @@ public class WorkerPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
 
     if (unit.getType().getID() == RaceTypes.Terran.getID()) {
       perceiveTerranWorkers(toReturn);

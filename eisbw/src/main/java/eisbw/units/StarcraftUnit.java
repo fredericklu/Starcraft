@@ -1,12 +1,17 @@
 package eisbw.units;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.ConditionPercept;
+import eisbw.percepts.Percepts;
 import eisbw.percepts.perceivers.IPerceiver;
+import eisbw.percepts.perceivers.PerceptFilter;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class StarcraftUnit {
 
@@ -24,14 +29,16 @@ public class StarcraftUnit {
    * Percept this units' percepts.
    * @return - a list of percepts.
    */
-  public List<Percept> perceive() {
+  public Map<PerceptFilter, List<Percept>> perceive() {
+    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
     List<Percept> percepts = new LinkedList<>();
     List<Parameter> conditions = new LinkedList<>();
     for (IPerceiver perceiver : this.perceivers) {
-      percepts.addAll(perceiver.perceive());
+      perceiver.perceive(toReturn);
       conditions.addAll(perceiver.getConditions());
     }
     percepts.add(new ConditionPercept(conditions));
-    return percepts;
+    toReturn.put(new PerceptFilter(Percepts.CONDITION, Filter.Type.ON_CHANGE), percepts);
+    return toReturn;
   }
 }
