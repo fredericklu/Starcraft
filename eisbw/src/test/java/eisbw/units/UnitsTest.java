@@ -56,8 +56,7 @@ public class UnitsTest {
     assertEquals("name0", units.getUnitNames().get(0));
     assertNotNull(units.getUnits().get("name0"));
     verify(factory, times(1)).create(any(Unit.class));
-    verify(env, times(1)).addToEnvironment("name0", "name");
-    units.deleteUnit("name0",0);
+    units.deleteUnit("name0", 0);
     verify(env, times(1)).deleteFromEnvironment("name0");
     units.addUnit(unit, factory);
     units.clean();

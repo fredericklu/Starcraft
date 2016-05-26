@@ -112,7 +112,7 @@ public class BwapiListener extends BwapiEvents {
   public void unitComplete(int unitId) {
     Unit unit = bwapi.getUnit(unitId);
     if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
-      game.getUnits().addUnit(unit, factory);
+      game.getUnits().addUnit(unit,factory);
     }
   }
 
@@ -126,7 +126,7 @@ public class BwapiListener extends BwapiEvents {
       Unit unit = game.getUnits().getUnits().get(unitName);
       if (bwapi.getMyUnits().contains(unit)) {
         game.getUnits().deleteUnit(unitName, id);
-        game.getUnits().addUnit(unit, factory);
+        game.getUnits().addUnit(unit,factory);
       }
     }
   }

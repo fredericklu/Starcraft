@@ -6,7 +6,9 @@ import jnibwapi.Unit;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Units {
 
@@ -14,6 +16,7 @@ public class Units {
   protected Map<Integer, String> unitNames;
   protected Map<String, StarcraftUnit> starcraftUnits;
   protected StarcraftEnvironmentImpl environment;
+  private Queue<Unit> uninitializedUnits;
 
   /**
    * Constructor.
@@ -25,6 +28,7 @@ public class Units {
     unitMap = new ConcurrentHashMap<>();
     unitNames = new ConcurrentHashMap<>();
     starcraftUnits = new ConcurrentHashMap<>();
+    uninitializedUnits = new ConcurrentLinkedQueue<>();
     this.environment = environment;
   }
 
@@ -34,13 +38,13 @@ public class Units {
    * @param unit
    *          - the unit to add
    */
-  public synchronized void addUnit(Unit unit, StarcraftUnitFactory factory) {
+  public synchronized void addUnit(Unit unit,StarcraftUnitFactory factory) {
     if (!unitNames.containsKey(unit.getID())) {
       String unitName = BwapiUtility.getUnitName(unit);
       unitMap.put(unitName, unit);
       unitNames.put(unit.getID(), unitName);
       starcraftUnits.put(unitName, factory.create(unit));
-      environment.addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+      uninitializedUnits.add(unit);
     }
   }
 
@@ -76,5 +80,9 @@ public class Units {
     for (Entry<Integer, String> entry : unitNames.entrySet()) {
       deleteUnit(entry.getValue(),entry.getKey());
     }
+  }
+
+  public Queue<Unit> getUninitializedUnits() {
+    return uninitializedUnits;
   }
 }
