@@ -64,10 +64,10 @@ public class UnitsPerceiverTest {
     when(unitType.isAttackCapable()).thenReturn(true);
     when(unit.getOrderTarget()).thenReturn(unit);
     Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
-    assertEquals(4, perceiver.perceive(ret).size());
+    assertEquals(2, perceiver.perceive(ret).size());
     when(unit.getOrderTarget()).thenReturn(null);
     ret = new HashMap<>();
-    assertEquals(4, perceiver.perceive(ret).size());
+    assertEquals(2, perceiver.perceive(ret).size());
   }
 
   @Test

@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class SpeedSlider extends JPanel {
 
@@ -22,9 +23,12 @@ public class SpeedSlider extends JPanel {
    */
   public SpeedSlider() {
     final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
-    slider.addChangeListener((ChangeEvent changeListener) -> {
-      changed = true;
-      speed = slider.getValue();
+    slider.addChangeListener(new ChangeListener() {
+      @Override
+      public void stateChanged(ChangeEvent event) {
+        changed = true;
+        speed = slider.getValue();
+      }
     });
 
     slider.setInverted(true);
