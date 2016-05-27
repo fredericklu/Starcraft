@@ -33,7 +33,7 @@ module ZergZerglingEvent {
 	forall bel(attacking(Id1, Id2)), not(percept(attacking(Id1, Id2))) do delete(attacking(Id1, Id2)).
 	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
-	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
+	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)) + print("GOT IT").
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -48,7 +48,7 @@ module ZergZerglingEvent {
 	
 	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
 	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25) 
-	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
+	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)) + print("I GOT HERE").
 	
 	% If bel to attack then adopt goal to attack enemy base
 	if not(goal(attack(X, Y))), bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).

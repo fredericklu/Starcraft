@@ -11,7 +11,7 @@ module ProtossProbe {
 	minerals(M), M >= 100,unitAmount("Protoss Zealot", Z), Z > 1) then build("Protoss Pylon", X, Y).
 	
 	% If goal to make first pylon and have enough resources, start making one
-	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructionSite(X,Y,false),
+	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructionSite(X,Y,false), unitAmount("Protoss Probe", Amount), Amount > 6,
 	minerals(M), M >= 100) then build("Protoss Pylon", X, Y).
 	
 	% If goal to gather minerals, start gathering minerals from mineralfields near the nexus

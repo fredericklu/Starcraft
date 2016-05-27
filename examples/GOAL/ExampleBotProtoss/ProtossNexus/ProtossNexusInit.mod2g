@@ -1,6 +1,8 @@
 use ProtossNexus as knowledge.
 
 module ProtossNexusInit {
+	if percept(unitAmount(Type, Amount)) then insert(unitAmount(Type, Amount)).
+	
 	% Insert info about me
 	if percept(self(Id,Type)) then insert(self(Id, Type)).
 	
@@ -12,5 +14,4 @@ module ProtossNexusInit {
 	
 	% send location to Tassadar
 	if percept(status(_,_,X, Y)) then (tassadar).send(nexusPosition(X, Y)).
-	
 }
