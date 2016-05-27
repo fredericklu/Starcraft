@@ -194,4 +194,8 @@ public class Game {
   public StarcraftEnvironmentImpl getEnvironment() {
     return env;
   }
+  
+  public boolean isInitialized(String entity) {
+    return percepts.containsKey(entity);
+  }
 }
