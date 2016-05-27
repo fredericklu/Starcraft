@@ -12,6 +12,13 @@ module ZergHatcheryEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.
 	
+	
+	% The handling of the friendly units percept
+	forall percept(unit(true, Type,Id,Health,Shields,_)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields)), MyId \= Id) 
+	do insert(friendly(Type, Id, Health, Shields)).
+	forall bel(friendly(Type, Id, Health, Shields)) , not(percept(unit(true, Type,Id,Health,Shields,_)))
+	do delete(friendly(Type,Id,Health, Shields)).
+	
 	% The handling of the supply percept
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
