@@ -31,13 +31,15 @@ module ZergDroneEvent {
 	% The handling of the workerActivity
 	forall percept(workerActivity(ID,ACT)), bel(not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
 	forall bel(workerActivity(ID,ACT)),not(percept(workerActivity(ID,ACT))) do delete(workerActivity(ID,ACT)).
+	
+	if bel(builder, minerals(M)) then print(M).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If there is no spawningpool yet, create one
-	if bel(builder, not(friendly("Zerg Spawning Pool", _, _, _))) then adopt(unitAmount("Zerg Spawning Pool", 1)).
+	if bel(builder, not(unitAmount("Zerg Spawning Pool", _))) then adopt(unitAmount("Zerg Spawning Pool", 1)).
 	
-	if bel(builder, friendly("Zerg Spawning Pool", _, _, _)) then adopt(unitAmount("Zerg Hatchery", 4)).
+	if bel(builder, unitAmount("Zerg Spawning Pool", 1)) then adopt(unitAmount("Zerg Hatchery", 4)).
 	
 	% If the worker is not busy yet, start gathering minerals
 	if bel(not(busy), self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
