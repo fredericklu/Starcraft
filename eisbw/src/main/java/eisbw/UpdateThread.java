@@ -4,6 +4,9 @@ import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class UpdateThread extends Thread {
 
   private Game game;
@@ -38,11 +41,17 @@ public class UpdateThread extends Thread {
     Thread.currentThread().setName("Update thread");
     while (running) {
       game.update(bwapi);
+      List<Unit> toAdd = new LinkedList<>();
       while (!units.getUninitializedUnits().isEmpty()) {
         Unit unit = units.getUninitializedUnits().poll();
         String unitName = BwapiUtility.getUnitName(unit);
-        game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+        if (game.isInitialized(unitName)) {
+          game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+        } else {
+          toAdd.add(unit);
+        }
       }
+      units.getUninitializedUnits().addAll(toAdd);
       try {
         Thread.sleep(5);
       } catch (InterruptedException ex) {
