@@ -10,10 +10,12 @@ import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class Game {
@@ -94,13 +96,11 @@ public class Game {
         case ONCE:
           if (!previous.get(unitName).containsKey(entry.getKey().getName())) {
             percept.addAll(entry.getValue());
-            previousHolder.get(unitName).put(entry.getKey().getName(), entry.getValue());
+            previousHolder.get(unitName).put(entry.getKey().getName(), null);
           }
           break;
         case ON_CHANGE:
-          //handleOnChangePercept(entry, unitName, percept);
-          //TODO This code is a stub and has to be changed eventually.
-          percept.addAll(entry.getValue());
+          handleOnChangePercept(entry, unitName, percept);
           break;
         case ON_CHANGE_NEG:
           Logger.getLogger("StarCraft logger").warning("Change with negation is not allowed.");
@@ -115,10 +115,12 @@ public class Game {
   private void handleOnChangePercept(Entry<PerceptFilter, List<Percept>> entry, String unitName,
       List<Percept> percept) {
     if (previous.get(unitName).containsKey(entry.getKey().getName())) {
-      if (!entry.getValue().equals(previous.get(unitName).get(entry.getKey().getName()))) {
+      Set<Percept> checkList = new HashSet<>(entry.getValue());
+      checkList.removeAll(previous.get(unitName).get(entry.getKey().getName()));
+      if (!checkList.isEmpty()) {
         previousHolder.get(unitName).put(entry.getKey().getName(), entry.getValue());
-        percept.addAll(entry.getValue());
       }
+      percept.addAll(checkList);
     } else {
       previousHolder.get(unitName).put(entry.getKey().getName(), entry.getValue());
       percept.addAll(entry.getValue());
@@ -196,7 +198,7 @@ public class Game {
   public StarcraftEnvironmentImpl getEnvironment() {
     return env;
   }
-  
+
   public boolean isInitialized(String entity) {
     return percepts.containsKey(entity);
   }
