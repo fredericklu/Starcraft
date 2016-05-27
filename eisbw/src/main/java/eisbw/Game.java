@@ -98,7 +98,9 @@ public class Game {
           }
           break;
         case ON_CHANGE:
-          handleOnChangePercept(entry, unitName, percept);
+          //handleOnChangePercept(entry, unitName, percept);
+          //TODO This code is a stub and has to be changed eventually.
+          percept.addAll(entry.getValue());
           break;
         case ON_CHANGE_NEG:
           Logger.getLogger("StarCraft logger").warning("Change with negation is not allowed.");
