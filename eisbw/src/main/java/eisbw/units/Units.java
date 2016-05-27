@@ -38,14 +38,12 @@ public class Units {
    * @param unit
    *          - the unit to add
    */
-  public synchronized void addUnit(Unit unit,StarcraftUnitFactory factory) {
-    if (!unitNames.containsKey(unit.getID())) {
-      String unitName = BwapiUtility.getUnitName(unit);
-      unitMap.put(unitName, unit);
-      unitNames.put(unit.getID(), unitName);
-      starcraftUnits.put(unitName, factory.create(unit));
-      uninitializedUnits.add(unit);
-    }
+  public synchronized void addUnit(Unit unit, StarcraftUnitFactory factory) {
+    String unitName = BwapiUtility.getUnitName(unit);
+    unitMap.put(unitName, unit);
+    unitNames.put(unit.getID(), unitName);
+    starcraftUnits.put(unitName, factory.create(unit));
+    uninitializedUnits.add(unit);
   }
 
   /**
@@ -78,7 +76,7 @@ public class Units {
    */
   public void clean() {
     for (Entry<Integer, String> entry : unitNames.entrySet()) {
-      deleteUnit(entry.getValue(),entry.getKey());
+      deleteUnit(entry.getValue(), entry.getKey());
     }
   }
 
