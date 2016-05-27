@@ -3,7 +3,7 @@ use ZergZergling as knowledge.
 module ZergZerglingInit {
 	
 	% Insert info about me
-	if percept(self(Id,Type)) then insert(self(Id, Type)).
+	if percept(self(Id,Type)) then insert(self(Id, Type)) + print(Id).
 	
 	% Perceive base locations
 	forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)).

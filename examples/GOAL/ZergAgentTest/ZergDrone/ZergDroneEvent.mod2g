@@ -5,7 +5,7 @@ module ZergDroneEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% receive builder task from the Overmind
-	if (Name).sent:(builder) then insert(builder).
+	if (Name).sent:(builder) then insert(builder) + print("Received").
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	

@@ -4,7 +4,7 @@ use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as en
 	starcraft_location="C:\\Starcraft No Install",
 	debug="true",
 	auto_menu="Single_Player",
-	enemy_race="random".
+	enemy_race="Protoss".
 	
 	
 define zergDrone as agent {
