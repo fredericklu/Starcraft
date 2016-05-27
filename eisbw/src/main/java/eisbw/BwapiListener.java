@@ -9,6 +9,7 @@ import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
+import jnibwapi.types.UnitType.UnitTypes;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -111,7 +112,7 @@ public class BwapiListener extends BwapiEvents {
   @Override
   public void unitComplete(int unitId) {
     Unit unit = bwapi.getUnit(unitId);
-    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+    if (bwapi.getMyUnits().contains(unit)) {
       game.getUnits().addUnit(unit, factory);
     }
   }
@@ -121,13 +122,10 @@ public class BwapiListener extends BwapiEvents {
     if (bwapi.getSelf().getRace().getID() != RaceTypes.Zerg.getID()) {
       return;
     }
-    Unit unit = bwapi.getUnit(id);
-    if (bwapi.getMyUnits().contains(unit)) {
-      String unitName = game.getUnits().getUnitNames().get(id);
-      game.getUnits().deleteUnit(unitName, id);
-      if (!BwapiUtility.getUnitName(unit).contains("zergZergling")) {
-        game.getUnits().addUnit(unit, factory);
-      }
+    String unitName = game.getUnits().getUnitNames().get(id);
+    game.getUnits().deleteUnit(unitName, id);
+    if (!(bwapi.getUnit(id).getType() == UnitTypes.Zerg_Zergling)) {
+      unitComplete(id);
     }
   }
 
