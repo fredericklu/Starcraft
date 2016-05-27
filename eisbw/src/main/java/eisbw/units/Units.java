@@ -38,7 +38,7 @@ public class Units {
    * @param unit
    *          - the unit to add
    */
-  public synchronized void addUnit(Unit unit, StarcraftUnitFactory factory) {
+  public void addUnit(Unit unit, StarcraftUnitFactory factory) {
     String unitName = BwapiUtility.getUnitName(unit);
     unitMap.put(unitName, unit);
     unitNames.put(unit.getID(), unitName);
@@ -52,7 +52,7 @@ public class Units {
    * @param unitName
    *          - the unit name
    */
-  public synchronized void deleteUnit(String unitName, int id) {
+  public void deleteUnit(String unitName, int id) {
     unitMap.remove(unitName);
     unitNames.remove(id);
     starcraftUnits.remove(unitName);

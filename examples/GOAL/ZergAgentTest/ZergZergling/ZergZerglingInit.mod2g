@@ -3,16 +3,16 @@ use ZergZergling as knowledge.
 module ZergZerglingInit {
 	
 	% Insert info about me
-	if percept(self(Id,Type)) then insert(self(Id, Type)).
-	if percept(condition(List)) then insert(condition(List)).
+	if percept(self(Id,Type)) then insert(self(Id, Type)) + print(Id).
+	if percept(condition(List)) then insert(condition(List)) + print('condition').
 	
 	% Perceive base locations
-	forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)).
+	forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)) + print('got bases').
 	
 	% Perceive chokepoints of the map 
-	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
+	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)) + print('chokes').
 		
 	% Init position and health
-	if percept(status(H,_,X,Y)) then insert(hitPoints(H), position(X,Y)).
+	if percept(status(H,_,X,Y)) then insert(hitPoints(H), position(X,Y)) + print('status').
 		
 }
