@@ -3,6 +3,6 @@ use ZergZergling as actionspec.
 
 module ZergZergling {	
 	
-	if a-goal(position(X, Y)), bel(condition(List),not(member(moving, List))) then move(X, Y).
+	if a-goal(position(X, Y)), bel(condition(List),not(moving)) then move(X, Y)+insert(moving).
 	
 }
