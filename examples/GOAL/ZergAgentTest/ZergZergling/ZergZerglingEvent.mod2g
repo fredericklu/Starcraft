@@ -11,10 +11,12 @@ module ZergZerglingEvent {
 	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
 		
 	if percept(condition(H1)), bel(condition(H2)) then delete(condition(H2)) + insert(condition(H1)).
+	
+	if percept(condition(List)), bel(moving, not(member(moving,List))) then delete(moving).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	if goal(position(X,Y)), bel(position(X2,Y2), distance(X,Y,X2,Y2,D), D<49) then drop(position(X,Y)).
 	
-	if bel(chokepoint(X, Y),condition(List),not(member(moving, List)),position(X2,Y2),distance(X,Y,X2,Y2,D), D>49) 
+	if not(goal(position(_,_))),bel(chokepoint(X, Y),not(moving) ,position(X2,Y2),distance(X,Y,X2,Y2,D), D>49) 
 		then adopt(position(X, Y)).
 }
