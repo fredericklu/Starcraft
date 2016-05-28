@@ -33,7 +33,7 @@ module TerranBarracksEvent {
 	if not(goal(unitAmount("Terran Marine", 10))), bel(not(unitAmount("Terran Marine", 10))) then adopt(unitAmount("Terran Marine", 10)).
 	
 	% If there are no medics yet or less than 5 start training medics
-	if not(goal(unitAmount("Terran Medic", 5))), bel(not(unitAmount("Terran Medic", 5))) then adopt(unitAmount("Terran Medic", 5)).
+	if not(goal(unitAmount("Terran Medic", 10))), bel(not(unitAmount("Terran Medic", 10))) then adopt(unitAmount("Terran Medic", 10)).
 	
 	% If there are enough Medics start producing more marines
 	if not(goal(unitAmount("Terran Marine", 40))), bel(not(unitAmount("Terran Marine", 40))) then adopt(unitAmount("Terran Marine", 40)).

@@ -4,6 +4,6 @@ use "../GenericMods/GenericPredicates" as knowledge.
 module main{
 	
 	% If goal to follow and nobody is following him yet, start following
-	if a-goal(following(Id)), bel(not(following(Id))) then follow(Id) + insert(following(Id)).
+	if a-goal(following(Id)) then follow(Id) + drop(following(Id)).
 	
 }

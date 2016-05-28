@@ -17,5 +17,7 @@ module TerranCommandCenterEvent {
 	
 	% If there are 2 barracks already, start creating one 1 scv unit
 	if bel(unitAmount('Terran Barracks',2), unitAmount('Terran SCV',M) ,M<9) then adopt(unitAmount('Terran SCV',9)).
+	
+	if bel(unitAmount('Terran Barracks', 3), unitAmount('Terran SCV', M), M < 14) then adopt(unitAmount('Terran SCV',14)).
 			
 }

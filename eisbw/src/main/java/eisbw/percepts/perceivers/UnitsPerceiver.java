@@ -60,7 +60,8 @@ public class UnitsPerceiver extends Perceiver {
       if (u.getType().isAttackCapable()) {
         Unit targetUnit = u.getOrderTarget();
         if (targetUnit != null && targetUnit.getType().isAttackCapable()) {
-          attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID()));
+          attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID(),
+              u.getPosition().getBX(), u.getPosition().getBY()));
         }
       }
     }

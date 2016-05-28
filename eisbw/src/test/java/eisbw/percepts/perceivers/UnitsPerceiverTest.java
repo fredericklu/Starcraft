@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 
 import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 import jnibwapi.Unit;
+import jnibwapi.Position.PosType;
 import jnibwapi.types.UnitType;
 
 import org.junit.Before;
@@ -51,6 +53,7 @@ public class UnitsPerceiverTest {
     when(unit.getShields()).thenReturn(10);
 
     when(bwapi.getEnemyUnits()).thenReturn(toreturn);
+    when(unit.getPosition()).thenReturn(new Position(10,12,PosType.BUILD));
   }
 
   @Test

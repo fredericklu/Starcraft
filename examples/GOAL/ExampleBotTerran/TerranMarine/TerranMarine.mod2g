@@ -8,5 +8,11 @@ module main{
 	
 	% If goal to attack and bel to attack, go attack
 	if goal(attack(X, Y)), bel(attack, not(attacking)) then attack(X, Y) + insert(attacking).
+	
+	% If attacking, but idle start attacking
+	if goal(attack(X, Y)), bel(attacking, condition(List), member(idle, List)) then attack(X, Y).
+	
+	% If enemy spotted, attack it
+	if bel(enemy(_, Id, _, _)) then attack(Id).
 }
 

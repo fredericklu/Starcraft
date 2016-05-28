@@ -11,7 +11,7 @@ module ProtossNexusEvent {
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT)) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
 	% The handling of the queueSize percept
-	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)) + print(N).
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	

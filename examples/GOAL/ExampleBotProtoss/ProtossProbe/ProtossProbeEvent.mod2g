@@ -47,10 +47,13 @@ module ProtossProbeEvent {
 	then adopt(workerActivity(Id, gatheringMinerals)).
 				
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
-		
-	if (Name).sent(builder) then insert(builder).
 	
+	% If told to be builder, insert builder in knowledge base	
+	if (_).sent(builder) then insert(builder).
+	
+	% If don't know nexus location yet, start asking tassadar
 	if not(bel(nexusPosition(_, _))) then (tassadar).send?(nexusPosition).
 	
+	% If nexus location is told, insert it into the knowledge base
 	if (_).sent:(nexusPosition(X, Y)) then insert(nexusPosition(X, Y)).
 }

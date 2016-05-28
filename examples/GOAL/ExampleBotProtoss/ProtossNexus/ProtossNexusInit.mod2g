@@ -1,6 +1,7 @@
 use ProtossNexus as knowledge.
 
 module ProtossNexusInit {
+	% Init unitAmount percept
 	if percept(unitAmount(Type, Amount)) then insert(unitAmount(Type, Amount)).
 	
 	% Insert info about me
