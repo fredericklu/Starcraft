@@ -14,7 +14,8 @@ enemyBase/2,
 ready/1,
 attack/0,
 hitPoints/1,
-condition/1
+condition/1,
+moving/0
 .
 
 % default distance check

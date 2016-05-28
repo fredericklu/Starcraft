@@ -112,7 +112,7 @@ public class BwapiListener extends BwapiEvents {
   @Override
   public void unitComplete(int unitId) {
     Unit unit = bwapi.getUnit(unitId);
-    if (bwapi.getMyUnits().contains(unit)) {
+    if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
       game.getUnits().addUnit(unit, factory);
     }
   }
@@ -122,8 +122,7 @@ public class BwapiListener extends BwapiEvents {
     if (bwapi.getSelf().getRace().getID() != RaceTypes.Zerg.getID()) {
       return;
     }
-    String unitName = game.getUnits().getUnitNames().get(id);
-    game.getUnits().deleteUnit(unitName, id);
+    unitDestroy(id);
     if (!(bwapi.getUnit(id).getType() == UnitTypes.Zerg_Zergling)) {
       unitComplete(id);
     }

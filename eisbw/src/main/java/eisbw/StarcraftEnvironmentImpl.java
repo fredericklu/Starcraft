@@ -18,6 +18,7 @@ import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceStringTranslator;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -32,12 +33,15 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Configuration configuration;
   private Game game;
 
+  private List<String> registeredEntities;
+
   /**
    * Constructor of the environment.
    */
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
+    registeredEntities = new LinkedList<>();
     game = new Game(this);
   }
 
@@ -109,6 +113,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    */
   public void addToEnvironment(String unitName, String eisUnitType) {
     try {
+      registeredEntities.add(unitName);
       addEntity(unitName, eisUnitType);
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
@@ -122,12 +127,16 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    *          - the name of the unit
    */
   public void deleteFromEnvironment(String unitName) {
+    if (!registeredEntities.contains(unitName)) {
+      return;
+    }
     try {
       Set<String> agents = getAssociatedAgents(unitName);
       deleteEntity(unitName);
       for (String agent : agents) {
         unregisterAgent(agent);
       }
+      registeredEntities.remove(unitName);
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment",
           exception);
