@@ -113,8 +113,10 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
    */
   public void addToEnvironment(String unitName, String eisUnitType) {
     try {
-      registeredEntities.add(unitName);
-      addEntity(unitName, eisUnitType);
+      if (!registeredEntities.contains(unitName)) {
+        registeredEntities.add(unitName);
+        addEntity(unitName, eisUnitType);
+      }
     } catch (EntityException exception) {
       logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
     }
