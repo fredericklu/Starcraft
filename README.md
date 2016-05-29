@@ -14,17 +14,10 @@ For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-
 * GOAL
 
 ### Quick Setup
-1. Install StarCraft: Brood War and update to version 1.16.1.
-3. Download this project (Download ZIP in the right-side menu).
-4. Move contents of libs/WINDOWS folder to your windows folder or another folder in your PATH
-5. Move contents of Starcraft folder to your starcraft installation directory
-6. Extract sscai.rar to the maps folder of starcraft
-7. Move mapData to your eclipse installation directory
-8. Start Eclipse as Administrator (Important) and build eisbw with maven deploy
-9. Start ChaosLauncher as Administrator (Important)
-10. Run one of the examples in the examples-folder using GOAL.
-11. Run SCBW through ChaosLauncher with the BWAPI plugin enabled.
-12. Start a new game using Terran as player on the map (2)Destination (in the sscai maps folder) and watch the agents play!
+1. Download the MSI Installer here: https://we.tl/0yBXI2plGE
+2. Install the Starcraft Environment.
+3. Follow the install guide in the MSI Installer.
+4. The first time playing a map can take a while, because of the map generation (Note that this can take up to 2 minutes).
 
 ### Current status
 
