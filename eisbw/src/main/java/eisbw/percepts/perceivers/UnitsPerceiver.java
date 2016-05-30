@@ -27,8 +27,10 @@ public class UnitsPerceiver extends Perceiver {
    *          The perceived units
    * @param isFriendly
    *          indicates whether these units are friendly or not
-   * @param attackingpercepts - list with unitPercepts
-   * @param unitpercepts - list with attackingPercepts
+   * @param attackingpercepts
+   *          - list with unitPercepts
+   * @param unitpercepts
+   *          - list with attackingPercepts
    * @param percepts
    *          The list of percepts
    * @param toReturn
@@ -49,13 +51,17 @@ public class UnitsPerceiver extends Perceiver {
       if (u.isCloaked()) {
         conditions.add(new Identifier("cloaked"));
       }
+      if (u.isBeingConstructed()) {
+        conditions.add(new Identifier("beingConstructed"));
+      }
 
       unitpercepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(),
           u.getHitPoints(), u.getShields(), conditions));
       if (u.getType().isAttackCapable()) {
         Unit targetUnit = u.getOrderTarget();
         if (targetUnit != null && targetUnit.getType().isAttackCapable()) {
-          attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID()));
+          attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID(),
+              u.getPosition().getBX(), u.getPosition().getBY()));
         }
       }
     }

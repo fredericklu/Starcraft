@@ -8,13 +8,14 @@ module ProtossNexusEvent {
 	if true then GenericPercepts.
 	
 	% The handling of the supply percept
-	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	if percept(resources(_, _, C, T)), bel(supply(OC, OT)) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
 	% The handling of the queueSize percept
-	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if bel(unitAmount("Protoss Probe", X), X < 7) then adopt(unitAmount("Protoss Probe", 8)).
+	% If no goal to make an amount of units, and have less then 7 probes, adopt a goal to make 8 probes
+	if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Probe", X), X < 7) then adopt(unitAmount("Protoss Probe", 8)).
 }
 

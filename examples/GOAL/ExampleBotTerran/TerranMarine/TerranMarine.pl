@@ -14,7 +14,9 @@ attacking/0,
 attack/0,
 groupLocation/2,
 enemyBase/2,
-commandCenterPosition/2.
+commandCenterPosition/2,
+condition/1,
+attacking/4.
 
 % default distance check
 distance(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)**2 + (Y2-Y1)**2).

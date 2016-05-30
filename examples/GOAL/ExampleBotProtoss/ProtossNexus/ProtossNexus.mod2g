@@ -4,10 +4,10 @@ use ProtossNexus as actionspec.
 module ProtossNexus {
 	
 	% If there is no probe in queue and have sufficient minerals
-	if bel(minerals(X), X>=50, queueSize(N), N < 1) then {
+	if bel(minerals(X), X>=50, queueSize(N), N < 2) then {
 		
 		% If less then 8 workers exist, build a probe
-		if a-goal(unitAmount("Protoss Probe", 8)) then train("Protoss Probe"). 
+		if a-goal(unitAmount("Protoss Probe", 8)), bel(unitAmount("Protoss Probe", M), M < 8) then train("Protoss Probe"). 
 	} 
 	
 }

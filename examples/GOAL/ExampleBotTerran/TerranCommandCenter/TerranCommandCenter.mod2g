@@ -7,6 +7,7 @@ module main{
 	if bel(queueSize(N), N < 2, minerals(X), X>=50, supply(Y,Z), Y<Z) then {
 		if a-goal(unitAmount("Terran SCV", 8)), bel(unitAmount("Terran SCV", Amount), Amount =< 7) then train("Terran SCV").
 		if a-goal(unitAmount("Terran SCV", 9)) then train("Terran SCV").
+		if a-goal(unitAmount("Terran SCV", 14)) then train("Terran SCV").
 	} 
 	
 }

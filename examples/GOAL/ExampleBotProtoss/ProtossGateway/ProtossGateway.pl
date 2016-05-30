@@ -9,4 +9,5 @@ gas/1,
 supply/2,
 train/1,
 probe/2,
-done/0.
+done/0,
+queue/1.

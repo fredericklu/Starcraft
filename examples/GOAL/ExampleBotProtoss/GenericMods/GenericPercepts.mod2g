@@ -4,8 +4,8 @@ order = linearall.
 module GenericPercepts {
 	
 	% The handling of the resources percept
-	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).
-	if percept(resources(_, G, _, _)), bel(gas(OG), not(OG == G)) then delete(gas(OG)) + insert(gas(G)).
+	if bel(minerals(OM)), percept(resources(M, _, _, _)) then delete(minerals(OM)) + insert(minerals(M)).
+	if bel(gas(OG)), percept(resources(_, G, _, _)) then delete(gas(OG)) + insert(gas(G)).
 	
 	% The handling of the friendly units percept
 	forall percept(unit(true, Type,Id,Health,Shields,_)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields)), MyId \= Id) 
@@ -14,6 +14,6 @@ module GenericPercepts {
 	do delete(friendly(Type,Id,Health, Shields)).
 	
 	% The handling of the unitAmount percept
-	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
 	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
+	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
 }

@@ -1,7 +1,7 @@
 :- dynamic
 self/2,
 queueSize/1,
-friendly/6,
+friendly/4,
 isMorphing/2,
 minerals/1,
 unitAmount/2,
