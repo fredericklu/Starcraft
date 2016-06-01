@@ -8,10 +8,10 @@ module ProtossGatewayEvent {
 	if true then GenericPercepts.
 	
 	% The handling of the supply percept
-	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	if bel(supply(OC, OT)), percept(resources(_, _, C, T)) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
 	% The handling of the queueSize percept
-	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	

@@ -17,11 +17,10 @@ constructing/0,
 backupBuilder/0,
 commandCenterPosition/2,
 vespeneGeyser/2,
-vespeneMiner/0.
+vespeneMiner/0,
+unitCondition/2.
 
-
-
-	busy :- constructing ; gathering.
+	busy :- condition(List), (member(constructing, List) ; member(gathering, List)).
 		
 	cost("Terran Command Center",400,0).
 	cost("Terran Supply Depot", 100, 0).

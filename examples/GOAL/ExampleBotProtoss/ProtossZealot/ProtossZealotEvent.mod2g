@@ -24,9 +24,6 @@ module ProtossZealotEvent {
 	% The handling of the position 
 	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
-	forall percept(attacking(Id1, Id2)), not(bel(attacking(Id1, Id2))) do insert(attacking(Id1, Id2)).
-	forall bel(attacking(Id1, Id2)), not(percept(attacking(Id1, Id2))) do delete(attacking(Id1, Id2)).
-	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
 	if bel(not(enemyBase(_, _)), nexusPosition(X, Y), base(X1, Y1, true, _), 
 	distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).

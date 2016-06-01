@@ -4,8 +4,10 @@ use "../GenericMods/GenericPercepts" as module.
 module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
+	% If don't know hatchery position yet, ask the overMind
 	if not(bel(hatcheryPosition(_, _))) then (overMind).send?(hatcheryPosition).
 	
+	% If hatchery position is told, insert it in knowledge base
 	if (_).sent:(hatcheryPosition(X, Y)) then insert(hatcheryPosition(X, Y)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
@@ -29,11 +31,8 @@ module ZergZerglingEvent {
 	% The handling of the health
 	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
 	
-	forall percept(attacking(Id1, Id2)), not(bel(attacking(Id1, Id2))) do insert(attacking(Id1, Id2)).
-	forall bel(attacking(Id1, Id2)), not(percept(attacking(Id1, Id2))) do delete(attacking(Id1, Id2)).
-	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
-	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
+	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)) + print("GOT IT").
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
@@ -48,7 +47,7 @@ module ZergZerglingEvent {
 	
 	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
 	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25) 
-	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
+	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)) + print("I GOT HERE").
 	
 	% If bel to attack then adopt goal to attack enemy base
 	if not(goal(attack(X, Y))), bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).

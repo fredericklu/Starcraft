@@ -19,16 +19,24 @@ module TerranBarracksEvent {
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).
 	
 	% The handling of the queueSize percept
-	if percept(queueSize(N)), bel(queueSize(No), No \= N) then delete(queueSize(No)) + insert(queueSize(N)).
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	% The handling of the friendly units percept
+	forall percept(unit(true, Type,_,_,_,Condition)), bel(not(unitCondition(Type,Condition))) 
+	do insert(unitCondition(Type, Condition)).
+	forall bel(unitCondition(Type, Condition)) , not(percept(unit(true, Type,_,_,_,Condition)))
+	do delete(unitCondition(Type, Condition)).
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there are no marines yet or less than 30 start training marines
-	if not(goal(unitAmount("Terran Marine", 30))), bel(not(unitAmount("Terran Marine", 30))) then adopt(unitAmount("Terran Marine", 30)).
+	% If there are no marines yet or less than 10 start training marines
+	if not(goal(unitAmount("Terran Marine", 10))), bel(not(unitAmount("Terran Marine", 10))) then adopt(unitAmount("Terran Marine", 10)).
 	
-	% If there are no medic yet or less than 5 start training medics
-	if not(goal(unitAmount("Terran Medic", 5))), bel(not(unitAmount("Terran Medic", 5)), friendly("Terran Academy", _, _, _)) 
-	then adopt(unitAmount("Terran Medic", 5)).
+	% If there are no medics yet or less than 5 start training medics
+	if not(goal(unitAmount("Terran Medic", 10))), bel(not(unitAmount("Terran Medic", 10))) then adopt(unitAmount("Terran Medic", 10)).
+	
+	% If there are enough Medics start producing more marines
+	if not(goal(unitAmount("Terran Marine", 40))), bel(not(unitAmount("Terran Marine", 40))) then adopt(unitAmount("Terran Marine", 40)).
 	
 	% If no rallyPoint set yet, start setting one
 	if not(goal(rallyPoint(_,_))), bel(chokepoint(X1, Y1), commandCenterPosition(X2, Y2), distance(X1, Y1, X2, Y2, D), D < 25,

@@ -4,11 +4,13 @@ use "../GenericMods/GenericPercepts" as module.
 module ZergDroneEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% receive builder task from the Overmind
+	% Received builder task from the Overmind
 	if (Name).sent:(builder) then insert(builder).
 	
+	% If don't know hatchery position yet, ask the overMind
 	if not(bel(hatcheryPosition(_, _))) then (overMind).send?(hatcheryPosition).
 	
+	% If hatchery position is told, insert it in knowledge base
 	if (_).sent:(hatcheryPosition(X, Y)) then insert(hatcheryPosition(X, Y)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
