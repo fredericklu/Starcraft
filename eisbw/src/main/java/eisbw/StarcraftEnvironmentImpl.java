@@ -17,8 +17,8 @@ import eisbw.translators.BooleanStringTranslator;
 import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceStringTranslator;
 
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -33,7 +33,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   private Configuration configuration;
   private Game game;
 
-  private List<String> registeredEntities;
+  private Set<String> registeredEntities;
 
   /**
    * Constructor of the environment.
@@ -41,7 +41,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   public StarcraftEnvironmentImpl() {
     super();
     installTranslators();
-    registeredEntities = new LinkedList<>();
+    registeredEntities = new HashSet<>();
     game = new Game(this);
   }
 
