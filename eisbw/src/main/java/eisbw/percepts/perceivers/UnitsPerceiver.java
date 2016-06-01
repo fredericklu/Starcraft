@@ -39,25 +39,16 @@ public class UnitsPerceiver extends Perceiver {
   private void setUnitPercepts(List<Unit> units, boolean isFriendly, List<Percept> unitpercepts,
       List<Percept> attackingpercepts) {
 
+    // Fix for the phantom marines bug
     for (Unit u : units) {
-      if(!isFriendly && u.isBeingConstructed()){
+      if (!isFriendly && u.isBeingConstructed()) {
         continue;
       }
-        
+
       List<Parameter> conditions = new LinkedList<>();
 
-      if (u.getType().isFlyer()) {
-        conditions.add(new Identifier("flying"));
-      }
-      if (u.isMorphing()) {
-        conditions.add(new Identifier("morphing"));
-      }
-      if (u.isCloaked()) {
-        conditions.add(new Identifier("cloaked"));
-      }
-      if (u.isBeingConstructed()) {
-        conditions.add(new Identifier("beingConstructed"));
-      }
+      setUnitConditions(u, conditions);
+
       unitpercepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(),
           u.getHitPoints(), u.getShields(), conditions));
       if (u.getType().isAttackCapable()) {
@@ -67,6 +58,29 @@ public class UnitsPerceiver extends Perceiver {
               u.getPosition().getBX(), u.getPosition().getBY()));
         }
       }
+    }
+  }
+
+  /**
+   * Sets the conditions of the unit.
+   * 
+   * @param unit
+   *          The evaluated unit
+   * @param conditions
+   *          The list of conditions of the unit
+   */
+  public void setUnitConditions(Unit unit, List<Parameter> conditions) {
+    if (unit.getType().isFlyer()) {
+      conditions.add(new Identifier("flying"));
+    }
+    if (unit.isMorphing()) {
+      conditions.add(new Identifier("morphing"));
+    }
+    if (unit.isCloaked()) {
+      conditions.add(new Identifier("cloaked"));
+    }
+    if (unit.isBeingConstructed()) {
+      conditions.add(new Identifier("beingConstructed"));
     }
   }
 

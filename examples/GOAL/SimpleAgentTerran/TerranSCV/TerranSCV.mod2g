@@ -4,6 +4,6 @@ use TerranSCV as knowledge.
 module main{	
 	
 	% If goal to gather minerals, start gathering minerals
-	if a-goal(gathering(Id)) then gather(Id) + print(Id).
+	if a-goal(gathering(Id)) then gather(Id).
 	
 }

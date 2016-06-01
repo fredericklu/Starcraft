@@ -13,14 +13,7 @@ define terranSCV as agent {
 	use TerranSCV.TerranSCVEvent as event module.
 } 
 
-define terranMarine as agent {
-	use TerranMarine.TerranMarineInit as init module.
-	use TerranMarine.TerranMarine as main module.
-	use TerranMarine.TerranMarineEvent as event module.
-}
-
 
 launchpolicy{
 	when type = terranSCV launch terranSCV.
-	when type = terranMarine launch terranMarine.
 }
