@@ -45,7 +45,7 @@ public class UnitsTest {
     when(unit.getID()).thenReturn(0);
 
     when(factory.create(any(Unit.class)))
-        .thenReturn(new StarcraftUnit(new LinkedList<IPerceiver>()));
+        .thenReturn(new StarcraftUnit(new LinkedList<IPerceiver>(),false));
 
     units = new Units(env);
   }

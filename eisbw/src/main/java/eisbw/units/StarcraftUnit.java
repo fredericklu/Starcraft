@@ -16,13 +16,16 @@ import java.util.Map;
 public class StarcraftUnit {
 
   protected final List<IPerceiver> perceivers;
+  private boolean worker;
 
   /**
    * A starcraft unit with perceivers.
    * @param perceivers - list with perceivers to percept from.
+   * @param worker 
    */
-  public StarcraftUnit(List<IPerceiver> perceivers) {
+  public StarcraftUnit(List<IPerceiver> perceivers, boolean worker) {
     this.perceivers = perceivers;
+    this.worker = worker;
   }
 
   /**
@@ -40,5 +43,9 @@ public class StarcraftUnit {
     percepts.add(new ConditionPercept(conditions));
     toReturn.put(new PerceptFilter(Percepts.CONDITION, Filter.Type.ON_CHANGE), percepts);
     return toReturn;
+  }
+
+  public boolean isWorker() {
+    return worker;
   }
 }

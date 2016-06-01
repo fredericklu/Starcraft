@@ -70,7 +70,7 @@ public class Game {
     Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
       Map<PerceptFilter, List<Percept>> thisUnitPercepts = new HashMap<>(perceptHolder);
-      if (getUnits().getUnits().get(unit.getKey()).getType().isWorker()) {
+      if (unit.getValue().isWorker()) {
         thisUnitPercepts.putAll(constructionPercepts);
       }
       thisUnitPercepts.putAll(mapPercepts);
