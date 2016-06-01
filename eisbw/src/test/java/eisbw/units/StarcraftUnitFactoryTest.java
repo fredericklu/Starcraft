@@ -24,10 +24,10 @@ public class StarcraftUnitFactoryTest {
     MockitoAnnotations.initMocks(this);
     factory = new StarcraftUnitFactory(null);
     when(unit.getType()).thenReturn(unitType);
-    assertEquals(2,factory.create(unit).perceivers.size());
+    assertEquals(1,factory.create(unit).perceivers.size());
     when(unitType.isBuilding()).thenReturn(true);
     when(unitType.isWorker()).thenReturn(true);
-    assertEquals(4,factory.create(unit).perceivers.size());
+    assertEquals(3,factory.create(unit).perceivers.size());
   }
 
 }
