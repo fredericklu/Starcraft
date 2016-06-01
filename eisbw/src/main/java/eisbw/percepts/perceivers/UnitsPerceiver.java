@@ -40,6 +40,10 @@ public class UnitsPerceiver extends Perceiver {
       List<Percept> attackingpercepts) {
 
     for (Unit u : units) {
+      if(!isFriendly && u.isBeingConstructed()){
+        continue;
+      }
+        
       List<Parameter> conditions = new LinkedList<>();
 
       if (u.getType().isFlyer()) {
@@ -54,7 +58,6 @@ public class UnitsPerceiver extends Perceiver {
       if (u.isBeingConstructed()) {
         conditions.add(new Identifier("beingConstructed"));
       }
-
       unitpercepts.add(new UnitPercept(isFriendly, u.getType().getName(), u.getID(),
           u.getHitPoints(), u.getShields(), conditions));
       if (u.getType().isAttackCapable()) {
