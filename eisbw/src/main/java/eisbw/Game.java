@@ -5,6 +5,7 @@ import eisbw.percepts.perceivers.BufferPerceiver;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import eisbw.percepts.perceivers.MapPerceiver;
 import eisbw.percepts.perceivers.PerceptFilter;
+import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
@@ -145,6 +146,7 @@ public class Game {
   private Map<PerceptFilter, List<Percept>> getPercepts(JNIBWAPI bwapi) {
     Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
     new BufferPerceiver(bwapi).perceive(toReturn);
+    new UnitsPerceiver(bwapi).perceive(toReturn);
     return toReturn;
   }
 
