@@ -1,0 +1,47 @@
+use TerranMarine as knowledge.
+
+
+module TerranMarineEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If don't know the location of the nexus, request it from tassadar
+	if not(bel(commandCenterPosition(_, _))) then (raynor).send?(commandCenterPosition).
+	
+	% If received Nexus Location, insert it in knowledge base
+	if (_).sent:(commandCenterPosition(X, Y)) then insert(commandCenterPosition(X, Y)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	
+	% Handling of the condition percept
+	if bel(condition(List)), percept(condition(OList)) then delete(condition(List)) + insert(condition(OList)).
+	
+	% Insert enemy when one is perceived
+	forall percept(unit(false, Type,Id,Health,Shields,Conditions)), bel(not(enemy(Type,Id,Health,Shields))) 
+	do insert(enemy(Type,Id,Health,Shields)).
+	forall bel(enemy(Type, Id, Health, Shields)) , not(percept(unit(false, Type,Id,Health,Shields, Conditions)))
+	do delete(enemy(Type,Id,Health, Shields)).	
+	
+	% The handling of the unitAmount percept
+	forall percept(attacking(Id,Target, X, Y)), not(bel(attacking(Id,Target, X, Y))) do insert(attacking(Id,Target, X, Y)).
+	forall bel(attacking(Id,Target, X, Y)),not(percept(attacking(Id,Target, X, Y))) do delete(attacking(Id,Target, X, Y)).
+	
+	% The handling of the position 
+	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	
+	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
+	if bel(not(enemyBase(X1, Y1)), base(X1, Y1, true, _), commandCenterPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If at not ready, yet but have a enemy spotted, tell raynor to be ready
+	if bel(not(ready(_)),unitAmount("Terran Marine", Amount), Amount > 30,self(MyId, _)) then (raynor).send(ready(MyId)) + insert(ready(MyId)).
+	
+	% If told to attack insert it to the knowledge base
+	if (_).sent(attack) then insert(attack).
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If bel to attack then adopt goal to attack enemy base
+	if bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).
+}

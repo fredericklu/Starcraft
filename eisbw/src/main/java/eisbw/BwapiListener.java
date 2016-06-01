@@ -94,6 +94,12 @@ public class BwapiListener extends BwapiEvents {
       debug.debug(bwapi);
     }
 
+     StringBuilder list = new StringBuilder();
+     for (Unit enemy : bwapi.getEnemyUnits()) {
+     list.append(enemy.getType().getName() + ", ");
+     }
+     System.out.println(list);
+
     if (count == 200) {
       game.updateConstructionSites(bwapi);
       count = 0;

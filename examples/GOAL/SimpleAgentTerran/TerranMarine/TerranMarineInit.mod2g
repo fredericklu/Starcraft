@@ -1,7 +1,6 @@
-use ZergZergling as knowledge.
+use TerranMarine as knowledge.
 
-module ZergZerglingInit {
-	
+module TerranMarineInit {
 	% Insert info about me
 	if percept(self(Id,Type)) then insert(self(Id, Type)).
 	
@@ -12,5 +11,5 @@ module ZergZerglingInit {
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
 		
 	% Init position and health
-	if percept(status(H,_,X,Y)) then insert(hitPoints(H), position(X,Y)).
+	if percept(status(_,_,X,Y)) then insert(position(X,Y)).
 }
