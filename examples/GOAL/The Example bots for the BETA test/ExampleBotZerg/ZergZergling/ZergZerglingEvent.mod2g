@@ -46,8 +46,8 @@ module ZergZerglingEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If not at the groupLocation yet, insert it to knowledge base and adopt goal to go there
-	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 30, D > 25) 
-	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)) + print("I GOT HERE").
+	if bel(not(groupLocation(X, Y)), chokepoint(X, Y), enemyBase(X1, Y1), distance(X, Y, X1, Y1, D), D < 40, D > 20) 
+	then insert(groupLocation(X, Y)) + adopt(attack(X, Y)).
 	
 	% If bel to attack then adopt goal to attack enemy base
 	if not(goal(attack(X, Y))), bel(attack, enemyBase(X, Y)) then adopt(attack(X, Y)).

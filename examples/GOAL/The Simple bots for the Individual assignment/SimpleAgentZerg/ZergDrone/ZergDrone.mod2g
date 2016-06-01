@@ -1,0 +1,7 @@
+use ZergDrone as knowledge.
+use ZergDrone as actionspec.
+
+module ZergDrone {
+	% If goal to gather minerals, start gathering minerals
+	if a-goal(gathering(Id)) then gather(Id).
+}

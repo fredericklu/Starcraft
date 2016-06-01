@@ -1,0 +1,7 @@
+use TerranSCV as knowledge.
+
+% The gather action		
+define gather(Id) with
+	pre { not(gathering(_)) }
+	post { gathering(Id) }
+

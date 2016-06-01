@@ -1,0 +1,17 @@
+use ZergDrone as knowledge.
+
+module ZergDroneEvent {	
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% The handling of mineralfields	
+	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralField(Id,Amount,X,Y))) do insert(mineralField(Id,Amount,X,Y)).
+	forall bel(mineralField(Id,Amount,X,Y)), not(percept(mineralField(Id,Amount,_,X,Y))) do delete(mineralField(Id,Amount,X,Y)).
+	
+	% The handling of the gathering percept
+	if bel(gathering(OldId)), percept(gathering(NewId)) then delete(gathering(OldId)) + insert(gathering(NewId)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If the worker is not busy gathering yet, start gathering minerals
+	if not(goal(gathering(_))), bel(mineralField(Id,_,_,_), not(gathering(_))) then adopt(gathering(Id)).
+}

@@ -1,9 +1,9 @@
-use "../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+use "../../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
 	map="(2)Destination.scx",
 	own_race="Protoss",
 	starcraft_location="C:\\Starcraft No Install",
 	debug="true",
-	auto_menu="Single_Player",
+	auto_menu="OFF",
 	enemy_race="random".
 
 define protossNexus as agent{

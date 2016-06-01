@@ -1,0 +1,19 @@
+use "../../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
+	map="(2)Destination.scx",
+	own_race="Terran",
+	starcraft_location="C:\\Starcraft No Install",
+	debug="true",
+	auto_menu="Single_Player",
+	enemy_race="random".
+
+
+define terranSCV as agent {
+	use TerranSCV.TerranSCVInit as init module.
+	use TerranSCV.TerranSCV as main module.
+	use TerranSCV.TerranSCVEvent as event module.
+} 
+
+
+launchpolicy{
+	when type = terranSCV launch terranSCV.
+}
