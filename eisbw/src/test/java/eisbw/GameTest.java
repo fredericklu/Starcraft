@@ -13,6 +13,8 @@ import eisbw.units.StarcraftUnit;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
+import jnibwapi.Unit;
+import jnibwapi.types.UnitType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,10 @@ public class GameTest {
   @Mock
   private Units units;
   @Mock
+  private Unit unit;
+  @Mock
+  private UnitType type;
+  @Mock
   private jnibwapi.Map map;
 
   /**
@@ -59,6 +65,12 @@ public class GameTest {
     when(scUnit.perceive()).thenReturn(percepts);
 
     when(units.getStarcraftUnits()).thenReturn(unitList);
+    
+    Map<String,Unit> unitMap = new HashMap<>();
+    unitMap.put("unit", unit);
+    when(unit.getType()).thenReturn(type);
+    when(type.isWorker()).thenReturn(true);
+    when(units.getUnits()).thenReturn(unitMap);
 
     when(env.getAgents()).thenReturn(new LinkedList<String>());
     

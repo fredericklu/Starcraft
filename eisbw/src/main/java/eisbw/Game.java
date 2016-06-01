@@ -70,7 +70,9 @@ public class Game {
     Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
     for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
       Map<PerceptFilter, List<Percept>> thisUnitPercepts = new HashMap<>(perceptHolder);
-      thisUnitPercepts.putAll(constructionPercepts);
+      if (getUnits().getUnits().get(unit.getKey()).getType().isWorker()) {
+        thisUnitPercepts.putAll(constructionPercepts);
+      }
       thisUnitPercepts.putAll(mapPercepts);
       thisUnitPercepts.putAll(unit.getValue().perceive());
 
@@ -100,8 +102,8 @@ public class Game {
           }
           break;
         case ON_CHANGE:
-          //handleOnChangePercept(entry, unitName, percept);
           percept.addAll(entry.getValue());
+          // handleOnChangePercept(entry, unitName, percept);
           break;
         case ON_CHANGE_NEG:
           Logger.getLogger("StarCraft logger").warning("Change with negation is not allowed.");
@@ -154,11 +156,9 @@ public class Game {
    * @return the percepts
    */
   public List<Percept> getPercepts(String entity) {
-    synchronized (percepts) {
-      if (percepts.containsKey(entity)) {
-        previous.put(entity, previousHolder.get(entity));
-        return percepts.get(entity);
-      }
+    if (percepts.containsKey(entity)) {
+      previous.put(entity, previousHolder.get(entity));
+      return percepts.get(entity);
     }
     return new LinkedList<>();
   }
