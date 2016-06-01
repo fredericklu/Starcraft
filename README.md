@@ -1,7 +1,6 @@
 ## StarCraft: Brood War in Multi-Agent Systems
 
 Travis CI: [![Build Status](https://travis-ci.org/eishub/Starcraft.svg?branch=master)](https://travis-ci.org/eishub/Starcraft)
-Coverage: [![Coverage Status](https://coveralls.io/repos/github/eishub/Starcraft/badge.svg?branch=master)](https://coveralls.io/github/eishub/Starcraft?branch=master)
 
 This project creates a bridge between [BWAPI](https://code.google.com/p/bwapi/ "BWAPI") for [StarCraft: Brood War](http://us.blizzard.com/en-us/games/sc/ "StarCraft: Brood War") and EIS-enabled Multi-Agent Systems. 
 
