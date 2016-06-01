@@ -1,6 +1,7 @@
 package eisbw.units;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
@@ -42,12 +43,13 @@ public class StarcraftUnitTest {
     when(perceiver.getConditions()).thenReturn(params);
     List<IPerceiver> list = new LinkedList<>();
     list.add(perceiver);
-    unit = new StarcraftUnit(list);
+    unit = new StarcraftUnit(list,false);
   }
 
   @Test
   public void test() {
     assertEquals(1,unit.perceive().size());
+    assertFalse(unit.isWorker());
   }
 
 }
