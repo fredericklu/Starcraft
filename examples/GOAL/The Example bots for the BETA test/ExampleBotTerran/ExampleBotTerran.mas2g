@@ -42,7 +42,7 @@ define raynor as agent {
 }
 
 launchpolicy{
-	when type = unknown launch raynor.
+	when type = manager launch raynor.
 	when type = terranCommandCenter launch terranCommandCenter.
 	when type = terranSCV launch terranSCV.
 	when type = terranBarracks launch terranBarracks.
