@@ -29,7 +29,7 @@ define overMind as agent {
 }
 
 launchpolicy{
-	when type = unknown launch overMind.
+	when type = manager launch overMind.
 	when type = zergHatchery launch zergHatchery.
 	when type = zergZergling launch zergZergling.
 	when type = zergDrone launch zergDrone.
