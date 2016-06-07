@@ -35,6 +35,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
   private Set<String> registeredEntities;
 
+  private long lastTime;
+
   /**
    * Constructor of the environment.
    */
@@ -79,6 +81,12 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   @Override
   protected LinkedList<Percept> getAllPerceptsFromEntity(String entity)
       throws NoEnvironmentException {
+    if(entity.equals("manager")){
+      if(System.currentTimeMillis() - lastTime > 100){
+        System.out.println("Refresh slower than 100 on "+getAgents().size()+" agents");
+      }
+      lastTime = System.currentTimeMillis();
+    }
     return (LinkedList<Percept>) game.getPercepts(entity);
   }
 
