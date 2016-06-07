@@ -35,6 +35,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
   private Set<String> registeredEntities;
 
+  private long lastTime;
+
   /**
    * Constructor of the environment.
    */
