@@ -1,5 +1,5 @@
 use "../../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as environment with
-	map="(3)Tau Cross.scx",
+	map="(2)Destination.scx",
 	own_race="Zerg",
 	starcraft_location="C:\\Starcraft No Install",
 	debug="true",
@@ -31,7 +31,7 @@ define overMind as agent {
 }
 
 launchpolicy{
-	when type = unknown launch overMind.
+	when type = manager launch overMind.
 	when type = zergHatchery launch zergHatchery.
 	when type = zergZergling launch zergZergling.
 	when type = zergDrone launch zergDrone.
