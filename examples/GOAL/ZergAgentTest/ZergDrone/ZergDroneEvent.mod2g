@@ -31,8 +31,6 @@ module ZergDroneEvent {
 	% The handling of the workerActivity
 	forall percept(workerActivity(ID,ACT)), bel(not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
 	forall bel(workerActivity(ID,ACT)),not(percept(workerActivity(ID,ACT))) do delete(workerActivity(ID,ACT)).
-	
-	if bel(builder, minerals(M)) then print(M).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
