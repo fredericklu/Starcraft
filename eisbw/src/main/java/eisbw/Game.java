@@ -21,14 +21,13 @@ import java.util.logging.Logger;
 
 public class Game {
 
-  protected volatile Map<String, List<Percept>> percepts;
+  protected volatile Map<String, Map<PerceptFilter, List<Percept>>> percepts;
   protected Units units;
   protected volatile Map<PerceptFilter, List<Percept>> constructionPercepts;
   protected StarcraftEnvironmentImpl env;
 
   private Map<PerceptFilter, List<Percept>> mapPercepts;
   private Map<String, Map<String, List<Percept>>> previous;
-  private Map<String, Map<String, List<Percept>>> previousHolder;
 
   /**
    * Constructor.
@@ -42,7 +41,6 @@ public class Game {
     constructionPercepts = new HashMap<>();
     mapPercepts = new HashMap<>();
     previous = new HashMap<>();
-    previousHolder = new HashMap<>();
     env = environment;
   }
 
@@ -65,7 +63,7 @@ public class Game {
    *          - the game bridge
    */
   public void update(JNIBWAPI bwapi) {
-    Map<String, List<Percept>> unitPerceptHolder = new HashMap<>();
+    Map<String, Map<PerceptFilter, List<Percept>>> unitPerceptHolder = new HashMap<>();
     Map<PerceptFilter, List<Percept>> perceptHolder = getPercepts(bwapi);
 
     Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
@@ -77,8 +75,7 @@ public class Game {
       thisUnitPercepts.putAll(mapPercepts);
       thisUnitPercepts.putAll(unit.getValue().perceive());
 
-      unitPerceptHolder.put(unit.getKey(),
-          (LinkedList<Percept>) translatePercepts(unit.getKey(), thisUnitPercepts));
+      unitPerceptHolder.put(unit.getKey(),thisUnitPercepts);
     }
 
     percepts = unitPerceptHolder;
@@ -88,7 +85,6 @@ public class Game {
       Map<PerceptFilter, List<Percept>> thisUnitPercepts) {
     List<Percept> percept = new LinkedList<>();
     if (!previous.containsKey(unitName)) {
-      previousHolder.put(unitName, new HashMap<>());
       previous.put(unitName, new HashMap<>());
     }
     for (Entry<PerceptFilter, List<Percept>> entry : thisUnitPercepts.entrySet()) {
@@ -99,12 +95,11 @@ public class Game {
         case ONCE:
           if (!previous.get(unitName).containsKey(entry.getKey().getName())) {
             percept.addAll(entry.getValue());
-            previousHolder.get(unitName).put(entry.getKey().getName(), null);
+            previous.get(unitName).put(entry.getKey().getName(), null);
           }
           break;
         case ON_CHANGE:
-          percept.addAll(entry.getValue());
-          // handleOnChangePercept(entry, unitName, percept);
+          handleOnChangePercept(entry, unitName, percept);
           break;
         case ON_CHANGE_NEG:
           Logger.getLogger("StarCraft logger").warning("Change with negation is not allowed.");
@@ -122,11 +117,11 @@ public class Game {
       Set<Percept> checkList = new HashSet<>(entry.getValue());
       checkList.removeAll(previous.get(unitName).get(entry.getKey().getName()));
       if (!checkList.isEmpty()) {
-        previousHolder.get(unitName).put(entry.getKey().getName(), entry.getValue());
+        previous.get(unitName).put(entry.getKey().getName(), entry.getValue());
       }
       percept.addAll(checkList);
     } else {
-      previousHolder.get(unitName).put(entry.getKey().getName(), entry.getValue());
+      previous.get(unitName).put(entry.getKey().getName(), entry.getValue());
       percept.addAll(entry.getValue());
     }
   }
@@ -159,8 +154,7 @@ public class Game {
    */
   public List<Percept> getPercepts(String entity) {
     if (percepts.containsKey(entity)) {
-      previous.put(entity, previousHolder.get(entity));
-      return percepts.get(entity);
+      return translatePercepts(entity, percepts.get(entity));
     }
     return new LinkedList<>();
   }
@@ -190,7 +184,6 @@ public class Game {
     percepts.clear();
     constructionPercepts.clear();
     mapPercepts.clear();
-    previousHolder.clear();
     previous.clear();
   }
 
