@@ -35,7 +35,7 @@ define tassadar as agent {
 } 
 
 launchpolicy{
-	when type = unknown launch tassadar.
+	when type = manager launch tassadar.
 	when type = protossNexus launch protossNexus.
 	when type = protossGateway launch protossGateway.
 	when type = protossZealot launch protossZealot.
