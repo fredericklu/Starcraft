@@ -28,9 +28,9 @@ public class SpeedSlider extends JPanel {
    */
   public SpeedSlider() {
     setPreferredSize(new Dimension(500, 100));
-    
+
     JLabel showSpeed = new JLabel("Current speed: 20");
-    
+
     final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
     slider.addChangeListener(new ChangeListener() {
       @Override
@@ -40,7 +40,7 @@ public class SpeedSlider extends JPanel {
         showSpeed.setText("Current speed: " + slider.getValue());
       }
     });
-    
+
     slider.setMajorTickSpacing(10);
     slider.setMinorTickSpacing(1);
     slider.setPaintTicks(true);
@@ -49,24 +49,23 @@ public class SpeedSlider extends JPanel {
     JButton defaultSpeed = new JButton("Default speed");
     defaultSpeed.addActionListener(new ActionListener() {
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(ActionEvent event) {
         slider.setValue(20);
       }
     });
-    
+
     JButton tournamentSpeed = new JButton("Tournament speed");
     tournamentSpeed.addActionListener(new ActionListener() {
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(ActionEvent event) {
         slider.setValue(30);
       }
     });
-    
 
     JLabel label = new JLabel("Game Speed");
     add(label);
     add(slider);
-    
+
     add(showSpeed);
     add(defaultSpeed);
     add(tournamentSpeed);

@@ -21,7 +21,7 @@ public class StarcraftUnit {
   /**
    * A starcraft unit with perceivers.
    * @param perceivers - list with perceivers to percept from.
-   * @param worker 
+   * @param worker - true iff the unit is a worker
    */
   public StarcraftUnit(List<IPerceiver> perceivers, boolean worker) {
     this.perceivers = perceivers;

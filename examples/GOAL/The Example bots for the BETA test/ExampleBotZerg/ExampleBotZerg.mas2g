@@ -25,7 +25,6 @@ define zergZergling as agent{
 	use ZergZergling.ZergZerglingEvent as event module.
 }
 
-
 define overMind as agent {
 	use OverMind.OverMind as main module.	
 }
