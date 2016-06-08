@@ -14,10 +14,10 @@ import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class BufferPerceiver extends Perceiver {
 
@@ -25,8 +25,8 @@ public class BufferPerceiver extends Perceiver {
     super(api);
   }
 
-  private void unitAmount(Map<PerceptFilter, List<Percept>> toReturn) {
-    LinkedList<Percept> countHolder = new LinkedList<>();
+  private void unitAmount(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> countHolder = new HashSet<>();
 
     Map<UnitType, Integer> count = new HashMap<>();
 
@@ -44,9 +44,9 @@ public class BufferPerceiver extends Perceiver {
     toReturn.put(new PerceptFilter(Percepts.UNITAMOUNT, Filter.Type.ALWAYS), countHolder);
   }
   
-  private void resourcesPercepts(Map<PerceptFilter, List<Percept>> toReturn) {
-    LinkedList<Percept> minerals = new LinkedList<>();
-    LinkedList<Percept> geysers = new LinkedList<>();
+  private void resourcesPercepts(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> minerals = new HashSet<>();
+    Set<Percept> geysers = new HashSet<>();
     
     for (Unit u : api.getNeutralUnits()) {
       UnitType unitType = u.getType();
@@ -67,22 +67,21 @@ public class BufferPerceiver extends Perceiver {
     toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geysers);
   }
 
-  @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
+  private void enemyRacePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
+    for (Player p : api.getEnemies()) {
+      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
+    }
+    toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), percepts);
+  }
 
+  @Override
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
     unitAmount(toReturn);
     resourcesPercepts(toReturn);
     enemyRacePercept(toReturn);
 
     return toReturn;
-  }
-
-  private void enemyRacePercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
-    for (Player p : api.getEnemies()) {
-      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
-    }
-    toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), percepts);
   }
 
 }

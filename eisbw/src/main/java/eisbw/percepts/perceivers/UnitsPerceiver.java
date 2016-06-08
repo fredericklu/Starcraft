@@ -10,9 +10,11 @@ import eisbw.percepts.UnitPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class UnitsPerceiver extends Perceiver {
 
@@ -36,8 +38,8 @@ public class UnitsPerceiver extends Perceiver {
    * @param toReturn
    *          - the map that will be returned
    */
-  private void setUnitPercepts(List<Unit> units, boolean isFriendly, List<Percept> unitpercepts,
-      List<Percept> attackingpercepts) {
+  private void setUnitPercepts(List<Unit> units, boolean isFriendly, Set<Percept> unitpercepts,
+      Set<Percept> attackingpercepts) {
 
     // Fix for the phantom marines bug
     for (Unit u : units) {
@@ -85,10 +87,10 @@ public class UnitsPerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 
-    List<Percept> unitpercepts = new LinkedList<>();
-    List<Percept> attackingpercepts = new LinkedList<>();
+    Set<Percept> unitpercepts = new HashSet<>();
+    Set<Percept> attackingpercepts = new HashSet<>();
 
     // perceive friendly units
     setUnitPercepts(api.getMyUnits(), true, unitpercepts, attackingpercepts);

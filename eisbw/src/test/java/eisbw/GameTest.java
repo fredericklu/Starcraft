@@ -22,14 +22,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GameTest {
 
   private Game game;
-  private Map<PerceptFilter, List<Percept>> percepts;
+  private Map<PerceptFilter, Set<Percept>> percepts;
   private Map<String, StarcraftUnit> unitList;
 
   @Mock
@@ -58,7 +59,7 @@ public class GameTest {
     unitList.put("unit", scUnit);
 
     percepts = new HashMap<>();
-    List<Percept> perc = new LinkedList<>();
+    Set<Percept> perc = new HashSet<>();
     perc.add(new ConstructionSitePercept(1, 2));
     percepts.put(new PerceptFilter(Percepts.CONSTRUCTIONSITE, Filter.Type.ALWAYS),perc);
 

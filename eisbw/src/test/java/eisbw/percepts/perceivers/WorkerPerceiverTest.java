@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WorkerPerceiverTest {
 
@@ -58,7 +59,7 @@ public class WorkerPerceiverTest {
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isGatheringGas()).thenReturn(true);
 
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -69,7 +70,7 @@ public class WorkerPerceiverTest {
     when(unit.isGatheringMinerals()).thenReturn(true);
 
 
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -78,7 +79,7 @@ public class WorkerPerceiverTest {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isConstructing()).thenReturn(true);
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -86,7 +87,7 @@ public class WorkerPerceiverTest {
   public void idle_test() {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -94,7 +95,7 @@ public class WorkerPerceiverTest {
   public void noTerran_test() {
     when(unitType.getID()).thenReturn(RaceTypes.None.getID());
     when(unitType.isWorker()).thenReturn(true);
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
     when(unitType.isWorker()).thenReturn(false);
     assertFalse(perciever.perceive(ret).isEmpty());
@@ -105,7 +106,7 @@ public class WorkerPerceiverTest {
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.getHitPoints()).thenReturn(0);
     when(unitType.getMaxHitPoints()).thenReturn(1);
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getHitPoints()).thenReturn(1);
     assertFalse(perciever.perceive(ret).isEmpty());    
@@ -117,7 +118,7 @@ public class WorkerPerceiverTest {
     when(api.getNeutralUnits()).thenReturn(toreturn);
     when(unit.getType()).thenReturn(UnitType.UnitTypes.Resource_Vespene_Geyser);
     when(unit.getPosition()).thenReturn(new Position(1, 2));
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getType()).thenReturn(unitType);
     assertFalse(perciever.perceive(ret).isEmpty());        

@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
-import jnibwapi.Unit;
 import jnibwapi.Position.PosType;
+import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
 import org.junit.Before;
@@ -19,8 +19,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class UnitsPerceiverTest {
 
@@ -58,7 +58,7 @@ public class UnitsPerceiverTest {
 
   @Test
   public void test() {
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perceiver.perceive(ret).isEmpty());
   }
 
@@ -66,7 +66,7 @@ public class UnitsPerceiverTest {
   public void attackcapable_test() {
     when(unitType.isAttackCapable()).thenReturn(true);
     when(unit.getOrderTarget()).thenReturn(unit);
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertEquals(2, perceiver.perceive(ret).size());
     when(unit.getOrderTarget()).thenReturn(null);
     ret = new HashMap<>();

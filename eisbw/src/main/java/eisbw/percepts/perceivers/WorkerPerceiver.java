@@ -14,9 +14,11 @@ import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WorkerPerceiver extends UnitPerceiver {
 
@@ -27,38 +29,38 @@ public class WorkerPerceiver extends UnitPerceiver {
   /**
    * Perceives the workerActivity percept.
    * 
-   * @param activitypercepts
-   *          The list of percepts
-   * @param unit
-   *          the evaluated terran worker
-   * @return the new list of percepts
-   */
-  private void perceiveWorkerActivity(List<Percept> activitypercepts, Unit unit) {
-    if (unit.isGatheringGas()) {
-      activitypercepts.add(new WorkerActivityPercept(unit.getID(), "gatheringGas"));
-    } else if (unit.isGatheringMinerals()) {
-      activitypercepts.add(new WorkerActivityPercept(unit.getID(), "gatheringMinerals"));
-    } else if (unit.isConstructing()) {
-      activitypercepts.add(new WorkerActivityPercept(unit.getID(), "constructing"));
-    } else {
-      activitypercepts.add(new WorkerActivityPercept(unit.getID(), "idling"));
-    }
-  }
-
-  /**
-   * Perceives the repair percept.
-   * 
    * @param percepts
    *          The list of percepts
    * @param unit
    *          the evaluated terran worker
    * @return the new list of percepts
    */
-  private void perceiveRepair(List<Percept> percepts, Unit unit) {
+  private void perceiveWorkerActivity(Set<Percept> percepts, Unit unit) {
+    if (unit.isGatheringGas()) {
+      percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringGas"));
+    } else if (unit.isGatheringMinerals()) {
+      percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringMinerals"));
+    } else if (unit.isConstructing()) {
+      percepts.add(new WorkerActivityPercept(unit.getID(), "constructing"));
+    } else {
+      percepts.add(new WorkerActivityPercept(unit.getID(), "idling"));
+    }
+  }
+
+  /**
+   * Perceives the repair percept.
+   * 
+   * @param repairpercepts
+   *          The list of percepts
+   * @param unit
+   *          the evaluated terran worker
+   * @return the new list of percepts
+   */
+  private void perceiveRepair(Set<Percept> repairpercepts, Unit unit) {
     int hp = unit.getHitPoints();
     int maxHp = unit.getType().getMaxHitPoints();
     if (hp < maxHp) {
-      percepts.add(new RepairPercept(unit));
+      repairpercepts.add(new RepairPercept(unit));
     }
   }
 
@@ -68,8 +70,8 @@ public class WorkerPerceiver extends UnitPerceiver {
    * @param toReturn
    *          The list of percepts
    */
-  private void perceiveWorkers(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void perceiveWorkers(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     for (Unit unit : this.api.getMyUnits()) {
       if (unit.getType().isWorker()) {
         perceiveWorkerActivity(percepts, unit);
@@ -84,9 +86,9 @@ public class WorkerPerceiver extends UnitPerceiver {
    * @param toReturn
    *          The list of percepts
    */
-  private void perceiveTerranWorkers(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> activitypercepts = new LinkedList<>();
-    List<Percept> repairpercepts = new LinkedList<>();
+  private void perceiveTerranWorkers(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> activitypercepts = new HashSet<>();
+    Set<Percept> repairpercepts = new HashSet<>();
     for (Unit unit : this.api.getMyUnits()) {
       if (unit.getType().isWorker()) {
         perceiveWorkerActivity(activitypercepts, unit);
@@ -100,7 +102,7 @@ public class WorkerPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 
     if (unit.getType().getID() == RaceTypes.Terran.getID()) {
       perceiveTerranWorkers(toReturn);
@@ -109,12 +111,12 @@ public class WorkerPerceiver extends UnitPerceiver {
     }
 
 
-    List<Percept> gatheringpercepts = new LinkedList<>();
+    Set<Percept> gatheringpercepts = new HashSet<>();
     if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
       gatheringpercepts.add(new GatheringPercept(unit.getOrderTarget().getID()));
     }
 
-    List<Percept> geyserpercepts = new LinkedList<>();
+    Set<Percept> geyserpercepts = new HashSet<>();
     for (Unit u : api.getNeutralUnits()) {
       if (u.getType() == UnitType.UnitTypes.Resource_Vespene_Geyser) {
         Percept percept = new VespeneGeyserPercept(u.getID(), u.getResources(),
