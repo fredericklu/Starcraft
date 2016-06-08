@@ -49,16 +49,16 @@ public class DrawButtons extends JPanel implements ActionListener {
     draw.put(Draw.BUILDING_DETAILS.getName(), new DrawBuildingDetails(game));
     draw.put("AgentCount", new AgentCounter(game));
 
-    JButton buildButton = new JButton("Draw BuildLocations");
+    JButton buildButton = new JButton("Build Locations");
     buildButton.setActionCommand(Draw.CONSTRUCTION_SITES.getName());
     buildButton.addActionListener(this);
-    JButton chokeButton = new JButton("Draw Chokepoints");
+    JButton chokeButton = new JButton("Chokepoints");
     chokeButton.setActionCommand(Draw.CHOKEPOINTS.getName());
     chokeButton.addActionListener(this);
-    JButton baseButton = new JButton("Draw BaseLocations");
+    JButton baseButton = new JButton("Base Locations");
     baseButton.setActionCommand(Draw.BASE_LOCATIONS.getName());
     baseButton.addActionListener(this);
-    JButton buildingButton = new JButton("Draw Unit Details");
+    JButton buildingButton = new JButton("Unit Details");
     buildingButton.setActionCommand(Draw.BUILDING_DETAILS.getName());
     buildingButton.addActionListener(this);
     

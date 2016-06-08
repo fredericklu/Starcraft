@@ -29,7 +29,7 @@ public class CheatButtons extends JPanel implements ActionListener {
     add(label,BorderLayout.NORTH);
     
     actions = new LinkedList<>();
-    JButton resources = new JButton("Give recources");
+    JButton resources = new JButton("Give resources");
     resources.setActionCommand("SHOW ME THE MONEY");
     resources.addActionListener(this);
     
