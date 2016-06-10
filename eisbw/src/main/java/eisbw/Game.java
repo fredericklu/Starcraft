@@ -11,6 +11,7 @@ import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -113,7 +114,7 @@ public class Game {
   private void handleOnChangePercept(Entry<PerceptFilter, Set<Percept>> entry, String unitName,
       List<Percept> percept) {
     if (previous.get(unitName).containsKey(entry.getKey().getName())) {
-      Set<Percept> checkList = entry.getValue();
+      Set<Percept> checkList = new HashSet<>(entry.getValue());
       checkList.removeAll(previous.get(unitName).get(entry.getKey().getName()));
       if (!checkList.isEmpty()) {
         previous.get(unitName).put(entry.getKey().getName(), entry.getValue());
