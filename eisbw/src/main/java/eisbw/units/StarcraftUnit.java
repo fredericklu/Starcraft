@@ -9,9 +9,11 @@ import eisbw.percepts.perceivers.IPerceiver;
 import eisbw.percepts.perceivers.PerceptFilter;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class StarcraftUnit {
 
@@ -21,7 +23,7 @@ public class StarcraftUnit {
   /**
    * A starcraft unit with perceivers.
    * @param perceivers - list with perceivers to percept from.
-   * @param worker 
+   * @param worker - true iff the unit is a worker
    */
   public StarcraftUnit(List<IPerceiver> perceivers, boolean worker) {
     this.perceivers = perceivers;
@@ -32,9 +34,9 @@ public class StarcraftUnit {
    * Percept this units' percepts.
    * @return - a list of percepts.
    */
-  public Map<PerceptFilter, List<Percept>> perceive() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
-    List<Percept> percepts = new LinkedList<>();
+  public Map<PerceptFilter, Set<Percept>> perceive() {
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
+    Set<Percept> percepts = new HashSet<>();
     List<Parameter> conditions = new LinkedList<>();
     for (IPerceiver perceiver : this.perceivers) {
       perceiver.perceive(toReturn);

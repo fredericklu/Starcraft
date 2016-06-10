@@ -10,9 +10,9 @@ import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MapPerceiver extends Perceiver {
 
@@ -21,8 +21,8 @@ public class MapPerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     jnibwapi.Map map = api.getMap();
 
     Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());

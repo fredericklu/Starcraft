@@ -19,13 +19,14 @@ import org.mockito.MockitoAnnotations;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class StarcraftUnitTest {
 
   private StarcraftUnit unit;
   @Mock
   private IPerceiver perceiver;
-  private java.util.Map<PerceptFilter, List<Percept>> percepts;
+  private java.util.Map<PerceptFilter, Set<Percept>> percepts;
   private List<Parameter> params;
 
   /**

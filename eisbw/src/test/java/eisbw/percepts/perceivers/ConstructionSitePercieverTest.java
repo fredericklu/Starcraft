@@ -20,8 +20,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ConstructionSitePercieverTest {
 
@@ -67,7 +67,7 @@ public class ConstructionSitePercieverTest {
 
   @Test
   public void terran_test() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
     assertTrue(perciever.perceive(toReturn).size() > 0);
     when(bwapi.canBuildHere(any(Position.class), any(UnitType.class), any(Boolean.class)))
         .thenReturn(false);
@@ -77,7 +77,7 @@ public class ConstructionSitePercieverTest {
 
   @Test
   public void zerg_test() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
     when(player.getRace()).thenReturn(RaceTypes.Zerg);
     assertTrue(!perciever.perceive(toReturn).isEmpty());
     when(bwapi.hasCreep(any(Position.class))).thenReturn(true);
@@ -91,7 +91,7 @@ public class ConstructionSitePercieverTest {
   @Test
   public void protoss_test() {
     when(player.getRace()).thenReturn(RaceTypes.Protoss);
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
     assertTrue(perciever.perceive(toReturn).size() > 0);
     when(bwapi.canBuildHere(any(Position.class), eq(UnitType.UnitTypes.Protoss_Gateway),
         any(Boolean.class))).thenReturn(false);
@@ -107,7 +107,7 @@ public class ConstructionSitePercieverTest {
     when(player.getRace()).thenReturn(RaceTypes.None);
     when(unit.isExists()).thenReturn(false);
     when(unitType.getName()).thenReturn("not illegal");
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
     assertTrue(!perciever.perceive(toReturn).isEmpty());
   }
 

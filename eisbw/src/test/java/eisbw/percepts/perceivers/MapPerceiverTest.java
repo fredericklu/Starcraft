@@ -18,8 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MapPerceiverTest {
 
@@ -54,7 +54,7 @@ public class MapPerceiverTest {
 
   @Test
   public void mapsize_test() {
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -68,7 +68,7 @@ public class MapPerceiverTest {
     when(baselocation.getRegion()).thenReturn(region);
     when(region.getID()).thenReturn(5);
 
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 
@@ -79,7 +79,7 @@ public class MapPerceiverTest {
     when(map.getChokePoints()).thenReturn(locs);
     when(chokepoint.getCenter()).thenReturn(new Position(5, 6, PosType.BUILD));
 
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
   }
 

@@ -12,9 +12,11 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import java.awt.Point;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ConstructionSitePerceiver extends Perceiver {
 
@@ -57,7 +59,7 @@ public class ConstructionSitePerceiver extends Perceiver {
    *          The list of perceived constructionsites
    */
   private void perceiveTerran(Position pos, int xpos, int ypos, List<Point> illegals,
-      List<Percept> percepts) {
+      Set<Percept> percepts) {
 
     // check if you can actually build here as terran
     if (api.canBuildHere(pos, UnitType.UnitTypes.Terran_Command_Center, true)
@@ -79,7 +81,7 @@ public class ConstructionSitePerceiver extends Perceiver {
    *          The list of perceived constructionsites
    */
   private void perceiveZerg(Position pos, int xpos, int ypos, List<Point> illegals,
-      List<Percept> percepts) {
+      Set<Percept> percepts) {
 
     // check if you can actually build here as zerg
     if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Hatchery, true) && api.hasCreep(pos)
@@ -101,7 +103,7 @@ public class ConstructionSitePerceiver extends Perceiver {
    *          The list of perceived constructionsites
    */
   private void perceiveProtosss(Position pos, int xpos, int ypos, List<Point> illegals,
-      List<Percept> percepts) {
+      Set<Percept> percepts) {
     if (api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Nexus, true)) {
 
       // checks whether the ConstructionSite is not near an illegal build
@@ -117,8 +119,8 @@ public class ConstructionSitePerceiver extends Perceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     jnibwapi.Map map = api.getMap();
 
     int mapWidth = map.getSize().getBX();

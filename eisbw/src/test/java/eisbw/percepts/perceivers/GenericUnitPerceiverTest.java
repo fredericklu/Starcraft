@@ -20,7 +20,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -74,7 +73,7 @@ public class GenericUnitPerceiverTest {
 
   @Test
   public void size_test() {
-    Map<PerceptFilter, List<Percept>> ret = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     when(race.getName()).thenReturn("race");
     when(self.getRace()).thenReturn(race);
     assertEquals(5, perciever.perceive(ret).size());

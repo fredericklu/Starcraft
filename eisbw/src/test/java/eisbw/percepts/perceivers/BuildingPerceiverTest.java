@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BuildingPerceiverTest {
 
@@ -63,7 +64,7 @@ public class BuildingPerceiverTest {
 
   @Test
   public void size_test() {
-    Map<PerceptFilter, List<Percept>> toReturn = new HashMap<>();
+    Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
     assertEquals(7, perciever.perceive(toReturn).size());
     when(unit.getRallyPosition()).thenReturn(Positions.None);
     toReturn = new HashMap<>();

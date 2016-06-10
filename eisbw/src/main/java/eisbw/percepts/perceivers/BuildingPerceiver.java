@@ -19,9 +19,11 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BuildingPerceiver extends UnitPerceiver {
 
@@ -30,7 +32,7 @@ public class BuildingPerceiver extends UnitPerceiver {
   }
 
   @Override
-  public Map<PerceptFilter, List<Percept>> perceive(Map<PerceptFilter, List<Percept>> toReturn) {
+  public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 
     rallyPointPercept(toReturn);
     rallyUnitPercept(toReturn);
@@ -46,9 +48,9 @@ public class BuildingPerceiver extends UnitPerceiver {
     return toReturn;
   }
 
-  private void unitLoadedPercept(Map<PerceptFilter, List<Percept>> toReturn,
+  private void unitLoadedPercept(Map<PerceptFilter, Set<Percept>> toReturn,
       List<Unit> loadedUnits) {
-    List<Percept> percepts = new LinkedList<>();
+    Set<Percept> percepts = new HashSet<>();
     for (Unit u : loadedUnits) {
       if (u != null) {
         percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
@@ -57,15 +59,15 @@ public class BuildingPerceiver extends UnitPerceiver {
     toReturn.put(new PerceptFilter(Percepts.UNITLOADED, Filter.Type.ALWAYS), percepts);
   }
 
-  private void spaceProvidedPercept(Map<PerceptFilter, List<Percept>> toReturn,
+  private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn,
       List<Unit> loadedUnits) {
-    List<Percept> percepts = new LinkedList<>();
+    Set<Percept> percepts = new HashSet<>();
     percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
     toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
   }
 
-  private void researchedPercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void researchedPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     for (TechType tech : TechTypes.getAllTechTypes()) {
       if (api.getSelf().isResearched(tech)) {
         percepts.add(new HasResearchedPercept(tech.getName()));
@@ -74,8 +76,8 @@ public class BuildingPerceiver extends UnitPerceiver {
     toReturn.put(new PerceptFilter(Percepts.HASRESEARCHED, Filter.Type.ONCE), percepts);
   }
 
-  private void rallyPointPercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void rallyPointPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     if (!unit.getRallyPosition().equals(Positions.None)) {
       percepts.add(
           new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
@@ -83,22 +85,22 @@ public class BuildingPerceiver extends UnitPerceiver {
     }
   }
 
-  private void upgradingPercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void upgradingPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     if (unit.isUpgrading()) {
       percepts.add(new UpgradePercept(unit.getUpgrade().getName()));
       toReturn.put(new PerceptFilter(Percepts.UPGRADING, Filter.Type.ALWAYS), percepts);
     }
   }
 
-  private void queueSizePercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
     toReturn.put(new PerceptFilter(Percepts.QUEUESIZE, Filter.Type.ON_CHANGE), percepts);
   }
 
-  private void rallyUnitPercept(Map<PerceptFilter, List<Percept>> toReturn) {
-    List<Percept> percepts = new LinkedList<>();
+  private void rallyUnitPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> percepts = new HashSet<>();
     if (unit.getRallyUnit() != null) {
       percepts.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
       toReturn.put(new PerceptFilter(Percepts.RALLYUNIT, Filter.Type.ON_CHANGE), percepts);
