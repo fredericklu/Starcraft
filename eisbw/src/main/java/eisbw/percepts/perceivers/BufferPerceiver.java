@@ -19,8 +19,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the buffered percepts.
+ *
+ */
 public class BufferPerceiver extends Perceiver {
 
+  /**
+   * The BufferPerceiver constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public BufferPerceiver(JNIBWAPI api) {
     super(api);
   }
@@ -40,14 +50,14 @@ public class BufferPerceiver extends Perceiver {
     for (Entry<UnitType, Integer> entry : count.entrySet()) {
       countHolder.add(new UnitAmountPercept(entry.getKey().getName(), entry.getValue()));
     }
-    
+
     toReturn.put(new PerceptFilter(Percepts.UNITAMOUNT, Filter.Type.ALWAYS), countHolder);
   }
-  
+
   private void resourcesPercepts(Map<PerceptFilter, Set<Percept>> toReturn) {
     Set<Percept> minerals = new HashSet<>();
     Set<Percept> geysers = new HashSet<>();
-    
+
     for (Unit u : api.getNeutralUnits()) {
       UnitType unitType = u.getType();
       if (u.isVisible()) {

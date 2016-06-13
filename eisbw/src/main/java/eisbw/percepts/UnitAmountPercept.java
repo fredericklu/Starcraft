@@ -4,6 +4,10 @@ import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Percept;
 
+/**
+ * @author Danny & Harm - The Unit Amount percept.
+ *
+ */
 public class UnitAmountPercept extends Percept {
 
   private static final long serialVersionUID = 1L;

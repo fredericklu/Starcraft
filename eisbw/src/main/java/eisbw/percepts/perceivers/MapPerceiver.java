@@ -14,8 +14,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the map percepts.
+ *
+ */
 public class MapPerceiver extends Perceiver {
 
+  /**
+   * The MapPerceiver constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public MapPerceiver(JNIBWAPI api) {
     super(api);
   }
@@ -29,7 +39,7 @@ public class MapPerceiver extends Perceiver {
     percepts.add(mapPercept);
 
     for (BaseLocation location : map.getBaseLocations()) {
-      Percept basePercept = new BasePercept(location.getPosition().getBX(), 
+      Percept basePercept = new BasePercept(location.getPosition().getBX(),
           location.getPosition().getBY(), location.isStartLocation(), location.getRegion().getID());
       percepts.add(basePercept);
     }
@@ -37,7 +47,7 @@ public class MapPerceiver extends Perceiver {
     for (ChokePoint cp : map.getChokePoints()) {
       Percept chokePercept = new ChokepointPercept(cp.getCenter().getBX(), cp.getCenter().getBY());
       percepts.add(chokePercept);
-    } 
+    }
     toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), percepts);
     return toReturn;
   }

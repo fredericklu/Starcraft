@@ -1,27 +1,30 @@
 package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
-import eis.iilang.Identifier;
-import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.GatheringPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.RepairPercept;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.WorkerActivityPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the worker percepts.
+ */
 public class WorkerPerceiver extends UnitPerceiver {
 
+  /**
+   * @param api
+   *          The BWAPI.
+   * @param unit
+   *          The unit which is about the perceiving.
+   */
   public WorkerPerceiver(JNIBWAPI api, Unit unit) {
     super(api, unit);
   }
@@ -48,23 +51,6 @@ public class WorkerPerceiver extends UnitPerceiver {
   }
 
   /**
-   * Perceives the repair percept.
-   * 
-   * @param repairpercepts
-   *          The list of percepts
-   * @param unit
-   *          the evaluated terran worker
-   * @return the new list of percepts
-   */
-  private void perceiveRepair(Set<Percept> repairpercepts, Unit unit) {
-    int hp = unit.getHitPoints();
-    int maxHp = unit.getType().getMaxHitPoints();
-    if (hp < maxHp) {
-      repairpercepts.add(new RepairPercept(unit));
-    }
-  }
-
-  /**
    * Perceives all the worker percepts minus the terran worker percepts.
    * 
    * @param toReturn
@@ -80,36 +66,10 @@ public class WorkerPerceiver extends UnitPerceiver {
     toReturn.put(new PerceptFilter(Percepts.WORKERACTIVITY, Filter.Type.ALWAYS), percepts);
   }
 
-  /**
-   * Perceives all the terran worker percepts.
-   * 
-   * @param toReturn
-   *          The list of percepts
-   */
-  private void perceiveTerranWorkers(Map<PerceptFilter, Set<Percept>> toReturn) {
-    Set<Percept> activitypercepts = new HashSet<>();
-    Set<Percept> repairpercepts = new HashSet<>();
-    for (Unit unit : this.api.getMyUnits()) {
-      if (unit.getType().isWorker()) {
-        perceiveWorkerActivity(activitypercepts, unit);
-      }
-      if (unit.getType().isMechanical()) {
-        perceiveRepair(repairpercepts, unit);
-      }
-    }
-    toReturn.put(new PerceptFilter(Percepts.WORKERACTIVITY, Filter.Type.ALWAYS), activitypercepts);
-    toReturn.put(new PerceptFilter(Percepts.REQUIRESREPAIR, Filter.Type.ALWAYS), repairpercepts);
-  }
-
   @Override
   public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 
-    if (unit.getType().getID() == RaceTypes.Terran.getID()) {
-      perceiveTerranWorkers(toReturn);
-    } else {
-      perceiveWorkers(toReturn);
-    }
-
+    perceiveWorkers(toReturn);
 
     Set<Percept> gatheringpercepts = new HashSet<>();
     if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
@@ -130,18 +90,4 @@ public class WorkerPerceiver extends UnitPerceiver {
     return toReturn;
   }
 
-  @Override
-  public List<Parameter> getConditions() {
-    List<Parameter> conditions = new LinkedList<>();
-
-    if (unit.isCarryingGas() || unit.isCarryingMinerals()) {
-      conditions.add(new Identifier("carrying"));
-    }
-
-    if (unit.isConstructing()) {
-      conditions.add(new Identifier("constructing"));
-    }
-
-    return conditions;
-  }
 }

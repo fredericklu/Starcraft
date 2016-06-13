@@ -18,8 +18,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the construction site
+ *         percepts.
+ *
+ */
 public class ConstructionSitePerceiver extends Perceiver {
 
+  /**
+   * The ConstructionSitePerceiver constructor.
+   * 
+   * @param api
+   *          The BWAPI.
+   */
   public ConstructionSitePerceiver(JNIBWAPI api) {
     super(api);
   }
