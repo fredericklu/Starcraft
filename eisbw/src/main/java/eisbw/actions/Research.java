@@ -10,29 +10,10 @@ import jnibwapi.types.TechType;
 
 import java.util.LinkedList;
 
-public class Research extends StarcraftAction {
+public class Research extends StarcraftTechAction {
 
   public Research(JNIBWAPI api) {
     super(api);
-  }
-
-  @Override
-  public boolean isValid(Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 1) { // type
-      return parameters.get(0) instanceof Identifier
-          && BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue()) != null;
-    }
-
-    return false;
-  }
-
-  @Override
-  public boolean canExecute(Unit unit, Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    TechType techType = BwapiUtility.getTechType(((Identifier) parameters.get(0)).getValue());
-
-    return !techType.isTargetsPosition() && !techType.isTargetsUnits();
   }
 
   @Override
