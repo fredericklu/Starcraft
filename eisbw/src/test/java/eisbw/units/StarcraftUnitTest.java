@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
-import eis.iilang.Identifier;
-import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.perceivers.IPerceiver;
 import eisbw.percepts.perceivers.PerceptFilter;
@@ -27,7 +25,6 @@ public class StarcraftUnitTest {
   @Mock
   private IPerceiver perceiver;
   private java.util.Map<PerceptFilter, Set<Percept>> percepts;
-  private List<Parameter> params;
 
   /**
    * Initialize variables and mocks.
@@ -37,19 +34,16 @@ public class StarcraftUnitTest {
   public void start() {
     MockitoAnnotations.initMocks(this);
     percepts = new HashMap<>();
-    percepts.put(null,null);
+    percepts.put(null, null);
     when(perceiver.perceive(any(java.util.Map.class))).thenReturn(percepts);
-    params = new LinkedList<>();
-    params.add(new Identifier("param"));
-    when(perceiver.getConditions()).thenReturn(params);
     List<IPerceiver> list = new LinkedList<>();
     list.add(perceiver);
-    unit = new StarcraftUnit(list,false);
+    unit = new StarcraftUnit(list, false);
   }
 
   @Test
   public void test() {
-    assertEquals(1,unit.perceive().size());
+    assertEquals(0, unit.perceive().size());
     assertFalse(unit.isWorker());
   }
 

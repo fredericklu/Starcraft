@@ -91,9 +91,5 @@ public class BufferPerceiverTest {
     assertEquals(4, perciever.perceive(toReturn).size());
   }
   
-  @Test
-  public void conditions_test() {
-    assertEquals(0, perciever.getConditions().size());
-  }
 
 }

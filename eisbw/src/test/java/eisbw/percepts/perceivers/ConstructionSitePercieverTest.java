@@ -111,9 +111,4 @@ public class ConstructionSitePercieverTest {
     assertTrue(!perciever.perceive(toReturn).isEmpty());
   }
 
-  @Test
-  public void conditions_test() {
-    assertTrue(perciever.getConditions().isEmpty());
-  }
-
 }

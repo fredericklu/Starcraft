@@ -73,9 +73,4 @@ public class UnitsPerceiverTest {
     assertEquals(2, perceiver.perceive(ret).size());
   }
 
-  @Test
-  public void conditions_test() {
-    assertTrue(perceiver.getConditions().isEmpty());
-  }
-
 }

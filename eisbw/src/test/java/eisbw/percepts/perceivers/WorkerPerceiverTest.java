@@ -124,22 +124,6 @@ public class WorkerPerceiverTest {
     assertFalse(perciever.perceive(ret).isEmpty());        
   }
 
-  @Test
-  public void conditions_gas_test() {
-    when(unit.isCarryingGas()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
 
-  @Test
-  public void conditions_minerals_test() {
-    when(unit.isCarryingMinerals()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
-
-  @Test
-  public void conditions_constructing_test() {
-    when(unit.isConstructing()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
 
 }

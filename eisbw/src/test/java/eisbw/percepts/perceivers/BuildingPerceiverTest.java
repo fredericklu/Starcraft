@@ -88,16 +88,4 @@ public class BuildingPerceiverTest {
     assertTrue(perciever.perceive(toReturn).size() > 1);
   }
   
-  @Test
-  public void conditions_test() {
-    when(unit.isLifted()).thenReturn(true);
-    when(unit.getAddon()).thenReturn(unit);
-    assertEquals(0, perciever.getConditions().size());
-    when(unitType.getRaceID()).thenReturn(RaceTypes.Terran.getID());
-    assertEquals(2, perciever.getConditions().size());
-    when(unit.isLifted()).thenReturn(false);
-    when(unit.getAddon()).thenReturn(null);
-    assertEquals(0, perciever.getConditions().size());
-  }
-
 }
