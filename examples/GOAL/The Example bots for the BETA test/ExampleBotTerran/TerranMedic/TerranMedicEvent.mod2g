@@ -13,8 +13,8 @@ module TerranMedicEvent {
 	forall bel(friendly(Type, Id, Health, Shields)) , not(percept(unit(true, Type,Id,Health,Shields,_)))
 	do delete(friendly(Type,Id,Health, Shields)).
 	
-	% Handling of the condition percept
-	if bel(condition(List)), percept(condition(OList)) then delete(condition(List)) + insert(condition(OList)).
+	% The handling of the conditions 
+	if percept(status(_,_,_,NewCond,_,_)), bel(condition(OldCond), NewCond \= OldCond) then delete(condition(OldCond)) + insert(condition(NewCond)).
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	

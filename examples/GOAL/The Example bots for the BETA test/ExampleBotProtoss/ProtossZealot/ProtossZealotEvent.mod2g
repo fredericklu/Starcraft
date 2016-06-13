@@ -22,7 +22,7 @@ module ProtossZealotEvent {
 	do delete(enemy(Type,Id,Health, Shields)).	
 	
 	% The handling of the position 
-	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	if percept(status(_,_,_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
 	if bel(not(enemyBase(_, _)), nexusPosition(X, Y), base(X1, Y1, true, _), 

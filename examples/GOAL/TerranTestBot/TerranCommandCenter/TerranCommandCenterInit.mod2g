@@ -2,7 +2,7 @@ use TerranCommandCenter as knowledge.
 
 module TerranCommandCenterInit {
 	% Insert info about me
-	if percept(self(Id,Type)) then insert(self(Id, Type)).
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)).
 	
 	% Init queueSize percept
 	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
@@ -13,5 +13,6 @@ module TerranCommandCenterInit {
 	% Init resources percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
 	
-	if percept(condition(List)) then insert(condition(List)).
+	% send location to Raynor
+	if percept(status(_,_,_,List,X, Y)) then (raynor).send(commandCenterPosition(X, Y)) + insert(condition(List)).
 }

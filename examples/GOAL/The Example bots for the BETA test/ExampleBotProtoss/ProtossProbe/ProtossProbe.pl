@@ -3,7 +3,6 @@ condition/1,
 minerals/1,
 gas/1,
 builder/0,
-gathering/0,
 mineralField/4,
 constructionSite/3,
 workerActivity/2,
@@ -15,7 +14,7 @@ supply/2,
 nexusPosition/2.
 
 	% Indicates when agent is busy gathering
-	busy :- gathering.
+	busy :- condition(List), member(gathering, List).
 	
 	% The cost of declared buildings (for every new building add the cost here)
 	cost("Protoss Pylon", 100, 0).
@@ -31,8 +30,4 @@ nexusPosition/2.
 			     aggregate_all(count, workerActivity(_,gatheringGas), Count),
 			     Count < NeededWorkers.
 	
-	% building location near base	
-	buildingLocation(X,Y, RX,RY) 
-		:-	findall([D,BX,BY], (constructionSite(BX,BY, _), distance(X,Y,BX,BY,D)), L),
-			sort(L, [[_,RX,RY]|_]).
 						

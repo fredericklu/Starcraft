@@ -14,7 +14,8 @@ module TerranBunkerEvent {
 	
 	forall bel(friendly(Type, Id, _, _)) do print(Type) + print(Id).
 	
-	forall percept(unit(true, "Terran Marine",Id,_,_,_)) do adopt(unitLoaded(Id, "Terran Marine")).
+	if not(goal(unitLoaded(_, "Terran Marine"))), percept(unit(true, "Terran Marine",Id,_,_,Cond)), bel(not(member(beingConstructed, Cond))) 
+	then adopt(unitLoaded(Id, "Terran Marine")).
 	
 	%if percept(unit(true, Type,Id,_,_,_,_,_)), bel(spaceProvided(Max, Used), Max > Used, not(unitLoaded(Id, Type))) 
 	%then adopt(unitLoaded(Id, "Terran Marine")) + print("JOEPIE").

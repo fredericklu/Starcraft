@@ -17,7 +17,7 @@ constructing/0,
 backupBuilder/0,
 vespeneGeyser/2.
 
-		busy :- constructing ; gathering.
+		busy :- condition(List), member(constructing, List) ; member(gathering, List).
 		
 		cost("Terran Command Center",400,0).
 		cost("Terran Supply Depot", 100, 0).

@@ -2,7 +2,7 @@ use ProtossProbe as knowledge.
 
 module ProtossProbeInit {	
 	% Send probe info to Tassadar
-	if percept(self(Id,Type)) then insert(self(Id, Type)) + (tassadar).send:(probe(Id)).
+	if percept(self(Id,Type,MaxHealth,MaxShield,MaxEnergy)) then insert(self(Id, Type)) + (tassadar).send:(probe(Id)).
 		
 	% Init resource percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
@@ -17,5 +17,5 @@ module ProtossProbeInit {
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
 		
 	% Init conditions
-	if percept(condition(List)) then insert(condition(List)).
+	if percept(status(_, _, _, Cond, _, _)) then insert(condition(Cond)).
 }

@@ -3,5 +3,6 @@ use TerranBunker as actionspec.
 
 module main{	
 		if percept(isBeingConstructed) then skip.
-		if a-goal(unitLoaded(Id, "Terran Marine")) then load(Id).	
+		if a-goal(unitLoaded(Id, "Terran Marine")), not(bel(unitLoaded(Id, "Terran Marine"))) 
+		then load(Id) + insert(unitLoaded(Id, "Terran Marine")).	
 }

@@ -15,9 +15,8 @@ module ZergZerglingEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.
 	
-	% The handling of condition gathering
-	if percept(condition(NewList)), bel(member(moving, NewList), condition(OldList), not(member(moving, OldList))) then insert(moving).
-	if bel(moving), percept(condition(List)), bel(not(member(moving, List))) then delete(moving).
+	% The handling of the conditions 
+	if percept(status(_,_,_,NewCond,_,_)), bel(condition(OldCond), NewCond \= OldCond) then delete(condition(OldCond)) + insert(condition(NewCond)).
 	
 	% Insert enemy when one is perceived
 	forall percept(unit(false, Type,Id,Health,Shields,Conditions)), bel(not(enemy(Type,Id,Health,Shields))) 
@@ -26,10 +25,10 @@ module ZergZerglingEvent {
 	do delete(enemy(Type,Id,Health, Shields)).	
 	
 	% The handling of the position 
-	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	if percept(status(_,_,_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
 	% The handling of the health
-	if percept(status(H1,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
+	if percept(status(H1,_,_,_,_,_)), bel(hitPoints(H2), H1 \= H2) then delete(hitPoints(H2)) + insert(hitPoints(H1)).
 	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
 	if bel(not(enemyBase(_, _)), base(X1, Y1, true, _), hatcheryPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)) + print("GOT IT").
