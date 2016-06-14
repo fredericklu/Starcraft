@@ -10,8 +10,19 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit move to the specified location,
+ *         attacking everything it encounters.
+ *
+ */
 public class AttackMove extends StarcraftAction {
 
+  /**
+   * The AttackMove constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public AttackMove(JNIBWAPI api) {
     super(api);
   }
@@ -19,8 +30,8 @@ public class AttackMove extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 2 && parameters.get(0) 
-        instanceof Numeral && parameters.get(1) instanceof Numeral;
+    return parameters.size() == 2 && parameters.get(0) instanceof Numeral
+        && parameters.get(1) instanceof Numeral;
   }
 
   @Override
@@ -39,6 +50,6 @@ public class AttackMove extends StarcraftAction {
 
   @Override
   public String toString() {
-    return "attack(x,y)"; 
+    return "attack(x,y)";
   }
 }

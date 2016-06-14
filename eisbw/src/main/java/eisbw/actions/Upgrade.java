@@ -11,8 +11,18 @@ import jnibwapi.types.UpgradeType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Upgrades a specified upgrade.
+ *
+ */
 public class Upgrade extends StarcraftAction {
 
+  /**
+   * The Upgrade constructor.
+   * 
+   * @param api
+   *          The BWAPI.
+   */
   public Upgrade(JNIBWAPI api) {
     super(api);
   }

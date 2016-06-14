@@ -13,8 +13,19 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the (worker) unit build on the specified (not
+ *         obstructed) location.
+ *
+ */
 public class Build extends StarcraftAction {
 
+  /**
+   * The Build constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Build(JNIBWAPI api) {
     super(api);
   }
@@ -24,8 +35,8 @@ public class Build extends StarcraftAction {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 3 && parameters.get(0) instanceof Identifier) {
       UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
-      return ut != null && ut.isBuilding()
-          && parameters.get(1) instanceof Numeral && parameters.get(2) instanceof Numeral;
+      return ut != null && ut.isBuilding() && parameters.get(1) instanceof Numeral
+          && parameters.get(2) instanceof Numeral;
     }
     return false;
   }

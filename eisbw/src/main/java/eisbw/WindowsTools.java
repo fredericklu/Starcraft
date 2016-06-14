@@ -9,6 +9,11 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Danny & Harm - The windowstool for starting the chaoslauncher and
+ *         writing the menu script.
+ *
+ */
 public class WindowsTools {
 
   private WindowsTools() {
@@ -51,6 +56,8 @@ public class WindowsTools {
    *          the map specified in the mas2g
    * @param scDir
    *          the starcraft installation directory in the mas2g.
+   * @param autoMenu
+   *          the automenu (single- or multi-player) specified in the mas2g
    * @param enemyRace
    *          the enemy race
    * @throws IOException

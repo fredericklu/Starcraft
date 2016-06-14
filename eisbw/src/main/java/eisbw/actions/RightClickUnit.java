@@ -8,8 +8,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Right clicks on a specified unit. (testing purposes)
+ *
+ */
 public class RightClickUnit extends StarcraftAction {
 
+  /**
+   * The RightClickUnit constructor.
+   * 
+   * @param api
+   *          The BWAPI.
+   */
   public RightClickUnit(JNIBWAPI api) {
     super(api);
   }

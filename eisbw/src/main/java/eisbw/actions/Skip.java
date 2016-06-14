@@ -7,8 +7,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - A action which does nothing the skip a frame.
+ *
+ */
 public class Skip extends StarcraftAction {
 
+  /**
+   * The Skip constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Skip(JNIBWAPI api) {
     super(api);
   }
@@ -26,7 +36,7 @@ public class Skip extends StarcraftAction {
 
   @Override
   public void execute(Unit unit, Action action) {
-    //Skip action, thus executes nothing.
+    // Skip action, thus executes nothing.
   }
 
   @Override

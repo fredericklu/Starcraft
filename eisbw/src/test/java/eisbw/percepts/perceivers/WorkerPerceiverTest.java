@@ -124,6 +124,12 @@ public class WorkerPerceiverTest {
     assertFalse(perciever.perceive(ret).isEmpty());        
   }
 
-
+  @Test
+  public void gathering_test() {
+    when(unit.isGatheringMinerals()).thenReturn(true);
+    when(unit.getOrderTarget()).thenReturn(unit);
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());     
+  }
 
 }

@@ -10,8 +10,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Builds an addon for the (terran) building.
+ *
+ */
 public class BuildAddon extends StarcraftAction {
 
+  /**
+   * The BuildAddon constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public BuildAddon(JNIBWAPI api) {
     super(api);
   }

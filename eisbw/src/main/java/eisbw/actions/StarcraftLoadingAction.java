@@ -8,8 +8,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Abstract class for Load actions.
+ *
+ */
 public abstract class StarcraftLoadingAction extends StarcraftAction {
 
+  /**
+   * The StarcraftLoadingAction constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public StarcraftLoadingAction(JNIBWAPI api) {
     super(api);
   }

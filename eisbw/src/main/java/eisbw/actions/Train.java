@@ -10,8 +10,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Trains a specified unit from a production facility.
+ *
+ */
 public class Train extends StarcraftAction {
 
+  /**
+   * The Train constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Train(JNIBWAPI api) {
     super(api);
   }

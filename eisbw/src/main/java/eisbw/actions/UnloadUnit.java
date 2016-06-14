@@ -5,8 +5,18 @@ import eis.iilang.Numeral;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
+/**
+ * @author Danny & Harm - Unloads a specified unit.
+ *
+ */
 public class UnloadUnit extends StarcraftLoadingAction {
 
+  /**
+   * The UnloadUnit constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public UnloadUnit(JNIBWAPI api) {
     super(api);
   }

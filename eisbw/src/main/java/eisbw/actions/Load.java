@@ -5,8 +5,18 @@ import eis.iilang.Numeral;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
+/**
+ * @author Danny & Harm - Loads a unit into a specified other unit.
+ *
+ */
 public class Load extends StarcraftLoadingAction {
 
+  /**
+   * The Load constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Load(JNIBWAPI api) {
     super(api);
   }

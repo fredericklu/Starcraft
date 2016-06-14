@@ -9,8 +9,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit attack the specified unit.
+ *
+ */
 public class Attack extends StarcraftAction {
 
+  /**
+   * The Attack constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Attack(JNIBWAPI api) {
     super(api);
   }

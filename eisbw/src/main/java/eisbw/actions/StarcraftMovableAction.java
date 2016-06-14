@@ -8,8 +8,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Abstract class for some of the Movable actions.
+ *
+ */
 public abstract class StarcraftMovableAction extends StarcraftAction {
 
+  /**
+   * The Starcraft MovableAction constructor.
+   * 
+   * @param api
+   *          The BWAPI.
+   */
   public StarcraftMovableAction(JNIBWAPI api) {
     super(api);
   }

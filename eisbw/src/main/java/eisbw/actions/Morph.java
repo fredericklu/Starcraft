@@ -11,8 +11,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit morph into a specified unit.
+ *
+ */
 public class Morph extends StarcraftAction {
 
+  /**
+   * The Morph constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Morph(JNIBWAPI api) {
     super(api);
   }

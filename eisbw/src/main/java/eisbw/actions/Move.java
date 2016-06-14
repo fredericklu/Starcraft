@@ -9,8 +9,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit move to the specified location.
+ *
+ */
 public class Move extends StarcraftMovableAction {
 
+  /**
+   * The Move constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Move(JNIBWAPI api) {
     super(api);
   }

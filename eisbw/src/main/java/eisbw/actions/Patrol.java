@@ -9,8 +9,19 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit patrol between his current location and
+ *         the specified location.
+ *
+ */
 public class Patrol extends StarcraftMovableAction {
 
+  /**
+   * The Patrol constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Patrol(JNIBWAPI api) {
     super(api);
   }
@@ -27,6 +38,6 @@ public class Patrol extends StarcraftMovableAction {
 
   @Override
   public String toString() {
-    return "move(unitId, x, y)";
+    return "patrol(unitId, x, y)";
   }
 }

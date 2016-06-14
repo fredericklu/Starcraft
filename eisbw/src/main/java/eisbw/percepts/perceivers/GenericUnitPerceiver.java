@@ -65,10 +65,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
     Set<Percept> percepts = new HashSet<>();
     UnitType type = unit.getType();
 
-    if (unit == null) {
-      System.out.println(unit.toString());
-    }
-    
     percepts.add(new SelfPercept(unit.getID(), type.getName(), type.getMaxHitPoints(),
         type.getMaxShields(), type.getMaxEnergy()));
 

@@ -10,8 +10,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Lands the flying unit on the specified location.
+ *
+ */
 public class Land extends StarcraftAction {
 
+  /**
+   * The Land constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Land(JNIBWAPI api) {
     super(api);
   }
@@ -19,8 +29,8 @@ public class Land extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 2 && parameters.get(0) 
-        instanceof Numeral && parameters.get(1) instanceof Numeral;
+    return parameters.size() == 2 && parameters.get(0) instanceof Numeral
+        && parameters.get(1) instanceof Numeral;
   }
 
   @Override

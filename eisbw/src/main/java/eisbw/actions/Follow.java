@@ -9,8 +9,17 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit follow an other specified unit.
+ *
+ */
 public class Follow extends StarcraftAction {
 
+  /**
+   * The Follow constructor.
+   * 
+   * @param api The BWAPI
+   */
   public Follow(JNIBWAPI api) {
     super(api);
   }

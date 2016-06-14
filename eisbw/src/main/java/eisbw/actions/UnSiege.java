@@ -7,8 +7,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Unsieges a Siege Tank.
+ *
+ */
 public class UnSiege extends StarcraftAction {
 
+  /**
+   * The Unsiege constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public UnSiege(JNIBWAPI api) {
     super(api);
   }

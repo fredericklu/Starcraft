@@ -9,8 +9,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Right clicks on a specified unit.
+ *
+ */
 public class RightClickPosition extends StarcraftAction {
 
+  /**
+   * The RightClickPosition constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public RightClickPosition(JNIBWAPI api) {
     super(api);
   }
@@ -18,8 +28,8 @@ public class RightClickPosition extends StarcraftAction {
   @Override
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 2 && parameters.get(0) 
-        instanceof Numeral && parameters.get(1) instanceof Numeral;
+    return parameters.size() == 2 && parameters.get(0) instanceof Numeral
+        && parameters.get(1) instanceof Numeral;
   }
 
   @Override

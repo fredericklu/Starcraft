@@ -10,8 +10,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Sets a rally point on a specified location.
+ *
+ */
 public class SetRallyPoint extends StarcraftAction {
 
+  /**
+   * The SetRallyPoint constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public SetRallyPoint(JNIBWAPI api) {
     super(api);
   }
