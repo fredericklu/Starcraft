@@ -3,7 +3,6 @@ package eisbw.actions;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
@@ -30,7 +29,7 @@ public class BuildAddon extends StarcraftAction {
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 1 && parameters.get(0) instanceof Identifier) {
-      UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
+      UnitType ut = getUnitType(((Identifier) parameters.get(0)).getValue());
       return ut != null && ut.isAddon();
     }
     return false;
@@ -46,7 +45,7 @@ public class BuildAddon extends StarcraftAction {
     LinkedList<Parameter> params = action.getParameters();
     String type = ((Identifier) params.get(0)).getValue();
 
-    unit.buildAddon(BwapiUtility.getUnitType(type));
+    unit.buildAddon(getUnitType(type));
   }
 
   @Override

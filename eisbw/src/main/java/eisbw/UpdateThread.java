@@ -7,6 +7,10 @@ import jnibwapi.Unit;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Danny & Harm - The thread which handles all the percept updates.
+ *
+ */
 public class UpdateThread extends Thread {
 
   private Game game;

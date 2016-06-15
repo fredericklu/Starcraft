@@ -4,7 +4,6 @@ import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
@@ -34,8 +33,10 @@ public class Build extends StarcraftAction {
   public boolean isValid(Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     if (parameters.size() == 3 && parameters.get(0) instanceof Identifier) {
-      UnitType ut = BwapiUtility.getUnitType(((Identifier) parameters.get(0)).getValue());
-      return ut != null && ut.isBuilding() && parameters.get(1) instanceof Numeral
+      UnitType ut = getUnitType(((Identifier) parameters.get(0)).getValue());
+      return ut != null 
+          && ut.isBuilding() 
+          && parameters.get(1) instanceof Numeral
           && parameters.get(2) instanceof Numeral;
     }
     return false;
@@ -52,7 +53,7 @@ public class Build extends StarcraftAction {
     String type = ((Identifier) params.get(0)).getValue();
     int tx = ((Numeral) params.get(1)).getValue().intValue();
     int ty = ((Numeral) params.get(2)).getValue().intValue();
-    unit.build(new Position(tx, ty, PosType.BUILD), BwapiUtility.getUnitType(type));
+    unit.build(new Position(tx, ty, PosType.BUILD), getUnitType(type));
   }
 
   @Override

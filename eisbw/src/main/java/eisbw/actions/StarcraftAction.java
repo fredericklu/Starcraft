@@ -5,6 +5,8 @@ import eisbw.BwapiUtility;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
+import jnibwapi.types.UnitType;
+import jnibwapi.types.UpgradeType;
 
 /**
  * @author Danny & Harm - Abstract class for all the actions.
@@ -24,8 +26,16 @@ public abstract class StarcraftAction {
     this.api = api;
   }
 
+  protected UpgradeType getUpgradeType(String type) {
+    return BwapiUtility.getUpgradeType(type);
+  }
+
   protected TechType getTechType(String type) {
     return BwapiUtility.getTechType(type);
+  }
+
+  protected UnitType getUnitType(String type) {
+    return BwapiUtility.getUnitType(type);
   }
 
   /**

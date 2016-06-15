@@ -34,8 +34,9 @@ public class UseOnPosition extends StarcraftAction {
     if (parameters.size() == 3) { // type, x, y
       boolean isTechType = parameters.get(0) instanceof Identifier
           && getTechType(((Identifier) parameters.get(0)).getValue()) != null;
-      return isTechType && parameters.get(1) 
-          instanceof Numeral && parameters.get(2) instanceof Numeral;
+
+      return isTechType && parameters.get(1) instanceof Numeral
+          && parameters.get(2) instanceof Numeral;
     }
 
     return false;

@@ -19,6 +19,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
 
+/**
+ * @author Danny & Harm - The game class where the percepts are updated.
+ *
+ */
 public class Game {
 
   protected volatile Map<String, Map<PerceptFilter, Set<Percept>>> percepts;
@@ -75,14 +79,13 @@ public class Game {
       thisUnitPercepts.putAll(mapPercepts);
       thisUnitPercepts.putAll(unit.getValue().perceive());
 
-      unitPerceptHolder.put(unit.getKey(),thisUnitPercepts);
+      unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
     }
 
     percepts = unitPerceptHolder;
   }
 
-  private List<Percept> translatePercepts(String unitName,
-      Map<PerceptFilter, Set<Percept>> map) {
+  private List<Percept> translatePercepts(String unitName, Map<PerceptFilter, Set<Percept>> map) {
     List<Percept> percept = new LinkedList<>();
     if (!previous.containsKey(unitName)) {
       previous.put(unitName, new HashMap<>());
@@ -195,6 +198,11 @@ public class Game {
     return env;
   }
 
+  /**
+   * @param entity
+   *          The evaluated entity
+   * @return Boolean indicating whether the unit is initialized or not.
+   */
   public boolean isInitialized(String entity) {
     return percepts.containsKey(entity);
   }

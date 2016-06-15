@@ -15,7 +15,7 @@ import java.util.LinkedList;
  *         attacking everything it encounters.
  *
  */
-public class AttackMove extends StarcraftAction {
+public class AttackMove extends StarcraftMovableAction {
 
   /**
    * The AttackMove constructor.
@@ -25,13 +25,6 @@ public class AttackMove extends StarcraftAction {
    */
   public AttackMove(JNIBWAPI api) {
     super(api);
-  }
-
-  @Override
-  public boolean isValid(Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 2 && parameters.get(0) instanceof Numeral
-        && parameters.get(1) instanceof Numeral;
   }
 
   @Override

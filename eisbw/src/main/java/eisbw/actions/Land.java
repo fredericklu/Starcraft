@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * @author Danny & Harm - Lands the flying unit on the specified location.
  *
  */
-public class Land extends StarcraftAction {
+public class Land extends StarcraftMovableAction {
 
   /**
    * The Land constructor.
@@ -24,13 +24,6 @@ public class Land extends StarcraftAction {
    */
   public Land(JNIBWAPI api) {
     super(api);
-  }
-
-  @Override
-  public boolean isValid(Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    return parameters.size() == 2 && parameters.get(0) instanceof Numeral
-        && parameters.get(1) instanceof Numeral;
   }
 
   @Override
