@@ -10,7 +10,6 @@ import jnibwapi.Position;
 import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 
 import org.junit.Before;
@@ -100,7 +99,7 @@ public class BufferPerceiverTest {
   @Test
   public void size_test() {
     Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-    assertEquals(4, perciever.perceive(toReturn).size());
+    assertEquals(2, perciever.perceive(toReturn).size());
   }
 
 }

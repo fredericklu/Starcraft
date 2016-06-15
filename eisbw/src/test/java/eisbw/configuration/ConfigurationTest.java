@@ -63,18 +63,29 @@ public class ConfigurationTest {
     new Configuration(parameters);
   }
   
+  @Test(expected = TranslationException.class)  
+  public void exception6_test() throws NoTranslatorException, TranslationException {
+    Map<String,Parameter> parameters = new HashMap<>();
+    parameters.put("false_input", new Identifier("scdir"));
+    new Configuration(parameters);
+  }
+  
   @Test
   public void noException_test() throws NoTranslatorException, TranslationException {
     Map<String,Parameter> parameters = new HashMap<>();
     parameters.put("debug", new Identifier("true"));
     parameters.put("own_race", new Identifier("terran"));
+    parameters.put("enemy_race",  new Identifier("zerg"));
     parameters.put("map", new Identifier("map"));
     parameters.put("starcraft_location", new Identifier("scdir"));
+    parameters.put("auto_menu", new Identifier("Single_Player"));
     Configuration config = new Configuration(parameters);
     assertEquals("true",config.getDebugMode().getData());
     assertEquals("terran",config.getOwnRace().getData());
+    assertEquals("zerg", config.getEnemyRace().getData());
     assertEquals("map",config.getMap());
     assertEquals("scdir",config.getScDir());
+    assertEquals("Single_Player", config.getAutoMenu());
   }
 
 }

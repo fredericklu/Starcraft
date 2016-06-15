@@ -17,6 +17,7 @@ import jnibwapi.types.UnitType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
@@ -25,7 +26,7 @@ public class TrainTest {
 
   private Train action;
   private LinkedList<Parameter> params;
-
+  
   @Mock
   private JNIBWAPI bwapi;
   @Mock
@@ -34,6 +35,8 @@ public class TrainTest {
   private Unit unit;
   @Mock
   private UnitType unitType;
+  @Mock
+  private UnitType type;
 
   /**
    * Initialize mocks.
@@ -44,7 +47,7 @@ public class TrainTest {
     action = new Train(bwapi);
     
     params = new LinkedList<>();
-    params.add(new Identifier("Working"));
+    params.add(new Identifier("Terran SCV"));
     params.add(new Numeral(2));
     
     when(act.getParameters()).thenReturn(params);
@@ -53,6 +56,14 @@ public class TrainTest {
 
   @Test
   public void isValid_test() {
+    StarcraftAction spyAction = Mockito.spy(action);
+
+    when(spyAction.getUnitType("Terran SCV")).thenReturn(unitType);
+    
+    params.removeLast();
+    assertTrue(spyAction.isValid(act));
+    params.add(new Numeral(2));
+    
     assertFalse(action.isValid(act));
     params.remove(1);
     assertFalse(action.isValid(act));

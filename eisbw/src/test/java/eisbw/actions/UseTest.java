@@ -2,6 +2,7 @@ package eisbw.actions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,6 +60,13 @@ public class UseTest {
 
   @Test
   public void isValid_test() {
+    StarcraftAction spyAction = Mockito.spy(action);
+    
+    when(spyAction.getTechType(techType)).thenReturn(tech);
+    params.removeLast();
+    assertTrue(spyAction.isValid(act));
+    params.add(new Numeral(2));
+    
     assertFalse(action.isValid(act));
     params.remove(1);
     assertFalse(action.isValid(act));
@@ -70,7 +78,6 @@ public class UseTest {
   
   @Test
   public void canExecute_test() {
-    action = new Use(bwapi);
     StarcraftAction spyAction = Mockito.spy(action);
     
     when(spyAction.getTechType(techType)).thenReturn(tech);

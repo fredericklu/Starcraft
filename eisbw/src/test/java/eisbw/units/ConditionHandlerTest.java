@@ -232,6 +232,22 @@ public class ConditionHandlerTest {
   }
 
   @Test
+  public void conditions_worker_test() {
+    when(unit.isCompleted()).thenReturn(true);
+    when(unitType.isWorker()).thenReturn(true);
+    when(unit.isCarryingGas()).thenReturn(true);
+    when(unit.isConstructing()).thenReturn(true);
+    assertEquals(2, handler.getConditions().size());
+
+    when(unit.isCarryingGas()).thenReturn(false);
+    when(unit.isCarryingMinerals()).thenReturn(true);
+    when(unit.isConstructing()).thenReturn(false);
+    assertEquals(1, handler.getConditions().size());
+    when(unit.isCarryingMinerals()).thenReturn(false);
+    assertEquals(0, handler.getConditions().size());
+  }
+
+  @Test
   public void conditions_building_test() {
     when(unit.isCompleted()).thenReturn(true);
     when(unitType.isBuilding()).thenReturn(true);

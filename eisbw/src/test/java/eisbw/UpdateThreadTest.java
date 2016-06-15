@@ -1,11 +1,10 @@
 package eisbw;
 
-import eis.exceptions.ManagementException;
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
 
+import eis.exceptions.ManagementException;
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
