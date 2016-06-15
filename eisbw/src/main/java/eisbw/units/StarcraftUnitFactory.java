@@ -10,10 +10,20 @@ import jnibwapi.Unit;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Danny & Harm - The Starcraft Unit Factory which creates the units.
+ *
+ */
 public class StarcraftUnitFactory {
 
   private final JNIBWAPI api;
 
+  /**
+   * The StarcraftUnitFactory constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public StarcraftUnitFactory(JNIBWAPI api) {
     this.api = api;
   }

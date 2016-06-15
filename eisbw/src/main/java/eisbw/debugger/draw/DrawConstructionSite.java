@@ -13,8 +13,19 @@ import jnibwapi.util.BWColor;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Danny & Harm - The class which handles the drawing of the
+ *         construction sites of the dev. tool.
+ *
+ */
 public class DrawConstructionSite extends IDraw {
 
+  /**
+   * The DrawConstructionSite constructor.
+   * 
+   * @param game
+   *          The current game.
+   */
   public DrawConstructionSite(Game game) {
     super(game);
   }

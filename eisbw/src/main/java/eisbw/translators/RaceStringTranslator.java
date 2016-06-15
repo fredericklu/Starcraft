@@ -7,6 +7,10 @@ import eis.iilang.Parameter;
 import eisbw.configuration.RaceString;
 import eisbw.constants.Races;
 
+/**
+ * @author Danny & Harm - The translator which translates strings to races.
+ *
+ */
 public class RaceStringTranslator implements Parameter2Java<RaceString> {
 
   @Override

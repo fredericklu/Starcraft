@@ -6,6 +6,11 @@ import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eisbw.configuration.ParamEnum;
 
+/**
+ * @author Danny & Harm - The translator which translates a parameter to a
+ *         ParamEnum.
+ *
+ */
 public class ParamEnumTranslator implements Parameter2Java<ParamEnum> {
 
   @Override

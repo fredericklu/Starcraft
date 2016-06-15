@@ -2,7 +2,9 @@ package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
+import eisbw.UnitTypesEx;
 import eisbw.percepts.GatheringPercept;
+import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.WorkerActivityPercept;
@@ -70,24 +72,38 @@ public class WorkerPerceiver extends UnitPerceiver {
   public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 
     perceiveWorkers(toReturn);
+    resourcesPercepts(toReturn);
 
     Set<Percept> gatheringpercepts = new HashSet<>();
     if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
       gatheringpercepts.add(new GatheringPercept(unit.getOrderTarget().getID()));
     }
 
-    Set<Percept> geyserpercepts = new HashSet<>();
+    toReturn.put(new PerceptFilter(Percepts.GATHERING, Filter.Type.ALWAYS), gatheringpercepts);
+    return toReturn;
+  }
+
+  private void resourcesPercepts(Map<PerceptFilter, Set<Percept>> toReturn) {
+    Set<Percept> minerals = new HashSet<>();
+    Set<Percept> geysers = new HashSet<>();
+
     for (Unit u : api.getNeutralUnits()) {
-      if (u.getType() == UnitType.UnitTypes.Resource_Vespene_Geyser) {
-        Percept percept = new VespeneGeyserPercept(u.getID(), u.getResources(),
-            u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-        geyserpercepts.add(percept);
+      UnitType unitType = u.getType();
+      if (u.isVisible()) {
+        if (UnitTypesEx.isMineralField(unitType)) {
+          MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
+              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+          minerals.add(mineralfield);
+        } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
+          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), u.getResources(),
+              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+          geysers.add(mineralfield);
+
+        }
       }
     }
-
-    toReturn.put(new PerceptFilter(Percepts.GATHERING, Filter.Type.ALWAYS), gatheringpercepts);
-    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geyserpercepts);
-    return toReturn;
+    toReturn.put(new PerceptFilter(Percepts.MINERALFIELD, Filter.Type.ALWAYS), minerals);
+    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geysers);
   }
 
 }

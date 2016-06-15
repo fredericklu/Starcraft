@@ -2,12 +2,9 @@ package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
-import eisbw.UnitTypesEx;
 import eisbw.percepts.EnemyRacePercept;
-import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.UnitAmountPercept;
-import eisbw.percepts.VespeneGeyserPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Unit;
@@ -54,28 +51,6 @@ public class BufferPerceiver extends Perceiver {
     toReturn.put(new PerceptFilter(Percepts.UNITAMOUNT, Filter.Type.ALWAYS), countHolder);
   }
 
-  private void resourcesPercepts(Map<PerceptFilter, Set<Percept>> toReturn) {
-    Set<Percept> minerals = new HashSet<>();
-    Set<Percept> geysers = new HashSet<>();
-
-    for (Unit u : api.getNeutralUnits()) {
-      UnitType unitType = u.getType();
-      if (u.isVisible()) {
-        if (UnitTypesEx.isMineralField(unitType)) {
-          MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-          minerals.add(mineralfield);
-        } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
-          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-          geysers.add(mineralfield);
-
-        }
-      }
-    }
-    toReturn.put(new PerceptFilter(Percepts.MINERALFIELD, Filter.Type.ALWAYS), minerals);
-    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geysers);
-  }
 
   private void enemyRacePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
     Set<Percept> percepts = new HashSet<>();
@@ -88,7 +63,6 @@ public class BufferPerceiver extends Perceiver {
   @Override
   public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
     unitAmount(toReturn);
-    resourcesPercepts(toReturn);
     enemyRacePercept(toReturn);
 
     return toReturn;

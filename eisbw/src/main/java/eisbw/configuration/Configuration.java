@@ -8,6 +8,10 @@ import eis.iilang.Parameter;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * @author Danny & Harm - This class handles all the possible configurations.
+ *
+ */
 public class Configuration {
 
   protected RaceString ownRace = null;
@@ -17,6 +21,14 @@ public class Configuration {
   protected String autoMenu = "OFF";
   protected BooleanString debug = new BooleanString("false");
 
+  /**
+   * The Configuration constructor.
+   * 
+   * @param parameters
+   *          The given config parameters.
+   * @throws TranslationException
+   *           One of the config parameters is not valid.
+   */
   public Configuration(Map<String, Parameter> parameters) throws TranslationException {
     parseParams(parameters);
     checkSanity();
