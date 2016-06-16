@@ -6,6 +6,10 @@ import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eisbw.configuration.BooleanString;
 
+/**
+ * @author Danny & Harm - The translator which translates strings to booleans.
+ *
+ */
 public class BooleanStringTranslator implements Parameter2Java<BooleanString> {
 
   @Override

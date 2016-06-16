@@ -16,8 +16,8 @@ module TerranSCVEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.	
 	
-	% Handling of the condition percept
-	if bel(condition(List)), percept(condition(OList)) then delete(condition(List)) + insert(condition(OList)).
+	% The handling of the conditions 
+	if percept(status(_,_,_,NewCond,_,_)), bel(condition(OldCond), NewCond \= OldCond) then delete(condition(OldCond)) + insert(condition(NewCond)).
 	
 	% The handling of the supply percept
 	if percept(resources(_, _, C, T)), bel(supply(OC, OT), (not(OC == C) ; not(OT == T))) then delete(supply(OC, OT)) + insert(supply(C, T)).

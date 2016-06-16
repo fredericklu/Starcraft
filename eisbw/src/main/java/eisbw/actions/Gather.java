@@ -9,8 +9,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Makes the unit gather from a specified resource.
+ *
+ */
 public class Gather extends StarcraftAction {
 
+  /**
+   * The Gather constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Gather(JNIBWAPI api) {
     super(api);
   }

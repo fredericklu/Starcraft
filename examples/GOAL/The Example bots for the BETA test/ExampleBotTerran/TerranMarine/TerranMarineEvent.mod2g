@@ -16,8 +16,8 @@ module TerranMarineEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.
 	
-	% Handling of the condition percept
-	if bel(condition(List)), percept(condition(OList)) then delete(condition(List)) + insert(condition(OList)).
+	% The handling of the conditions 
+	if percept(status(_,_,_,NewCond,_,_)), bel(condition(OldCond), NewCond \= OldCond) then delete(condition(OldCond)) + insert(condition(NewCond)).
 	
 	% Insert enemy when one is perceived
 	forall percept(unit(false, Type,Id,Health,Shields,Conditions)), bel(not(enemy(Type,Id,Health,Shields))) 
@@ -30,7 +30,7 @@ module TerranMarineEvent {
 	forall bel(attacking(Id,Target, X, Y)),not(percept(attacking(Id,Target, X, Y))) do delete(attacking(Id,Target, X, Y)).
 	
 	% The handling of the position 
-	if percept(status(_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
+	if percept(status(_,_,_,_,X1,Y1)), bel(position(X2,Y2), (X1 \= X2 ; Y1 \= Y2)) then delete(position(X2,Y2)) + insert(position(X1,Y1)).
 	
 	% Perceives enemy base (NOTE: ONLY WORKS ON MAP WITH 2 BASES)
 	if bel(not(enemyBase(X1, Y1)), base(X1, Y1, true, _), commandCenterPosition(X, Y), distance(X, Y, X1, Y1, Res), Res > 20) then insert(enemyBase(X1, Y1)).

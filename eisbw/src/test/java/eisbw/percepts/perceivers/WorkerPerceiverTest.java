@@ -1,6 +1,5 @@
 package eisbw.percepts.perceivers;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
@@ -8,6 +7,7 @@ import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
+import jnibwapi.Position.PosType;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
@@ -26,10 +26,21 @@ import java.util.Set;
 public class WorkerPerceiverTest {
 
   private WorkerPerceiver perciever;
+  private List<Unit> units;
   @Mock
   private Unit unit;
   @Mock
+  private Unit unit2;
+  @Mock
+  private Unit unit3;
+  @Mock
+  private Unit unit4;
+  @Mock
   private UnitType unitType;
+  @Mock
+  private UnitType unitType2;
+  @Mock
+  private UnitType unitType3;
   @Mock
   private JNIBWAPI api;
   @Mock
@@ -50,6 +61,35 @@ public class WorkerPerceiverTest {
     toreturn.add(unit);
     when(api.getMyUnits()).thenReturn(toreturn);
 
+    when(unit.getType()).thenReturn(unitType);
+    when(unit.getResourceGroup()).thenReturn(1);
+    when(unit.getResources()).thenReturn(2);
+    when(unit.getPosition()).thenReturn(new Position(1, 2, PosType.BUILD));
+
+    when(unit3.getResourceGroup()).thenReturn(1);
+    when(unit3.getResources()).thenReturn(2);
+    when(unit3.getPosition()).thenReturn(new Position(1, 2, PosType.BUILD));
+
+    units = new LinkedList<>();
+    units.add(unit);
+    units.add(unit4);
+    units.add(unit3);
+    units.add(unit2);
+
+    when(api.getMyUnits()).thenReturn(units);
+    when(api.getNeutralUnits()).thenReturn(units);
+
+    when(unit2.isVisible()).thenReturn(false);
+    when(unit3.isVisible()).thenReturn(true);
+    when(unit4.isVisible()).thenReturn(true);
+    when(unit3.getType()).thenReturn(unitType2);
+    when(unit2.getType()).thenReturn(unitType2);
+    when(unit4.getType()).thenReturn(unitType3);
+    when(unit.isVisible()).thenReturn(true);
+    when(unitType.getName()).thenReturn("Resource Mineral Field");
+    when(unitType2.getName()).thenReturn("Resource Vespene Geyser");
+    when(unitType3.getName()).thenReturn("No Resource");
+
     perciever = new WorkerPerceiver(api, unit);
   }
 
@@ -68,7 +108,6 @@ public class WorkerPerceiverTest {
     when(unitType.isWorker()).thenReturn(true);
     when(unitType.isMechanical()).thenReturn(true);
     when(unit.isGatheringMinerals()).thenReturn(true);
-
 
     Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
@@ -109,9 +148,8 @@ public class WorkerPerceiverTest {
     Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getHitPoints()).thenReturn(1);
-    assertFalse(perciever.perceive(ret).isEmpty());    
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
-
 
   @Test
   public void geyser_test() {
@@ -121,25 +159,15 @@ public class WorkerPerceiverTest {
     Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
     when(unit.getType()).thenReturn(unitType);
-    assertFalse(perciever.perceive(ret).isEmpty());        
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
   @Test
-  public void conditions_gas_test() {
-    when(unit.isCarryingGas()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
-
-  @Test
-  public void conditions_minerals_test() {
-    when(unit.isCarryingMinerals()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
-  }
-
-  @Test
-  public void conditions_constructing_test() {
-    when(unit.isConstructing()).thenReturn(true);
-    assertEquals(1, perciever.getConditions().size());
+  public void gathering_test() {
+    when(unit.isGatheringMinerals()).thenReturn(true);
+    when(unit.getOrderTarget()).thenReturn(unit);
+    Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
+    assertFalse(perciever.perceive(ret).isEmpty());
   }
 
 }

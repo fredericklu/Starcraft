@@ -7,8 +7,19 @@ import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.util.BWColor;
 
+/**
+ * @author Danny & Harm - The class which handles the drawing of the buildings
+ *         of the dev. tool.
+ *
+ */
 public class DrawBuildingDetails extends IDraw {
 
+  /**
+   * The DrawBuildingDetails constructor.
+   * 
+   * @param game
+   *          The current game.
+   */
   public DrawBuildingDetails(Game game) {
     super(game);
   }
@@ -40,7 +51,7 @@ public class DrawBuildingDetails extends IDraw {
         Position start = new Position(unit.getPosition().getPX() - width / 2,
             unit.getPosition().getPY() - 30);
         Position end = new Position(start.getPX() + width, start.getPY() + barHeight);
-        
+
         int progress = (int) ((double) done / (double) total * width);
         Position progressbar = new Position(start.getPX() + progress, start.getPY() + barHeight);
         api.drawBox(start, end, color, false, false);
@@ -51,7 +62,7 @@ public class DrawBuildingDetails extends IDraw {
 
     }
   }
-  
+
   @Override
   public void draw(JNIBWAPI api) {
     api.drawHealth(toggle);

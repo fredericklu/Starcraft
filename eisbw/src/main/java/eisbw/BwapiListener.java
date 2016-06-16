@@ -15,9 +15,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * @author Danny & Harm - The Listener of the BWAPI Events.
+ *
+ */
 public class BwapiListener extends BwapiEvents {
 
+  protected Logger logger = Logger.getLogger("StarCraft Logger");
   protected JNIBWAPI bwapi;
   protected Game game;
   protected ActionProvider actionProvider;
@@ -123,7 +130,7 @@ public class BwapiListener extends BwapiEvents {
       return;
     }
     unitDestroy(id);
-    if (!(bwapi.getUnit(id).getType() == UnitTypes.Zerg_Zergling)) {
+    if (bwapi.getUnit(id).getType() != UnitTypes.Zerg_Zergling) {
       unitComplete(id);
     }
   }
@@ -150,6 +157,11 @@ public class BwapiListener extends BwapiEvents {
     return action != null && action.isValid(act) && action.canExecute(unit, act);
   }
 
+  /**
+   * @param action
+   *          The inserted requested action.
+   * @return The requested Starcraft Action.
+   */
   public StarcraftAction getAction(Action action) {
     return actionProvider.getAction(action.getName() + "/" + action.getParameters().size());
   }
@@ -172,8 +184,11 @@ public class BwapiListener extends BwapiEvents {
     if (!unit.isBeingConstructed()) {
       StarcraftAction action = getAction(act);
       // Action might be invalid
-      if (action.isValid(act)) {
+      if (action.isValid(act) && isSupportedByEntity(act, name)) {
         pendingActions.put(unit, act);
+      } else {
+        logger.log(Level.WARNING,
+            "The Entity: " + name + " is not able to perform the action: " + act.getName());
       }
     }
 

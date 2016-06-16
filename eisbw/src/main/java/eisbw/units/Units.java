@@ -10,13 +10,17 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * @author Danny & Harm - The data class which keeps track of all the units.
+ *
+ */
 public class Units {
 
   protected Map<String, Unit> unitMap;
   protected Map<Integer, String> unitNames;
   protected Map<String, StarcraftUnit> starcraftUnits;
   protected StarcraftEnvironmentImpl environment;
-  private Queue<Unit> uninitializedUnits;
+  protected Queue<Unit> uninitializedUnits;
 
   /**
    * Constructor.
@@ -36,7 +40,9 @@ public class Units {
    * Adds a unit to the game data.
    * 
    * @param unit
-   *          - the unit to add
+   *          The unit to add.
+   * @param factory
+   *          The object which creates all starcraft units.
    */
   public void addUnit(Unit unit, StarcraftUnitFactory factory) {
     String unitName = BwapiUtility.getUnitName(unit);
@@ -50,7 +56,9 @@ public class Units {
    * Removes a unit from game data.
    * 
    * @param unitName
-   *          - the unit name
+   *          The unit name.
+   * @param id
+   *          The id of the unit.
    */
   public void deleteUnit(String unitName, int id) {
     unitMap.remove(unitName);

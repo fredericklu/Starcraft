@@ -7,8 +7,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Unloads all units.
+ *
+ */
 public class UnloadAll extends StarcraftAction {
 
+  /**
+   * The UnloadAll constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public UnloadAll(JNIBWAPI api) {
     super(api);
   }

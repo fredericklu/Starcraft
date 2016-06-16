@@ -9,6 +9,11 @@ import eis.iilang.TruthValue;
 
 import java.util.List;
 
+/**
+ * @author Danny & Harm - The Unit percept which gives information about the
+ *         other units.
+ *
+ */
 public class UnitPercept extends Percept {
 
   private static final long serialVersionUID = 1L;
@@ -27,7 +32,7 @@ public class UnitPercept extends Percept {
    * @param shields
    *          The amount of shields of the unit
    * @param conditions
-   *          The current conditions of the unit 
+   *          The current conditions of the unit
    */
   public UnitPercept(boolean isFriendly, String type, int id, int health, int shields,
       List<Parameter> conditions) {

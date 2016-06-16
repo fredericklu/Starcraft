@@ -67,5 +67,10 @@ public class UnitsTest {
   public void getStarcraftUnits_test() {
     assertTrue(units.getStarcraftUnits() == units.starcraftUnits);
   }
+  
+  @Test
+  public void getUninitializedUnits_test() {
+    assertTrue(units.getUninitializedUnits() == units.uninitializedUnits);
+  }
 
 }

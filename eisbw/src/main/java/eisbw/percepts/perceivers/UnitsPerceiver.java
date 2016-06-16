@@ -16,8 +16,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the unit percepts.
+ *
+ */
 public class UnitsPerceiver extends Perceiver {
 
+  /**
+   * @param api
+   *          The BWAPI.
+   */
   public UnitsPerceiver(JNIBWAPI api) {
     super(api);
   }

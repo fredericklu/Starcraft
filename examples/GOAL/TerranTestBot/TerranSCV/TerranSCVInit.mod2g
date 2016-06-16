@@ -2,7 +2,7 @@ use TerranSCV as knowledge.
 
 module taTerranSCVInit {
 	% Send probe info to Tassadar
-	if percept(self(Id,Type)) then insert(self(Id, Type)) + (raynor).send:(scv(Id)).
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)) + (raynor).send:(scv(Id)).
 		
 	% Init resource percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
@@ -17,5 +17,5 @@ module taTerranSCVInit {
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
 		
 	% Init conditions
-	if percept(condition(List)) then insert(condition(List)).
+	if percept(status(_,_,_,List,_,_)) then insert(condition(List)).
 }

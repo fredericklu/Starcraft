@@ -10,6 +10,10 @@ import jnibwapi.types.UpgradeType.UpgradeTypes;
 
 import java.util.HashMap;
 
+/**
+ * @author Danny & Harm - The Utility class of the BWAPI.
+ *
+ */
 public class BwapiUtility {
 
   private static final HashMap<String, UnitType> unitTypeMap = new HashMap<>();
@@ -17,7 +21,7 @@ public class BwapiUtility {
   private static final HashMap<String, UpgradeType> upgradeTypeMap = new HashMap<>();
 
   private BwapiUtility() {
-    //Private constructor for static class.
+    // Private constructor for static class.
   }
 
   /**

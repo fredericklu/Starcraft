@@ -7,6 +7,10 @@ import jnibwapi.Unit;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Danny & Harm - The thread which handles all the percept updates.
+ *
+ */
 public class UpdateThread extends Thread {
 
   private Game game;
@@ -40,23 +44,27 @@ public class UpdateThread extends Thread {
   public void run() {
     Thread.currentThread().setName("Update thread");
     while (running) {
-      game.update(bwapi);
-      List<Unit> toAdd = new LinkedList<>();
-      while (!units.getUninitializedUnits().isEmpty()) {
-        Unit unit = units.getUninitializedUnits().poll();
-        String unitName = BwapiUtility.getUnitName(unit);
-        if (game.isInitialized(unitName)) {
-          game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
-        } else {
-          toAdd.add(unit);
-        }
-      }
-      units.getUninitializedUnits().addAll(toAdd);
+      update();
       try {
         Thread.sleep(5);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
       }
     }
+  }
+
+  protected void update() {
+    game.update(bwapi);
+    List<Unit> toAdd = new LinkedList<>();
+    while (!units.getUninitializedUnits().isEmpty()) {
+      Unit unit = units.getUninitializedUnits().poll();
+      String unitName = BwapiUtility.getUnitName(unit);
+      if (game.isInitialized(unitName)) {
+        game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+      } else {
+        toAdd.add(unit);
+      }
+    }
+    units.getUninitializedUnits().addAll(toAdd);
   }
 }

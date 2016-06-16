@@ -3,6 +3,10 @@ package eisbw;
 import jnibwapi.BWAPIEventListener;
 import jnibwapi.Position;
 
+/**
+ * @author Danny & Harm - Stub class for all overriden event methods.
+ *
+ */
 public class BwapiEvents implements BWAPIEventListener {
 
   @Override

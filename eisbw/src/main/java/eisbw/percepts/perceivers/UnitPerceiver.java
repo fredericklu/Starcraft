@@ -1,23 +1,24 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
-import java.util.LinkedList;
-import java.util.List;
-
+/**
+ * @author Danny & Harm - Abstract class for Unit Perceivers.
+ *
+ */
 public abstract class UnitPerceiver extends Perceiver {
 
   protected final Unit unit;
 
+  /**
+   * @param api
+   *          The BWAPI.
+   * @param unit
+   *          The perceiving unit.
+   */
   public UnitPerceiver(JNIBWAPI api, Unit unit) {
     super(api);
     this.unit = unit;
-  }
-  
-  @Override
-  public List<Parameter> getConditions() {
-    return new LinkedList<>();
   }
 }

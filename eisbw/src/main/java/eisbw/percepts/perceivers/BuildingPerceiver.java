@@ -1,8 +1,6 @@
 package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
-import eis.iilang.Identifier;
-import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.HasResearchedPercept;
 import eisbw.percepts.Percepts;
@@ -15,18 +13,26 @@ import eisbw.percepts.UpgradePercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Danny & Harm - The perceiver which handles all the building percepts.
+ *
+ */
 public class BuildingPerceiver extends UnitPerceiver {
 
+  /**
+   * @param api
+   *          The BWAPI
+   * @param unit
+   *          The perceiving unit.
+   */
   public BuildingPerceiver(JNIBWAPI api, Unit unit) {
     super(api, unit);
   }
@@ -105,23 +111,5 @@ public class BuildingPerceiver extends UnitPerceiver {
       percepts.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
       toReturn.put(new PerceptFilter(Percepts.RALLYUNIT, Filter.Type.ON_CHANGE), percepts);
     }
-  }
-
-  @Override
-  public List<Parameter> getConditions() {
-    List<Parameter> conditions = new LinkedList<>();
-
-    if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
-
-      if (unit.isLifted()) {
-        conditions.add(new Identifier("lifted"));
-      }
-
-      if (unit.getAddon() != null) {
-        conditions.add(new Identifier(unit.getAddon().getType().getName()));
-      }
-    }
-
-    return conditions;
   }
 }

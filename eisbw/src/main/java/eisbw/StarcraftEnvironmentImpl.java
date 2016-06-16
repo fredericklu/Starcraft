@@ -24,6 +24,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Danny & Harm - The starcraft environment class which handles most
+ *         environment logics.
+ *
+ */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
   private Logger logger = Logger.getLogger("StarCraft Logger");
@@ -60,7 +65,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
     try {
       configuration = new Configuration(parameters);
-      addEntity("manager","manager");
+      addEntity("manager", "manager");
       if (!"test".equals(configuration.getOwnRace().getData())) {
         bwapiListener = new BwapiListener(game,
             "true".equals(configuration.getDebugMode().getData()));

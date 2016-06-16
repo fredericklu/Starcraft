@@ -5,21 +5,35 @@ import jnibwapi.JNIBWAPI;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Danny & Harm - The ActionProvider.
+ *
+ */
 public class ActionProvider {
 
   private final Map<String, StarcraftAction> actions;
 
+  /**
+   * The ActionProvider constructor.
+   */
   public ActionProvider() {
     this.actions = new HashMap<>();
   }
 
+  /**
+   * @param actionName
+   *          The name of the action.
+   * @return The action object with the specified action name.
+   */
   public StarcraftAction getAction(String actionName) {
     return actions.get(actionName);
   }
 
   /**
    * Load all actions to the EIS environment.
-   * @param api the API to pass into the actions.
+   * 
+   * @param api
+   *          the API to pass into the actions.
    */
   public void loadActions(JNIBWAPI api) {
     actions.put("attack/1", new Attack(api));

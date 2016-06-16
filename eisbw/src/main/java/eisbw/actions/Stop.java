@@ -8,8 +8,18 @@ import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Stops a unit from what it was doing.
+ *
+ */
 public class Stop extends StarcraftAction {
 
+  /**
+   * The Stop constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Stop(JNIBWAPI api) {
     super(api);
   }

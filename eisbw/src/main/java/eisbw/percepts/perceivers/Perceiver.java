@@ -1,21 +1,20 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 
-import java.util.LinkedList;
-import java.util.List;
-
+/**
+ * @author Danny & Harm - The abstract perceiver.
+ *
+ */
 public abstract class Perceiver implements IPerceiver {
 
   protected final JNIBWAPI api;
 
+  /**
+   * @param api
+   *          The BWAPI.
+   */
   public Perceiver(JNIBWAPI api) {
     this.api = api;
-  }
-  
-  @Override
-  public List<Parameter> getConditions() {
-    return new LinkedList<>();
   }
 }

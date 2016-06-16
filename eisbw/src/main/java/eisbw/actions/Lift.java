@@ -7,8 +7,19 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Lifts up the unit, making it a flying unit until it
+ *         lands.
+ *
+ */
 public class Lift extends StarcraftAction {
 
+  /**
+   * The Lift constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public Lift(JNIBWAPI api) {
     super(api);
   }

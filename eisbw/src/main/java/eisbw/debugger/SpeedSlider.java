@@ -11,6 +11,10 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * @author Danny & Harm - Class which handles the Speedslider of the dev. tool.
+ *
+ */
 public class SpeedSlider extends JPanel {
 
   private static final long serialVersionUID = 1L;

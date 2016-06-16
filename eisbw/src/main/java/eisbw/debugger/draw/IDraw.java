@@ -8,6 +8,10 @@ import jnibwapi.JNIBWAPI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Danny & Harm - The abstract class for the drawing classes.
+ *
+ */
 public abstract class IDraw {
 
   protected Logger logger = Logger.getLogger("StarCraft Logger");
@@ -15,16 +19,23 @@ public abstract class IDraw {
   protected boolean toggle = false;
   protected Game game;
 
+  /**
+   * The IDraw constructor.
+   * 
+   * @param game
+   *          the current game.
+   */
   public IDraw(Game game) {
     this.game = game;
   }
 
-  protected abstract void drawOnMap(JNIBWAPI api)
-      throws TranslationException;
+  protected abstract void drawOnMap(JNIBWAPI api) throws TranslationException;
 
   /**
    * Draw on the map.
-   * @param api - the StarCraft API.
+   * 
+   * @param api
+   *          - the StarCraft API.
    */
   public void draw(JNIBWAPI api) {
     if (toggle) {
@@ -38,6 +49,9 @@ public abstract class IDraw {
     }
   }
 
+  /**
+   * Handles the toggling of the drawing.
+   */
   public void toggle() {
     toggle = !toggle;
   }

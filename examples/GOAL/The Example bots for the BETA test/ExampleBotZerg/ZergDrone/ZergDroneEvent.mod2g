@@ -18,9 +18,8 @@ module ZergDroneEvent {
 	% The generic percepts most units use
 	if true then GenericPercepts.	
 	
-	% The handling of condition gathering
-	if percept(condition(NewList)), bel(member(gathering, NewList), condition(OldList), not(member(gathering, OldList))) then insert(gathering).
-	if bel(gathering), percept(condition(List)), bel(not(member(gathering, List))) then delete(gathering).
+	% The handling of the conditions 
+	if percept(status(_,_,_,NewCond,_,_)), bel(condition(OldCond), NewCond \= OldCond) then delete(condition(OldCond)) + insert(condition(NewCond)).
 	
 	% The handling of mineral and gas resources
 	if percept(resources(M, _, _, _)), bel(minerals(OM), not(OM == M)) then delete(minerals(OM)) + insert(minerals(M)).

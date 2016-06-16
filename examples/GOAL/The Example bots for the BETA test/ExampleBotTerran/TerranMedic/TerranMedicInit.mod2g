@@ -2,8 +2,8 @@ use TerranMedic as knowledge.
 
 module TerranMedicInit {
 	% Insert info about me
-	if percept(self(Id,Type)) then insert(self(Id, Type)).
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)).
 	
 	% Init condition
-	if percept(condition(List)) then insert(condition(List)).
+	if percept(status(_,_,_,List,_,_)) then insert(condition(List)).
 }

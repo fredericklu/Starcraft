@@ -8,8 +8,18 @@ import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
+/**
+ * @author Danny & Harm - Sets a rally point on a specified unit.
+ *
+ */
 public class SetRallyUnit extends StarcraftAction {
 
+  /**
+   * The SetRallyUnit constructor.
+   * 
+   * @param api
+   *          The BWAPI
+   */
   public SetRallyUnit(JNIBWAPI api) {
     super(api);
   }

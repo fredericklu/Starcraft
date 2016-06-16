@@ -11,7 +11,6 @@ import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.UnitType;
 import jnibwapi.types.UpgradeType.UpgradeTypes;
@@ -78,6 +77,7 @@ public class BuildingPerceiverTest {
     toReturn = new HashMap<>();
     List<Unit> loadedunits = new LinkedList<>();
     loadedunits.add(unit);
+    loadedunits.add(null);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
     assertEquals(4, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
@@ -88,16 +88,4 @@ public class BuildingPerceiverTest {
     assertTrue(perciever.perceive(toReturn).size() > 1);
   }
   
-  @Test
-  public void conditions_test() {
-    when(unit.isLifted()).thenReturn(true);
-    when(unit.getAddon()).thenReturn(unit);
-    assertEquals(0, perciever.getConditions().size());
-    when(unitType.getRaceID()).thenReturn(RaceTypes.Terran.getID());
-    assertEquals(2, perciever.getConditions().size());
-    when(unit.isLifted()).thenReturn(false);
-    when(unit.getAddon()).thenReturn(null);
-    assertEquals(0, perciever.getConditions().size());
-  }
-
 }

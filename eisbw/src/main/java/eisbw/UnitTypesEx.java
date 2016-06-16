@@ -2,6 +2,10 @@ package eisbw;
 
 import jnibwapi.types.UnitType;
 
+/**
+ * @author Danny & Harm - Utility class for type checks.
+ *
+ */
 public class UnitTypesEx {
 
   private UnitTypesEx() {
@@ -18,10 +22,6 @@ public class UnitTypesEx {
   public static boolean isResourceType(UnitType unitType) {
     return isMineralField(unitType) || unitType.isRefinery()
         || "Resource Vespene Geyser".equals(unitType.getName());
-  }
-
-  public static boolean isRefinery(UnitType unitType) {
-    return unitType.isRefinery();
   }
 
   /**
@@ -46,17 +46,5 @@ public class UnitTypesEx {
     return "Resource Mineral Field".equals(unitType.getName())
         || "Resource Mineral Field Type 2".equals(unitType.getName())
         || "Resource Mineral Field Type 3".equals(unitType.getName());
-  }
-
-  /**
-   * Check if a unit can do upgrades.
-   * 
-   * @param unitType
-   *          the type of the unit.
-   * @return true iff the unit can upgrade.
-   */
-  public static boolean isUpgradeCapable(UnitType unitType) {
-    return "Terran Engineering Bay".equals(unitType.getName())
-        || "Terran Academy".equals(unitType.getName());
   }
 }

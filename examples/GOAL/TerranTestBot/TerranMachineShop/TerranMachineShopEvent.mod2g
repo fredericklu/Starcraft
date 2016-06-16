@@ -9,7 +9,7 @@ module TerranMachineShopEvent {
 	
 	if percept(upgrading(X)), bel(not(upgrade(X))) then insert(upgrade(X)).
 	
-	if percept(friendly("Terran Siege Tank Tank Mode", Id, _, _ ,_ ,_)), bel(not(friendly("Terran Siege Tank Tank Mode", Id, _, _ ,_ ,_))) then allother.send(siegeUpgrade).
+	if percept(friendly("Terran Siege Tank Tank Mode", Id, _, _ ,_ ,_)), bel(not(friendly("Terran Siege Tank Tank Mode", Id, _, _ ))) then allother.send(siegeUpgrade).
 	
 	if not(goal(hasResearched('Tank Siege Mode'))), bel(not(hasResearched('Tank Siege Mode'))) then adopt(hasResearched('Tank Siege Mode')).
 	

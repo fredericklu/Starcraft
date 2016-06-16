@@ -25,9 +25,7 @@ public class UnitTypesExTest {
   public void test() {
     when(unitType.getName()).thenReturn("none");
     assertFalse(UnitTypesEx.isMineralField(unitType));
-    assertFalse(UnitTypesEx.isRefinery(unitType));
     assertFalse(UnitTypesEx.isResourceType(unitType));
-    assertFalse(UnitTypesEx.isUpgradeCapable(unitType));
     assertFalse(UnitTypesEx.isVespeneGeyser(unitType));
   }
   
@@ -39,14 +37,6 @@ public class UnitTypesExTest {
     assertTrue(UnitTypesEx.isMineralField(unitType));
     when(unitType.getName()).thenReturn("Resource Mineral Field Type 3");
     assertTrue(UnitTypesEx.isMineralField(unitType));
-  }
-  
-  @Test
-  public void upgradecapable_test() {
-    when(unitType.getName()).thenReturn("Terran Engineering Bay");
-    assertTrue(UnitTypesEx.isUpgradeCapable(unitType));
-    when(unitType.getName()).thenReturn("Terran Academy");
-    assertTrue(UnitTypesEx.isUpgradeCapable(unitType));
   }
   
   @Test
