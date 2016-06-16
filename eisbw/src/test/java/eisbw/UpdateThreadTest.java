@@ -64,12 +64,7 @@ public class UpdateThreadTest {
 
   @Test
   public void test_false_case() {
-    update.start();
-    try {
-      Thread.sleep(30);
-    } catch (InterruptedException ex) {
-      Thread.currentThread().interrupt();
-    }
+    update.update();
     update.terminate();
     assertEquals(units.getUninitializedUnits().size(), 1);
   }
@@ -79,12 +74,7 @@ public class UpdateThreadTest {
     when(game.isInitialized(name + "0")).thenReturn(true);
     when(game.getEnvironment()).thenReturn(env);
 
-    update.start();
-    try {
-      Thread.sleep(30);
-    } catch (InterruptedException ex) {
-      Thread.currentThread().interrupt();
-    }
+    update.update();
     update.terminate();
 
     assertEquals(units.getUninitializedUnits().size(), 0);
