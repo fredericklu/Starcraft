@@ -6,8 +6,15 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
 
+/**
+ * @author Danny & Harm.
+ */
 public class AgentCounter extends IDraw {
 
+  /**
+   * initializes the agentcounter.
+   * @param game - the game object
+   */
   public AgentCounter(Game game) {
     super(game);
     toggle();

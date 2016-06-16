@@ -6,8 +6,16 @@ import jnibwapi.BaseLocation;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.util.BWColor;
 
+/**
+ * @author Harm & Danny.
+ *
+ */
 public class DrawBases extends IDraw {
 
+  /**
+   * Draw the baselocations on the map.
+   * @param game - the game object
+   */
   public DrawBases(Game game) {
     super(game);
   }

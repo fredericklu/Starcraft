@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * @author Danny & Harm.
+ */
 public class CheatButtons extends JPanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
@@ -68,6 +71,9 @@ public class CheatButtons extends JPanel implements ActionListener {
     return actions;
   }
   
+  /**
+   * Clean the actionqueue.
+   */
   public void clean() {
     actions = new LinkedList<>();
   }

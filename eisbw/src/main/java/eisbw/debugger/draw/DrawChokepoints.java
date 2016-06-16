@@ -6,8 +6,15 @@ import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.util.BWColor;
 
+/**
+ * @author Danny & Harm.
+ */
 public class DrawChokepoints extends IDraw {
 
+  /**
+   * Draw the chokepoints on the map.
+   * @param game - the game object
+   */
   public DrawChokepoints(Game game) {
     super(game);
   }
