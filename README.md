@@ -13,15 +13,9 @@ For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-
 * StarCraft: Brood War
 * GOAL
 
-### Quick Setup
-1. Download the MSI Installer here: https://we.tl/0yBXI2plGE
-2. Install the Starcraft Environment.
-3. Follow the install guide in the MSI Installer.
-4. The first time playing a map can take a while because of the map generation (Note that this can take up to 2 minutes).
-
 ### Current status
 
-- Most units can be controlled by the MAS.
+- All units can be controlled by the MAS.
 - The MAS is capable of playing all three races, see examples for GOAL code.
 
 ### Project overview
