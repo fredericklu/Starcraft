@@ -11,7 +11,6 @@ import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 import jnibwapi.types.UnitType;
 import jnibwapi.types.UpgradeType.UpgradeTypes;

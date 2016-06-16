@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import eis.eis2java.exception.TranslationException;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
-import eisbw.configuration.BooleanString;
 import eisbw.configuration.RaceString;
 
 import org.junit.Before;

@@ -6,7 +6,6 @@ import eis.eis2java.exception.TranslationException;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eisbw.configuration.BooleanString;
-import eisbw.configuration.ParamEnum;
 
 import org.junit.Before;
 import org.junit.Test;
