@@ -11,6 +11,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * @author Danny & Harm.
+ */
 public class DebugWindow extends JFrame {
   private static final long serialVersionUID = 1L;
 
@@ -24,14 +27,14 @@ public class DebugWindow extends JFrame {
    * @param game
    *          - the game data.
    */
-  public DebugWindow(Game game) {    
+  public DebugWindow(Game game) {
     setTitle("StarCraft GOAL development tools");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(500, 300);
 
     JPanel contentPane = new JPanel();
     setContentPane(contentPane);
-    contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
+    contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
     speedSlider = new SpeedSlider();
     contentPane.add(speedSlider);
