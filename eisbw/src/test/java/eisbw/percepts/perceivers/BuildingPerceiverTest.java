@@ -77,6 +77,7 @@ public class BuildingPerceiverTest {
     toReturn = new HashMap<>();
     List<Unit> loadedunits = new LinkedList<>();
     loadedunits.add(unit);
+    loadedunits.add(null);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
     assertEquals(4, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
