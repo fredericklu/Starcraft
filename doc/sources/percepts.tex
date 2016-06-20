@@ -1,0 +1,550 @@
+%%%----------------------------------------------------------
+\chapter{Percepts}
+%%%----------------------------------------------------------
+
+This section will list all the percepts that are usable in the Starcraft environment. The percepts vary per unit, for example: an attacking unit will not perceive the amount of resources available to the player as he does not need them. For the implementation of these percepts in your GOAL code, please refer to the GOAL manual.
+
+\newpage
+\section{Percepts for all units}
+These percepts are available to all the units and buildings.
+
+\subsection{Available Resources}
+\textbf{Resources percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The amount of minerals, gas and supply available to the player. NOTE: supply is multiplied by 2, so 10 supply in game corresponds with 20 supply in the environment. \\
+ Type & send on change \\
+ Syntax & \verb|resources(<M>, <G>, <CS>, <TS>)| \\
+ Example & \verb|resources(350, 100, 25, 41)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<M>|} & The current amount of minerals available to the player. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<G>|} & The current amount of gas available to the player. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<CS>|} & The supply of the player which is currently in use. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--400] \\
+            \cline{2-3} 
+            & \textbf{\verb|<TS>|} & The total amount of supply the player can currently use. Note that \verb|<TS>| is always greater or equal to \verb|<CS>| \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--400] \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+\newpage
+
+\subsection{Unit Information}
+\textbf{Self percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The (unique) \textit{ID} and type of the unit. Also gives information about the maximum health, shield and energy of the unit. \\
+ Type & Send once \\
+ Syntax & \verb|self(<ID>, <UnitType>, <MaxHealth>, <MaxShield>, <MaxEnergy>)| \\
+ Example & \verb|self(21, Terran SCV, 60, 0, 0)|   \\   
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<UnitType>|} & The type of the unit. The type of a unit consists of a string with the race of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of all the unit types. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+            & \textbf{\verb|<MaxHealth>|} & The maximum amount of health of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--2500] \\
+            \cline{2-3} 
+            & \textbf{\verb|<MaxShield>|} & The maximum amount of shield of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--2500] \\
+            \cline{2-3} 
+            & \textbf{\verb|<MaxEnergy>|} & The maximum amount of energy of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--2500] \\
+            \cline{2-3} 
+\end{tabularx}
+\\
+\\
+\noindent
+\textbf{Defensive Matrix percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information about how much health the defensive matrix has left on a unit. \\
+ Type & Send on change \\
+ Syntax & \verb|defensiveMatrix(<health>)| \\
+ Example & \verb|defensiveMatrix(200)|   \\   
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<health>|} & The amount of health left of the defensive matrix.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--250] \\
+            \cline{2-3} 
+\end{tabularx}
+\newpage
+\noindent
+\textbf{Status percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The current amount of health, shield and energy of the unit. The \verb|status| percept also shows the conditions of the unit and the current position. \\
+ Type & Send on change \\
+ Syntax & \verb|status(<Health>, <Shield>, <Energy>, <Cond>, <X>, <Y>)| \\
+ Example & \verb|status(250, 0, 0, [moving, carrying], 24, 36)|   \\ 
+ \end{tabularx}\\
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<Health>|} & The current amount of health of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--\verb|<MaxHealth>|] where \verb|<MaxHealth>| is the maximum health of the given unit.\\
+            \cline{2-3} 
+            & \textbf{\verb|<Shield>|} & The current amount of shields of the unit. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--\verb|<MaxShield>|] where \verb|<MaxShield>| is the maximum shield of the given unit. \\
+            \cline{2-3} 
+            & \textbf{\verb|<Energy>|} & The current amount of energy of the unit. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--\verb|<MaxEnergy>|] where \verb|<MaxEnergy>| is the maximum energy of the given unit. \\
+            \cline{2-3} 
+            & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all the conditions.\\ 
+            & \textbf{Type} & \verb|List of Strings| \\
+            \cline{2-3} 
+            & \textbf{\verb|<X>|} & The x-coordinate of the unit in the map. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} &  [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the unit in the map. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}
+\\
+
+\subsection{Player Percepts}
+\textbf{Enemy Race percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The race of your opponent. \\
+ Type & Send once \\
+ Syntax &  \verb|enemyRace(<Race>)| \\
+ Example & \verb|enemyRace(protoss)|   \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+  Parameters & \textbf{\verb|<Race>|} & The enemy race which can take the value: protoss, terran, zerg or unknown                 when the enemy race is not yet known. \\
+             & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+\end{tabularx}
+
+\subsection{Map Percepts}
+\textbf{Map percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The width and the height of the map. \\
+ Type & Send once \\
+ Syntax & \verb|map(<Width>,<Height>)| \\
+ Example & \verb|map(96, 128)| \\   
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+  Parameters & \textbf{\verb|<Width>|} & The width of the map.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Height>|} & The height of the map. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+ 
+\noindent
+\textbf{Base percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the base locations of the map. \\
+ Type & Send once \\
+ Syntax & \verb|base(<X>,<Y>,<IsStart>,<RegionID>)| \\
+ Example & \verb|base(28, 32, true, 8)| \\  
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<X>|} & The x-coordinate of the base location.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the base location.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<IsStart>|} & Indicates whether the location is a starting location or not. \\
+            & \textbf{Type} & \verb|Boolean (true or false)| \\
+            \cline{2-3} 
+            & \textbf{\verb|<RegionID>|} & The \textit{ID} of the region this location is in. The vespene geyser and all mineral fields will share this region \textit{ID}. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+\newpage
+\noindent
+\textbf{Chokepoint percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the chokepoints on the map. These are the narrow points on the map where only a limited amount of units can go through at the same time.  \\
+ Type & Send once \\
+ Syntax & \verb|chokepoint(<X>,<Y>)| \\
+ Example & \verb|chokepoint(12, 15)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<X>|} & The x-coordinate of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+
+\subsection{Unit percepts}
+
+\noindent
+\textbf{Attacking percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows the units which are attacking and which units they have targeted. \\
+ Type & Send always \\
+ Syntax & \verb|attacking(<ID>,<TargetID>,<X>,<Y>)| \\
+ Example & \verb|attacking(123, 177, 120, 96)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit which is attacking. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<TargetID>|} & The (unique) ID of the targeted unit which is being attacked. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<X>|} & The x-coordinate of the (attacking) unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the (attacking) unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx} 
+
+\newpage
+\noindent
+\textbf{Unit percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows all units that are currently visible to the player. \\
+ Type & Send always \\
+ Syntax & \verb|unit(<IsFriendly>,<Type>,<ID>,<Health>,<Shield>,<Condition>)| \\
+ Example & \verb|unit(true, Protoss Gateway, 26, 255, 255, [isBeingConstructed])| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<IsFriendly>|} & Indicates whether the unit is friendly or not. \\
+            & \textbf{Type} & \verb|Boolean| (true or false) \\
+            \cline{2-3} 
+            & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of all the unit types. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+            & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Health>|} & The current amount of health of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--\verb|<maxHealth>|] where \verb|<maxHealth>| is the maximum health of the given unit.\\
+            \cline{2-3} 
+            & \textbf{\verb|<Shield>|} & The current amount of shields of the unit. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--\verb|<maxShield>|] where \verb|<maxShield>| is the maximum shield of the given unit. \\
+            \cline{2-3} 
+            & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\ 
+            & \textbf{Type} & \verb|List of Strings| \\
+            \cline{2-3} 
+\end{tabularx}\\
+
+\newpage
+% \noindent
+% \textbf{Enemy percept}\\
+% \\
+% \begin{tabularx}{\textwidth}{lX}
+%  Description & Shows all enemy units that are currently visible to the player. \\
+%  Type & Send always \\
+%  Syntax & \verb|enemy(<Type>,<Health>,<Shield>,<Condition>,<X>,<Y>)| \\
+%  Example & \verb|enemy(Zerg Overlord, 200, 0, [flying], 120, 96)| \\ 
+%  \end{tabularx}
+%  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+%  \cline{2-3} 
+%  Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race of            the unit and the name of the unit parted by a space. \\
+%             & \textbf{Type} & \verb|String| \\
+%             \cline{2-3} 
+%             & \textbf{\verb|<Health>|} & The current amount of health of the unit.\\
+%             & \textbf{Type} & \verb|Positive Integer| \\
+%             & \textbf{Range} & [0--\verb|<maxHealth>|] where \verb|<maxHealth>| is the maximum health of the given unit.\\
+%             \cline{2-3} 
+%             & \textbf{\verb|<Shield>|} & The current amount of shields of the unit. \\
+%             & \textbf{Type} & \verb|Positive Integer| \\
+%             & \textbf{Range} & [0--\verb|<maxShield>|] where \verb|<maxShield>| is the maximum shield of the given unit. \\
+%             \cline{2-3} 
+%             & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\ 
+%             & \textbf{Type} & \verb|List of Strings| \\
+%             \cline{2-3} 
+%             & \textbf{\verb|<X>|} & The x-coordinate of the unit.\\
+%             & \textbf{Type} & \verb|Positive Integer| \\
+%             & \textbf{Range} & [0--$\infty$] \\
+%             \cline{2-3} 
+%             & \textbf{\verb|<Y>|} & The y-coordinate of the unit.\\
+%             & \textbf{Type} & \verb|Positive Integer| \\
+%             & \textbf{Range} & [0--$\infty$] \\
+%             \cline{2-3} 
+% \end{tabularx}\\
+
+
+
+\section{Building percepts}
+These percepts are available to buildings.
+
+\subsection{Research and Upgrade percepts}
+\textbf{HasResearched percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates which \textit{tech} is already researched. See Section \ref{techtype} for the list of all actual tech types. \\
+ Type & send once \\
+ Syntax & \verb|hasResearched(<TechType>)| \\
+ Example & \verb|hasResearched(Stim Packs)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<TechType>|} & The \textit{tech} which is currently researched. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+\textbf{Upgrading percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates which \textit{upgrade} is currently being upgraded. See Section \ref{upgradetype} for the list of all actual tech types. \\
+ Type & Send always \\
+ Syntax & \verb|upgrading(<UpgradeType>)| \\
+ Example & \verb|upgrading(Stim Packs)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<UpgradeType>|} & The \textit{upgrade} which is currently upgraded. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+
+\subsection{Production Buildings}
+\textbf{Queue Size percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows how many units are in queue of the production building.\\
+ Type & Send on change \\
+ Syntax & \verb|queueSize(<Size>)| \\
+ Example & \verb|queueSize(2)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<Size>|} & The size of the current queue. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--5] \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+\newpage
+\noindent
+\textbf{Rally point percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The exact position of the rallypoint in map coordinates. \\
+ Type & Send on change \\
+ Syntax & \verb|rallyPoint(<X>,<Y>)| \\
+ Example & \verb|rallyPoint(76, 45)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<X>|} & The x-coordinate of the rallypoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the rallypoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+
+\noindent
+\textbf{Rally unit percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows on which unit the rallypoint is set. \\
+ Type & Send on change \\
+ Syntax & \verb|rallyUnit(<UnitID>)| \\
+ Example & \verb|rallyUnit(145)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<UnitID>|} & The (unique) \textit{ID} the rallypoint points to. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+\subsection{Loadable Buildings}
+\textbf{SpaceProvided percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows how many units are currently loaded in the building and how the maximun amount of units that can be loaded in the building. \\
+ Type & Send on change \\
+ Syntax & \verb|spaceProvided(<CSize>, <MSize>)| \\
+ Example & \verb|spaceProvided(2, 4)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<CSize>|} & The amount of currently loaded units. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<MSize>|} & The maximum amount of units that can be loaded. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+
+\noindent
+\textbf{Unitloaded percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows which unit is loaded inside the given loadable unit.\\
+ Type & Send always \\
+ Syntax & \verb|unitLoaded(<ID>, <Type>)| \\
+ Example & \verb|unitLoaded(154, Terran Marine)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the loaded unit. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Type>|} & The type of the loaded unit. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+\end{tabularx}\\
+
+\section{Worker percepts}
+These percepts are available to worker units.
+
+\subsection{Worker Management}
+\textbf{Worker Activity Percept}
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows the current activity of all friendly workers. \\
+ Type & Send always \\
+ Syntax & \verb|workerActivity(<ID>, <Activity>)| \\
+ Example & \verb|workerActivity(146, gatheringGas)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the worker unit. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Activity>|} & The current activity of the worker unit. Can take values: gatheringGas, gatheringMinerals, constructing or idling. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+\end{tabularx}\\
+\\
+\newpage
+\noindent
+\textbf{Gathering Percept} \\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows which mineral or vespene ID the worker is currently gathering from. \\
+ Type & Send always \\
+ Syntax & \verb|gathering(<ID>)| \\
+ Example & \verb|gathering(110)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the mineral or vespene geyser. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}\\
+
+\subsection{Builder Percepts}
+\textbf{Vespene Geyser percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information about a visible vespene geyser on the map. \\
+ Type & Send on change \\
+ Syntax & \verb|vespeneGeyser(<ID>,<Resources>,<ResourceGroup>,<X>,<Y>)| \\
+ Example & \verb|vespeneGeyser(57, 5000, 6, 22, 32)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the vespene geyser.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Resources>|} & The amount of resources left in the vespene geyser.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--5000] \\
+            \cline{2-3} 
+            & \textbf{\verb|<ResourceGroup>|} & The resource group of the vespene geyser. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<X>|} & The x-coordinate of the vespene geyser.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the vespene geyser.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx} \\
+\newpage
+\noindent
+\textbf{ConstructionSite percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows all construction sites on the map, which are explored and not obstructed. \\
+ Type & Send always \\
+ Syntax & (If Protoss) \verb|constructionSite(<X>,<Y>,<InPylonRange>)| \\
+        & (If Zerg/Terran) \verb|constructionSite(<X>,<Y>)| \\
+ Example & \verb|constructionSite(66, 98, false)| \\
+         & \verb|constructionSite(66, 98)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<X>|} & The x-coordinate of the construction site.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the construction site.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<InPylonRange>|} & Indicates whether the construction site is in range of a pylon (this is only for protoss)\\
+            & \textbf{Type} & \verb|Boolean| (true or false) \\
+            \cline{2-3} 
+\end{tabularx} \\

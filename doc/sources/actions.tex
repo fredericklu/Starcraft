@@ -1,0 +1,184 @@
+\chapter{Actions}
+This section will list all the actions that are usable in the Starcraft environment.
+
+\section{Attack action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & This action makes a unit which is attack capable, attack the chosen unit. \\
+ Syntax & \verb|attack(<TargetID>)| \\
+ Parameters & \verb|<TargetID>|: The \textit{ID} of the target that will be attacked.\\
+ Pre & The targeted unit is attack capable. \\
+ Post &  The targeted unit is being attacked by your unit.
+\end{tabularx}
+
+\section{Move action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Instruct a unit to move to a chosen location. \\
+ Syntax & \verb|move(<X>,<Y>)| \\
+ Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
+            &  \verb|<Y>|: The y-coordinate of the chosen location \\
+ Pre & The unit is capable of moving to the chosen location. \\
+ Post & The unit moves to the chosen location (ignoring any other unit it might pass by).
+\end{tabularx}
+
+\section{Attack move action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Go to a location and attack everything you encounter. \\
+ Syntax & \verb|attack(<X>,<Y>)| \\
+ Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
+            & \verb|<Y>|: The y-coordinate of the chosen location \\
+ Pre & The unit is capable of moving to the chosen location. \\
+ Post & The unit moves to the chosen locations and attacks any attack capable enemy unit it encounters.
+\end{tabularx}
+
+\section{Upgrade action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Starts working on the chosen upgrade. \\
+ Syntax & \verb|upgrade(<UpgradeName>)| \\
+ Parameters & \verb|<UpgradeName>|: The name of the upgrade you want to upgrade.\\
+ Pre & The unit is capable of upgrading and has sufficient resources to do so. \\
+ Post & The unit starts upgrading the chosen upgrade.
+\end{tabularx}
+
+\section{Build action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Build a building on a given, not obstructed location. \\
+ Syntax & \verb|build(<Type>,<X>,<Y>)| \\
+ Parameters & \verb|<Type>|: The Type of the building that has to be built.\\
+            & \verb|<X>|: The x-coordinate of the chosen build location \\
+            & \verb|<Y>|: The y-coordinate of the chosen build location \\
+ Pre & The unit is capable of constructing the chosen building and the chosen location is not obstructed. \\
+ Post & The unit starts constructing the chosen building at the chosen location.
+\end{tabularx}
+
+\section{Gather action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Instruct a unit to gather the chosen resource. This can either be minerals or vespene gas. \\
+ Syntax & \verb|gather(<ID>)| \\
+ Parameters & \verb|<ID>|: The \textit{ID} of the chosen resource. \\
+ Pre & The unit is capable of performing the gather action and a valid resource unit is selected. \\
+ Post & The unit starts gatering the chosen resource. 
+\end{tabularx}
+
+\section{Train action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Train a chosen unit with a production facility capable of producing the chosen unit. \\
+ Syntax & \verb|train(<Type>)| \\
+ Parameters & \verb|<Type>|: The type of unit to train.\\
+ Pre & The production facility is capable of producing the chosen unit and has sufficient resources to do so. \\
+ Post & The production facility starts producing the chosen unit.
+\end{tabularx}
+
+\section{Stop action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & The unit stops performing the action he was busy with. \\
+ Syntax & \verb|stop| \\
+ Pre & The unit is performing some kind of action. \\
+ Post & The unit stops performing the action.
+\end{tabularx}
+
+\section{Ability action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Use an (researched) ability. \\
+ Syntax & \verb|use(<Type>)| \\
+ Parameters & \verb|<Type>|: The type of technology to use.\\
+ Pre & The chosen tech type is researched and the unit is capable of performing the chosen tech type. \\
+ Post & The unit performs the chosen tech ability.
+\end{tabularx}
+
+\section{Ability on target action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Use an (researched) ability on a target. \\
+ Syntax & \verb|use(<Type>, <Target>)| \\
+ Parameters & \verb|<Type>|: The type of technology to use.\\
+            & \verb|<Target>|: The target to use the technology on.\\
+ Pre & The chosen tech type is researched, the unit is capable of performing the chosen tech type and the chosen target is attack capable. \\
+ Post & The unit performs the chosen tech ability on the chosen target.
+\end{tabularx}
+
+\section{Ability on location action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & use an (researched) ability on a location. \\
+ Syntax & \verb|use(<Type>, <X>, <Y>)| \\
+ Parameters & \verb|<Type>|: The type of technology to use.\\
+            & \verb|<X>|: The x-coordinate of the chosen location \\
+            & \verb|<Y>|: The y-coordinate of the chosen location. \\
+ Pre & The chosen tech type is researched, the unit is capable of performing the chosen tech type and the chosen location is valid to perform an action on. \\
+ Post & The unit performs the chosen tech ability on the chosen location.
+\end{tabularx}
+
+\section{Research action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Research a chosen tech type. \\
+ Syntax & \verb|research(<Type>)| \\
+ Parameters & \verb|<Type>|: The type of tech to research.\\
+ Pre & The building is capable of researching the chosen tech type and has sufficient resources to do so. \\
+ Post & The building starts researching the chosen tech type.
+\end{tabularx}
+
+\section{Set rally point action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Set the rally point of a building on a specific location. When the rally point is set, produced units of this production facility will automatically move to this location. \\
+ Syntax & \verb|setRallyPoint(<X>, <Y>)| \\
+ Parameters & \verb|<X>|: The x-coordinate of the chosen rally location \\
+            & \verb|<Y>|: The y-coordinate of the chosen rally location. \\
+ Pre & The building is capable of setting up a rally point and the chosen location is a valid location where units can move to. \\
+ Post & The building sets the rally point on the chosen location.
+\end{tabularx}
+
+\section{Set rally point to unit action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Set the rally point of a building on a unit. When the rally point is set, produced units of this production facility will automatically move to this unit. \\
+ Syntax & \verb|setRallyPoint(<Unit>)| \\
+ Parameters & \verb|<Unit>|: The unit to set the rally point on.\\
+ Pre & The building is capable of setting up a rally point and the chosen unit is on a valid location where units can move to. \\
+ Post & The building sets the rally point on the chosen unit.
+\end{tabularx}
+
+\section{Lift action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Lifts a building which is capable of lifting. \\
+ Syntax & \verb|lift| \\
+ Pre & The building is capable of flying and is not busy performing any other action. \\
+ Post & The building starts flying. \\
+ Note & Only for Terran buildings.
+\end{tabularx}
+
+\section{Land action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Land the unit on a specific, not obstructed location. \\
+ Syntax & \verb|land(<X>, <Y>)| \\
+ Parameters & \verb|<X>|: The x-coordinate of the chosen land location \\
+            & \verb|<Y>|: The y-coordinate of the chosen land location. \\
+ Pre & The unit is currently flying and is capable of landing on the chosen location. \\
+ Post & The unit lands on the chosen location. \\
+ Note & The location has to be visible.
+\end{tabularx}
+
+\section{Build addon action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a building to build a chosen addon. \\
+ Syntax & \verb|buildAddon(<Name>)| \\
+ Parameters & \verb|<Name>|: The name of the chosen addon.\\
+ Pre & The building is capable of building the addon and does not already have the addon. \\
+ Post & The building starts constructing the addon. \\
+ Note & Only for Terran buildings.
+\end{tabularx}
+
+\section{Load action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a unit to load into this (loadable) unit. \\
+ Syntax & \verb|load(<ID>)| \\
+ Parameters & \verb|<ID>|: The \textit{ID} of the unit to load into this (loadable) unit.\\
+ Pre & The unit is capable of loading other units inside it and still has enough space prodivded for the targeted unit. \\
+ Post & The targeted unit starts walking to the loadable unit and loads into it.
+\end{tabularx}
+
+%Kweet niet of ik deze action wil houden
+%\section{RightClick action}
+%\begin{tabularx}{\textwidth}{lX}
+ %Desription & Right clicks on a unit. (This is action should not be necessary but could be used for testing %purposes) \\
+ %Syntax & rightClick(<ID>) or rightClick(<X>,<Y>) \\
+ %Parameters & <ID>: The ID of a unit.\\
+ %           & <X>,<Y>: A position.\\
+ %Effects &  The unit rightclicks
+%\end{tabularx}

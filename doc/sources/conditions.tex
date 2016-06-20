@@ -1,0 +1,74 @@
+\section{Conditions}
+\label{conditions}
+These are all the possible conditions agents can have in the condition percept.
+
+\subsection{Worker Conditions}
+These are the conditions only worker units can have.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ \verb|carrying| & Indicates when the worker unit is carrying minerals or vespene gas. \\
+ \verb|constructing| & Shows that the worker unit is busy constructing a building.
+\end{tabularx} \\
+\\
+\subsection{Building Conditions}
+These are the conditions only building units can have.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ \verb|beingConstructed| & Indicates when a building is being constructed. \\
+ \verb|lifted| & Indicates when the building is lifted. \\
+ \verb|<addonName>| & Indicates when an addon of the building is present, gives the exact addonname.
+\end{tabularx} \\
+
+\subsection{Generic Conditions}
+These are the conditions all units can have.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ \verb|idle| & Indicates when the unit is idle (not doing anything).\\
+ \verb|cloaked| & Indicates when a unit is cloaked.\\
+ \verb|moving| & Shows that a unit is moving.\\
+ \verb|following| & Shows that a unit is following an other unit.\\
+ \verb|loaded| & Indicates when a unit is loaded.\\
+\end{tabularx} \\
+
+\subsection{Zerg Conditions}
+These are the conditions caused by zerg units.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+\verb|burrowed| & Indicates when a zerg unit is burrowed. \\
+\verb|ensnared| & Shows that the unit is ensnared by a Queen unit. \\
+\verb|parasited| & Shows that the unit is parasited by a Queen unit. \\
+\verb|plagued| & Indicates that the unit is plagued by a Defiler unit. \\
+\verb|darkSwarmed| & Indicates that the unit is under a Dark Swarm from a Defiler unit. \\
+\end{tabularx} \\
+
+\subsection{Terran Conditions}
+These are the conditions caused by terran units.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ \verb|stimmed| & Indicates when a firebat or marine is stimmed.\\
+ \verb|sieged| & Indicates when a siegetank is in siegemode.\\
+ \verb|blinded| & Shows when a unit is blinded by a medic. \\
+ \verb|lockDowned| & Indicates when a unit is under lockdown by a Ghost unit. \\
+ \verb|Irradiated| & Shows when a unit is irradiated by a Science Vessel. \\
+\end{tabularx} \\
+
+\subsection{Protoss Conditions}
+These are the conditions caused by protoss units.\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+\verb|underStorm| & Shows when a unit is under a storm from a High Templar unit. \\
+\verb|inStatis| & Indicates when a unit is stuck in stasis. \\
+\verb|maelstrommed| & Indicates when a unit is maelstrommed by a Dark Archon. \\
+\verb|disruptionWebbed| & Shows when a unit is in a disruption web from a Corsair. \\
+\end{tabularx} \\
+
+\subsection{Unit Percept Conditions}
+These are the conditions which are visible within the friendly and enemy percept.\\
+\\
+\label{unitConditions}
+\begin{tabularx}{\textwidth}{lX}
+\verb|flying| & Indicates whether a unit is flying or not. \\
+\verb|morphing| & Shows when a unit is morphing. (NOTE that sieging and unsieging is also considered morphing) \\
+\verb|cloaked| & Indicates when a unit is cloaked. \\
+\verb|beingConstructed| & Indicates when a unit is being constructed. \\
+\end{tabularx} \\

@@ -1,0 +1,40 @@
+%% Manual for the environment made by the group Tygron connect.
+%%% https://github.com/tygron-virtual-humans/tygron-connect
+
+\documentclass[english,11pt]{report}		
+%\documentclass[ngerman,11pt]{report}
+\usepackage{import}
+\usepackage{hgb}
+\usepackage{hgbbib}
+\usepackage{hgbheadings}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{tabularx}
+
+\graphicspath{{images/}}   
+\bibliography{literatur} 
+
+\title{Starcraft Environment Manual}
+
+%%%----------------------------------------------------------
+\begin{document}
+%%%----------------------------------------------------------
+\maketitle
+\tableofcontents
+%%%----------------------------------------------------------
+
+\include{environment}
+
+\include{percepts}
+
+\include{conditions}
+
+\include{actions}
+
+\include{techtypes}
+
+\include{upgradetypes}
+
+\include{UnitTypes}
+
+\end{document}
