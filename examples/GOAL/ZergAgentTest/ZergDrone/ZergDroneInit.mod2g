@@ -2,7 +2,7 @@ use ZergDrone as knowledge.
 
 module ZergDroneInit {
 	% Send drone info to the Overmind
-	if percept(self(Id,Type)) then insert(self(Id, Type)) + (overMind).send:(drone(Id)).
+	if percept(self(Id,Type,_, _, _)) then insert(self(Id, Type)) + (overMind).send:(drone(Id)).
 		
 	% Init resource percepts
 	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
@@ -17,5 +17,5 @@ module ZergDroneInit {
 	forall percept(chokepoint(X,Y)) do insert(chokepoint(X,Y)).
 		
 	% Init conditions
-	if percept(condition(List)) then insert(condition(List)).
+	if percept(status(_,_,_,Cond,_,_)) then insert(condition(Cond)).
 }

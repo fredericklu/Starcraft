@@ -2,7 +2,7 @@ use ZergHatchery as knowledge.
 
 module ZergHatcheryInit {
 	% Insert info about me
-	if percept(self(Id,Type)) then insert(self(Id, Type)).
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)).
 	
 	% Init queueSize percept
 	if percept(queueSize(Amount)) then insert(queueSize(Amount)).

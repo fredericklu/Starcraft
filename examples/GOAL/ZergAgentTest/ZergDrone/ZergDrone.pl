@@ -14,7 +14,7 @@ friendly/4,
 unitAmount/2.
 
 	% Indicates when agent is busy gathering
-	busy :- gathering.
+	busy :- condition(List), member(gathering, List).
 	
 	% The cost of declared buildings (for every new building add the cost here)	
 	cost("Zerg Spawning Pool", 200, 0).
