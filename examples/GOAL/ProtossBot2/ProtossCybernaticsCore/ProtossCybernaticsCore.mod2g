@@ -1,6 +1,0 @@
-use ProtossCybernaticsCore as knowledge.
-use ProtossCybernaticsCore as actionspec.
-
-module ProtossCybernaticsCore {
-	if bel(upgrade('Protoss Singularity Charge')) then upgrade('Protoss Singularity Charge').
-}

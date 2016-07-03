@@ -1,5 +1,0 @@
-use ZergSpawningPool as knowledge.
-
-module ZergSpawningPoolInit {
-	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
-}

@@ -1,8 +1,0 @@
-use TerranCommandCenter as knowledge.
-
-% train action		
-define train(Id) with
-	pre {true}
-	post {true}
-		
-		

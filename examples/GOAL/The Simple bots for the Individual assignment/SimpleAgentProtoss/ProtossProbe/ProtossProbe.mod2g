@@ -1,9 +1,0 @@
-use ProtossProbe as knowledge.
-use ProtossProbe as actionspec.
-
-module ProtossProbe {
-	
-	% If goal to gather minerals, start gathering minerals
-	if a-goal(gathering(Id)) then gather(Id).
-	
-}

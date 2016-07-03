@@ -1,7 +1,0 @@
-use ProtossZealot as actionspec.
-use ProtossZealot as knowledge.
-
-module main{
-		if bel(unitAmount("Protoss Zealot", A), A > 6 , enemyBase(X,Y)) then attack(X, Y).
-}
-

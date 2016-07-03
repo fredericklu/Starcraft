@@ -1,8 +1,0 @@
-use ZergZergling as knowledge.
-use ZergZergling as actionspec.
-
-module ZergZergling {	
-	
-	if a-goal(position(X, Y)), bel(condition(List), not(member(moving, List))) then move(X, Y).
-	
-}

@@ -1,9 +1,0 @@
-use ProtossZealot as actionspec.
-use ProtossZealot as knowledge.
-
-module TerranMarineEvent {
-	
-	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).
-	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
-		%if bel(not(percept(stimmed))) then use('Stim Packs').
-}

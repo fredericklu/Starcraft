@@ -1,7 +1,0 @@
-use TerranCommandCenter as actionspec.
-use TerranCommandCenter as knowledge.
-
-module main{
-		if a-goal(train("Terran SCV")) then train("Terran SCV") + drop(train("Terran SCV")).
-}
-

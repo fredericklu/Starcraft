@@ -1,7 +1,0 @@
-use ZergCreepColony as knowledge.
-
-module ZergCreepColonyEvent {
-	%%%%%%%%%%%%%%% --------------------------------------- GOALS ------------------------------------------ %%%%%%%%%%%%%%%
-	
-	if percept(unit(true,"Zerg Spawning Pool",_,_,_,_,_,_), resources(M,_,_,_), M >= 50) then adopt(morph("Zerg Sunken Colony")). 
-}
