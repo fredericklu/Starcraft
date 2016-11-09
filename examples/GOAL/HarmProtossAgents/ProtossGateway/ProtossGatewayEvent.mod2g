@@ -1,7 +1,0 @@
-use ProtossGateway as knowledge.
-
-module ProtossGatewayEvent {
-	if percept(queueSize(N), resources(X,_,Y,Z)), bel(N < 2, X>=100 , (Z - Y) >= 2 ) then{
-			 if not(goal(train('Protoss Zealot'))) then adopt(train('Protoss Zealot')).
-			}
-}

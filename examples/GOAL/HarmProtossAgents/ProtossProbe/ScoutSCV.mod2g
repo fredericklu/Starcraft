@@ -1,8 +1,0 @@
-use ProtossSCV as actionspec.
-use ProtossSCV as knowledge.
-
-order = linearall.
-
-module main{	
-	if a-goal(pos(X,Y)) then move(X,Y).	
-}

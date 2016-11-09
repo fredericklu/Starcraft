@@ -1,6 +1,0 @@
-use TerranEngineeringBay as knowledge.
-
-module TerranEngineeringBayInit {	
-	% Init resources percepts
-	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
-}

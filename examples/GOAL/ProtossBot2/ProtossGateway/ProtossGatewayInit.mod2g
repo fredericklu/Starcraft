@@ -1,8 +1,0 @@
-use ProtossGateway as knowledge.
-
-module ProtossGatewayInit {
-	if percept(supply(C,M)) then insert(supply(C,M)).
-	if percept(minerals(M)) then insert(minerals(M)).
-	if percept(gas(G)) then insert(gas(G)).
-	if percept(queueSize(N)) then insert(queueSize(N)).
-}

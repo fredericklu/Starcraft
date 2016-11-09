@@ -1,8 +1,0 @@
-use TerranSCV as knowledge.
-
-module TerranSCVInit {
-	forall percept(mineralField(Id,Amount,_,X,Y)) do insert(mineralField(Id,Amount,X,Y)).
-	
-	% If the worker perceives a mineralfield, make it gather resources
-	if bel(mineralField(Id,_,_,_)) then adopt(gathering(Id)).
-}

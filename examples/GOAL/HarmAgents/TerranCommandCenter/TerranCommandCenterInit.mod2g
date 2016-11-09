@@ -1,8 +1,0 @@
-use TerranCommandCenter as knowledge.
-
-module TerranCommandCenterInit {
-	if percept(self(Id,_)) then insert(id(Id)).
-	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
-	if percept(resources(Min,Gas,C,M)) then insert(supply(C,M))+insert(minerals(Min))+insert(gas(Gas)).
-	forall percept(unitAmount(Type,Count)) do insert(unitAmount(Type,Count)).
-}

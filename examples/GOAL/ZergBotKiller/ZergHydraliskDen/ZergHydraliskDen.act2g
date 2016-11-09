@@ -1,9 +1,0 @@
-use ZergHydraliskDen as knowledge.
-
-define upgrade(Type) with
-	pre{ not(upgrade(Type)) }
-	post{ true }
-	
-define research(Type) with
-	pre{ not(hasResearched(Type)) }
-	post{ true }

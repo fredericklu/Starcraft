@@ -1,5 +1,0 @@
-use ZergHydraliskDen as knowledge.
-
-module ZergHydraliskDenInit {
-	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
-}

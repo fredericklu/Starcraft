@@ -3,8 +3,8 @@ use "../../../../eisbw/target/eisbw-0.0.1-SNAPSHOT-jar-with-dependencies.jar" as
 	own_race="Protoss",
 	starcraft_location="C:\\Starcraft No Install",
 	debug="true",
-	auto_menu="SINGLE_PLAYER",
-	enemy_race="Terran".
+	auto_menu="OFF",
+	enemy_race="random".
 
 define protossNexus as agent{
 	use ProtossNexus.ProtossNexus as main module.

@@ -1,5 +1,0 @@
-use ZergCreepColony as knowledge.
-
-define morph(Type) with
-	pre{ true }
-	post{ true }

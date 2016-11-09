@@ -1,6 +1,0 @@
-use TerranAcademy as knowledge.
-
-module TerranAcademyInit {
-	% Init resources percepts
-	if percept(resources(M, G, _, _)) then insert(minerals(M), gas(G)).
-}

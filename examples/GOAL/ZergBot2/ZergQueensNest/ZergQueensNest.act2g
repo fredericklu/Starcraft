@@ -1,9 +1,0 @@
-use ZergQueensNest as knowledge.
-
-define research(Type) with
-	pre{ true }
-	post{ true }
-	
-define upgrade(Type) with
-	pre{ true }
-	post{ true }

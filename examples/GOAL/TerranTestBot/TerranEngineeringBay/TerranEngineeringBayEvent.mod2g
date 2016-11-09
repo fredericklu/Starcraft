@@ -1,8 +1,0 @@
-use TerranEngineeringBay as knowledge.
-
-module TerranEngineeringBayEvent {
-	if percept(upgrading(X)), not(bel(upgrade(X))) then insert(upgrade(X)).
-	
-	if bel(not(upgrade('Terran Infantry Weapons'))) then adopt(upgrade('Terran Infantry Weapons')).
-	if bel(not(upgrade('Terran Infantry Armor'))) then adopt(upgrade('Terran Infantry Armor')).
-}

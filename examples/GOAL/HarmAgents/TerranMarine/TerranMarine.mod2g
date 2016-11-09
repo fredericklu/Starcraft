@@ -1,7 +1,0 @@
-use TerranMarine as actionspec.
-use TerranMarine as knowledge.
-
-module main{
-		if bel(unitAmount("Terran Marine", A), A > 10 , enemyBase(X,Y)) then attack(X, Y).
-}
-

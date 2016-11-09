@@ -1,8 +1,0 @@
-use "../GenericMods/GenericPredicates" as knowledge.
-
-% follow action
-define follow(Id) with
-	pre{true}
-	post{true}
-		
-			

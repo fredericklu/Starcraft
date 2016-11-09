@@ -1,8 +1,0 @@
-use ProtossZealot as knowledge.
-use ProtossZealot as actionspec.
-
-module ProtossZealot {
-	if a-goal(attack(X,Y)) then attack(X,Y) + drop(attack(X, Y)).
-	
-	%if a-goal(attack(Id)) then attack(Id) + drop(attack(Id)).
-}

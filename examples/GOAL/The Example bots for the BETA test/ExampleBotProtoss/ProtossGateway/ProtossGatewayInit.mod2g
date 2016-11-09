@@ -1,9 +1,0 @@
-use ProtossGateway as knowledge.
-
-module ProtossGatewayInit {
-	% Init queueSize percept
-	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
-	
-	% Init resources percepts
-	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
-}
