@@ -16,11 +16,10 @@ For tech trees see [TechTrees](http://www.teamliquid.net/forum/brood-war/226892-
 ### Current status
 
 - All units can be controlled by the MAS.
-- The MAS is capable of playing all three races, see examples for GOAL code.
+- The MAS is capable of playing all three races.
 
 ### Project overview
 The project contains the following folders:
 
 * **EISBW:** The EIS implementation of BWAPI. 
-* **examples:** A collection of examples for different multi-agent systems.
-* **libs:** Jar-files required for building the interface and running the various examples.
+* **libs:** Files required for building the interface and running the various examples.
